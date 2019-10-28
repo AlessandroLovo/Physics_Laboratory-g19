@@ -1,0 +1,41 @@
+2 Photon decay: geometry 180,120,60{
+
+	TAC settings: range 100 ns, multiplier 10x
+
+	data names = [2Photon_acq_1.root, 2Photon_acq_2.root]
+	acquisition times = [30 min, 30 min]
+	ch0: DET1
+	ch1: DET2
+	ch2: DET4
+	ch3: TAC
+	coinc unit: (DET1 && DET2) && DET4
+
+	rates from the scaler [Hz]{
+		input: DET1
+			9344.4
+			9171.0
+			9206.7
+			9166.6
+			9167.0
+		input: DET2
+			12296.3
+			12232.7
+			12189.4
+			12360.2
+			12163.2
+		input: DET1 && DET2
+			3685.4
+			3705.6
+			3681.4
+			3669.8
+			3693.9
+		input: DET1 && DET2 && DET4
+			44.9
+			44.3
+			43.5
+			43.4
+			44.0
+	}
+	
+
+}
