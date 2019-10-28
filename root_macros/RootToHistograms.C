@@ -45,6 +45,14 @@ class Histograms{
 		return original_data_file;
 	}
 
+	//Calibrate histogram through a relation E = alpha * channel + beta
+	void CalibrateHisto(int chan, double alpha, double beta) {
+		if (chan < 0 || chan > 3)
+			return;
+		TAxis *axis = hist[chan]->GetXaxis();
+		axis->SetLimits(axis->GetXmin()*alpha+beta, axis->GetXmax()*alpha+beta);
+	}
+
 	private:
 
 	const char* original_data_file;

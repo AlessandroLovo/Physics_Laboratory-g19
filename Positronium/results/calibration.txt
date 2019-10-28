@@ -1,0 +1,41 @@
+Peaks:
+511.0
+1274.537
+E = chan * alpha + beta
+
+DET1
+LowLim	HighLim	Mean	+-	Std	+-	MConst	+-	AConst	+-
+4050	4600	4343.1	0.4	139.3	4.73	2230	10	135	8
+10100	11100	10588	1	231	3	381	4	27	4
+
+		+-
+Alpha	0.12227	0.00002
+Beta	-20.0	0.1
+
+
+
+DET2
+LowLim	HighLim	Mean	+-	Std	+-	MConst	+-	AConst	+-
+
+		+-
+Alpha	
+Beta	
+
+
+
+DET3
+LowLim	HighLim	Mean	+-	Std	+-	MConst	+-	AConst	+-
+
+		+-
+Alpha	
+Beta	
+
+
+
+DET4
+LowLim	HighLim	Mean	+-	Std	+-	MConst	+-	AConst	+-
+
+		+-
+Alpha	
+Beta	
+
