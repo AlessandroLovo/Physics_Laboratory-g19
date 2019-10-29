@@ -24,7 +24,7 @@ class Histograms{
 			slimport_data_t indata;
 			TBranch *inbranch = (TBranch*)intree->GetBranch(Form("acq_ch%d",chan));
 			inbranch->SetAddress(&indata.timetag);
-			hist [chan] = new TH1F(Form("hist_ch%d",chan),"",4096,0,16384);
+			hist [chan] = new TH1F(Form("hist_ch%d",chan),"",4096,0,32768);
 
 			for (int i=0; i<inbranch->GetEntries(); i++) {
 				inbranch->GetEntry(i);
