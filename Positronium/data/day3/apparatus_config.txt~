@@ -1,0 +1,64 @@
+Apparatus has been recalibrated
+
+2 Photon decay: geometry 180,120,60{
+
+	TAC settings: range 200 ns, multiplier 10x
+
+	data names = [2Photon_acq_4.root]
+	acquisition times = [1h]
+	coinc unit = [(DET1 && DET2) && DET4]
+	ch0: DET1
+	ch1: DET2
+	ch2: DET4
+	ch3: TAC
+
+	rates from the scaler (10s measures) [Hz]{
+		input: DET1
+			12634
+			12635
+			12605
+			12615
+			12551
+			12594
+			12520
+			12538
+			12781
+			12657
+		input: DET2
+			12459
+			12398
+			12448
+			12441
+			12544
+			12437
+			12478
+			12463
+			12464
+			12516
+		input: DET1 && DET2
+			4756
+			4730
+			4701
+			4741
+			4776
+			4754
+			4770
+			4759
+			4732
+			4726
+		input: DET1 && DET2 && DET4
+			60
+			58
+			65
+			58
+			60
+			57
+			65
+			60
+			58
+			58
+				
+	}
+	
+
+}
