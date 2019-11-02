@@ -1,0 +1,87 @@
+%% Creator: Inkscape inkscape 0.92.4, www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'electro180.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{233.30360953bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.64624553)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{electro180.pdf}}%
+    \put(0.0963095,0.55082936){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}1\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{electro180.pdf}}%
+    \put(0.09486462,0.40944187){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}2\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{electro180.pdf}}%
+    \put(0.09572277,0.19196773){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}4\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{electro180.pdf}}%
+    \put(0.23392259,0.15078655){\color[rgb]{0,0,0}\rotatebox{-90}{\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Quad\\F.I.F.O.\end{tabular}}}}}%
+    \put(0.08016203,0.15208283){\color[rgb]{0,0,0}\rotatebox{-90}{\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Det.\end{tabular}}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{electro180.pdf}}%
+    \put(0.30433602,0.52132741){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Digit.\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{electro180.pdf}}%
+    \put(0.30433602,0.37595278){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Digit.\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=7]{electro180.pdf}}%
+    \put(0.30433602,0.16149829){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Digit.\end{tabular}}}}%
+    \put(0.55464444,0.52122701){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}AND Coinc.\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=8]{electro180.pdf}}%
+    \put(0.26212743,0.2175256){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}CFD\end{tabular}}}}%
+    \put(0.26164392,0.436083){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}CFD\end{tabular}}}}%
+    \put(0.26485866,0.57913691){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}CFD\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=9]{electro180.pdf}}%
+    \put(0.84657996,0.12497216){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Trigger\end{tabular}}}}%
+    \put(0.54556084,0.19987982){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}AND Coinc.\end{tabular}}}}%
+    \put(0.54845634,0.37508053){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}TAC\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=10]{electro180.pdf}}%
+    \put(0.84941668,0.26198929){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Digit.\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=11]{electro180.pdf}}%
+    \put(0.53027134,0.32444552){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Start\end{tabular}}}}%
+    \put(0.81405663,0.32843252){\color[rgb]{0,0,0}\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}Stop\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=12]{electro180.pdf}}%
+  \end{picture}%
+\endgroup%
