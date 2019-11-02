@@ -7,119 +7,144 @@
 
 \f0\fs24 \cf0 FILE: night_g19.root\
 \
-TODO: set 1-3 (only done decay fit)\
-\
 DET1:\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f1\fs22 \cf2 \CocoaLigature0 Energy(keV) = alpha * channel + beta
+\f0\fs24 \cf0 \CocoaLigature1 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 alpha=
+\f1\fs22 \cf2 \CocoaLigature0 0.196901
+\f0\fs24 \cf0 \CocoaLigature1 \
+beta=
+\f1\fs22 \cf2 \CocoaLigature0 -22.3585
+\f0\fs24 \cf0 \CocoaLigature1 \
+\
 [p0]*exp(-0.5*((x-[p1])/[p2])*((x-[p1])/[p2]))+[p3]*x+[p4]\
 \
 Peak 511:\
 \
-	chi/ndf=65.81/45\
+	chi/ndf=53.3/48\
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
 
-\f1\fs22 \cf2 \CocoaLigature0  FCN=65.8072 FROM MIGRAD    STATUS=CONVERGED     152 CALLS         153 TOTAL\
-                     EDM=6.90261e-09    STRATEGY= 1      ERROR MATRIX ACCURATE \
+\f1\fs22 \cf2 \CocoaLigature0  FCN=53.3001 FROM MIGRAD    STATUS=CONVERGED     271 CALLS         272 TOTAL\
+                     EDM=2.17437e-08    STRATEGY= 1  ERROR MATRIX UNCERTAINTY   2.8 per cent\
   EXT PARAMETER                                   STEP         FIRST   \
   NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE \
-   1  p0           3.65719e+03   2.53592e+01   4.73366e-02  -5.20613e-06\
-   2  p1           2.61699e+03   6.12696e-01   1.33032e-03   1.78239e-04\
-   3  p2           9.15808e+01   9.29636e-01   9.42929e-04  -3.61563e-04\
-   4  p3          -5.55334e-01   7.08494e-02   8.05170e-06  -3.44840e-02\
-   5  p4           1.61024e+03   1.98788e+02   2.14011e-02  -1.37471e-05
+   1  p0           1.23676e+03   1.30300e+01   2.09801e-03  -4.75651e-06\
+   2  p1           2.70877e+03   9.87323e-01   8.70120e-04  -2.80787e-04\
+   3  p2           9.12905e+01   1.39234e+00   2.49980e-03  -2.91559e-04\
+   4  p3          -9.85659e-02   3.69787e-02  -4.54029e-05  -1.05000e-01\
+   5  p4           3.57400e+02   1.08654e+02   1.00520e-01  -3.76537e-05
 \f0\fs24 \cf0 \CocoaLigature1 \
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 \cf0 	\
 Peak 1275:\
 \
-	chi/ndf=96.03/94\
+	chi/ndf=80.16/92\
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
 
-\f1\fs22 \cf2 \CocoaLigature0  FCN=96.0317 FROM MIGRAD    STATUS=CONVERGED     189 CALLS         190 TOTAL\
-                     EDM=6.79065e-08    STRATEGY= 1      ERROR MATRIX ACCURATE \
+\f1\fs22 \cf2 \CocoaLigature0  FCN=80.164 FROM MIGRAD    STATUS=CONVERGED     334 CALLS         335 TOTAL\
+                     EDM=2.95982e-08    STRATEGY= 1      ERROR MATRIX ACCURATE \
   EXT PARAMETER                                   STEP         FIRST   \
   NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE \
-   1  p0           5.88734e+02   5.39574e+00   1.70631e-02  -3.84022e-05\
-   2  p1           6.37624e+03   1.67979e+00   5.25267e-03  -2.90132e-04\
-   3  p2           1.64454e+02   2.33642e+00   3.60227e-03  -1.51119e-04\
-   4  p3          -4.01727e-02   7.33784e-03   1.06655e-06  -7.55156e-01\
-   5  p4           2.83394e+02   4.63845e+01   6.80569e-03  -1.10816e-04\
+   1  p0           3.99947e+02   4.60660e+00   1.34540e-02   4.50755e-05\
+   2  p1           6.58890e+03   1.97051e+00   5.61841e-03   4.63078e-05\
+   3  p2           1.51918e+02   2.45070e+00   3.77366e-03   2.31682e-04\
+   4  p3          -2.07898e-02   7.11889e-03   6.84350e-07   1.31914e+00\
+   5  p4           1.58610e+02   4.99677e+01   4.62037e-03   1.92898e-04\
 \
 \'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
 \
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
 \f0\fs24 \cf0 \CocoaLigature1 DET2:\
+\
+alpha=0.110986\
+beta=
+\f1\fs22 \cf2 \CocoaLigature0 -24.2023\
+
+\f0\fs24 \cf0 \CocoaLigature1 \
 [p0]*exp(-0.5*((x-[p1])/[p2])*((x-[p1])/[p2]))+[p3]*x+[p4]\
 \
 Peak 511:\
 \
-	chi/ndf=108.4/90\
+	chi/ndf=84.71/79\
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
 
-\f1\fs22 \cf2 \CocoaLigature0    FCN=108.447 FROM MIGRAD    STATUS=CONVERGED     265 CALLS         266 TOTAL\
-                     EDM=1.80935e-06    STRATEGY= 1      ERROR MATRIX ACCURATE \
+\f1\fs22 \cf2 \CocoaLigature0  FCN=84.7136 FROM MIGRAD    STATUS=CONVERGED     211 CALLS         212 TOTAL\
+                     EDM=8.51413e-09    STRATEGY= 1      ERROR MATRIX ACCURATE \
   EXT PARAMETER                                   STEP         FIRST   \
   NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE \
-   1  p0           1.98707e+03   1.54140e+01   3.17557e-02   2.78808e-04\
-   2  p1           5.19099e+03   1.23328e+00   3.21436e-03  -2.26679e-04\
-   3  p2          -1.77479e+02   1.91217e+00   2.33222e-03  -1.66627e-03\
-   4  p3          -2.19371e-01   2.33594e-02   2.90308e-06   2.22156e+00\
-   5  p4           1.18670e+03   1.11516e+02   1.48950e-02   4.35048e-04
+   1  p0           9.33356e+02   8.63668e+00   2.12770e-02  -1.32796e-06\
+   2  p1           4.82225e+03   1.41793e+00   3.77952e-03   4.77327e-05\
+   3  p2           1.48727e+02   2.13017e+00   2.65275e-03  -5.69477e-05\
+   4  p3          -1.28636e-01   1.40888e-02   1.92220e-06  -1.19570e-01\
+   5  p4           6.64290e+02   6.86598e+01   9.32662e-03  -2.48080e-05
 \f0\fs24 \cf0 \CocoaLigature1 	\
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 \cf0 Peak 1275:\
 \
-	chi/ndf=201.9/192\
+	chi/ndf=154.5/149\
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
 
-\f1\fs22 \cf2 \CocoaLigature0  FCN=201.929 FROM MIGRAD    STATUS=CONVERGED     199 CALLS         200 TOTAL\
-                     EDM=4.80728e-08    STRATEGY= 1      ERROR MATRIX ACCURATE \
+\f1\fs22 \cf2 \CocoaLigature0  FCN=154.499 FROM MIGRAD    STATUS=CONVERGED     707 CALLS         708 TOTAL\
+                     EDM=1.18612e-09    STRATEGY= 1  ERROR MATRIX UNCERTAINTY   0.9 per cent\
   EXT PARAMETER                                   STEP         FIRST   \
   NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE \
-   1  p0           3.14962e+02   2.62714e+00   1.27277e-02   2.29295e-05\
-   2  p1           1.25660e+04   3.03329e+00   1.39499e-02   2.56473e-05\
-   3  p2           3.19321e+02   4.04771e+00   9.35007e-03  -3.01815e-05\
-   4  p3          -1.25023e-02   1.73980e-03   3.75788e-07   1.18895e+00\
-   5  p4           1.65311e+02   2.12830e+01   4.71251e-03   9.35417e-05\
+   1  p0           1.91376e+02   2.53255e+00   3.44953e-06  -4.69578e-03\
+   2  p1           1.17060e+04   3.88296e+00   1.14050e-03  -5.28957e-08\
+   3  p2           2.65393e+02   5.39286e+00   4.93578e-03   7.40677e-06\
+   4  p3          -5.24063e-03   2.34677e-03   3.00917e-07   4.35804e-01\
+   5  p4           6.30237e+01   2.89056e+01  -6.08636e-03   3.48714e-05\
 \
 \'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
 \
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
 \f0\fs24 \cf0 \CocoaLigature1 DET3:\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f1\fs22 \cf2 \CocoaLigature0 alpha = 0.10346\
+beta = -26.8365\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \CocoaLigature1 \
 [p0]*exp(-0.5*((x-[p1])/[p2])*((x-[p1])/[p2]))+[p3]*x+[p4]\
 \
 Peak 511:\
 \
-	chi/ndf=66.28/61\
+	chi/ndf=71.3/85\
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
 
-\f1\fs22 \cf2 \CocoaLigature0  FCN=66.2847 FROM MIGRAD    STATUS=CONVERGED     199 CALLS         200 TOTAL\
-                     EDM=6.31531e-10    STRATEGY= 1      ERROR MATRIX ACCURATE \
+\f1\fs22 \cf2 \CocoaLigature0  FCN=71.3043 FROM MIGRAD    STATUS=CONVERGED     174 CALLS         175 TOTAL\
+                     EDM=5.14355e-10    STRATEGY= 1      ERROR MATRIX ACCURATE \
   EXT PARAMETER                                   STEP         FIRST   \
   NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE \
-   1  p0           5.29329e+03   2.04836e+01   5.11536e-02  -1.38297e-06\
-   2  p1           3.30432e+03   4.76301e-01   1.57562e-03  -2.91762e-07\
-   3  p2           1.12289e+02   6.77499e-01   8.18557e-04  -1.39190e-04\
-   4  p3          -6.99301e-01   4.21883e-02   6.29732e-06  -1.53890e-02\
-   5  p4           2.50067e+03   1.38357e+02   2.08699e-02  -4.79377e-06
+   1  p0           7.26732e+02   1.28180e+01   3.50295e-05  -3.58112e-04\
+   2  p1           5.19850e+03   2.37886e+00   4.56413e-03  -1.80472e-06\
+   3  p2           1.81908e+02   4.08680e+00   3.46182e-03   2.37915e-05\
+   4  p3          -1.19229e-01   1.74717e-02   1.58693e-06   3.46634e-02\
+   5  p4           6.44149e+02   8.61272e+01   8.22549e-03   6.89781e-06
 \f0\fs24 \cf0 \CocoaLigature1 \
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 \cf0 	\
 Peak 1275:\
 \
-	chi/ndf=117.9/108\
+	chi/ndf=199.7/192\
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
 
-\f1\fs22 \cf2 \CocoaLigature0  FCN=117.916 FROM MIGRAD    STATUS=CONVERGED     149 CALLS         150 TOTAL\
-                     EDM=5.89557e-07    STRATEGY= 1      ERROR MATRIX ACCURATE \
+\f1\fs22 \cf2 \CocoaLigature0  FCN=199.732 FROM MIGRAD    STATUS=CONVERGED     186 CALLS         187 TOTAL\
+                     EDM=7.73237e-09    STRATEGY= 1      ERROR MATRIX ACCURATE \
   EXT PARAMETER                                   STEP         FIRST   \
   NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE \
-   1  p0           8.61535e+02   7.31522e+00   2.03129e-05   1.30434e-01\
-   2  p1           8.02093e+03   1.74377e+00   5.29312e-03   4.18913e-04\
-   3  p2           2.04910e+02   2.67124e+00   3.71797e-03   7.38172e-04\
-   4  p3          -4.60093e-02   8.70348e-03   1.10687e-06   1.85180e+00\
-   5  p4           3.85873e+02   6.95425e+01   8.88949e-03   2.26876e-04\
+   1  p0           1.92439e+02   2.02042e+00   2.47887e-05   1.69360e-02\
+   2  p1           1.25830e+04   3.85030e+00   1.74419e-02   3.32332e-05\
+   3  p2          -3.22751e+02   5.08336e+00   1.14611e-02  -4.10151e-06\
+   4  p3          -9.11279e-03   1.31240e-03   2.62269e-07   2.14860e-01\
+   5  p4           1.18605e+02   1.73859e+01   3.36404e-03   1.49787e-05\
 \
 \'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
 RAW_DECAY_RATE\
@@ -127,7 +152,7 @@ Without filtering the spectra\
 \
 [p0]*exp([p1]*(x-[p2]))+[p3]\
 \
-Peak sx:\
+Peak:\
 \
 	chi/ndf=171/208\
  FCN=171.036 FROM HESSE     STATUS=NOT POSDEF     23 CALLS         117 TOTAL\
