@@ -24,15 +24,3 @@ void DecayRate(TH1F* h){
 
 }
 
-void PeaksToCoefficents(int ch1275, int ch511){
-
-	double alpha=(1275-511)/(ch1275-ch511);
-	double beta=1275-alpha*ch1275;
-	cout << "Channel corresponding to 1275 keV: " << ch1275 << endl;
-	cout << "Channel corresponding to 511 keV: " << ch511 << endl;
-	cout << "Energy(keV) = alpha * channel + beta" << endl;
-	cout << "alpha = " << alpha << endl;
-	cout << "beta = " << beta << endl;
-}
-
-int EnergyToChannel
