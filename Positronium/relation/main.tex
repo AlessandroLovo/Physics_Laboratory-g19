@@ -5,7 +5,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[margin=2cm]{geometry}
 \usepackage{graphicx}
-\usepackage{subfigure}
+\usepackage{subfig}
 \usepackage{caption}
 \usepackage{siunitx}
 \captionsetup{tableposition=top,font=small,width=0.8\textwidth}
@@ -20,6 +20,7 @@
 \setlist[description]{font={\scshape}} %style=unboxed,style=nextline
 \usepackage{wrapfig}
 \usepackage{float}
+\usepackage{import}
 \usepackage{floatflt}
 \usepackage{url}
 \usepackage{commath}
@@ -70,7 +71,7 @@ Data are collected from the detectors through a electronic chain: a fan-in-fan-o
 
 Between the second and the third day, a technical problem required the substitution of the high voltage power supply; due to this, thresholds have been re-set; moreover, in the middle of the day 3 the high voltage power supply burned; it has been replaced and the threshold re-set. While in the first two days all the detectors saw the two peaks around an amplitude of respectively $100$ and $250\si{\milli\volt}$ (and therefore the threshold has been set at about $75\si{\milli\volt}$), in the third day the detectors \#1 and \#3 saw the two peaks around an amplitude of respectively $50$ and $125\si{\milli\volt}$ (and therefore the threshold has been set at about $35\si{\milli\volt}$). For the detector \#4, finally, the threshold has been set to about $200\si{\milli\volt}$, such that only the higher energetic photons produce a trigger.
 
-The CFT is provided of two sets of microswitches, to adjust delay and switch of the output signal. As has been verified thanks to the oscilloscope, the delay microswitches allow to adjust the time between the triggering of the system and the start of the logic signal, while the switch microswitches can be used to adjust the time length of the logic signal.
+The CFD is provided of two sets of microswitches, to adjust delay and switch of the output signal. As has been verified thanks to the oscilloscope, the delay microswitches allow to adjust the time between the triggering of the system and the start of the logic signal, while the switch microswitches can be used to adjust the time length of the logic signal.
 
 \section{Apparatus calibration}
 Due to the various problem, the apparatus calibration has been done many times; only the first calibration is here reported, having for the other followed the same procedure.
@@ -120,7 +121,7 @@ The similarity between the chi-squared value and the number of degree of freedom
 
 \begin{gather*}
     E = a \cdot \text{channel} + b \\
-    r = \frac{\sigma_E}{\mu_E} = \frac{a \cdot \sigma_c}{a \cdot \mu_c + b} = \frac{\sigma_c}{\mu_c + \frac[f]{b}{a}}
+    r = \frac{\text{FWHM}_E}{\mu_E} = 2\sqrt{2\ln2} \frac{\sigma_E}{\mu_E} = 2\sqrt{2\ln2} \frac{a \cdot \sigma_c}{a \cdot \mu_c + b} = 2\sqrt{2\ln2} \frac{\sigma_c}{\mu_c + \frac[f]{b}{a}}
 \end{gather*}
 
 \begin{table}[H]
@@ -129,14 +130,82 @@ The similarity between the chi-squared value and the number of degree of freedom
         \toprule
         Det. & $a [\si{\kilo\electronvolt}]$ & $b [\si{\kilo\electronvolt}]$ & $r_1$ & $r_2$ \\
         \midrule
-        \#1 & $0.12228\pm0.00004$ & $-20.3\pm0.2$ & $3.41\pm0.02$ & $2.23\pm0.02$ \\
-        \#2 & $0.11426\pm0.00004$ & $-23.7\pm0.2$ & $3.20\pm0.02$ & $2.23\pm0.02$ \\
-        \#3 & $0.16188\pm0.00004$ & $-23.9\pm0.2$ & $3.56\pm0.02$ & $2.60\pm0.04$ \\
-        \#4 & $0.16183\pm0.00004$ & $-23.5\pm0.2$ & $3.56\pm0.02$ & $2.60\pm0.04$ \\
+        \#1 & $0.12228\pm0.00004$ & $-20.3\pm0.2$ & $8.03\pm0.05$ & $5.25\pm0.05$ \\
+        \#2 & $0.11426\pm0.00004$ & $-23.7\pm0.2$ & $7.54\pm0.05$ & $5.25\pm0.05$ \\
+        \#3 & $0.16188\pm0.00004$ & $-23.9\pm0.2$ & $8.38\pm0.05$ & $6.12\pm0.09$ \\
+        \#4 & $0.16183\pm0.00004$ & $-23.5\pm0.2$ & $8.38\pm0.05$ & $6.12\pm0.09$ \\
         \bottomrule
     \end{tabular}
     \caption{Calibration result}
     \label{tab:calib2}
 \end{table}
+The resolutions for the peaks are similar between the four detectors.
+
+Finally, even the TAC must be calibrated. This module return a voltage signal whose amplitude is proportional to the time difference between the triggering of the \emph{start} and the \emph{stop} channels. To calibrate it, the two channels are connected to the same signal; moreover, between the signal and the stop a delay module is inserted. Some measures are made with different delay, obtaining the following histograms (fig. \ref{fig:tachisto}).
+
+\begin{figure}[H]
+    \centering
+    %\includegraphics[width=0.8\textwidth]{img/}
+    \todo[inline]{Insert here a figure with the TAC calibration histo superimposed}
+    \caption{Measure collected from the TAC, with different delay.}
+    \label{fig:tachisto}
+\end{figure}
+
+Neglecting the zero-delay data (too close to the border of the histogram to efficiently find a centroid), centroids for the other peaks have been computed and linearly fitted. Having no a \emph{zero} point, i.e. even if the \emph{start} and the \emph{stop} signal are the same cables and other electronic device can introduce a delay between them, only difference can be meaningful defined. The calibration must be done separately for the $2\gamma$ and the $3\gamma$ detector: the range of the TAC used in the two detection has been chosen different, to optimize the data collecting. The founded relation is:
+\todo[inline]{Compute these stuffs}
+\begin{gather*}
+    \Delta t = m \cdot \Delta\text{channel} \\
+    m_{2\gamma} = ( \pm )\si{\nano\second} \\
+    m_{3\gamma} = ( \pm )\si{\nano\second}
+\end{gather*}
+
+\section{Digitizer dead time}
+The digitizer has a dead time: when it is triggered, it takes some time to scan over all channel and register data. To estimate the dead time, during the three experimental days multiple test have been done, measuring the frequency of different signals with both the digitizer (counting the number of registered events over the acquisition time) and with a scaler module, which has a negligible dead time. The result founded are summarized in table \ref{tab:rate}.
+
+\todo[inline]{Compute these stuffs}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{cccccccc}
+        \toprule
+        Event & Real rate (scaler) & Measured rate (digit.) \\
+        \midrule
+         \\
+        \bottomrule
+    \end{tabular}
+    \caption{Event rate}
+    \label{tab:rate}
+\end{table}
+
+\section{Two photons events}
+
+\begin{figure}[H]
+    \centering
+    \subfloat[][Placement of the detectors]
+    {\def\svgwidth{0.4\textwidth}\import{img/}{rivel180.pdf_tex} \label{fig:rivel180:placement}} \quad
+    \subfloat[][Electronic scheme]
+    {\def\svgwidth{0.4\textwidth}\import{img/}{electro180.pdf_tex}}
+    \caption{Two photons relevation.}
+    \label{fig:rivel180}
+\end{figure}
+
+To detect the two-photons events, the detectors have been placed as in fig. \ref{fig:rivel180:placement}. The electronics have been set to be triggered with the coincidente between det. \#1, \#2 and \#4. However, we expect the detector \#4 to observe the photons shortly before the other two detectors, because of the lifetime of the positronium. To prevent \emph{false negative}, the width of the CFD of the detector \#4 has been set to an high value to produce a long logic signal.
+
+Moreover, the system has been set to measure the time difference between the signal from det. \#1 and \#2 and from det. \#4. 
+
+\section{Three photons events}
+
+\begin{figure}[H]
+    \centering
+    \subfloat[][Placement of the detectors]
+    {\def\svgwidth{0.4\textwidth}\import{img/}{rivel120.pdf_tex} \label{fig:rivel120:placement}} \quad
+    \subfloat[][Electronic scheme]
+    {\def\svgwidth{0.4\textwidth}\import{img/}{electro120.pdf_tex}}
+    \caption{Three photons relevation.}
+    \label{fig:rivel120}
+\end{figure}
+
+To detect the three-photons events, the detectors have been placed as in fig. \ref{fig:rivel120:placement}. The optimal configurations would provide a triggering on the coincidences between all the four detectors. However, the three-photons events are very rare, and triggering on all the detectors would produce a too-low number of data to make a meaningful statistic, even with a full-night acquisition. Therefore the triggering has been set to the coincidences between the det. \#1, \#2 and \#3, making an a-posteriori coincidence with the detector 4 only for the timing studies.
+
+\section{Rate}
 
 \end{document}
