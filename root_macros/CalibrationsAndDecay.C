@@ -23,3 +23,4 @@ void DecayRate(TH1F* h){
 	h->Fit("expDecay", "R");
 
 }
+
