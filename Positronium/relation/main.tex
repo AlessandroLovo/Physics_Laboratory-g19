@@ -150,13 +150,22 @@ Finally, even the TAC must be calibrated. This module return a voltage signal wh
     \label{fig:tachisto}
 \end{figure}
 
-Neglecting the zero-delay data (too close to the border of the histogram to efficiently find a centroid), centroids for the other peaks have been computed and linearly fitted. Having no a \emph{zero} point, i.e. even if the \emph{start} and the \emph{stop} signal are the same cables and other electronic device can introduce a delay between them, only difference can be meaningful defined. The calibration must be done separately for the $2\gamma$ and the $3\gamma$ detector: the range of the TAC used in the two detection has been chosen different, to optimize the data collecting. The founded relation is:
-\todo[inline]{Compute these stuffs}
+Neglecting the zero-delay data (too close to the border of the histogram to efficiently find a centroid), centroids for the other peaks have been computed as the average of the registered values, with an associated error corresponding to the standard deviation of the data: a fit or a more precise statistic is meaningless due to the low number of channels in which data are spread on.  Having no a \emph{zero} point, i.e. even if the \emph{start} and the \emph{stop} signal are the same cables and other electronic device can introduce a delay between them, only difference can be meaningful defined. The calibration must be done separately for the $2\gamma$ and the $3\gamma$ detector: the range of the TAC used in the two detection has been chosen different, to optimize the data collecting. A linear fit on the centroids return the following results:
+
 \begin{gather*}
     \Delta t = m \cdot \Delta\text{channel} \\
-    m_{2\gamma} = ( \pm )\si{\nano\second} \\
-    m_{3\gamma} = ( \pm )\si{\nano\second}
+    m_{2\gamma} = ( 117 \pm 1 )\si{\nano\second} \\
+    m_{3\gamma} = ( 87.4 \pm 0.4 )\si{\nano\second}
 \end{gather*}
+
+\begin{figure}[H]
+    \centering
+    \resizebox{0.8\textwidth}{!}{\import{img/}{tac_calibr_fit.tex}}
+    \caption{TAC calibration fit, for the $2\gamma$ setup.}
+    \label{fig:tac_calibr_fit}
+\end{figure}
+
+
 
 \section{Digitizer dead time}
 The digitizer has a dead time: when it is triggered, it takes some time to scan over all channel and register data. To estimate the dead time, during the three experimental days multiple test have been done, measuring the frequency of different signals with both the digitizer (counting the number of registered events over the acquisition time) and with a scaler module, which has a negligible dead time. The result founded are summarized in table \ref{tab:rate}.
