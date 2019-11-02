@@ -166,14 +166,26 @@ The digitizer has a dead time: when it is triggered, it takes some time to scan 
     \centering
     \begin{tabular}{cccccccc}
         \toprule
-        Event & Real rate (scaler) & Measured rate (digit.) \\
+        Event & Real rate [\si{Hz}] (scaler)\footnote{Average of 10 measurements} & Measured rate [\si{Hz}] (digit.) \\
         \midrule
-         \\
+        Det. \#1 triggering & $12610 \pm 70$ & \\
+        Det. \#2 triggering & $12460 \pm 40$ & \\
+        Coincidences det. \#1-\#2 & $4740 \pm 20$ & \\
+        Coincidences det. \#1-\#2-\#4 & $60 \pm 3$ & \\
         \bottomrule
     \end{tabular}
     \caption{Event rate}
     \label{tab:rate}
 \end{table}
+
+The PDF of the time between two consecutive decays follow an exponential distribution:
+\begin{equation*}
+    p(t) = \nu e^{-\nu t} \qquad \rightarrow \qquad <t> = \int_0^{\infty} tp(t) \dd{t} = \frac{1}{\nu}
+\end{equation*}
+where $\nu$ is the event frequency. If the system has a dead time, two event are discerned only if them differs of a time larger than the dead time $\tau$; the measured frequency is therefore:
+\begin{equation*}
+    \frac{1}{\nu^\star} = \frac{\int_{\tau}^{\infty} t p(t) \dd{t}}{\int_{\tau}^{\infty} p(t) \dd{t}} =\frac{\nu\tau + 1}{\nu}
+\end{equation*}
 
 \section{Two photons events}
 
