@@ -1,0 +1,26 @@
+Last login: Sun Nov  3 13:35:47 on ttys002
+andreagrossutti@MacBook-Pro-di-Andrea ~ % python
+
+WARNING: Python 2.7 is not recommended. 
+This version is included in macOS for compatibility with legacy software. 
+Future versions of macOS will not include Python 2.7. 
+Instead, it is recommended that you transition to using 'python3' from within Terminal.
+
+Python 2.7.16 (default, Aug 24 2019, 18:37:03) 
+[GCC 4.2.1 Compatible Apple LLVM 11.0.0 (clang-1100.0.32.4) (-macos10.15-objc-s on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import numpy
+>>> import scipy.optimize
+>>> x=numpy.array([16,32,48])
+>>> y=numpy.array([1.42185e+03, 2.84153e+03, 4.22029e+03])
+>>> s=numpy.array([1.06302e-02, 1.00499e-02, 8.17762e-03])
+>>> def line(x,a,b):
+...     return a*x+b
+... 
+>>> popt, pcov = (scipy.optimize.curve_fit(line, x, y, sigma=s))
+>>> pops
+array([ 87.35022522,  32.16590011])
+>>> pcov
+array([[  4.93548870e-01,  -1.72237560e+01],
+       [ -1.72237560e+01,   6.86158801e+02]])
+>>> 
