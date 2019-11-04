@@ -141,7 +141,13 @@ The similarity between the chi-squared value and the number of degree of freedom
 \end{table}
 The resolutions for the peaks are similar between the four detectors.
 
-\todo[inline]{Grafici per la calibrazione}
+\begin{figure}[H]
+    \centering
+    \resizebox{0.8\textwidth}{!}{\import{img/}{det1_calibration.tex}}
+    \caption{Calibration of detector 1: in blue the histogram of the detected signals, in red and green the peaks fits used for the calibration. Note the x axis properly calibrated in energy.}
+    \label{fig:det1_calibr}
+\end{figure}
+
 
 Finally, even the TAC must be calibrated. This module return a voltage signal whose amplitude is proportional to the time difference between the triggering of the \emph{start} and the \emph{stop} channels. To calibrate it, the two channels are connected to the same signal; moreover, between the signal and the stop a delay module is inserted. Some measures are made with different delay, obtaining the following histograms (fig. \ref{fig:tachisto}).
 
@@ -172,7 +178,6 @@ Neglecting the zero-delay data (too close to the border of the histogram to effi
 \section{Digitizer dead time}
 The digitizer has a dead time: when it is triggered, it takes some time to scan over all channel and register data. To estimate the dead time, during the three experimental days multiple test have been done, measuring the frequency of different signals with both the digitizer (counting the number of registered events over the acquisition time) and with a scaler module, which has a negligible dead time. The result founded are summarized in table \ref{tab:rate}.
 
-\todo[inline]{Compute these stuffs}
 \begin{table}[H]
     \centering
     \begin{tabular}{cccccccc}
@@ -202,6 +207,8 @@ where $\nu$ is the event frequency. If the system has a dead time, two event are
     \frac{1}{\nu^\star} = \frac{\int_{\tau}^{\infty} t p(t) \dd{t}}{\int_{\tau}^{\infty} p(t) \dd{t}} =\frac{\nu\tau + 1}{\nu}
 \end{equation*}
 
+\todo[inline]{Fit data and find $\tau$}
+
 \section{Two photons events}
 
 \begin{figure}[H]
@@ -218,8 +225,11 @@ To detect the two-photons events, the detectors have been placed as in fig. \ref
 
 Moreover, the system has been set to measure the time difference between the signal from det. \#1 and \#2 and from det. \#4. 
 
-\todo[inline]{- Spettri energia calibrati (picchi 1 a 511, 2 a 511, 4 a 1275); - Spettro TAC, spiegazione interpretazione e convoluzione, fit e discussione)}
+\todo[inline]{- Spettri energia calibrati (picchi 1 a 511, 2 a 511, 4 a 1275);}
 
+Acquiring the time with TAC, what we obtain is the convolution of the decay law with the statistical error gaussian. At the end, what we see is a peaks centered in an arbitrary value (determined by the electronic configuration of the apparatus, the cable used and the delay introduced) which on the left shows a gaussian trend, while on the right the gaussian contribute is negligible and the exponential trend is visible. Fitting the right wing with an exponential is possible to find the parameters of the decay law, in particular the mean lifetime.
+
+\todo[inline]{- Spettro TAC calibrato e altra roba}
 \section{Three photons events}
 
 \begin{figure}[H]
