@@ -141,6 +141,8 @@ The similarity between the chi-squared value and the number of degree of freedom
 \end{table}
 The resolutions for the peaks are similar between the four detectors.
 
+\todo[inline]{Grafici per la calibrazione}
+
 Finally, even the TAC must be calibrated. This module return a voltage signal whose amplitude is proportional to the time difference between the triggering of the \emph{start} and the \emph{stop} channels. To calibrate it, the two channels are connected to the same signal; moreover, between the signal and the stop a delay module is inserted. Some measures are made with different delay, obtaining the following histograms (fig. \ref{fig:tachisto}).
 
 \begin{figure}[H]
@@ -175,12 +177,16 @@ The digitizer has a dead time: when it is triggered, it takes some time to scan 
     \centering
     \begin{tabular}{cccccccc}
         \toprule
-        Event & Real rate [\si{Hz}] (scaler)\footnote{Average of 10 measurements} & Measured rate [\si{Hz}] (digit.) \\
+        Event & Real rate [\si{Hz}] (scaler)& Measured rate [\si{Hz}] (digit.) \\
         \midrule
-        Det. \#1 triggering & $12610 \pm 70$ & \\
-        Det. \#2 triggering & $12460 \pm 40$ & \\
-        Coincidences det. \#1-\#2 & $4740 \pm 20$ & \\
-        Coincidences det. \#1-\#2-\#4 & $60 \pm 3$ & \\
+        Det. \#1 day 1& $9211 \pm 80$ & $6543 \pm 10$ \\
+        Det. \#2 day 1& $12248 \pm 80$ & $5997 \pm 10$\\
+        Det. \#1\&\#2 day 2& $3687 \pm 10$ & $3683 \pm 1$ \\
+        Det. \#1\&\#2\&\#4 day 2& $44 \pm 1$ & $43.9 \pm 0.2$ \\
+        Det. \#1 day 3& $12610 \pm 70$ & $7084 \pm 11$ \\
+        Det. \#2 day 3& $12460 \pm 40$ & $6001 \pm 10$ \\
+        %Coincidences det. \#1-\#2 & $4740 \pm 20$ & $$ \\
+        Det. \#1\&\#2\&\#4 day 3& $60 \pm 3$ & $59.8 \pm 0.1$ \\
         \bottomrule
     \end{tabular}
     \caption{Event rate}
@@ -212,6 +218,8 @@ To detect the two-photons events, the detectors have been placed as in fig. \ref
 
 Moreover, the system has been set to measure the time difference between the signal from det. \#1 and \#2 and from det. \#4. 
 
+\todo[inline]{- Spettri energia calibrati (picchi 1 a 511, 2 a 511, 4 a 1275); - Spettro TAC, spiegazione interpretazione e convoluzione, fit e discussione)}
+
 \section{Three photons events}
 
 \begin{figure}[H]
@@ -226,6 +234,10 @@ Moreover, the system has been set to measure the time difference between the sig
 
 To detect the three-photons events, the detectors have been placed as in fig. \ref{fig:rivel120:placement}. The optimal configurations would provide a triggering on the coincidences between all the four detectors. However, the three-photons events are very rare, and triggering on all the detectors would produce a too-low number of data to make a meaningful statistic, even with a full-night acquisition. Therefore the triggering has been set to the coincidences between the det. \#1, \#2 and \#3, making an a-posteriori coincidence with the detector 4 only for the timing studies.
 
+\todo[inline]{- Spettri energia calibrati (picchi 1,2 e 3 a 340); - Spettro somma delle energie - Spettro TAC e discussione)}
+
 \section{Rate}
+
+\todo[inline]{- Rate con le freq. di acquisizione opportunamente filtrate - simulazioni e conti spannomatrici per la rinormalizzazione dei rate e nuovi rate.}
 
 \end{document}
