@@ -188,7 +188,7 @@ class Histograms{
 
 	private:
 
-	//Faster version of ChannelToEnergy function
+	//Faster version of ChannelToEnergy function. Before use it verify that alpha, beta, and chan are currectly initialized.
 	double GetChannelToEnergyValue(int chan, int c){
 		return alpha[chan]*c+beta[chan];
 	}
