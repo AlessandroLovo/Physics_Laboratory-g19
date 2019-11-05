@@ -135,9 +135,7 @@ class Histograms{
 		//double prog=0;
 		//double step = inbranch[0]->GetEntries()/100;
 
-		while (curr_index[0]<inbranch[0]->GetEntries()){
-
-			//cout << "curr_index=[" << curr_index[0] <<','<< curr_index[1]<<','<<curr_index[2]<<','<<curr_index[3]<<"]\n";
+		while (curr_index[0]<inbranch[0]->GetEntries() && curr_index[1]<inbranch[1]->GetEntries() && curr_index[2]<inbranch[2]->GetEntries() && curr_index[3]<inbranch[3]->GetEntries()){
 
 			//if(curr_index[0]>prog+step){
 			//	prog+=step;
@@ -169,8 +167,11 @@ class Histograms{
 
 			double e_sum = 0.0;
 
-			for(int c = 0; c < num_detect; c++)
+			for(int c = 0; c < num_detect; c++){
+				if(GetChannelToEnergyValue(c, indata[c].qlong)<100 || GetChannelToEnergyValue(c, indata[c].qlong)>430)
+					e_sum=-10000000;
 				e_sum += GetChannelToEnergyValue(c, indata[c].qlong);
+			}
 
 			//If sum of energies are near "energy_sum" i can insert entries in histogram
 			if(energy_sum - window/2 < e_sum && energy_sum + window/2 > e_sum){
