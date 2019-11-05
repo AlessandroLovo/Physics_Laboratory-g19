@@ -28,7 +28,7 @@ class Histograms{
 			slimport_data_t indata;
 			TBranch *inbranch = (TBranch*)intree->GetBranch(Form("acq_ch%d",chan));
 			inbranch->SetAddress(&indata.timetag);
-			hist [chan] = new TH1F(Form("hist_ch%d",chan),"",4096,0,32768);
+			hist [chan] = new TH1F(Form("hist_ch%d",chan),"",8192,0,65536);
 
 			for (int i=0; i<inbranch->GetEntries(); i++) {
 				inbranch->GetEntry(i);
@@ -121,50 +121,54 @@ class Histograms{
 		TTree* intree = (TTree*)infile->Get("acq_tree_0");
 		slimport_data_t indata[4];
 		TBranch *inbranch[4];
+		int curr_index[4];
 
 		for(int chan=0; chan<4; chan++){
 			inbranch[chan] = (TBranch*)intree->GetBranch(Form("acq_ch%d",chan));
 			inbranch[chan]->SetAddress(&indata[chan].timetag);
-			hist [chan] = new TH1F(Form("hist_ch%d",chan),"",4096,0,32768);		
+			hist [chan] = new TH1F(Form("hist_ch%d",chan),"",8192,0,65536);
+			curr_index[chan]=0;		
 		}
 
-		int prog = 0, maxTimeChan=0;
-		for (int i=0; i<inbranch[3]->GetEntries(); i++){
+		
+		int maxTimeChan=0;
+		//double prog=0;
+		//double step = inbranch[0]->GetEntries()/100;
+
+		while (curr_index[0]<inbranch[0]->GetEntries()){
+
+			//cout << "curr_index=[" << curr_index[0] <<','<< curr_index[1]<<','<<curr_index[2]<<','<<curr_index[3]<<"]\n";
+
+			//if(curr_index[0]>prog+step){
+			//	prog+=step;
+			//	cout << (int)prog/step << " % \t->\t " << (int)prog << "/" << (int)step*100 << "\n";
+			//}
 			
-			//Remove TAC=0ns entries
-			inbranch[3]->GetEntry(i);
-			if(indata[3].qlong < 25)
+			for(int c=0;c<4;c++)
+				inbranch[c]->GetEntry(curr_index[c]);
+
+			bool found_coinc=true;
+
+			for(int c=1;c<4;c++)
+				found_coinc &= (indata[0].timetag == indata[c].timetag);
+
+			for(int c=1;c<4;c++){
+				if(indata[0].timetag < indata[c].timetag){
+					curr_index[0]++;
+					break;
+				}
+				if(indata[0].timetag > indata[c].timetag)
+					curr_index[c]++;
+			}
+			
+			if(!found_coinc)
 				continue;
 
 			if(indata[3].qlong>maxTimeChan)
 				maxTimeChan = indata[3].qlong;
 
-			//Progression of the filtering process
-			if(i+1>prog+1000){
-				prog += 1000;
-				cout << ((double)i+1)/(inbranch[3]->GetEntries())*100 << " %\t -> \t " << i+1 << "/"<< inbranch[3]->GetEntries() << endl;
-			}
-			
-			ULong64_t timetag = indata[3].timetag;
-			
-			//Search for entries with same timetag
-			bool entry_found = true;
-			for(int c=0; c < 3 && entry_found; c++){
-				entry_found=false;
-				
-				for (int j=0; j<inbranch[c]->GetEntries() && !entry_found; j++) {
-					inbranch[c]->GetEntry(j);
-					if(indata[c].timetag == timetag)
-						entry_found=true;		
-				}
-			}
-
-			//There aren't coinciding entries in all channels
-			if(!entry_found)
-				continue;
-
 			double e_sum = 0.0;
-			//Sum of energies of first "num_detect" detectors
+
 			for(int c = 0; c < num_detect; c++)
 				e_sum += GetChannelToEnergyValue(c, indata[c].qlong);
 
@@ -172,7 +176,11 @@ class Histograms{
 			if(energy_sum - window/2 < e_sum && energy_sum + window/2 > e_sum){
 				for(int c=0; c < 4; c++)
 					hist [c]->Fill(indata[c].qlong);
-			}						
+			}
+
+			for(int c=0; c<4; c++)
+				curr_index[c]++;
+
 		}
 
 		cout << "Max entry for channel 3 (TAC): " << maxTimeChan << endl;
