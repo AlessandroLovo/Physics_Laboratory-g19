@@ -161,9 +161,9 @@ Finally, even the TAC must be calibrated. This module return a voltage signal wh
 Neglecting the zero-delay data (too close to the border of the histogram to efficiently find a centroid), centroids for the other peaks have been computed as the average of the registered values, with an associated error corresponding to the standard deviation of the data: a fit or a more precise statistic is meaningless due to the low number of channels in which data are spread on.  Having no a \emph{zero} point, i.e. even if the \emph{start} and the \emph{stop} signal are the same cables and other electronic device can introduce a delay between them, only difference can be meaningful defined. The calibration must be done separately for the $2\gamma$ and the $3\gamma$ detector: the range of the TAC used in the two detection has been chosen different, to optimize the data collecting. A linear fit on the centroids return the following results:
 
 \begin{gather*}
-    \Delta t = m \cdot \Delta\text{channel} \\
-    m_{2\gamma} = ( 117 \pm 1 )\si{\nano\second} \\
-    m_{3\gamma} = ( 87.4 \pm 0.4 )\si{\nano\second}
+    \Delta\text{channel}  = m \cdot \Delta t \\
+    m_{2\gamma} = ( 117 \pm 1 )\si{\per\nano\second} \\
+    m_{3\gamma} = ( 87.4 \pm 0.4 )\si{\per\nano\second}
 \end{gather*}
 
 \begin{figure}[H]
@@ -198,6 +198,8 @@ The digitizer has a dead time: when it is triggered, it takes some time to scan 
     \label{tab:rate}
 \end{table}
 
+\todo[inline]{Cercare se ci sono altri rate interessanti}
+
 The PDF of the time between two consecutive decays follow an exponential distribution:
 \begin{equation*}
     p(t) = \nu e^{-\nu t} \qquad \rightarrow \qquad <t> = \int_0^{\infty} tp(t) \dd{t} = \frac{1}{\nu}
@@ -229,7 +231,7 @@ Moreover, the system has been set to measure the time difference between the sig
 
 Acquiring the time with TAC, what we obtain is the convolution of the decay law with the statistical error gaussian. At the end, what we see is a peaks centered in an arbitrary value (determined by the electronic configuration of the apparatus, the cable used and the delay introduced) which on the left shows a gaussian trend, while on the right the gaussian contribute is negligible and the exponential trend is visible. Fitting the right wing with an exponential is possible to find the parameters of the decay law, in particular the mean lifetime.
 
-\todo[inline]{- Spettro TAC calibrato e altra roba}
+\todo[inline]{- Descrizione filtro - Spettro TAC filtrato e calibrato e fit expo}
 \section{Three photons events}
 
 \begin{figure}[H]
@@ -244,10 +246,12 @@ Acquiring the time with TAC, what we obtain is the convolution of the decay law 
 
 To detect the three-photons events, the detectors have been placed as in fig. \ref{fig:rivel120:placement}. The optimal configurations would provide a triggering on the coincidences between all the four detectors. However, the three-photons events are very rare, and triggering on all the detectors would produce a too-low number of data to make a meaningful statistic, even with a full-night acquisition. Therefore the triggering has been set to the coincidences between the det. \#1, \#2 and \#3, making an a-posteriori coincidence with the detector 4 only for the timing studies.
 
-\todo[inline]{- Spettri energia calibrati (picchi 1,2 e 3 a 340); - Spettro somma delle energie - Spettro TAC e discussione)}
+\todo[inline]{- Spettro somma delle energie non filtrato - Spiegazione filtro + simulazioni - Spettri energie filtrati (somma + lowerbound + upperbound) (picchi 1,2 e 3 a 340); - Spettro TAC filtrato e discussione}
 
 \section{Rate}
 
 \todo[inline]{- Rate con le freq. di acquisizione opportunamente filtrate - simulazioni e conti spannomatrici per la rinormalizzazione dei rate e nuovi rate.}
+
+\section{Conclusions}
 
 \end{document}
