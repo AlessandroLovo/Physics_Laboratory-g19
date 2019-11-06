@@ -209,8 +209,22 @@ where $\nu$ is the event frequency. If the system has a dead time, two event are
     \frac{1}{\nu^\star} = \frac{\int_{\tau}^{\infty} t p(t) \dd{t}}{\int_{\tau}^{\infty} p(t) \dd{t}} =\frac{\nu\tau + 1}{\nu}
 \end{equation*}
 
-\todo[inline]{Fit data and find $\tau$}
+Plotting the data in table \ref{tab:rate}, we obtain the plot in fig. \ref{fig:deadtime}
 
+\begin{figure}[H]
+    \centering
+    \subfloat[][Correlation between real and measured rate, and trend.]
+    {\resizebox{0.7\textwidth}{!}{\import{img/}{dead_time.tex}} \label{fig:deadtime:fit}} \quad
+    \subfloat[][Ratio of lost events.]
+    {\resizebox{0.7\textwidth}{!}{\import{img/}{dead_time.ratio.tex}}}
+    \caption{Dead time effects.}
+    \label{fig:deadtime}
+\end{figure}
+
+As is clear from the figures, the dead time isn't constant, but is the result of a stochastic process and can vary at different ratio. However, a coarse trend can be estimated (fit in fig. \ref{fig:deadtime:fit}) computing the order of magnitude of dead time:
+\begin{equation}
+    \tau \sim 6\cdot10^{-5} \si{\second}
+\end{equation}
 \section{Two photons events}
 
 \begin{figure}[H]
@@ -227,11 +241,36 @@ To detect the two-photons events, the detectors have been placed as in fig. \ref
 
 Moreover, the system has been set to measure the time difference between the signal from det. \#1 and \#2 and from det. \#4. 
 
-\todo[inline]{- Spettri energia calibrati (picchi 1 a 511, 2 a 511, 4 a 1275);}
+After the acquisition, a data filtering has been implemented; the events whose sum of the energies of detector \#1 and \#2 differs from $1022\si{\kilo\electronvolt}$ for more than 10\% (i.e. about two time the resolution) are discared. The spectra with and without the filter are showed in fig. \ref{fig:2gamma}.
+
+\begin{figure}[H]
+    \centering
+    \subfloat[][Detector 1. Note the absence of the $1275\si{\kilo\electronvolt}$ peak.]
+    {\resizebox{0.7\textwidth}{!}{\import{img/}{det1.2gamma.tex}}} \quad
+    \subfloat[][Detector 2. Note the absence of the $1275\si{\kilo\electronvolt}$ peak.]
+    {\resizebox{0.7\textwidth}{!}{\import{img/}{det2.2gamma.tex}}}
+    \caption{Dead time effects.} \quad
+    \subfloat[][Detector 4. Note the absence of the $511\si{\kilo\electronvolt}$ peak.]
+    {\resizebox{0.7\textwidth}{!}{\import{img/}{det4.2gamma.tex}}}
+    \caption{Dead time effects.}
+    \label{fig:2gamma}
+\end{figure}
 
 Acquiring the time with TAC, what we obtain is the convolution of the decay law with the statistical error gaussian. At the end, what we see is a peaks centered in an arbitrary value (determined by the electronic configuration of the apparatus, the cable used and the delay introduced) which on the left shows a gaussian trend, while on the right the gaussian contribute is negligible and the exponential trend is visible. Fitting the right wing with an exponential is possible to find the parameters of the decay law, in particular the mean lifetime.
 
-\todo[inline]{- Descrizione filtro - Spettro TAC filtrato e calibrato e fit expo}
+\begin{figure}[H]
+    \centering
+    \resizebox{0.8\textwidth}{!}{\import{img/}{tac.2gamma.tex}}
+    \caption{TAC for the 2$\gamma$ decay, with the exponential fit.}
+    \label{fig:tac:2gamma}
+\end{figure}
+
+Fitting the right wing of the peaks, an estimation of the mean life can be found:
+
+\begin{equation}
+    \tau = ( 0.91 \pm 0.01) \si{\nano\second}
+\end{equation}
+
 \section{Three photons events}
 
 \begin{figure}[H]
