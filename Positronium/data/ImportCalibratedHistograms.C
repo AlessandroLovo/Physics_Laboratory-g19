@@ -22,7 +22,7 @@ Histograms* TwoPhotonsHistCal(bool filter){
 	Histograms* hs = new Histograms(" /Users/andreagrossutti/Documents/GitHub/Physics_Laboratory-g19/Positronium/data/day3/2Photon_acq_4.root ");
 	hs->CalibrationPeaksChannels(0, 4.32049e+03, 1.78084e+03);
 	hs->CalibrationPeaksChannels(1, 1.27812e+04, 5.26642e+03);
-	hs->CalibrationPeaksChannels(2, 4.97904e+03, 2.05268e+03);
+	hs->CalibrationPeaksChannels(2, 6.34273e+03, 2.62422e+03);
 	if(filter)
 		hs->SpectraFiltering(1022, 300, 2);
 	return hs;
