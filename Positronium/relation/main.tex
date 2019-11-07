@@ -1,5 +1,7 @@
 \documentclass[11pt,a4 paper]{article}
-\usepackage{amsmath, amsthm} 
+\usepackage{subfiles}
+
+\usepackage{amsmath, amsthm}
 \usepackage[english]{babel}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
@@ -239,7 +241,7 @@ As is clear from the figures, the dead time isn't constant, but is the result of
 
 To detect the two-photons events, the detectors have been placed as in fig. \ref{fig:rivel180:placement}. The electronics have been set to be triggered with the coincidente between det. \#1, \#2 and \#4. However, we expect the detector \#4 to observe the photons shortly before the other two detectors, because of the lifetime of the positronium. To prevent \emph{false negative}, the width of the CFD of the detector \#4 has been set to an high value to produce a long logic signal.
 
-Moreover, the system has been set to measure the time difference between the signal from det. \#1 and \#2 and from det. \#4. 
+Moreover, the system has been set to measure the time difference between the signal from det. \#1 and \#2 and from det. \#4.
 
 After the acquisition, a data filtering has been implemented; the events whose sum of the energies of detector \#1 and \#2 differs from $1022\si{\kilo\electronvolt}$ for more than 10\% (i.e. about two time the resolution) are discared. The spectra with and without the filter are showed in fig. \ref{fig:2gamma}.
 
@@ -287,6 +289,9 @@ To detect the three-photons events, the detectors have been placed as in fig. \r
 
 \todo[inline]{- Spettro somma delle energie non filtrato - Spiegazione filtro + simulazioni - Spettri energie filtrati (somma + lowerbound + upperbound) (picchi 1,2 e 3 a 340); - Spettro TAC filtrato e discussione}
 
+\subfile{sim}
+
+
 \section{Rate}
 
 \todo[inline]{- Rate con le freq. di acquisizione opportunamente filtrate - simulazioni e conti spannomatrici per la rinormalizzazione dei rate e nuovi rate.}
@@ -294,4 +299,3 @@ To detect the three-photons events, the detectors have been placed as in fig. \r
 \section{Conclusions}
 
 \end{document}
-
