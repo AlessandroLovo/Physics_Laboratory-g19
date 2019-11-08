@@ -200,8 +200,6 @@ The digitizer has a dead time: when it is triggered, it takes some time to scan 
     \label{tab:rate}
 \end{table}
 
-\todo[inline]{Cercare se ci sono altri rate interessanti}
-
 The PDF of the time between two consecutive decays follow an exponential distribution:
 \begin{equation*}
     p(t) = \nu e^{-\nu t} \qquad \rightarrow \qquad <t> = \int_0^{\infty} tp(t) \dd{t} = \frac{1}{\nu}
@@ -243,19 +241,27 @@ To detect the two-photons events, the detectors have been placed as in fig. \ref
 
 Moreover, the system has been set to measure the time difference between the signal from det. \#1 and \#2 and from det. \#4.
 
-After the acquisition, a data filtering has been implemented; the events whose sum of the energies of detector \#1 and \#2 differs from $1022\si{\kilo\electronvolt}$ for more than 10\% (i.e. about two time the resolution) are discared. The spectra with and without the filter are showed in fig. \ref{fig:2gamma}.
+After the acquisition, a data filtering has been implemented; the events whose sum of the energies of detector \#1 and \#2 differs from $1022\si{\kilo\electronvolt}$ for more than 10\% (i.e. about two time the resolution) are discared. The spectra with and without the filter are showed in fig. \ref{fig:det1:2gamma} and the following.
 
 \begin{figure}[H]
     \centering
-    \subfloat[][Detector 1. Note the absence of the $1275\si{\kilo\electronvolt}$ peak.]
-    {\resizebox{0.7\textwidth}{!}{\import{img/}{det1.2gamma.tex}}} \quad
-    \subfloat[][Detector 2. Note the absence of the $1275\si{\kilo\electronvolt}$ peak.]
-    {\resizebox{0.7\textwidth}{!}{\import{img/}{det2.2gamma.tex}}}
-    \caption{Dead time effects.} \quad
-    \subfloat[][Detector 4. Note the absence of the $511\si{\kilo\electronvolt}$ peak.]
-    {\resizebox{0.7\textwidth}{!}{\import{img/}{det4.2gamma.tex}}}
-    \caption{Dead time effects.}
-    \label{fig:2gamma}
+    \resizebox{0.7\textwidth}{!}{\import{img/}{det1.2gamma.tex}}
+    \caption{Detector 1. Note the absence of the $1275\si{\kilo\electronvolt}$ peak.}
+    \label{fig:det1:2gamma}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \resizebox{0.7\textwidth}{!}{\import{img/}{det2.2gamma.tex}}
+    \caption{Detector 2. Note the absence of the $1275\si{\kilo\electronvolt}$ peak.}
+    \label{fig:det2:2gamma}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \resizebox{0.7\textwidth}{!}{\import{img/}{det4.2gamma.tex}}
+    \caption{Detector 4. Note the absence of the $511\si{\kilo\electronvolt}$ peak.}
+    \label{fig:det4:2gamma}
 \end{figure}
 
 Acquiring the time with TAC, what we obtain is the convolution of the decay law with the statistical error gaussian. At the end, what we see is a peaks centered in an arbitrary value (determined by the electronic configuration of the apparatus, the cable used and the delay introduced) which on the left shows a gaussian trend, while on the right the gaussian contribute is negligible and the exponential trend is visible. Fitting the right wing with an exponential is possible to find the parameters of the decay law, in particular the mean lifetime.
@@ -287,15 +293,75 @@ Fitting the right wing of the peaks, an estimation of the mean life can be found
 
 To detect the three-photons events, the detectors have been placed as in fig. \ref{fig:rivel120:placement}. The optimal configurations would provide a triggering on the coincidences between all the four detectors. However, the three-photons events are very rare, and triggering on all the detectors would produce a too-low number of data to make a meaningful statistic, even with a full-night acquisition. Therefore the triggering has been set to the coincidences between the det. \#1, \#2 and \#3, making an a-posteriori coincidence with the detector 4 only for the timing studies.
 
-\todo[inline]{- Spettro somma delle energie non filtrato - Spiegazione filtro + simulazioni - Spettri energie filtrati (somma + lowerbound + upperbound) (picchi 1,2 e 3 a 340); - Spettro TAC filtrato e discussione}
+\begin{figure}[H]
+    \centering
+    \resizebox{0.8\textwidth}{!}{\import{img/}{sum.3gamma.tex}}
+    \caption{Sum of the energies observed from each detector}
+    \label{fig:sum:3gamma}
+\end{figure}
 
-\subfile{sim}
+Observing the fig. \ref{fig:sum:3gamma} can be easily individuated the peak we're interested on, at $1022\si{\kilo\electronvolt}$. All around this peak a lot of noise is present, given mainly by the way-more-probable 2-photons events. To select only the event's we're interested on, a filter is applied: each the event that violate one or more of the following conditions is discarded.
+\begin{itemize}
+    \item The sum of the energies from the three detectors must be $1022\si{\kilo\electronvolt}$, with a $10\%$ tolerance (about $3\sigma$);
+    \item Each detector must detect an energy around $340\si{\kilo\electronvolt}$, with a $10\%$ tolerance.
+\end{itemize}
 
+\begin{figure}[H]
+    \centering
+    \resizebox{0.8\textwidth}{!}{\import{img/}{alldet.3gamma.tex}}
+    \caption{Filtered energy spectra of the detectors. The different bin heights is due to different binning width, in turn due to different calibration parameters.}
+    \label{fig:alldet:3gamma}
+\end{figure}
+
+As can be seen from fig. \ref{fig:alldet:3gamma}, all the detectors shows a peak around $340\si{\kilo\electronvolt}$, as expected; their spectra are similar so the symmetry is respected.
+
+Finally, the TAC spectra is computed. During the acquisition no constraint on coincidences with \#4 has been imposed, so most of the recorded events lack of TAC start triggering. Excluding the first and the last bin, containing the not-started and the not-stopped events, a filtered TAC spectrum can be computed.
+
+\begin{figure}[H]
+    \centering
+    \resizebox{0.8\textwidth}{!}{\import{img/}{sum.3gamma.tex}}
+    \caption{TAC for the three photons decay.}
+    \label{fig:tac:3gamma}
+\end{figure}
+
+\todo[inline]{Replace with the correct figure}
+
+This spectra has a too low statistic to permit a meaningful analysis. The three-photons decay it's a very rare event and only with a very long acquisition time plus a powerful filter to discard two-photons noise some results can be obtained.
 
 \section{Rate}
 
-\todo[inline]{- Rate con le freq. di acquisizione opportunamente filtrate - simulazioni e conti spannomatrici per la rinormalizzazione dei rate e nuovi rate.}
+Applying the filter to the two photons and the three photons spectra (using the spectra recorded without the det. \#4 coincidence), the obtained frequency are:
+\begin{equation}
+    f_{2\gamma} = (2709 \pm 1)\si{\hertz} \qquad f_{3\gamma} = (0.259 \pm 0.002)\si{\hertz} 
+\end{equation}
+when the errors are computed assuming a Poissonian distribution. The two acquisition have, before the filtering, a frequency of respectively $(3674\pm1)\si{\hertz}$ and $(2.325\pm0.006)\si{\hertz}$: this means that for both the acquisition the dead time effect on the computed frequencies can be neglected. To estimate the ratio between the two decays, even the geometry of the system must be considered.
+
+A first rough estimation can be done with a simple model: given $r$ the detector radius ($r\sim5\si{\centi\meter}$) and $R$ the distance of the detector from the source ($R\sim18\si{\centi\meter}$), we can roughly estimate that:
+\begin{itemize}
+    \item For the two photons decay:
+    \begin{itemize}
+        \item The first photons is detected only if it enter in one of the two detectors, so with a probability of $\frac[f]{2\cdot \pi r^2}{4\pi R^2}$;
+        \item For momentum conservation law, if the first enter a detector even the second enter the other detector;
+    \end{itemize}
+    \item For the three photons decay:
+    \begin{itemize}
+        \item As in the two photons case, the first photon is detected with a probability of $\frac[f]{3\cdot \pi r^2}{4\pi R^2}$;
+        \item This time even the second photon is free, so the detection probability is $\frac[f]{2\cdot \pi r^2}{4\pi R^2}$;
+        \item The third photon is constrained in the plane of the detectors (in a section of the plane, but let's consider on average half the plane): it's probability it's something like  $\frac[f]{2r}{2\cdot2\pi R}$;
+    \end{itemize}
+\end{itemize}
+The correction factor is therefore about:
+    \begin{equation}
+        c_f \sim \frac{\frac{2\cdot \pi r^2}{4\pi R^2}}{\frac{3\cdot \pi r^2}{4\pi R^2}\cdot\frac{2\cdot \pi r^2}{4\pi R^2}\cdot \frac{2r}{2\cdot2\pi R}} = \frac{8\pi R^3}{3r^3} \sim 390
+    \end{equation}
+which lead to a ratio of about
+\begin{equation}
+    R = \frac{f_{2\gamma}}{f_{3\gamma}} \frac{1}{c_f} \sim 27
+\end{equation}
+
+\subfile{sim}
 
 \section{Conclusions}
+I detector funzionano, il positronio è molto lento a decadere, c'è un fracco di rumore nei 3 fotoni ma la ratio viene del giusto OdG.
 
 \end{document}
