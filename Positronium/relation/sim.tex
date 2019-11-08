@@ -5,48 +5,62 @@
 
 \subsection{Simulations}
 
-In order to compute how many of the three-photons events we detect out of all the three-photons decays we performed a Montecarlo simulation. If we denote as $E$ the total energy of the three photons, we randomly divided the segment $[0,E]$ into three parts $E_1,E_2,E_3$. Since for a photon the modulus of its momentum is its energy and we assume the decay happens at rest, i.e. the momenta should sum to 0, $E_1,E_2,E_3$ must obey the trangular inequality:
-
-\begin{equation}
-  \sum_i E_i \geq 2 \max_i E_i
-\end{equation}
-
+The correction factor is better estimated through a Montecarlo simulation.. If we denote as $E$ the total energy of the three photons, we randomly divided the segment $[0,E]$ into three parts $E_1,E_2,E_3$.
+%Since for a photon the modulus of its momentum is its energy and we assume the decay happens at rest, i.e. the momenta should sum to 0, $E_1,E_2,E_3$ must obey the trangular inequality:
+%
+%
+%\begin{equation}
+%  \sum_i E_i \geq 2 \max_i E_i
+%\end{equation}
+%
 % \begin{gather*}
 %   \theta_{12} = \arccos\frac{E_3^2 - E_1^2 - E_2^2}{2E_1E_2} \\
 %   \theta_{13} = \pi - \frac{\theta_{12}}{2} - \arccos(\left(\frac{E}{E_3} - 1\right)\cos\frac{\theta_{12}}{2}) \\
 %   \theta_{23} = 2\pi - \theta_{12} - \theta_{13}
 % \end{gather*}
 
-So, by discarding invalid triplets, we obtain a uniform distribution on all the possible energy triplets. The resulting distribution of the angles between the photons is non trivial (fig \ref{fig:sim:ang_corr})
-Now we can simulate also the three detectors and trigger on the triple coincidences, obtaing for each detector an energy spectrum like in fig \ref{fig:sim:det}.\\
-Among $10^7$ three-photons decays, 4927 events triggered all the detectors, so we can give an estimate of the correction coefficient to the observed rate:
+Discarding triplets that doesn't allow momentum conservation, we obtain a uniform distribution on all the possible energy triplets. %The resulting distribution of the angles between the photons is non trivial (fig \ref{fig:sim:ang_corr})
+Simulating also the three detectors and triggering on the triple coincidences, the ratio of observed events results:
 
 \begin{equation*}
-  c_{3\gamma} := \frac{\text{\# detected events}}{\text{\# events}} \approx 5*10^{-4}
+  c_{3\gamma} := \frac{\text{detected events}}{\text{total events}} \approx 5*10^{-4}
 \end{equation*}
 
-With a much simpler calculation one can obtain the correction coefficient for the two-photons decay:
+\begin{figure}[H]
+  \centering
+  \resizebox{0.8\textwidth}{!}{\import{img/}{simulated_angular_correlation.tex}}
+  \caption{Correlation of the angles between first and second (x axis) and first and third (y axis) simulated photon.}
+  \label{fig:sim:ang:corr}
+\end{figure}
+
+With a similar calculation the ratio of observed events for the two-photons decay can be obtained:
 \begin{equation*}
   c_{2\gamma} \approx 3.7*10^{-2}
 \end{equation*}
 
-We can now take the ratio between the two in order to find the right coefficient to match three-photons decay and two-photons ones:
-\begin{equation*}
-  c := \frac{c_{3\gamma}}{c_{2\gamma}} = \frac{\text{\# detected 3$\gamma$ events}}{\text{\# detected 2$\gamma$ events}} \frac{\text{\# 2$\gamma$ events}}{\text{\# 3$\gamma$ events}} \approx 1.4*10^{-2}
-\end{equation*}
+Therefore the correction factor result:
+\begin{equation}
+  c_f = \frac{c_{2\gamma}}{c_{3\gamma}} \approx 71
+\end{equation}
 
-This coefficient depends on the distance detector-source that we measured to be roughly \si{18}{cm}. From the simulation we see that $c$ varies less than 10\% for distances between \si{17.5}{cm} and \si{18.5}{cm}
+From the simulation we can also assert that the dependence from $R$ can be neglected in our rough results: $c$ varies less than $10\%$ for a $R$ variation of $3\%$.
 
-\begin{figure}[H]
-    \centering
+This lead to a ratio of about:
+\begin{equation}
+  R = 387
+\end{equation}
+
+
+%\begin{figure}[H]
+%    \centering
     % \subfloat[][]
     % {\def\svgwidth{0.3\textwidth}\import{img/}{simulated_energy_correlation.tex} \label{fig:sim:e_corr}} \quad
-    \subfloat[][]
-    {\resizebox{0.4\textwidth}{!}{\import{img/}{simulated_angular_correlation.tex}} \label{fig:sim:ang_corr}} \quad
-    \subfloat[][]
-    {\resizebox{0.4\textwidth}{!}{\import{img/}{simulated_detector.tex}} \label{fig:sim:det}}
-    \caption{}
-    \label{fig:sim}
-\end{figure}
+%    \subfloat[][]
+%    {\resizebox{0.4\textwidth}{!}{\import{img/}{simulated_angular_correlation.tex}} \label{fig:sim:ang_corr}} \quad
+%    \subfloat[][]
+%    {\resizebox{0.4\textwidth}{!}{\import{img/}{simulated_detector.tex}} \label{fig:sim:det}}
+%    \caption{}
+%    \label{fig:sim}
+%\end{figure}
 
 \end{document}
