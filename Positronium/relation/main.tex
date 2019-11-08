@@ -57,28 +57,32 @@
     \item Measure the lifetime of the Positronium through the time distribution of the decays.
 \end{itemize}
 
+
+
 \section{Experimental setup}
 The experimental setup consist in 4 inorganic scintillators; three coplanar (DET. 1,2,3) and a fourth (DET. 4) perpendicular to the plane.
 
-The first three detector are placed on a circumference in the center of which lies a \ce{^22Na} source, with an activity of around $380\si{kBq}$. These detector are free movable around the circumference; in this session, two different configurations have been explored. To observe the two-photons decay, the detectors \#1 and \#2 have been aligned; instead, to observe the three-photons decay, the three coplanar detectors have been positioned to form an equilateral triangle.
+The first three detectors are placed on a circumference in the center of which lies a \ce{^22Na} source, with an activity of around $380\si{kBq}$. These detectors are free to move around the circumference; in this session, two different configurations have been explored. To observe the two-photons decay, the detectors \#1 and \#2 have been aligned; instead, to observe the three-photons decay, the three coplanar detectors have been positioned at the vertices of an equilateral triangle.
 
 Data are collected from the detectors through a electronic chain: a fan-in-fan-out quad module reply the signal of each detectors and produce four copies of it; then, through a CFD, a trigger signal is produced.  The CFD trigger threshold has been set so that the background noise is discarded, while the interesting signals produce an output. As can be seen from fig. \ref{fig:oscilloscope}, the signals corresponding to the detection of the $511\si{\kilo\electronvolt}$ and $1275\si{\kilo\electronvolt}$ photons are clearly visible.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{img/TEK0001.JPG}
-    \caption{Signal from the detector (yellow), triggering through the CFD (blu). The two different types of peaks, respectively for the $511\si{\kilo\electronvolt}$ and $1275\si{\kilo\electronvolt}$ photons, are clearly visible. Det. \#2.}
+    \caption{Signal from the detector \#2 (yellow), triggering on the CFD (blue). The two different types of peaks, respectively for the $511\si{\kilo\electronvolt} (\sim 50\si{\milli\volt})$ and $1275\si{\kilo\electronvolt} (\sim 125\si{\milli\volt})$ photons}
     \label{fig:oscilloscope}
 \end{figure}
 
-Between the second and the third day, a technical problem required the substitution of the high voltage power supply; due to this, thresholds have been re-set; moreover, in the middle of the day 3 the high voltage power supply burned; it has been replaced and the threshold re-set. While in the first two days all the detectors saw the two peaks around an amplitude of respectively $100$ and $250\si{\milli\volt}$ (and therefore the threshold has been set at about $75\si{\milli\volt}$), in the third day the detectors \#1 and \#3 saw the two peaks around an amplitude of respectively $50$ and $125\si{\milli\volt}$ (and therefore the threshold has been set at about $35\si{\milli\volt}$). For the detector \#4, finally, the threshold has been set to about $200\si{\milli\volt}$, such that only the higher energetic photons produce a trigger.
+Between the second and the third day, a technical problem required the substitution of the high voltage power supply; due to this, all thresholds have been re-set; moreover, in the middle of the day 3 the high voltage power supply burned; it has been replaced and the thresholds had to be re-set once again. While in the first two days all the detectors saw the two peaks around an amplitude of respectively $100$ and $250\si{\milli\volt}$ (and therefore the threshold had been set at about $75\si{\milli\volt}$), in the third day the detectors \#1 and \#3 saw the two peaks around an amplitude of respectively $50$ and $125\si{\milli\volt}$ (and therefore the thresholds have been set at about $35\si{\milli\volt}$). For the detector \#4, finally, the threshold has been set to about $200\si{\milli\volt}$, such that only the higher energetic photons produce a trigger.
 
-The CFD is provided of two sets of microswitches, to adjust delay and switch of the output signal. As has been verified thanks to the oscilloscope, the delay microswitches allow to adjust the time between the triggering of the system and the start of the logic signal, while the switch microswitches can be used to adjust the time length of the logic signal.
+The CFD is provided of two sets of microswitches, to adjust delay and width of the output signal. As verified thanks to the oscilloscope, the delay microswitches allow to adjust the time between the triggering of the system and the start of the logic signal, while the width microswitches can be used to adjust the time length of the logic signal.
+
+
 
 \section{Apparatus calibration}
 Due to the various problem, the apparatus calibration has been done many times; only the first calibration is here reported, having for the other followed the same procedure.
 
-The positions of the two peaks are know with very high precision:
+The positions of the two peaks are known with very high precision:
 \begin{table}[H]
     \centering
     \begin{tabular}{cccccccc}
@@ -93,7 +97,7 @@ The positions of the two peaks are know with very high precision:
     \label{tab:gammavalue}
 \end{table}
 
-Acquiring the energy spectra with the digitizer, the two peaks are clearly visible; computing their centroids the horizontal axis can be linearly rescaled and be calibrated in energy. To fit the peaks, observing the variation of background before and after each peak, a gaussian plus a linear noise is:
+Acquiring the energy spectra with the digitizer, the two peaks are clearly visible; by computing their centroids the horizontal axis can be linearly rescaled to be calibrated in energy. To fit the peaks, observing the variation of background before and after each peak, a gaussian plus a linear noise is used:
 \begin{equation*}
     f(x) = \underbrace{a + bx}_\text{noise} + \epsilon e^{-\frac[f]{(x-\mu)^2}{2\sigma^2}}
 \end{equation*}
@@ -126,6 +130,8 @@ The similarity between the chi-squared value and the number of degree of freedom
     r = \frac{\text{FWHM}_E}{\mu_E} = 2\sqrt{2\ln2} \frac{\sigma_E}{\mu_E} = 2\sqrt{2\ln2} \frac{a \cdot \sigma_c}{a \cdot \mu_c + b} = 2\sqrt{2\ln2} \frac{\sigma_c}{\mu_c + \frac[f]{b}{a}}
 \end{gather*}
 
+\todo{What are $r_1, r_2$}
+
 \begin{table}[H]
     \centering
     \begin{tabular}{cccccccc}
@@ -151,16 +157,16 @@ The resolutions for the peaks are similar between the four detectors.
 \end{figure}
 
 
-Finally, even the TAC must be calibrated. This module return a voltage signal whose amplitude is proportional to the time difference between the triggering of the \emph{start} and the \emph{stop} channels. To calibrate it, the two channels are connected to the same signal; moreover, between the signal and the stop a delay module is inserted. Some measures are made with different delay, obtaining the following histograms (fig. \ref{fig:tachisto}).
+Finally, even the TAC must be calibrated. This module returns a voltage signal whose amplitude is proportional to the time difference between the triggering of the \emph{start} and the \emph{stop} channels. To calibrate it, the two channels are connected to the same signal; moreover, between the signal and the stop a delay module is inserted. Some measures are made with different delay, obtaining the following histograms (fig. \ref{fig:tachisto}).
 
-\begin{figure}[H]
+\begin{figure}
     \centering
     \resizebox{0.8\textwidth}{!}{\import{img/}{tac_calibr.tex}}
     \caption{Measure collected from the TAC, with different delay, in about $1\si{\minute}$ of acquisition in day \#2.}
     \label{fig:tachisto}
 \end{figure}
 
-Neglecting the zero-delay data (too close to the border of the histogram to efficiently find a centroid), centroids for the other peaks have been computed as the average of the registered values, with an associated error corresponding to the standard deviation of the data: a fit or a more precise statistic is meaningless due to the low number of channels in which data are spread on.  Having no a \emph{zero} point, i.e. even if the \emph{start} and the \emph{stop} signal are the same cables and other electronic device can introduce a delay between them, only difference can be meaningful defined. The calibration must be done separately for the $2\gamma$ and the $3\gamma$ detector: the range of the TAC used in the two detection has been chosen different, to optimize the data collecting. A linear fit on the centroids return the following results:
+Neglecting the zero-delay data (too close to the border of the histogram to efficiently find a centroid), centroids for the other peaks have been computed as the average of the registered values, with an associated error corresponding to the standard deviation of the data: a fit or a more precise statistic is meaningless due to the low number of channels in which data are spread on. Having no \emph{zero} point, i.e. even if the \emph{start} and the \emph{stop} signal are the same, cables and other electronic device can introduce a delay between them, only difference can be meaningful defined. The calibration must be done separately for the $2\gamma$ and the $3\gamma$ detector, because the range of the TAC used in the two detection has been chosen different, to optimize the data collecting. A linear fit on the centroids returns the following results:
 
 \begin{gather*}
     \Delta\text{channel}  = m \cdot \Delta t \\
@@ -168,7 +174,7 @@ Neglecting the zero-delay data (too close to the border of the histogram to effi
     m_{3\gamma} = ( 87.4 \pm 0.4 )\si{\per\nano\second}
 \end{gather*}
 
-\begin{figure}[H]
+\begin{figure}
     \centering
     \resizebox{0.8\textwidth}{!}{\import{img/}{tac_calibr_fit.tex}}
     \caption{TAC calibration fit, for the $2\gamma$ setup.}
@@ -178,7 +184,7 @@ Neglecting the zero-delay data (too close to the border of the histogram to effi
 
 
 \section{Digitizer dead time}
-The digitizer has a dead time: when it is triggered, it takes some time to scan over all channel and register data. To estimate the dead time, during the three experimental days multiple test have been done, measuring the frequency of different signals with both the digitizer (counting the number of registered events over the acquisition time) and with a scaler module, which has a negligible dead time. The result founded are summarized in table \ref{tab:rate}.
+The digitizer has a dead time, i.e. when it is triggered, it takes some time to scan over all channel and register data. To estimate the dead time, during the three experimental days multiple test have been done, measuring the frequency of different signals with both the digitizer (counting the number of registered events over the acquisition time) and a scaler module, which has a negligible dead time. The result found are summarized in table \ref{tab:rate}.
 
 \begin{table}[H]
     \centering
@@ -200,18 +206,18 @@ The digitizer has a dead time: when it is triggered, it takes some time to scan 
     \label{tab:rate}
 \end{table}
 
-The PDF of the time between two consecutive decays follow an exponential distribution:
+The PDF of the time between two consecutive decays follows an exponential distribution:
 \begin{equation*}
     p(t) = \nu e^{-\nu t} \qquad \rightarrow \qquad <t> = \int_0^{\infty} tp(t) \dd{t} = \frac{1}{\nu}
 \end{equation*}
-where $\nu$ is the event frequency. If the system has a dead time, two event are discerned only if them differs of a time larger than the dead time $\tau$; the measured frequency is therefore:
+where $\nu$ is the event frequency. If the system has a dead time $\tau$, two event are both picked only if they differ of a time larger than $\tau$; the measured frequency is therefore:
 \begin{equation*}
     \frac{1}{\nu^\star} = \frac{\int_{\tau}^{\infty} t p(t) \dd{t}}{\int_{\tau}^{\infty} p(t) \dd{t}} =\frac{\nu\tau + 1}{\nu}
 \end{equation*}
 
 Plotting the data in table \ref{tab:rate}, we obtain the plot in fig. \ref{fig:deadtime}
 
-\begin{figure}[H]
+\begin{figure}
     \centering
     \subfloat[][Correlation between real and measured rate, and trend.]
     {\resizebox{0.7\textwidth}{!}{\import{img/}{dead_time.tex}} \label{fig:deadtime:fit}} \quad
@@ -221,25 +227,30 @@ Plotting the data in table \ref{tab:rate}, we obtain the plot in fig. \ref{fig:d
     \label{fig:deadtime}
 \end{figure}
 
-As is clear from the figures, the dead time isn't constant, but is the result of a stochastic process and can vary at different ratio. However, a coarse trend can be estimated (fit in fig. \ref{fig:deadtime:fit}) computing the order of magnitude of dead time:
-\begin{equation}
+As can be seen from the graphs in fig \ref{fig:deadtime}, the dead time isn't constant, but is the result of a stochastic process and can vary at different rates. However, a coarse trend can be estimated (fit in fig. \ref{fig:deadtime:fit}) computing the order of magnitude of dead time:
+\begin{equation*}
     \tau \sim 6\cdot10^{-5} \si{\second}
-\end{equation}
+\end{equation*}
+
+
+
 \section{Two photons events}
 
 \begin{figure}[H]
     \centering
     \subfloat[][Placement of the detectors]
-    {\def\svgwidth{0.4\textwidth}\import{img/}{rivel180.pdf_tex} \label{fig:rivel180:placement}} \quad
+    % {\def\svgwidth{0.4\textwidth}\import{img/}{rivel180.pdf_tex} \label{fig:rivel180:placement}} \quad
+    {\resizebox{0.4\textwidth}{!}{\import{img/}{rivel180.pdf_tex}} \label{fig:rivel180:placement}} \quad
     \subfloat[][Electronic scheme]
-    {\def\svgwidth{0.4\textwidth}\import{img/}{electro180.pdf_tex}}
+    % {\def\svgwidth{0.4\textwidth}\import{img/}{electro180.pdf_tex}}
+    {\resizebox{0.4\textwidth}{!}{\import{img/}{electro180.pdf_tex}}}
     \caption{Two photons relevation.}
     \label{fig:rivel180}
 \end{figure}
 
-To detect the two-photons events, the detectors have been placed as in fig. \ref{fig:rivel180:placement}. The electronics have been set to be triggered with the coincidente between det. \#1, \#2 and \#4. However, we expect the detector \#4 to observe the photons shortly before the other two detectors, because of the lifetime of the positronium. To prevent \emph{false negative}, the width of the CFD of the detector \#4 has been set to an high value to produce a long logic signal.
+To detect the two-photons events, the detectors have been placed as in fig. \ref{fig:rivel180:placement}. The electronics have been set to be triggered with the coincidente between det. \#1, \#2 and \#4. However, we expect the detector \#4 to observe the photons shortly before the other two detectors, because of the lifetime of the positronium. To prevent \emph{false negative}, the width of the CFD of the detector \#4 has been set to a high value to produce a long logic signal.
 
-Moreover, the system has been set to measure the time difference between the signal from det. \#1 and \#2 and from det. \#4.
+Moreover, the system has been set to measure via the TAC the time difference between the signal from det. \#1\&\#2 and from det. \#4.
 
 After the acquisition, a data filtering has been implemented; the events whose sum of the energies of detector \#1 and \#2 differs from $1022\si{\kilo\electronvolt}$ for more than 10\% (i.e. about two time the resolution) are discared. The spectra with and without the filter are showed in fig. \ref{fig:det1:2gamma} and the following.
 
@@ -264,7 +275,7 @@ After the acquisition, a data filtering has been implemented; the events whose s
     \label{fig:det4:2gamma}
 \end{figure}
 
-Acquiring the time with TAC, what we obtain is the convolution of the decay law with the statistical error gaussian. At the end, what we see is a peaks centered in an arbitrary value (determined by the electronic configuration of the apparatus, the cable used and the delay introduced) which on the left shows a gaussian trend, while on the right the gaussian contribute is negligible and the exponential trend is visible. Fitting the right wing with an exponential is possible to find the parameters of the decay law, in particular the mean lifetime.
+Acquiring the time with TAC, what we obtain is the convolution of the decay law with the statistical gaussian error. At the end, what we see is a peaks centered in an arbitrary value (determined by the electronic configuration of the apparatus, the cable used and the delay introduced) which on its left tail shows a gaussian trend, while on the right the gaussian contribute is negligible and the exponential trend is visible. Fitting the right tail with an exponential is possible to find the parameters of the decay law, in particular the mean lifetime.
 
 \begin{figure}[H]
     \centering
@@ -279,14 +290,20 @@ Fitting the right wing of the peaks, an estimation of the mean life can be found
     \tau = ( 0.91 \pm 0.01) \si{\nano\second}
 \end{equation}
 
+\todo{Is it coherent with the theory?}
+
+
+
 \section{Three photons events}
 
 \begin{figure}[H]
     \centering
     \subfloat[][Placement of the detectors]
-    {\def\svgwidth{0.4\textwidth}\import{img/}{rivel120.pdf_tex} \label{fig:rivel120:placement}} \quad
+    % {\def\svgwidth{0.4\textwidth}\import{img/}{rivel120.pdf_tex} \label{fig:rivel120:placement}} \quad
+    {\resizebox{0.4\textwidth}{!}{\import{img/}{rivel120.pdf_tex}} \label{fig:rivel120:placement}} \quad
     \subfloat[][Electronic scheme]
-    {\def\svgwidth{0.4\textwidth}\import{img/}{electro120.pdf_tex}}
+    %{\def\svgwidth{0.4\textwidth}\import{img/}{electro120.pdf_tex}}
+    {\resizebox{0.4\textwidth}{!}{\import{img/}{electro120.pdf_tex}}}
     \caption{Three photons relevation.}
     \label{fig:rivel120}
 \end{figure}
@@ -300,7 +317,7 @@ To detect the three-photons events, the detectors have been placed as in fig. \r
     \label{fig:sum:3gamma}
 \end{figure}
 
-Observing the fig. \ref{fig:sum:3gamma} can be easily individuated the peak we're interested on, at $1022\si{\kilo\electronvolt}$. All around this peak a lot of noise is present, given mainly by the way-more-probable 2-photons events. To select only the event's we're interested on, a filter is applied: each the event that violate one or more of the following conditions is discarded.
+Observing fig. \ref{fig:sum:3gamma} we see the peak we're interested in, at $1022\si{\kilo\electronvolt}$. All around this peak a lot of noise is present, given mainly by the way-more-probable 2-photons events. To select only the events we're interested in, a filter is applied: each event that violate one or more of the following conditions is discarded.
 \begin{itemize}
     \item The sum of the energies from the three detectors must be $1022\si{\kilo\electronvolt}$, with a $10\%$ tolerance (about $3\sigma$);
     \item Each detector must detect an energy around $340\si{\kilo\electronvolt}$, with a $10\%$ tolerance.
@@ -309,13 +326,13 @@ Observing the fig. \ref{fig:sum:3gamma} can be easily individuated the peak we'r
 \begin{figure}[H]
     \centering
     \resizebox{0.8\textwidth}{!}{\import{img/}{alldet.3gamma.tex}}
-    \caption{Filtered energy spectra of the detectors. The different bin heights is due to different binning width, in turn due to different calibration parameters.}
+    \caption{Filtered energy spectra of the detectors. The different bin heights is due to different binning width, itself due to different calibration parameters.}
     \label{fig:alldet:3gamma}
 \end{figure}
 
-As can be seen from fig. \ref{fig:alldet:3gamma}, all the detectors shows a peak around $340\si{\kilo\electronvolt}$, as expected; their spectra are similar so the symmetry is respected.
+As can be seen from fig. \ref{fig:alldet:3gamma}, all the detectors show a peak around $340\si{\kilo\electronvolt}$, as expected; their spectra are similar so the symmetry is respected.
 
-Finally, the TAC spectra is computed. During the acquisition no constraint on coincidences with \#4 has been imposed, so most of the recorded events lack of TAC start triggering. Excluding the first and the last bin, containing the not-started and the not-stopped events, a filtered TAC spectrum can be computed.
+Finally, the TAC spectrum is computed. During the acquisition no constraint on coincidences with \#4 has been imposed, so most of the recorded events lack of TAC start triggering. Excluding the first and the last bin, containing the not-started and the not-stopped events, a filtered TAC spectrum can be computed.
 
 \begin{figure}[H]
     \centering
@@ -325,33 +342,35 @@ Finally, the TAC spectra is computed. During the acquisition no constraint on co
 \end{figure}
 
 
-This spectra has a too low statistic to permit a meaningful analysis. The three-photons decay it's a very rare event and only with a very long acquisition time plus a powerful filter to discard two-photons noise some results can be obtained.
+This spectrum has a too low statistic to allow any meaningful analysis. The three-photons decay it's a very rare event and only with a very long acquisition time plus a powerful filter to discard two-photons noise some results can be obtained.
+
+
 
 \section{Rate}
 
 Applying the filter to the two photons and the three photons spectra (using the spectra recorded without the det. \#4 coincidence), the obtained frequency are:
 \begin{equation}
-    f_{2\gamma} = (2709 \pm 1)\si{\hertz} \qquad f_{3\gamma} = (0.259 \pm 0.002)\si{\hertz} 
+    f_{2\gamma} = (2709 \pm 1)\si{\hertz} \qquad f_{3\gamma} = (0.259 \pm 0.002)\si{\hertz}
 \end{equation}
-when the errors are computed assuming a Poissonian distribution. The two acquisition have, before the filtering, a frequency of respectively $(3674\pm1)\si{\hertz}$ and $(2.325\pm0.006)\si{\hertz}$: this means that for both the acquisition the dead time effect on the computed frequencies can be neglected. To estimate the ratio between the two decays, even the geometry of the system must be considered.
+where the errors are computed assuming a Poissonian distribution. The two acquisition have, before the filtering, a frequency of respectively $(3674\pm1)\si{\hertz}$ and $(2.325\pm0.006)\si{\hertz}$: this means that for both the acquisition the dead time effect on the computed frequencies can be neglected. To estimate the ratio between the two decays, even the geometry of the system must be considered.
 
-A first rough estimation can be done with a simple model: given $r$ the detector radius ($r\sim5\si{\centi\meter}$) and $R$ the distance of the detector from the source ($R\sim18\si{\centi\meter}$), we can roughly estimate that:
+A first rough estimation can be done with a simple model: given $r$ the detector radius ($r\sim5\si{\centi\meter}$) and $d$ the distance of the detector from the source ($d\sim18\si{\centi\meter}$), we can roughly estimate that:
 \begin{itemize}
     \item For the two photons decay:
     \begin{itemize}
-        \item The first photons is detected only if it enter in one of the two detectors, so with a probability of $\frac[f]{2\cdot \pi r^2}{4\pi R^2}$;
-        \item For momentum conservation law, if the first enter a detector even the second enter the other detector;
+        \item The first photons is detected only if it enters in one of the two detectors, so with a probability of $\frac[f]{2\cdot \pi r^2}{4\pi d^2}$;
+        \item For momentum conservation law, if the first enters a detector, the second must enter the other one;
     \end{itemize}
     \item For the three photons decay:
     \begin{itemize}
-        \item As in the two photons case, the first photon is detected with a probability of $\frac[f]{3\cdot \pi r^2}{4\pi R^2}$;
-        \item This time even the second photon is free, so the detection probability is $\frac[f]{2\cdot \pi r^2}{4\pi R^2}$;
-        \item The third photon is constrained in the plane of the detectors (in a section of the plane, but let's consider on average half the plane): it's probability it's something like  $\frac[f]{2r}{2\cdot2\pi R}$;
+        \item As in the two photons case, the first photon is detected with a probability of $\frac[f]{3\cdot \pi r^2}{4\pi d^2}$;
+        \item This time even the second photon is free, so the detection probability is $\frac[f]{2\cdot \pi r^2}{4\pi d^2}$;
+        \item The third photon is constrained in the plane of the detectors (in a section of the plane, but let's consider on average half the plane): its probability it's something like  $\frac[f]{2r}{2\cdot2\pi d}$;
     \end{itemize}
 \end{itemize}
 The correction factor is therefore about:
     \begin{equation}
-        c_f \sim \frac{\frac{2\cdot \pi r^2}{4\pi R^2}}{\frac{3\cdot \pi r^2}{4\pi R^2}\cdot\frac{2\cdot \pi r^2}{4\pi R^2}\cdot \frac{2r}{2\cdot2\pi R}} = \frac{8\pi R^3}{3r^3} \sim 390
+        c_f \sim \frac{\frac{2\cdot \pi r^2}{4\pi d^2}}{\frac{3\cdot \pi r^2}{4\pi d^2}\cdot\frac{2\cdot \pi r^2}{4\pi d^2}\cdot \frac{2r}{2\cdot2\pi d}} = \frac{8\pi d^3}{3r^3} \sim 390
     \end{equation}
 which lead to a ratio of about
 \begin{equation}
@@ -361,6 +380,13 @@ which lead to a ratio of about
 \subfile{sim}
 
 \section{Conclusions}
-I detector funzionano, il positronio è molto lento a decadere, c'è un fracco di rumore nei 3 fotoni ma la ratio viene del giusto OdG.
+\todo{This section is not very serious}
+
+We succeeded in computing the ratio between the ortho and para positronium obtaining a result that matches what we expected from the theory ($R_{th}=373$)
+We instead failed in computing the lifetime of the two possible states of the positronium:
+for the parapositronium the lifetime was too small to be observed with our detector, and the $\tau$ we obtained by fitting the right tail of the TAC peak is actually due to the electronics.
+Instead for the orthopositronium we didn't even had a right tail to fit :(
+
+And we were also pretty unlucky with the HV module
 
 \end{document}
