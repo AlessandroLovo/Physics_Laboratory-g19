@@ -21,7 +21,7 @@ class Histograms{
 		TFile* infile = new TFile(name_file);
 		TTree* intree = (TTree*)infile->Get("acq_tree_0");
 
-		for(int chan=0; chan<4; chan++){
+		for(int chan=0; chan< 4; chan++){
 
 			alpha[chan]=beta[chan]=-1.0;
 
@@ -37,6 +37,87 @@ class Histograms{
 		}
 	}
 
+	TH1F* GetSumHistogram(int nchan) {
+		
+		if(nchan < 1 || nchan > 3){
+			cout << "Invalid num_detect parameter" << endl;
+			return NULL;
+		}
+		for(int i = 0; i < nchan; i++){
+			if(alpha[i] == -1){
+				cout << "First calibrate histograms" << endl;
+				return NULL;
+			}
+		}
+
+		TFile* infile = new TFile(original_data_file);
+		TTree* intree = (TTree*)infile->Get("acq_tree_0");
+		slimport_data_t indata[4];
+		TBranch *inbranch[4];
+		int curr_index[4];
+
+		for(int chan=0; chan<4; chan++){
+			inbranch[chan] = (TBranch*)intree->GetBranch(Form("acq_ch%d",chan));
+			inbranch[chan]->SetAddress(&indata[chan].timetag);
+			curr_index[chan]=0;		
+		}
+
+		TH1F* histsum  = new TH1F("HistSum","HistSum",10000,0,5000);
+		
+		int maxTimeChan=0;
+		//double prog=0;
+		//double step = inbranch[0]->GetEntries()/100;
+
+		while (curr_index[0]<inbranch[0]->GetEntries() && curr_index[1]<inbranch[1]->GetEntries() && curr_index[2]<inbranch[2]->GetEntries() && curr_index[3]<inbranch[3]->GetEntries()){
+
+			//if(curr_index[0]>prog+step){
+			//	prog+=step;
+			//	cout << (int)prog/step << " % \t->\t " << (int)prog << "/" << (int)step*100 << "\n";
+			//}
+			
+			for(int c=0;c<4;c++)
+				inbranch[c]->GetEntry(curr_index[c]);
+
+			bool found_coinc=true;
+
+			for(int c=1;c<4;c++)
+				found_coinc &= (indata[0].timetag == indata[c].timetag);
+
+			for(int c=1;c<4;c++){
+				if(indata[0].timetag < indata[c].timetag){
+					curr_index[0]++;
+					break;
+				}
+				if(indata[0].timetag > indata[c].timetag)
+					curr_index[c]++;
+			}
+			
+			if(!found_coinc)
+				continue;
+
+			if(indata[3].qlong>maxTimeChan)
+				maxTimeChan = indata[3].qlong;
+
+			double e_sum = 0.0;
+
+			for(int c = 0; c < nchan; c++){
+				//if(GetChannelToEnergyValue(c, indata[c].qlong)<100 || GetChannelToEnergyValue(c, indata[c].qlong)>430)
+				//	e_sum=-10000000;
+				e_sum += GetChannelToEnergyValue(c, indata[c].qlong);
+			}
+
+			histsum->Fill(e_sum);
+
+			for(int c=0; c<4; c++)
+				curr_index[c]++;
+
+		}
+
+		cout << "Max entry for channel 3 (TAC): " << maxTimeChan << endl;
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		return histsum;
+	}
+
 	//Get Histogram of channel with index "chan"
 	TH1F* GetHistogram(int chan){
 		if (chan < 0 || chan > 3)
@@ -50,13 +131,20 @@ class Histograms{
 	}
 
 	//Calibrate histogram through a relation E (or t) = alpha * channel + beta
-	void CalibrateHisto(int chan, double a, double b) {
-		if (chan < 0 || chan > 3 || a < 0)
+	void CalibrateHisto(int chan = -1, double a = 0, double b = 0) {
+		if (chan == -1) {
+			CalibrateHisto(0);
+			CalibrateHisto(1);
+			CalibrateHisto(2);
+		}
+		if (chan < 0 || chan > 3)
 			return;
+		if (a == 0 ) { a = alpha[chan]; b = beta[chan]; }
 		alpha[chan]=a;
 		beta[chan]=b;
 		TAxis *axis = hist[chan]->GetXaxis();
 		axis->SetLimits(axis->GetXmin()*a+b, axis->GetXmax()*a+b);
+		//hist[chan]->Scale(1/a); //to ensure keeping the proportions
 	}
 
 	void CalibrationPeaksChannels(int chan, double ch1275, double ch511){
@@ -101,7 +189,7 @@ class Histograms{
 
 	//Filter the spectra taking entries with sum of energy of first "num_dect" detectors equal to "energysum"
 	//Accept a window cenetered in energy_sum equal to "window" 
-	void SpectraFiltering(double energy_sum, double window, int num_detect){
+	void SpectraFiltering(double energy_sum, double window, int num_detect, double lowbound, double upbound){
 		
 		if(num_detect < 1 || num_detect > 3){
 			cout << "Invalid num_detect parameter" << endl;
@@ -168,7 +256,7 @@ class Histograms{
 			double e_sum = 0.0;
 
 			for(int c = 0; c < num_detect; c++){
-				if(GetChannelToEnergyValue(c, indata[c].qlong)<100 || GetChannelToEnergyValue(c, indata[c].qlong)>430)
+				if(GetChannelToEnergyValue(c, indata[c].qlong)<lowbound || GetChannelToEnergyValue(c, indata[c].qlong)>upbound)
 					e_sum=-10000000;
 				e_sum += GetChannelToEnergyValue(c, indata[c].qlong);
 			}

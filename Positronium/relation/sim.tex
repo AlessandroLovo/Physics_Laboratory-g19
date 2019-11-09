@@ -1,0 +1,66 @@
+\documentclass[main.tex]{subfiles}
+
+
+\begin{document}
+
+\subsection{Simulations}
+
+The correction factor is better estimated through a Montecarlo simulation. If we denote as $E$ the total energy of the three photons, we randomly divided the segment $[0,E]$ into three parts $E_1,E_2,E_3$.
+%Since for a photon the modulus of its momentum is its energy and we assume the decay happens at rest, i.e. the momenta should sum to 0, $E_1,E_2,E_3$ must obey the trangular inequality:
+%
+%
+%\begin{equation}
+%  \sum_i E_i \geq 2 \max_i E_i
+%\end{equation}
+%
+% \begin{gather*}
+%   \theta_{12} = \arccos\frac{E_3^2 - E_1^2 - E_2^2}{2E_1E_2} \\
+%   \theta_{13} = \pi - \frac{\theta_{12}}{2} - \arccos(\left(\frac{E}{E_3} - 1\right)\cos\frac{\theta_{12}}{2}) \\
+%   \theta_{23} = 2\pi - \theta_{12} - \theta_{13}
+% \end{gather*}
+
+Discarding triplets that doesn't allow momentum conservation, we obtain a uniform distribution on all the possible energy triplets. %The resulting distribution of the angles between the photons is non trivial (fig \ref{fig:sim:ang_corr})
+Simulating also the three detectors and triggering on the triple coincidences, the ratio of observed events results:
+
+\begin{equation*}
+  c_{3\gamma} := \frac{\text{detected events}}{\text{total events}} \approx 5*10^{-4}
+\end{equation*}
+
+\begin{figure}[H]
+  \centering
+  \resizebox{0.8\textwidth}{!}{\import{img/}{simulated_angular_correlation.tex}}
+  \caption{Correlation of the angles between first and second (x axis) and first and third (y axis) simulated photon.}
+  \label{fig:sim:ang:corr}
+\end{figure}
+
+With a similar calculation the ratio of observed events for the two-photons decay can be obtained:
+\begin{equation*}
+  c_{2\gamma} \approx 3.7*10^{-2}
+\end{equation*}
+
+Therefore the correction factor results:
+\begin{equation}
+  c_f = \frac{c_{2\gamma}}{c_{3\gamma}} \approx 71
+\end{equation}
+
+From the simulation we can also assert that the dependence on $d$ can be neglected in our rough results: $c_f$ varies less than $10\%$ for a $d$ variation of $3\%$.
+
+This lead to a ratio of about:
+\begin{equation}
+  R = 387
+\end{equation}
+
+
+%\begin{figure}[H]
+%    \centering
+    % \subfloat[][]
+    % {\def\svgwidth{0.3\textwidth}\import{img/}{simulated_energy_correlation.tex} \label{fig:sim:e_corr}} \quad
+%    \subfloat[][]
+%    {\resizebox{0.4\textwidth}{!}{\import{img/}{simulated_angular_correlation.tex}} \label{fig:sim:ang_corr}} \quad
+%    \subfloat[][]
+%    {\resizebox{0.4\textwidth}{!}{\import{img/}{simulated_detector.tex}} \label{fig:sim:det}}
+%    \caption{}
+%    \label{fig:sim}
+%\end{figure}
+
+\end{document}
