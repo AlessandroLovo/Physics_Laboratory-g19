@@ -89,9 +89,9 @@ The positions of the two peaks are known with very high precision:
         \toprule
         \ce{^22Na} Gamma radiations \\
         \midrule
-        $511.0\si{\kilo\electronvolt}$ \\
-        $1274.537\si{\kilo\electronvolt}$ \\
-        \bottomrule
+        $511.0\,\si{\kilo\electronvolt}$ \\
+        $1274.537\,\si{\kilo\electronvolt}$ \\
+        \bottomrule\vspace{0.01cm}
     \end{tabular}
     \caption{Gamma radiation for \ce{^22Na} from NuDat, \url{https://www.nndc.bnl.gov/nudat2/decaysearchdirect.jsp?nuc=22NA\&unc=nds}}
     \label{tab:gammavalue}
@@ -99,7 +99,7 @@ The positions of the two peaks are known with very high precision:
 
 Acquiring the energy spectra with the digitizer, the two peaks are clearly visible; by computing their centroids the horizontal axis can be linearly rescaled to be calibrated in energy. To fit the peaks, observing the variation of background before and after each peak, a gaussian plus a linear noise is used:
 \begin{equation*}
-    f(x) = \underbrace{a + bx}_\text{noise} + \epsilon e^{-\frac[f]{(x-\mu)^2}{2\sigma^2}}
+    f(x) = \underbrace{a + bx}_\text{noise} + \epsilon\, e^{-\frac[f]{(x-\mu)^2}{2\sigma^2}}
 \end{equation*}
 
 The following result are found:
@@ -127,10 +127,10 @@ The similarity between the chi-squared value and the number of degree of freedom
 
 \begin{gather*}
     E = a \cdot \text{channel} + b \\
-    r = \frac{\text{FWHM}_E}{\mu_E} = 2\sqrt{2\ln2} \frac{\sigma_E}{\mu_E} = 2\sqrt{2\ln2} \frac{a \cdot \sigma_c}{a \cdot \mu_c + b} = 2\sqrt{2\ln2} \frac{\sigma_c}{\mu_c + \frac[f]{b}{a}}
+    r = \frac{\text{FWHM}_E}{\mu_E} = 2\sqrt{2\ln2} \,\frac{\sigma_E}{\mu_E} = 2\sqrt{2\ln2}\, \frac{a \cdot \sigma_c}{a \cdot \mu_c + b} = 2\sqrt{2\ln2} \,\frac{\sigma_c}{\mu_c + \frac[f]{b}{a}}
 \end{gather*}
 
-\todo{What are $r_1, r_2$}
+\todo{What are $r_1, r_2$ -> Tried to explain, please verify I'm right, maybe I swap energies.}
 
 \begin{table}[H]
     \centering
@@ -144,7 +144,7 @@ The similarity between the chi-squared value and the number of degree of freedom
         \#4 & $0.16183\pm0.00004$ & $-23.5\pm0.2$ & $8.38\pm0.05$ & $6.12\pm0.09$ \\
         \bottomrule
     \end{tabular}
-    \caption{Calibration result}
+    \caption{Calibration result, $r_1$ and $r_2$ are the resolutions of the $511[\si{\kilo\electronvolt}]$ and $1275[\si{\kilo\electronvolt}]$ peaks respectively.}
     \label{tab:calib2}
 \end{table}
 The resolutions for the peaks are similar between the four detectors.
@@ -174,7 +174,7 @@ Neglecting the zero-delay data (too close to the border of the histogram to effi
     m_{3\gamma} = ( 87.4 \pm 0.4 )\si{\per\nano\second}
 \end{gather*}
 
-\begin{figure}
+\begin{figure}[H]
     \centering
     \resizebox{0.8\textwidth}{!}{\import{img/}{tac_calibr_fit.tex}}
     \caption{TAC calibration fit, for the $2\gamma$ setup.}
@@ -188,18 +188,18 @@ The digitizer has a dead time, i.e. when it is triggered, it takes some time to 
 
 \begin{table}[H]
     \centering
-    \begin{tabular}{cccccccc}
+    \begin{tabular}{llcccccc}
         \toprule
-        Event & Real rate [\si{Hz}] (scaler)& Measured rate [\si{Hz}] (digit.) \\
+        Event && Real rate [\si{Hz}] (scaler)& Measured rate [\si{Hz}] (digit.) \\
         \midrule
-        Det. \#1 day 1& $9211 \pm 80$ & $6543 \pm 10$ \\
-        Det. \#2 day 1& $12248 \pm 80$ & $5997 \pm 10$\\
-        Det. \#1\&\#2 day 2& $3687 \pm 10$ & $3683 \pm 1$ \\
-        Det. \#1\&\#2\&\#4 day 2& $44 \pm 1$ & $43.9 \pm 0.2$ \\
-        Det. \#1 day 3& $12610 \pm 70$ & $7084 \pm 11$ \\
-        Det. \#2 day 3& $12460 \pm 40$ & $6001 \pm 10$ \\
+        Det. \#1 &day 1& $9211 \pm 80$ & $6543 \pm 10$ \\
+        Det. \#2 &day 1& $12248 \pm 80$ & $5997 \pm 10$\\
+        Det. \#1\&\#2 &day 2& $3687 \pm 10$ & $3683 \pm 1$ \\
+        Det. \#1\&\#2\&\#4 &day 2& $44 \pm 1$ & $43.9 \pm 0.2$ \\
+        Det. \#1 &day 3& $12610 \pm 70$ & $7084 \pm 11$ \\
+        Det. \#2 &day 3& $12460 \pm 40$ & $6001 \pm 10$ \\
         %Coincidences det. \#1-\#2 & $4740 \pm 20$ & $$ \\
-        Det. \#1\&\#2\&\#4 day 3& $60 \pm 3$ & $59.8 \pm 0.1$ \\
+        Det. \#1\&\#2\&\#4 &day 3& $60 \pm 3$ & $59.8 \pm 0.1$ \\
         \bottomrule
     \end{tabular}
     \caption{Event rate}
@@ -208,11 +208,11 @@ The digitizer has a dead time, i.e. when it is triggered, it takes some time to 
 
 The PDF of the time between two consecutive decays follows an exponential distribution:
 \begin{equation*}
-    p(t) = \nu e^{-\nu t} \qquad \rightarrow \qquad <t> = \int_0^{\infty} tp(t) \dd{t} = \frac{1}{\nu}
+    p(t) = \nu e^{-\nu \,t} \qquad \rightarrow \qquad <t> = \int_0^{\infty} t\,p(t) \dd{t} = \frac{1}{\nu}
 \end{equation*}
 where $\nu$ is the event frequency. If the system has a dead time $\tau$, two event are both picked only if they differ of a time larger than $\tau$; the measured frequency is therefore:
 \begin{equation*}
-    \frac{1}{\nu^\star} = \frac{\int_{\tau}^{\infty} t p(t) \dd{t}}{\int_{\tau}^{\infty} p(t) \dd{t}} =\frac{\nu\tau + 1}{\nu}
+    \frac{1}{\nu^\star} = \frac{\int_{\tau}^{\infty} t \,p(t) \dd{t}}{\int_{\tau}^{\infty} p(t) \dd{t}} =\frac{\nu\,\tau + 1}{\nu}
 \end{equation*}
 
 Plotting the data in table \ref{tab:rate}, we obtain the plot in fig. \ref{fig:deadtime}
@@ -253,6 +253,8 @@ To detect the two-photons events, the detectors have been placed as in fig. \ref
 Moreover, the system has been set to measure via the TAC the time difference between the signal from det. \#1\&\#2 and from det. \#4.
 
 After the acquisition, a data filtering has been implemented; the events whose sum of the energies of detector \#1 and \#2 differs from $1022\si{\kilo\electronvolt}$ for more than 10\% (i.e. about two time the resolution) are discared. The spectra with and without the filter are showed in fig. \ref{fig:det1:2gamma} and the following.
+
+\todo{See fig 9. Should we filter also 1275keV peak to avoid events generated without the emission of the gamma?}
 
 \begin{figure}[H]
     \centering
@@ -343,7 +345,7 @@ Finally, the TAC spectrum is computed. During the acquisition no constraint on c
 
 
 This spectrum has a too low statistic to allow any meaningful analysis. The three-photons decay it's a very rare event and only with a very long acquisition time plus a powerful filter to discard two-photons noise some results can be obtained.
-
+\todo{Maybe write explicitly that we didn't obtain useful data although our acquisition was 23 hours long.}
 
 
 \section{Rate}
@@ -358,23 +360,23 @@ A first rough estimation can be done with a simple model: given $r$ the detector
 \begin{itemize}
     \item For the two photons decay:
     \begin{itemize}
-        \item The first photons is detected only if it enters in one of the two detectors, so with a probability of $\frac[f]{2\cdot \pi r^2}{4\pi d^2}$;
+        \item The first photons is detected only if it enters in one of the two detectors, so with a probability of $\frac[f]{2\pi r^2}{4\pi d^2}$;
         \item For momentum conservation law, if the first enters a detector, the second must enter the other one;
     \end{itemize}
     \item For the three photons decay:
     \begin{itemize}
-        \item As in the two photons case, the first photon is detected with a probability of $\frac[f]{3\cdot \pi r^2}{4\pi d^2}$;
-        \item This time even the second photon is free, so the detection probability is $\frac[f]{2\cdot \pi r^2}{4\pi d^2}$;
+        \item As in the two photons case, the first photon is detected with a probability of $\frac[f]{3 \pi r^2}{4\pi d^2}$;
+        \item This time even the second photon is free, so the detection probability is $\frac[f]{2 \pi r^2}{4\pi d^2}$;
         \item The third photon is constrained in the plane of the detectors (in a section of the plane, but let's consider on average half the plane): its probability it's something like  $\frac[f]{2r}{2\cdot2\pi d}$;
     \end{itemize}
 \end{itemize}
 The correction factor is therefore about:
     \begin{equation}
-        c_f \sim \frac{\frac{2\cdot \pi r^2}{4\pi d^2}}{\frac{3\cdot \pi r^2}{4\pi d^2}\cdot\frac{2\cdot \pi r^2}{4\pi d^2}\cdot \frac{2r}{2\cdot2\pi d}} = \frac{8\pi d^3}{3r^3} \sim 390
+        c_f \sim \frac{\frac{2 \pi r^2}{4\pi d^2}}{\frac{3 \pi r^2}{4\pi d^2}\cdot\frac{2 \pi r^2}{4\pi d^2}\cdot \frac{2r}{2\cdot2\pi d}} = \frac{8\pi d^3}{3r^3} \sim 390
     \end{equation}
 which lead to a ratio of about
 \begin{equation}
-    R = \frac{f_{2\gamma}}{f_{3\gamma}} \frac{1}{c_f} \sim 27
+    R = \frac{f_{2\gamma}}{f_{3\gamma}} \,\frac{1}{c_f} \sim 27
 \end{equation}
 
 \subfile{sim}
@@ -382,9 +384,9 @@ which lead to a ratio of about
 \section{Conclusions}
 \todo{This section is not very serious}
 
-We succeeded in computing the ratio between the ortho and para positronium obtaining a result that matches what we expected from the theory ($R_{th}=373$)
+We succeeded in computing the ratio between the ortho and para-positronium obtaining a result that matches what we expected from the theory ($R_{th}=373$).
 We instead failed in computing the lifetime of the two possible states of the positronium:
-for the parapositronium the lifetime was too small to be observed with our detector, and the $\tau$ we obtained by fitting the right tail of the TAC peak is actually due to the electronics.
+for the para-positronium the lifetime was too small to be observed with our detector, and the $\tau$ we obtained by fitting the right tail of the TAC peak is actually due to the electronics.
 Instead for the orthopositronium we didn't even had a right tail to fit :(
 
 And we were also pretty unlucky with the HV module

@@ -6,6 +6,7 @@
 \subsection{Simulations}
 
 The correction factor is better estimated through a Montecarlo simulation. If we denote as $E$ the total energy of the three photons, we randomly divided the segment $[0,E]$ into three parts $E_1,E_2,E_3$.
+\todo{Should we say that our simulation's results are coherent with published paper?}
 %Since for a photon the modulus of its momentum is its energy and we assume the decay happens at rest, i.e. the momenta should sum to 0, $E_1,E_2,E_3$ must obey the trangular inequality:
 %
 %
@@ -23,7 +24,7 @@ Discarding triplets that doesn't allow momentum conservation, we obtain a unifor
 Simulating also the three detectors and triggering on the triple coincidences, the ratio of observed events results:
 
 \begin{equation*}
-  c_{3\gamma} := \frac{\text{detected events}}{\text{total events}} \approx 5*10^{-4}
+  c_{3\gamma} := \frac{\text{detected events}}{\text{total events}} \sim 5\cdot10^{-4}
 \end{equation*}
 
 \begin{figure}[H]
@@ -35,12 +36,12 @@ Simulating also the three detectors and triggering on the triple coincidences, t
 
 With a similar calculation the ratio of observed events for the two-photons decay can be obtained:
 \begin{equation*}
-  c_{2\gamma} \approx 3.7*10^{-2}
+  c_{2\gamma} \sim 3.7\cdot10^{-2}
 \end{equation*}
 
 Therefore the correction factor results:
 \begin{equation}
-  c_f = \frac{c_{2\gamma}}{c_{3\gamma}} \approx 71
+  c_f = \frac{c_{2\gamma}}{c_{3\gamma}}  71
 \end{equation}
 
 From the simulation we can also assert that the dependence on $d$ can be neglected in our rough results: $c_f$ varies less than $10\%$ for a $d$ variation of $3\%$.
