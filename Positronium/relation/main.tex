@@ -130,8 +130,6 @@ The similarity between the chi-squared value and the number of degree of freedom
     r = \frac{\text{FWHM}_E}{\mu_E} = 2\sqrt{2\ln2} \,\frac{\sigma_E}{\mu_E} = 2\sqrt{2\ln2}\, \frac{a \cdot \sigma_c}{a \cdot \mu_c + b} = 2\sqrt{2\ln2} \,\frac{\sigma_c}{\mu_c + \frac[f]{b}{a}}
 \end{gather*}
 
-\todo{What are $r_1, r_2$ -> Tried to explain, please verify I'm right, maybe I swap energies.}
-
 \begin{table}[H]
     \centering
     \begin{tabular}{cccccccc}
@@ -254,7 +252,7 @@ Moreover, the system has been set to measure via the TAC the time difference bet
 
 After the acquisition, a data filtering has been implemented; the events whose sum of the energies of detector \#1 and \#2 differs from $1022\si{\kilo\electronvolt}$ for more than 10\% (i.e. about two time the resolution) are discared. The spectra with and without the filter are showed in fig. \ref{fig:det1:2gamma} and the following.
 
-\todo{See fig 9. Should we filter also 1275keV peak to avoid events generated without the emission of the gamma?}
+\todo{See fig 9. Should we filter also 1275keV peak to avoid events generated without the emission of the gamma? I think it's not necessary}
 
 \begin{figure}[H]
     \centering
@@ -292,7 +290,7 @@ Fitting the right wing of the peaks, an estimation of the mean life can be found
     \tau = ( 0.91 \pm 0.01) \si{\nano\second}
 \end{equation}
 
-\todo{Is it coherent with the theory?}
+\todo{Is it coherent with the theory? Discuss in comment}
 
 
 
@@ -344,8 +342,7 @@ Finally, the TAC spectrum is computed. During the acquisition no constraint on c
 \end{figure}
 
 
-This spectrum has a too low statistic to allow any meaningful analysis. The three-photons decay it's a very rare event and only with a very long acquisition time plus a powerful filter to discard two-photons noise some results can be obtained.
-\todo{Maybe write explicitly that we didn't obtain useful data although our acquisition was 23 hours long.}
+This spectrum has a too low statistic to allow any meaningful analysis, even if the acquisition runned for about 23 hours. The three-photons decay it's a very rare event and only with a very long acquisition time plus a powerful filter to discard two-photons noise some results can be obtained.
 
 
 \section{Rate}
@@ -376,19 +373,29 @@ The correction factor is therefore about:
     \end{equation}
 which lead to a ratio of about
 \begin{equation}
-    R = \frac{f_{2\gamma}}{f_{3\gamma}} \,\frac{1}{c_f} \sim 27
+    R \sim \frac{f_{2\gamma}}{f_{3\gamma}} \,\frac{1}{c_f} \sim 27
 \end{equation}
 
 \subfile{sim}
 
 \section{Conclusions}
-\todo{This section is not very serious}
+With respect to the intended aims,
+\begin{itemize}[noitemsep]
+    \item The shape of the spectra is in agreement with theory; the expected energy peaks are clearly present where they're supposed to be;
+    \item The calibration of the detectors has been made with success; the peaks resolutions are compatible between the four detector;
+    \item The dead-time trend has been estimated, giving a direction in understanding if a measured frequency is or is not meaningful;
+    \item An interesting value for the ratio between the two and three photons decay is obtained; Moreover, the result $R=(150\pm15)$ matches (in order of magnitude) the value expect from the theory ($R_{th}=373$)); we didn't expect a better precision in the estimation of $R$, due to the uncertainty on the correction factor, the geometry of the system and the decay model;
+    \item Concerning the mean lifetime of the Positronium:
+    \begin{itemize}[noitemsep]
+        \item For the orthopositronium, the rarity of the event and the noise from parapositronium hindered the collection of a sufficient statistic;
+        \item For the parapositronium, we obtained $\tau = ( 0.91 \pm 0.01) \si{\nano\second}$. This result isn't compatible with theory, from which we expect a lower lifetime. There are two possible explanations for this result:
+        \begin{itemize}[noitemsep]
+            \item Material effect: the mean lifetime of substances can be effected from the material in which they decays. In some studies concerning the decay of parapositronium in materials, values compatible with our result are obtained\footnote{See for example the second component in \emph{McGervey, John D. and Walters, Virginia F.: Correlation between Lifetime and Momentum for Positron Annihilations in Teflon. Phys. Rev. B 2(1970), \url{https://link.aps.org/doi/10.1103/PhysRevB.2.2421}}};
+            \item Electronic effect: delay and errors in the electronics chain can be responsible for the exponential decay, hiding smaller parapositronium-decay exponential shape.
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
 
-We succeeded in computing the ratio between the ortho and para-positronium obtaining a result that matches what we expected from the theory ($R_{th}=373$).
-We instead failed in computing the lifetime of the two possible states of the positronium:
-for the para-positronium the lifetime was too small to be observed with our detector, and the $\tau$ we obtained by fitting the right tail of the TAC peak is actually due to the electronics.
-Instead for the orthopositronium we didn't even had a right tail to fit :(
-
-And we were also pretty unlucky with the HV module
-
+The experience can be however considered a success: despite the multiple problems with the HV module, we manage to complete a meaningful data acquisition and some interesting results.
+\todo[inline]{To be reviewed}
 \end{document}
