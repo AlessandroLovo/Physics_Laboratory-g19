@@ -6,7 +6,9 @@
 \subsection{Simulations}
 
 The correction factor is better estimated through a Montecarlo simulation. If we denote as $E$ the total energy of the three photons, we randomly divided the segment $[0,E]$ into three parts $E_1,E_2,E_3$.
-\todo{Should we say that our simulation's results are coherent with published paper?}
+
+% \todo{Should we say that our simulation's results are coherent with published paper?}
+
 %Since for a photon the modulus of its momentum is its energy and we assume the decay happens at rest, i.e. the momenta should sum to 0, $E_1,E_2,E_3$ must obey the trangular inequality:
 %
 %
@@ -20,8 +22,10 @@ The correction factor is better estimated through a Montecarlo simulation. If we
 %   \theta_{23} = 2\pi - \theta_{12} - \theta_{13}
 % \end{gather*}
 
-Discarding triplets that doesn't allow momentum conservation, we obtain a uniform distribution on all the possible energy triplets. %The resulting distribution of the angles between the photons is non trivial (fig \ref{fig:sim:ang_corr})
-Simulating also the three detectors and triggering on the triple coincidences, the ratio of observed events results:
+Discarding triplets that don't allow momentum conservation, we obtain a uniform distribution on all the possible energy triplets.\footnote{This method produces results compatible with the ones in \emph{D. Kaminska et al., A feasibility study of ortho-positronium decays measurement with the
+J-PET scanner based on plastic scintillators, Eur. Phys. J. 22 Aug 2016}}
+%The resulting distribution of the angles between the photons is non trivial (fig \ref{fig:sim:ang_corr})
+Simulating also the three detectors (we assume 100\% efficiency) and triggering on the triple coincidences, the ratio of observed events results:
 
 \begin{equation*}
   c_{3\gamma} := \frac{\text{detected events}}{\text{total events}} \sim 5\cdot10^{-4}
@@ -43,7 +47,7 @@ Therefore the correction factor results:
 \begin{equation}
   c_f = \frac{c_{2\gamma}}{c_{3\gamma}} = 71\pm7
 \end{equation}
-where the errors is estimated thanks to the simulations, remembering the uncertainty on $R$ and $r$.
+where the errors are estimated thanks to the simulations, remembering the uncertainty on $d$ and $r$.
 This lead to a ratio of about:
 \begin{equation}
   R = 150 \pm 15

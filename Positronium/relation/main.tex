@@ -213,16 +213,30 @@ where $\nu$ is the event frequency. If the system has a dead time $\tau$, two ev
     \frac{1}{\nu^\star} = \frac{\int_{\tau}^{\infty} t \,p(t) \dd{t}}{\int_{\tau}^{\infty} p(t) \dd{t}} =\frac{\nu\,\tau + 1}{\nu}
 \end{equation*}
 
-Plotting the data in table \ref{tab:rate}, we obtain the plot in fig. \ref{fig:deadtime}
+Plotting the data in table \ref{tab:rate}, we obtain the plot in figs. \ref{fig:deadtime}, \ref{fig:deadtime:fit}
 
-\begin{figure}
-    \centering
-    \subfloat[][Correlation between real and measured rate, and trend.]
-    {\resizebox{0.7\textwidth}{!}{\import{img/}{dead_time.tex}} \label{fig:deadtime:fit}} \quad
-    \subfloat[][Ratio of lost events.]
-    {\resizebox{0.7\textwidth}{!}{\import{img/}{dead_time.ratio.tex}}}
-    \caption{Dead time effects.}
-    \label{fig:deadtime}
+% \begin{figure}
+%     \centering
+%     \subfloat[][Correlation between real and measured rate, and trend.]
+%     {\resizebox{0.7\textwidth}{!}{\import{img/}{dead_time.tex}} \label{fig:deadtime:fit}} \\
+%     \subfloat[][Ratio of lost events.]
+%     {\resizebox{0.7\textwidth}{!}{\import{img/}{dead_time.ratio.tex}}}
+%     \caption{Dead time effects.}
+%     \label{fig:deadtime}
+% \end{figure}
+
+\begin{figure}[H]
+  \centering
+  \resizebox{0.7\textwidth}{!}{\import{img/}{dead_time.tex}}
+  \caption{Correlation between real and measured rate, and trend.}
+  \label{fig:deadtime:fit}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \resizebox{0.7\textwidth}{!}{\import{img/}{dead_time.ratio.tex}}
+  \caption{Ratio of lost events.}
+  \label{fig:deadtime}
 \end{figure}
 
 As can be seen from the graphs in fig \ref{fig:deadtime}, the dead time isn't constant, but is the result of a stochastic process and can vary at different rates. However, a coarse trend can be estimated (fit in fig. \ref{fig:deadtime:fit}) computing the order of magnitude of dead time:
@@ -256,26 +270,28 @@ After the acquisition, a data filtering has been implemented; the events whose s
 
 \begin{figure}[H]
     \centering
-    \resizebox{0.7\textwidth}{!}{\import{img/}{det1.2gamma.tex}}
+    \resizebox{0.64\textwidth}{!}{\import{img/}{det1.2gamma.tex}}
     \caption{Detector 1. Note the absence of the $1275\si{\kilo\electronvolt}$ peak.}
     \label{fig:det1:2gamma}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \resizebox{0.7\textwidth}{!}{\import{img/}{det2.2gamma.tex}}
+    \resizebox{0.64\textwidth}{!}{\import{img/}{det2.2gamma.tex}}
     \caption{Detector 2. Note the absence of the $1275\si{\kilo\electronvolt}$ peak.}
     \label{fig:det2:2gamma}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \resizebox{0.7\textwidth}{!}{\import{img/}{det4.2gamma.tex}}
+    \resizebox{0.64\textwidth}{!}{\import{img/}{det4.2gamma.tex}}
     \caption{Detector 4. Note the absence of the $511\si{\kilo\electronvolt}$ peak.}
     \label{fig:det4:2gamma}
 \end{figure}
 
-Acquiring the time with TAC, what we obtain is the convolution of the decay law with the statistical gaussian error. At the end, what we see is a peaks centered in an arbitrary value (determined by the electronic configuration of the apparatus, the cable used and the delay introduced) which on its left tail shows a gaussian trend, while on the right the gaussian contribute is negligible and the exponential trend is visible. Fitting the right tail with an exponential is possible to find the parameters of the decay law, in particular the mean lifetime.
+\todo{I smalled the graphs to fit them in the same page ... does it make sense?}
+
+Acquiring the time with the TAC, what we obtain is the convolution of the decay law with the statistical gaussian error. At the end, what we see is a peaks centered in an arbitrary value (determined by the electronic configuration of the apparatus, the cable used and the delay introduced) which on its left tail shows a gaussian trend, while on the right the gaussian contribute is negligible and the exponential trend is visible. Fitting the right tail with an exponential is possible to find the parameters of the decay law, in particular the mean lifetime.
 
 \begin{figure}[H]
     \centering
@@ -284,7 +300,7 @@ Acquiring the time with TAC, what we obtain is the convolution of the decay law 
     \label{fig:tac:2gamma}
 \end{figure}
 
-Fitting the right wing of the peaks, an estimation of the mean life can be found:
+Fitting the right tail of the peak, an estimation of the mean life can be found:
 
 \begin{equation}
     \tau = ( 0.91 \pm 0.01) \si{\nano\second}
@@ -342,7 +358,7 @@ Finally, the TAC spectrum is computed. During the acquisition no constraint on c
 \end{figure}
 
 
-This spectrum has a too low statistic to allow any meaningful analysis, even if the acquisition runned for about 23 hours. The three-photons decay it's a very rare event and only with a very long acquisition time plus a powerful filter to discard two-photons noise some results can be obtained.
+This spectrum has a too low statistic to allow any meaningful analysis, even if the acquisition runned for about 23 hours. The three-photons decay is a very rare event and only with a very long acquisition time plus a powerful filter to discard two-photons noise some results can be obtained.
 
 
 \section{Rate}
@@ -353,7 +369,7 @@ Applying the filter to the two photons and the three photons spectra (using the 
 \end{equation}
 where the errors are computed assuming a Poissonian distribution. The two acquisition have, before the filtering, a frequency of respectively $(3674\pm1)\si{\hertz}$ and $(2.325\pm0.006)\si{\hertz}$: this means that for both the acquisition the dead time effect on the computed frequencies can be neglected. To estimate the ratio between the two decays, even the geometry of the system must be considered.
 
-A first rough estimation can be done with a simple model: given $r$ the detector radius ($r\sim5\si{\centi\meter}$) and $d$ the distance of the detector from the source ($d\sim18\si{\centi\meter}$), we can roughly estimate that:
+A first rough estimate can be done with a simple model: given $r$ the detector radius ($r\sim5\si{\centi\meter}$) and $d$ the distance of the detector from the source ($d\sim18\si{\centi\meter}$), we can roughly estimate that:
 \begin{itemize}
     \item For the two photons decay:
     \begin{itemize}
@@ -383,19 +399,20 @@ With respect to the intended aims,
 \begin{itemize}[noitemsep]
     \item The shape of the spectra is in agreement with theory; the expected energy peaks are clearly present where they're supposed to be;
     \item The calibration of the detectors has been made with success; the peaks resolutions are compatible between the four detector;
-    \item The dead-time trend has been estimated, giving a direction in understanding if a measured frequency is or is not meaningful;
-    \item An interesting value for the ratio between the two and three photons decay is obtained; Moreover, the result $R=(150\pm15)$ matches (in order of magnitude) the value expect from the theory ($R_{th}=373$)); we didn't expect a better precision in the estimation of $R$, due to the uncertainty on the correction factor, the geometry of the system and the decay model;
+    \item The dead-time trend has been estimated, giving a clue in understanding if a measured frequency is meaningful or not;
+    \item An interesting value for the ratio between the two and three photons decay is obtained; Moreover, the result $R=(150\pm15)$ matches (in order of magnitude) the value predicted by the theory ($R_{th}=373$)); we didn't expect a better precision in the estimation of $R$, due to the uncertainty on the correction factor, the geometry of the system and the decay model;
     \item Concerning the mean lifetime of the Positronium:
     \begin{itemize}[noitemsep]
         \item For the orthopositronium, the rarity of the event and the noise from parapositronium hindered the collection of a sufficient statistic;
         \item For the parapositronium, we obtained $\tau = ( 0.91 \pm 0.01) \si{\nano\second}$. This result isn't compatible with theory, from which we expect a lower lifetime. There are two possible explanations for this result:
         \begin{itemize}[noitemsep]
-            \item Material effect: the mean lifetime of substances can be effected from the material in which they decays. In some studies concerning the decay of parapositronium in materials, values compatible with our result are obtained\footnote{See for example the second component in \emph{McGervey, John D. and Walters, Virginia F.: Correlation between Lifetime and Momentum for Positron Annihilations in Teflon. Phys. Rev. B 2(1970), \url{https://link.aps.org/doi/10.1103/PhysRevB.2.2421}}};
+            \item Material effect: the mean lifetime of substances can be affected from the material in which they decays. In some studies concerning the decay of parapositronium in materials, values compatible with our result are obtained\footnote{See for example the second component in \emph{McGervey, John D. and Walters, Virginia F.: Correlation between Lifetime and Momentum for Positron Annihilations in Teflon. Phys. Rev. B 2(1970), \url{https://link.aps.org/doi/10.1103/PhysRevB.2.2421}}};
             \item Electronic effect: delay and errors in the electronics chain can be responsible for the exponential decay, hiding smaller parapositronium-decay exponential shape.
         \end{itemize}
     \end{itemize}
 \end{itemize}
 
-The experience can be however considered a success: despite the multiple problems with the HV module, we manage to complete a meaningful data acquisition and some interesting results.
-\todo[inline]{To be reviewed}
+The experience can be however considered a success: despite the multiple problems with the HV module, we managed to complete a meaningful data acquisition and some interesting results.
+
+\todo[inline]{To be reviewed: seems ok}
 \end{document}
