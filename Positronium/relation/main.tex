@@ -331,8 +331,8 @@ Observing fig. \ref{fig:sum:3gamma}, in which the sum of the energies detected f
 
 As can be seen from fig. \ref{fig:alldet:3gamma}, all the detectors show a peak around $340\si{\kilo\electronvolt}$, as expected; their spectra are similar so the symmetry is respected.
 
-Finally, the TAC spectrum is computed. During the acquisition no constraint on coincidences with detector \#4 has been imposed, so most of the recorded events lack of TAC start triggering. Excluding the first and the last bin, containing the not-started and the not-stopped events, a filtered TAC spectrum can be computed (fig \ref{fig:tac:3gamma}).
-Anyways even if the TAC detects a valid event we cannot be sure that its \emph{start} was actually the photon from the \ce{^22Na} that produced the positronium whose decay we observed.
+Finally, the TAC spectrum is computed. During the acquisition no constraint on coincidences with detector \#4 has been imposed, so most of the recorded events lack of TAC start triggering. Excluding the first and the last bin, containing the non-started and the non-stopped events, a filtered TAC spectrum can be computed (fig \ref{fig:tac:3gamma}).
+Anyways even if the TAC detects a valid event we cannot be sure that \emph{start} and \emph{stop} came from the same decay.
 
 \begin{figure}[H]
     \centering
@@ -349,15 +349,15 @@ Anyways even if the TAC detects a valid event we cannot be sure that its \emph{s
 \end{figure}
 
 
-This spectrum has a too low statistic to allow any meaningful analysis, even if the acquisition runned for about 23 hours. The three-photons decay is a very rare event and only with a very long acquisition time plus a powerful filter to discard two-photons noise some results can be obtained.
+This spectrum (fig. \ref{fig:tac:3gamma} has a too low statistic to allow any meaningful analysis, even if the acquisition runned for about 23 hours. The three-photons decay is a very rare event and only with a very long acquisition time plus a powerful filter to discard two-photons noise some results can be obtained.
 
 \section{Rate}
 
-Applying the filter to the two photons and the three photons spectra (using the spectra recorded without the det. \#4 coincidence), the obtained frequency are:
+Applying the filter to the two photons and the three photons spectra (using for both the two cases the spectra recorded without the det. \#4 coincidence), the obtained frequency are:
 \begin{equation*}
     f_{2\gamma} = (2709 \pm 1)\si{\hertz} \qquad f_{3\gamma} = (0.259 \pm 0.002)\si{\hertz}
 \end{equation*}
-where the errors are computed assuming a Poissonian distribution. The two acquisition have, before the filtering, a frequency of respectively $(3674\pm1)\si{\hertz}$ and $(2.325\pm0.006)\si{\hertz}$: this means that for both the acquisition the dead time effect on the computed frequencies can be neglected (see fig \ref{fig:deadtime} ). To estimate the ratio between the two decays, even the geometry of the system must be considered.
+where the errors are computed assuming a Poissonian distribution. The two acquisition have, before the filtering, a frequency of respectively $(3674\pm1)\si{\hertz}$ and $(2.325\pm0.006)\si{\hertz}$: this means that for both the acquisition the dead time effect on the computed frequencies can be neglected (see fig \ref{fig:deadtime}). To estimate the ratio between the two decays, even the geometry of the system must be considered.
 
 A first rough estimate can be done with a simple model: given $r$ the detector radius ($r\sim5\si{\centi\meter}$) and $d$ the distance of the detector from the source ($d\sim18\si{\centi\meter}$), we can roughly estimate that:
 \begin{itemize}[noitemsep]
@@ -370,7 +370,7 @@ A first rough estimate can be done with a simple model: given $r$ the detector r
     \begin{itemize}[noitemsep]
         \item As in the two photons case, the first photon is detected with a probability of $\frac[f]{3 \pi r^2}{4\pi d^2}$;
         \item This time even the second photon is free, so the detection probability is $\frac[f]{2 \pi r^2}{4\pi d^2}$;
-        \item The third photon is constrained in the plane of the detectors (in a third of the plane actuallly): its probability it's something like  $\frac[f]{2r}{2\pi d/3}$;
+        \item The third photon is constrained in a third of the plane of the three detectors: its probability it's something like  $\frac[f]{2r}{2\pi d/3}$;
     \end{itemize}
 \end{itemize}
 The correction factor is therefore about:
@@ -390,7 +390,7 @@ With respect to the intended aims,
     \item The shape of the spectra is in agreement with the theory; the expected energy peaks are clearly present where they're supposed to be;
     \item The calibration of the detectors has been made with success; the peaks resolutions are compatible between the four detector;
     \item The dead-time trend has been estimated, giving a clue in understanding if a measured frequency is meaningful or not;
-    \item An interesting value for the ratio between the two and three photons decay is obtained; Moreover, the result $R=(150\pm15)$ matches (in order of magnitude) the value predicted by the theory ($R_{th}=373$); we didn't expect a better precision in the estimation of $R$, due to the uncertainty on the correction factor and the neglection of detector efficiency;
+    \item An interesting value for the ratio between the two and three photons decay is obtained; moreover, the result $R=(150\pm15)$ matches (in order of magnitude) the value predicted by the theory ($R_{th}=373$). We didn't expect a better precision in the estimation of $R$, due to the uncertainty on the correction factor and the neglection of detector efficiency;
     \item Concerning the mean lifetime of the Positronium:
     \begin{itemize}[noitemsep]
         \item For the orthopositronium, the rarity of the event and the noise from parapositronium hindered the collection of a sufficient statistic;
