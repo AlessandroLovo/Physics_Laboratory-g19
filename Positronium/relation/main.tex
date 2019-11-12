@@ -315,7 +315,8 @@ Fitting the right tail of the peak, an estimation of the mean life can be found:
     \caption{Three photons setup.}
     \label{fig:rivel120}
 \end{figure}
-To detect the three-photons events, the detectors have been placed as in fig. \ref{fig:rivel120:placement}. The optimal configurations would provide a triggering on the coincidences between all the four detectors. However, the three-photons events are very rare, and triggering on all the detectors would produce a too-low number of data to make a meaningful statistic, even with a full-night acquisition. Therefore the trigger has been set on the coincidences between the det. \#1, \#2 and \#3, making an a-posteriori coincidence with the detector 4 only for the timing studies.
+To detect the three-photons events, the detectors have been placed as in fig. \ref{fig:rivel120:placement}. The optimal configurations would provide a triggering on the coincidences between all the four detectors. However, the three-photons events are very rare, and triggering on all the detectors would produce a too-low number of data to make a meaningful statistic, even with a full-night acquisition. Therefore the trigger has been set on the coincidences between the det. \#1, \#2 and \#3.
+% making an a-posteriori coincidence with the detector 4 only for the timing studies.
 \begin{figure}[H]
     \centering
     \resizebox{0.8\textwidth}{!}{\import{img/}{sum.3gamma.tex}}
@@ -331,6 +332,7 @@ Observing fig. \ref{fig:sum:3gamma}, in which the sum of the energies detected f
 As can be seen from fig. \ref{fig:alldet:3gamma}, all the detectors show a peak around $340\si{\kilo\electronvolt}$, as expected; their spectra are similar so the symmetry is respected.
 
 Finally, the TAC spectrum is computed. During the acquisition no constraint on coincidences with detector \#4 has been imposed, so most of the recorded events lack of TAC start triggering. Excluding the first and the last bin, containing the not-started and the not-stopped events, a filtered TAC spectrum can be computed (fig \ref{fig:tac:3gamma}).
+Anyways even if the TAC detects a valid event we cannot be sure that its \emph{start} was actually the photon from the \ce{^22Na} that produced the positronium whose decay we observed.
 
 \begin{figure}[H]
     \centering
@@ -355,7 +357,7 @@ Applying the filter to the two photons and the three photons spectra (using the 
 \begin{equation*}
     f_{2\gamma} = (2709 \pm 1)\si{\hertz} \qquad f_{3\gamma} = (0.259 \pm 0.002)\si{\hertz}
 \end{equation*}
-where the errors are computed assuming a Poissonian distribution. The two acquisition have, before the filtering, a frequency of respectively $(3674\pm1)\si{\hertz}$ and $(2.325\pm0.006)\si{\hertz}$: this means that for both the acquisition the dead time effect on the computed frequencies can be neglected. To estimate the ratio between the two decays, even the geometry of the system must be considered.
+where the errors are computed assuming a Poissonian distribution. The two acquisition have, before the filtering, a frequency of respectively $(3674\pm1)\si{\hertz}$ and $(2.325\pm0.006)\si{\hertz}$: this means that for both the acquisition the dead time effect on the computed frequencies can be neglected (see fig \ref{fig:deadtime} ). To estimate the ratio between the two decays, even the geometry of the system must be considered.
 
 A first rough estimate can be done with a simple model: given $r$ the detector radius ($r\sim5\si{\centi\meter}$) and $d$ the distance of the detector from the source ($d\sim18\si{\centi\meter}$), we can roughly estimate that:
 \begin{itemize}[noitemsep]
