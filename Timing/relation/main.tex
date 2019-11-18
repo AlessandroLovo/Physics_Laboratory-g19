@@ -1,0 +1,72 @@
+\documentclass[11pt,a4 paper]{article}
+\usepackage{subfiles}
+
+\usepackage{amsmath, amsthm}
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=2cm]{geometry}
+\usepackage{graphicx}
+\usepackage{subfig}
+\usepackage{caption}
+\usepackage{siunitx}
+\captionsetup{tableposition=top,font=small,width=0.8\textwidth}
+\usepackage{booktabs}
+\usepackage[table]{xcolor}
+\usepackage[arrowdel]{physics}
+\usepackage{mathtools}
+\usepackage{tablefootnote}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{multicol}
+\setlist[description]{font={\scshape}} %style=unboxed,style=nextline
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{import}
+\usepackage{floatflt}
+\usepackage{url}
+\usepackage{commath}
+\usepackage{bm}
+\usepackage[version=4]{mhchem}
+\usepackage{nicefrac}
+\usepackage{ifthen}
+\usepackage{comment}
+\usepackage[colorinlistoftodos,textsize=tiny]{todonotes}
+\usepackage{hyperref}
+
+\renewcommand*{\thefootnote}{\fnsymbol{footnote}}
+\sisetup{exponent-product = \cdot}
+\newcommand{\tc}{\,\mbox{tc}\,}
+\newcommand{\Epsilon}{\mathcal{E}}
+\newcommand{\half}{\frac{1}{2}}
+\newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
+\let\oldfrac\frac
+\renewcommand{\frac}[3][d]{\ifthenelse{\equal{#1}{d}}{\oldfrac{#2}{#3}}{\nicefrac{#2}{#3}}}
+
+\title{Timing}
+\author{Andrea Grossutti, mat. 1237344\\Alessandro Lovo, mat. 1236048\\Leonardo Zampieri, mat. 1237351}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Aims}
+\begin{itemize}
+    \item Energy calibration of the organic scintillators and calculation of the energy resolution from the analysis of the Compton edge;
+    \item Optimization of the external delay of the analogue CFTD to obtain the best time resolution;
+    \item Study of the time resolution behaviour as a function of the energy;
+    \item Comparison between the timing resolutions obtained from analogue and digital treatment of the signals;
+    \item Measurement of the speed of light
+\end{itemize}
+
+\section{Experimental setup}
+The experimental setup consist of two collinear organic scintillators, mounted on a sledge, and a \ce{^22Na} source collimated between two lead bricks.
+
+Data are collected from the detectors through a electronic chain: a fan-in-fan-out quad module replies the signal of each detector and produces four copies of it; then, through a CFD, a trigger signal is produced. The CFD trigger threshold has been set so that the background noise is discarded, while the interesting signals produce an output.
+
+\section{Apparatus calibration}
+Both the detectors and the TAC need to be calibrated. Firstly, let's calibrate the detector.
+
+A spectra for each detector is acquired; due to the composition of the detector, the photopeaks are negligible and only the compton effect are detected. Through the position of the compton edge, the calibration can be done. 
+\end{document}
