@@ -177,7 +177,14 @@ Fitting the obtained peaks with gaussian and relating them to the delay inserted
 The minimum configuration as been kept for all the following Measurements.
 
 \section{Speed of light}
+The detector has been placed such that they're about $170\si{\metre}$ away. The source has been placed firstly near the detector 1 and then near the detector 2, and the TAC signal has been acquired; therefore, the centroids $\mu_1$ and $\mu_2$ of the two measurements has been found through a gaussian interpolation. Measuring the distance between the two source positions $d$, the light speed can be computed. Observe that the two centroids has been firstly subtracted and then calibrated, to preserve the resolution.
 
+\begin{gather*}
+    \mu_1 = (16433 \pm 2) \\
+    \mu_2 = (8966 \pm 2) \\
+    d = (161.9 \pm 0.1) \si{\centi\metre} \\
+    c = \frac{2d}{(\mu_1-\mu_2)m} = (2.94 \pm 0.01 )\cdot 10^8 \si{\metre\per\second}
+\end{gather*}
 
 
 
