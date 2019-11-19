@@ -52,12 +52,12 @@
 \maketitle
 
 \section{Aims}
-\begin{itemize}
+\begin{itemize}[noitemsep]
     \item Energy calibration of the organic scintillators and calculation of the energy resolution from the analysis of the Compton edge;
     \item Optimization of the external delay of the analogue CFTD to obtain the best time resolution;
     \item Study of the time resolution behaviour as a function of the energy;
     \item Comparison between the timing resolutions obtained from analogue and digital treatment of the signals;
-    \item Measurement of the speed of light
+    \item Measurement of the speed of light.
 \end{itemize}
 
 \section{Experimental setup}
@@ -68,5 +68,127 @@ Data are collected from the detectors through a electronic chain: a fan-in-fan-o
 \section{Apparatus calibration}
 Both the detectors and the TAC need to be calibrated. Firstly, let's calibrate the detector.
 
-A spectra for each detector is acquired; due to the composition of the detector, the photopeaks are negligible and only the compton effect are detected. Through the position of the compton edge, the calibration can be done. 
+A spectra for each detector is acquired; due to the composition of the detector, the photopeaks are negligible and only the compton effect are detected. Through the position of the compton edge, the calibration can be done. Firstly, the Compton edges are fitted using a gaussian.
+
+\begin{figure}[H]
+    \centering
+    \resizebox{0.8\textwidth}{!}{\import{img/}{det1_calibr.tex}}
+    \caption{Det 1: fits of compton edges}
+    \label{fig:det1:calibr}
+\end{figure}
+
+The observed compton edge are produced by the convolution of real compton edge and gaussian acquisition error. This lead to a shift of the observed compton edge that must be considered.
+
+\todo[inline]{Insert simulations and stuff}
+
+Even the TAC must be calibrated. The system is setup with a delay module just before the TAC \emph{stop}. Multiple events are acquired with different delays, and centroid of each peak are found.
+
+\begin{figure}[H]
+    \centering
+    \resizebox{0.8\textwidth}{!}{\import{img/}{TACcalibr.tex}}
+    \caption{Different peaks with different delays.}
+    \label{fig:tac:calibr}
+\end{figure}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{cccccccc}
+        \toprule
+        Delay [ns] & Centroid [channel] \\
+        \midrule
+        $13$ & $2235\pm 20$ \\
+        $17$ & $4950\pm 30$ \\
+        $21$ & $7555\pm 30$ \\
+        $25$ & $10390\pm 30$ \\
+        $29$ & $13080\pm 40$ \\
+        \bottomrule
+    \end{tabular}
+    \caption{TAC centroids. Different height of the peaks are due to different acquiring time.}
+    \label{tab:tac:calibr}
+\end{table}
+
+The found centroid are fitted using a linear relation (the $\chi^2$ value confirm the linear dependence):
+\begin{gather*}
+    t = m\cdot \text{channel} + q \\
+    m = ( 1.477 \pm 0.005) \si{\pico\second}
+\end{gather*}
+% q = (9.71 +- 0.03)
+where the $q$ value isn't reported, having no meaning. In fact, delays are introduced in a more complex system, which already have an internal delay: zero external delay therefore doesn't mean zero time in TAC. 
+
+\section{LEMO calibration}
+A set of LEMO cables is provided. Setting external delay to $13\si{\nano\second}$ and inserting one by one each LEMO cable in series with the external delay module, 5-minutes datasets are acquired; computing the difference between the observed centroids and the centroid without LEMO cable previously measured, and converting it with the calibration parameter, the time-length of each LEMO cable is computed.
+
+\begin{figure}[H]
+    \centering
+    \resizebox{0.8\textwidth}{!}{\import{img/}{lemo.tex}}
+    \caption{Some of the peaks of the LEMO cables}
+    \label{fig:lemo}
+\end{figure}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{cccccccc}
+        \toprule
+        LEMO ID & LEMO length [cm], $\pm 0.1$ & LEMO time \\
+        \midrule
+        $7$ & $23.0$ & $1.15\pm0.04$\\
+        $6$ & $22.5$ & $1.17\pm0.04$\\
+        $13$ & $53.5$ & $2.71\pm0.05$\\
+        $5$ & $101.0$ & $5.08\pm0.07$\\
+        $4$ & $101.0$ & $5.12\pm0.04$\\
+        $2$ & $53.5$ & $2.70\pm0.03$\\
+        \bottomrule
+    \end{tabular}
+    \caption{LEMO cables}
+    \label{tab:lemo}
+\end{table}
+
+\section{CFD delay optimization}
+
+The CFD is provided by an external delay to properly superimpose a delayed copy of the signal to a inverted reduced one. This delay must be properly set to optimize the TAC resolution. With only the preset delay, the signal detected by the TAC is large and not gaussian (see fig. \ref{fig:delay:bad}); after some tests, a setup which lead to a better resolution and a more gaussian-like output is obtained.
+
+\begin{figure}[H]
+    \centering
+    \resizebox{0.8\textwidth}{!}{\import{img/}{delay_optim_bad.tex}}
+    \caption{Initial situation: large not-guassian shape.}
+    \label{fig:delay:bad}
+\end{figure}
+
+Different combination of LEMO cable has been inserted in series with the pre-set delay; every time the configuration changed, the WALK ADJ potentiometer has been regulated to minimize the dispersion (see fig. \ref{fig:oscilloscope}).
+
+\begin{figure}[H]
+    \centering
+    \def\svgwidth{0.7\textwidth}\import{img/}{oscilloscope1.pdf_tex}
+    \caption{Monitor CFD signal triggered on CFD output, seen by the oscilloscope.}
+    \label{fig:oscilloscope}
+\end{figure}
+
+\todo[inline]{Rifare figura senza tagliare le scale}
+
+Fitting the obtained peaks with gaussian and relating them to the delay inserted in the CFDs (after some tests, we noticed that the optimal setup is with the same delay in both the CFD), the figure \ref{fig:CFD:delay} is obtained. As can be seen from the figure, a minimum is found at about $3\si{\nano\second}$ of delay (LEMO 13 and 2 for detector 1 and 2, respectively). Considering the pre-set delay (around $2\si{\nano\second}$), this lead to a optimal delay of around $5\si{\nano\second}$, that is about $80\%$ the rise time ($\sim6\si{\nano\second}$) as expected.
+
+\begin{figure}[H]
+    \centering
+    \resizebox{0.8\textwidth}{!}{\import{img/}{CFDdelay.tex}}
+    \caption{Optimization of the CFD delay.}
+    \label{fig:CFD:delay}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \end{document}
