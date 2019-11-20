@@ -2,6 +2,9 @@
 #include <vector>
 using namespace std;
 
+const int entries_analized = 100000;
+const bool analize_all_entries = true;
+
 struct slimport_data_t {
 	ULong64_t	timetag; //time stamp
 	UInt_t		baseline;
@@ -13,13 +16,6 @@ struct slimport_data_t {
 
 struct waveform_event{
 	UShort_t	value[360];
-	TH1F* hist;
-	TGraph* gr;
-};
-
-struct waveform_channel {
-	int 	num_events;
-	vector <waveform_event> events;
 };
 
 class Waveform{
@@ -39,32 +35,20 @@ class Waveform{
 		slimport_data_t indata;
 		inbranch->SetAddress(&indata.timetag);
 		channel = ch;
-		wc.num_events = inbranch->GetEntries();
-		wc.events.resize(inbranch->GetEntries());		
-		int step = inbranch->GetEntries() / 100;
+		num_events = entries_analized;
+		if(analize_all_entries)
+			num_events = inbranch->GetEntries();
+		events.resize(num_events);		
+		int step = num_events / 100;
 		int prog = 0;
-		sum_events = new TH2F(Form("Sum_events"),"", 360,0,360,1000,0,1000);
-		
-		for (int i=0; i<100000; i++) {
-		//for (int i=0; i<inbranch->GetEntries(); i++) {
-			if(i == prog){
-				cout<<((float)i)/step<<"%"<<endl;
-				prog += step;
-			}
+		sum_events = new TH2F(Form("Sum_events"),"", 360,0,360,256,0,1024);
 
+		for (int i=0; i<num_events; i++) {
 			inbranch->GetEntry(i);
-			TH1F* h = new TH1F(Form("Sample_%d", i),"", 360, 0, 360);
-			Int_t x[360], y[360];
-	
 			for(int j=0; j<360; j++){
-				wc.events[i].value[j] = indata.samples[j];
-				x[j]=j;
-				y[j]=indata.samples[j];
-				h->Fill(j,indata.samples[j]);
+				events[i].value[j] = indata.samples[j];
 				sum_events->Fill(j,indata.samples[j]);
 			}
-			wc.events[i].gr = new TGraph(360,x,y);
-			wc.events[i].hist = h;
 		}
 	}
 
@@ -72,19 +56,26 @@ class Waveform{
 
 	TH2F* GetSumHisto(){ return sum_events;}
 
-	TGraph* GetGraph(int event){ return wc.events[event].gr; }
+	TGraph* GetGraph(int event){
+		Int_t x[360], y[360];
+		for(int i=0;i<360;i++){
+			x[i]=i;
+			y[i]=events[event].value[i];
+		}
+		return new TGraph(360,x,y);	}
 
-	waveform_event GetWaveform(int event){ return wc.events[event]; }
-
-	TH1F* GetWaveformHisto(int event){ return wc.events[event].hist; }
+	waveform_event GetEvent(int event){ return events[event]; }
 
 	const char* GetDataFile(){ return original_data_file; }
 
 	int GetChannel(){ return channel; }
 
+	//Floor: 923.1 +- 1.8 -> Mean of noise before peak in sum of all events
+
 	private:
 	int 				channel;
+	int 				num_events;
 	const char* 		original_data_file;
 	TH2F*				sum_events;
-	waveform_channel 	wc;
+	vector <waveform_event> events;
 };
