@@ -4,23 +4,28 @@ using namespace std;
 
 //This is useful to improve speed in loading heavy files. 
 //Anyway in this version it tooks less than 30 sec to load 500Mb of datas (in my Mac u.u ) 
-const int entries_analized = 100000;
+const int entries_analized = 500000;
 const bool analize_all_entries = false;
 
 //CFTD
 const float attenuation_fraction = 0.25f;
-const float delay_in_ns = 10.0f;
+const float delay_in_ns_ch0 = 5.0f;
+const float delay_in_ns_ch1 = 5.0f;
 const int steps_in_zero_crossing_binary_search = 13; //-> precision < 1ps
 
 //WAVEFORM CLASS
 const bool remove_cutted_energies = true;
-const bool make_sum_histo_in_costructor = true;
+const bool make_sum_histo_in_costructor = false;
 const bool remove_zero_events_in_costructor = true;
 
 //TWO_CHANNEL_WAVEFORM CLASS
-const bool check_coincidences_in_costructor = true;
+const bool check_coincidences_in_costructor = false;
 const bool calculate_time_distribution_in_each_time_distr_hist_request = true;
 const double delay_introduced_in_ns = 150;
+
+//ENERGY FILTERING WINDOW
+const int energy_window_center_channel[2] = {6000, 6000};
+const int energy_window_half_size[2] = {300, 300};
 
 const int baseline[2] = {923, 925};
 
@@ -130,8 +135,6 @@ class Waveform{
 		}
 		return new TGraph(360,x,y);	}
 
-	waveform_event GetEvent(int event){ return events[event]; }
-
 	const char* GetDataFile(){ return original_data_file; }
 
 	int GetChannel(){ return channel; }
@@ -143,17 +146,29 @@ class Waveform{
 				events.erase(it0);
 			else if ((*it0).timetag > (*it1).timetag)
 				wf1->events.erase(it1);
-			else{
-				it0++;
-				it1++;
-			}
+			else{ it0++; it1++; }
 		}
 		MakeSumHisto();
 		wf1->MakeSumHisto();}
 
+	void EnergyFiltering(){
+		GetEnergyHisto();	
+		int new_num_events = 0;
+		vector <waveform_event> filtered_events;
+		for (int i=0; i<num_events; i++) {
+			if(TMath::Abs(events[i].energy - energy_window_center_channel[channel]) < energy_window_half_size[channel]){
+				filtered_events.push_back(events[i]);
+				new_num_events++;
+			}
+		}
+		events = filtered_events;
+		num_events = new_num_events;
+		GetEnergyHisto();	}
+
 	TGraph* CFTD(int e){
 		UShort_t* ev = events[e].value;
 		TGraph* gr = GetGraph(e);
+		double delay_in_ns = (channel==0 ? delay_in_ns_ch0 : delay_in_ns_ch1);
 		double x[720], y[720];
 		for(int i=0; i < 360; i++)
 			x[i] = (double)i;
@@ -186,6 +201,18 @@ class Waveform{
 		}
 		return (l+r)/2;}
 
+	TH1F* GetEnergyHisto(){
+		TH1F* h = new TH1F("Distribution_of_energies","",300, 0, 20000);
+		for(int i=0; i<num_events;i++){
+			h->Fill(CalculateEventEnergy(i));
+		}
+		h->Draw();
+		return h;}
+
+	int GetNumEvents(){return num_events;}
+
+	private:
+
 	int CalculateEventEnergy(int e){
 		int x[360], y[360];
 		for(int i=0; i < 360; i++){
@@ -194,21 +221,8 @@ class Waveform{
 		y[0]=y[360-1]=0;
 		//(new TGraph(360, x, y))->Draw();
 		events[e].energy = ((new TGraph(360, x, y))->Integral());
-		return events[e].energy;
-	}
+		return events[e].energy;}
 
-	TH1F* GetEnergyHisto(){
-		TH1F* h = new TH1F("Distribution_of_energies","",7200, 0, 20000);
-		for(int i=0; i<num_events;i++){
-			h->Fill(CalculateEventEnergy(i));
-		}
-		return h;
-	}
-
-	int GetNumEvents(){return num_events;}
-
-
-	private:
 	int 				channel;
 	int 				num_events;
 	const char* 		original_data_file;
@@ -234,12 +248,12 @@ class TwoChannelWaveform{
 	void CheckCoincidences(){ wf[0]->CheckCoincidences(wf[1]); }
 
 	void CalculateTimeDistribution(){
+		CheckCoincidences();
 		int num_events = wf[0]->GetNumEvents();
 		delta_time_distribution.resize(num_events);
 		for(int i=0; i < num_events; i++){
 			delta_time_distribution[i]=wf[0]->ZeroCrossing(i) - wf[1]->ZeroCrossing(i) + delay_introduced_in_ns;
-		}
-	}
+		}}
 
 	TH1F* GetTimeDistrHisto(){
 		if(calculate_time_distribution_in_each_time_distr_hist_request)
@@ -247,7 +261,12 @@ class TwoChannelWaveform{
 		TH1F* h = new TH1F("Time_distribution in ps", "", 540,0, 360*1000);
 		for(int i=0;i<delta_time_distribution.size();i++)
 			h->Fill(int(delta_time_distribution[i]*1000));
-		return h;
+		h->Draw();
+		return h;}
+
+	void EnergyFiltering(){
+		wf[0]->EnergyFiltering();
+		wf[1]->EnergyFiltering();
 	}
 
 	private:
