@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-float GetR(TH1F* h, int ch_min, int ch_max, float a = 1., float b = 0.){
+void HalfMaximum(TH1F* h, int ch_min, int ch_max){
     float centroid = 0., width = 0.;
     float max_bin_content = 0.;
     int max_i = 0;
@@ -25,8 +25,15 @@ float GetR(TH1F* h, int ch_min, int ch_max, float a = 1., float b = 0.){
         }
     }
     
+    // Drawing lines on histogram
+    TLine* lc = new TLine(centroid,0,centroid,max_bin_content*1.08);
+    lc->Draw("SAME");
+    TLine* lw = new TLine(centroid + width,0,centroid + width,max_bin_content*0.5*1.4);
+    lw->Draw("SAME");
+    
     cout << "Centroid, width = " << centroid << ", " << width << endl;
     cout << "Max bin content at centroid: " << max_bin_content << endl;
+    cout << "Bin width = " << h->GetBinWidth(max_i) << endl;
     
-    return width/(centroid + b/a);
+    return;
 }
