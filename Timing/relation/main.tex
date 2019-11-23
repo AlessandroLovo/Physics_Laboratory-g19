@@ -66,18 +66,75 @@ The experimental setup consist of two collinear organic scintillators, mounted o
 Data are collected from the detectors through a electronic chain: a fan-in-fan-out quad module replies the signal of each detector and produces four copies of it; then, through a CFD, a trigger signal is produced. The CFD trigger threshold has been set so that the background noise is discarded, while the interesting signals produce an output.
 
 \section{Apparatus calibration}
-Both the detectors and the TAC need to be calibrated. Firstly, let's calibrate the detector.
+Both the detectors and the TAC need to be calibrated. Firstly, let's calibrate the detectors.
 
-A spectra for each detector is acquired; due to the composition of the detector, the photopeaks are negligible and only the compton effect are detected. Through the position of the compton edge, the calibration can be done. Firstly, the Compton edges are fitted using a gaussian.
+A spectra for each detector is acquired; due to the composition of the detector, the photopeaks are negligible and only the compton effect are detected. Through the position of the compton edge (CE), the calibration can be done. Since the gaussian fit on the CE depends quite a lot on the range chosen, we proceeded in another way. First of all we rebinned the spectra in order to smoothen them, then for each CE we found the position of the maximum $c_{ch}$ and the half width half maximum $w_{ch}$ in channels (fig \ref{fig:det1:calibr}, tab \ref{tab:calibr:fits}).
+The observed CE is actually a convolution of a real CE with a gaussian whose width is proportional to the resolution of the detector $\sigma_{reso}$ and this convolution results in a shift of the maximum of the CE towards lower energies. By simulating differnt CEs varying $\sigma_{reso}$ we could compute the simulated resolution $r_{sim} = \frac{w_{sim}}{c_{sim}}$ and correlate it with $c_{sim}$, i.e the peak position in energy (fig \ref{fig:sim} ).\\
+If we assume the calibration relation $E = a*ch + b$, then the resolution in energy is:
+
+\begin{equation*}
+  r_E = \frac{w_E}{c_E} = \frac{a w_{ch}}{a c_{ch} + b} = \frac{w_{ch}}{c_{ch} + \frac[f]{b}{a}}
+\end{equation*}
+
+So we first assume $\frac[f]{b}{a} = 0$ to compute $r_E$, and then by imposing $r_E = r_{sim}$ we can find the peak positions in energy $c_E$ allowing us to compute $a$ and $b$ via linear fit. We can now update the value of $r_E$ and repeat the process. After a few iterations the process converges and gives us the results in tab \ref{tab:calibr:coeffs}.
 
 \begin{figure}[H]
     \centering
-    \resizebox{0.8\textwidth}{!}{\import{img/}{det1_calibr.tex}}
-    \caption{Det 1: fits of compton edges}
+    \resizebox{0.8\textwidth}{!}{\import{img/}{det1_calibr_final.tex}}
+    \caption{Det 1: Position of CE's centroids and widths}
     \label{fig:det1:calibr}
 \end{figure}
 
-The observed compton edge are produced by the convolution of real compton edge and gaussian acquisition error. This lead to a shift of the observed compton edge that must be considered.
+\begin{figure}
+  \centering
+  \subfloat[]{\includegraphics[width=0.4\textwidth]{img/sim_511.png}} \quad
+  \subfloat[]{\includegraphics[width=0.4\textwidth]{img/sim_1275.png}}
+  \caption{Relation between the resolution of the peak and the peak position}
+  \label{fig:sim}
+\end{figure}
+
+
+
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{cccccccc}
+    \toprule
+    Det & photopeak [keV] & $c_{ch}$ & $w_{ch}$ & $c_E$ [keV] \\
+    \midrule
+    \#1 & 511 & $3440 \pm 9$ & $832 \pm 13$ & $283.6 \pm 0.8$ \\
+        & 1275 & $11312 \pm 9$ & $960 \pm 13$ & $992.9 \pm 0.7$ \\
+    \#2 & 511 & $4400 \pm 9$ & $896 \pm 13$ & $286.2 \pm 0.7$ \\
+        & 1275 & $13392 \pm 9$ & $960 \pm 13$ & $1000.5 \pm 0.7$ \\
+    \bottomrule
+  \end{tabular}
+  \caption{Centroids and widths of the CE peaks: the errors for the values in channels come from a uniform distribution on the bin width of the histogram.
+  The value of $c_E$ here is the one after the calibration process converged}
+  \label{tab:calibr:fits}
+\end{table}
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{cccccccc}
+    \toprule
+    Det & $a$ [keV] & $b$ [keV] \\
+    \midrule
+    \#1 & $0.0901 \pm 0.0002$ & $-26 \pm 2$ \\
+    \#2 & $0.0794 \pm 0.0002$ & $-63 \pm 2$ \\
+    \bottomrule
+  \end{tabular}
+  \caption{Calibrations coefficients after the calibration process converged}
+  \label{tab:calibr:coeffs}
+\end{table}
+
+% \begin{figure}[H]
+%     \centering
+%     \resizebox{0.8\textwidth}{!}{\import{img/}{det1_calibr.tex}}
+%     \caption{Det 1: fits of compton edges}
+%     \label{fig:det1:calibr}
+% \end{figure}
+%
+% The observed compton edge are produced by the convolution of real compton edge and gaussian acquisition error. This lead to a shift of the observed compton edge that must be considered.
 
 \todo[inline]{Insert simulations and stuff}
 
@@ -113,7 +170,7 @@ The found centroid are fitted using a linear relation (the $\chi^2$ value confir
     m = ( 1.477 \pm 0.005) \si{\pico\second}
 \end{gather*}
 % q = (9.71 +- 0.03)
-where the $q$ value isn't reported, having no meaning. In fact, delays are introduced in a more complex system, which already have an internal delay: zero external delay therefore doesn't mean zero time in TAC. 
+where the $q$ value isn't reported, having no meaning. In fact, delays are introduced in a more complex system, which already have an internal delay: zero external delay therefore doesn't mean zero time in TAC.
 
 \section{LEMO calibration}
 A set of LEMO cables is provided. Setting external delay to $13\si{\nano\second}$ and inserting one by one each LEMO cable in series with the external delay module, 5-minutes datasets are acquired; computing the difference between the observed centroids and the centroid without LEMO cable previously measured, and converting it with the calibration parameter, the time-length of each LEMO cable is computed.
