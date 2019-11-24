@@ -212,8 +212,19 @@ class Histograms{
 			cout << e << "keV corresponds to channel " << (int)(e-beta[chan])/alpha[chan] << endl;
 		}		
 	}
+	
+	int e2ch(int chan, double e){
+        if (chan < 0 || chan > 2)
+			return;
+		if(alpha[chan]==-1.0){
+			cout << "Detector not calibrated" << endl;
+            return -1;
+        }
+        else
+            return (int)(e-beta[chan])/alpha[chan];
+    }
 
-	//Filter the spectra taking entries with sum of energy of first "num_dect" detectors equal to "energysum"
+	//Filter the spectra taking entries with sum of energy of first "num_detect" detectors equal to "energysum"
 	//Accept a window cenetered in energy_sum equal to "window" 
 	void SpectraFiltering(double energy_sum, double window, int num_detect, double lowbound, double upbound){
 		
@@ -223,6 +234,7 @@ class Histograms{
 		}
 		if(energy_sum < 0 || window < 0){
 			cout << "energy_sum and window must be positive" << endl;
+            return;
 		}
 		for(int i = 0; i < num_detect; i++){
 			if(alpha[i] == -1){
