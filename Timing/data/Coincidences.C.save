@@ -216,7 +216,7 @@ class Coincidences{
             //hist[chan]->Scale(1/a); //to ensure keeping the proportions
         }
     
-    
+
     private:
         unsigned int n_chan;
         const char* original_data_file;
