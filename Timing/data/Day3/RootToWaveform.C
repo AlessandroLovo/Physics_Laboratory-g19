@@ -8,9 +8,9 @@ const int entries_analized = 500000;
 const bool analize_all_entries = false;
 
 //CFTD
-const float attenuation_fraction = 0.25f;
-const float delay_in_ns_ch0 = 5.0f;
-const float delay_in_ns_ch1 = 5.0f;
+float attenuation_fraction = 0.25f;
+float delay_in_ns_ch0 = 5.0f;
+float delay_in_ns_ch1 = 5.0f;
 const int steps_in_zero_crossing_binary_search = 13; //-> precision < 1ps
 
 //WAVEFORM CLASS
@@ -117,7 +117,7 @@ class Waveform{
 		MakeSumHisto();	}
 
 	TH2F* MakeSumHisto(){
-		sum_events = new TH2F(Form("Sum_events"),"", 360,0,360,256,0,1024);
+		sum_events = new TH2F(Form("Sum_events_%d",channel),"", 360,0,360,256,0,1024);
 		for (int i=0; i<num_events; i++)
 			for(int j=0; j<360; j++)
 				sum_events->Fill(j, events[i].value[j]);
@@ -236,7 +236,9 @@ class Waveform{
 class TwoChannelWaveform{
 	public:
 
-	TwoChannelWaveform(const char *name_file){
+	TwoChannelWaveform(const char *name_file, double att_frac = -1, double delay = -1){
+		if( att_frac != -1 ) attenuation_fraction = att_frac;
+		if( delay != -1 ) { delay_in_ns_ch0 = delay; delay_in_ns_ch1 = delay; }
 		original_data_file = name_file;
 		wf[0] = new Waveform(original_data_file, 0);
 		wf[1] = new Waveform(original_data_file, 1);
@@ -257,44 +259,47 @@ class TwoChannelWaveform{
 
 		// To have something like a progress bar
 		int step = num_events / 100;
-		for(int i=0; i< num_events; i+=step) cout<<"-";
-		cout<<endl;
+		cout << setw(3) << 0 <<"%" <<flush;
 
 
 		for(int i=0; i < num_events; i++){
 			delta_time_distribution[i]=wf[0]->ZeroCrossing(i) - wf[1]->ZeroCrossing(i) + delay_introduced_in_ns;
 
-			if( i % step == 0 ) cout<<"*"<<flush;
+			if( i % step == 0 ) cout << "\b\b\b\b" << setw(3) << i/step <<"%" <<flush;
 
 		}}
 
 	TH1F* GetTimeDistrHisto(){
 		if( calculate_time_distribution_in_each_time_distr_hist_request || delta_time_distribution.size() < 1 )
 			CalculateTimeDistribution();
-		TH1F* h = new TH1F("Time_distribution in ps", "", 540,0, 360*1000);
+		TH1F* h = new TH1F("Time_distribution_in_ps", "", 540,0, 360*1000);
 		for(int i=0;i<delta_time_distribution.size();i++)
 			h->Fill(int(delta_time_distribution[i]*1000));
-		h->Draw();
+		//h->Draw();
 
 		// Print FWHM with error
 		// Find Maximum
 		double max_half = h->GetMaximum() / 2;
 		double max_bin = h->GetMaximumBin();
 		int n_bin = h->GetNbinsX();
-		double last_below_before = -1, first_above_before, last_above_before = -1, first_below_after;
+		double last_below_before = -1, first_above_before, last_above_after = -1, first_below_after;
 
 		for (int i=0; i<n_bin; i++) {
 			double c = h->GetBinContent(i);
 			if ( c > max_half && last_below_before == -1 ) last_below_before = i-1;
 			if ( c < max_half && i < max_bin ) first_above_before = i+1;
-			if ( c < max_half && i > max_bin && last_above_before == -1 ) last_above_before = i-1;
+			if ( c < max_half && i > max_bin && last_above_after == -1 ) last_above_after = i-1;
 			if ( c > max_half ) first_below_after = i+1;
 		}
 
 		last_below_before = h->GetBinCenter( last_below_before );
 		first_above_before = h->GetBinCenter( first_above_before );
-		last_above_before = h->GetBinCenter( last_above_before );
+		last_above_after = h->GetBinCenter( last_above_after );
 		first_below_after = h->GetBinCenter( first_below_after );
+		
+		double FWHM = ( first_above_before + last_below_before ) / 2 - ( first_below_after + last_above_after ) / 2 ;
+		double FWHM_err = sqrt( pow( first_above_before - last_below_before ,2) + pow( first_below_after - last_above_after ,2) ) / sqrt(12);
+		cout << endl << attenuation_fraction << '\t' << delay_in_ns_ch0 << '\t' << FWHM << '\t' << FWHM_err <<endl;
 
 		return h;
 	}
@@ -310,3 +315,16 @@ class TwoChannelWaveform{
 	const char* 	original_data_file;
 };
 
+void simulateCFTD() {
+	vector<double> fracs{0.25, 0.5, 0.75};
+	vector<double> delays{1,2,3,4,5,6,7};
+	for ( double f : fracs)
+		for ( double d : delays) {
+			cout<<setw(5)<<f<<" - "<<setw(5)<<d<<" - "<<"Loading data; "<<flush;
+			auto tcw = new TwoChannelWaveform("Digital_CFTD.root", 0.25, 5.0);
+			cout<<"Analizing data: "<<flush;
+			auto tdh = tcw->GetTimeDistrHisto();
+			delete tdh;
+			delete tcw;
+		}
+}
