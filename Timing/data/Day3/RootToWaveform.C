@@ -19,8 +19,8 @@ const bool make_sum_histo_in_costructor = false;
 const bool remove_zero_events_in_costructor = true;
 
 //TWO_CHANNEL_WAVEFORM CLASS
-const bool check_coincidences_in_costructor = false;
-const bool calculate_time_distribution_in_each_time_distr_hist_request = true;
+const bool check_coincidences_in_costructor = true;
+const bool calculate_time_distribution_in_each_time_distr_hist_request = false;
 const double delay_introduced_in_ns = 150;
 
 //ENERGY FILTERING WINDOW
@@ -182,6 +182,7 @@ class Waveform{
 			y[360+i]=(double)baseline[channel]-ev[i] + (gr->Eval(i+delay_in_ns) - (double)baseline[channel]) * attenuation_fraction;
 		for(int i=360-((int)delay_in_ns+1); i<360; i++)
 			y[360+i]=0.0;
+		delete gr;
 		return new TGraph(720, x, y); }
 
 	double ZeroCrossing(int e){
@@ -199,7 +200,9 @@ class Waveform{
 			else r=(l+r)/2;
 			//cout << r-l <<endl;
 		}
-		return (l+r)/2;}
+		delete gr;
+		return (l+r)/2;
+	}
 
 	TH1F* GetEnergyHisto(){
 		TH1F* h = new TH1F("Distribution_of_energies","",300, 0, 20000);
@@ -248,21 +251,53 @@ class TwoChannelWaveform{
 	void CheckCoincidences(){ wf[0]->CheckCoincidences(wf[1]); }
 
 	void CalculateTimeDistribution(){
-		CheckCoincidences();
+		if ( !check_coincidences_in_costructor ) CheckCoincidences();
 		int num_events = wf[0]->GetNumEvents();
 		delta_time_distribution.resize(num_events);
+
+		// To have something like a progress bar
+		int step = num_events / 100;
+		for(int i=0; i< num_events; i+=step) cout<<"-";
+		cout<<endl;
+
+
 		for(int i=0; i < num_events; i++){
 			delta_time_distribution[i]=wf[0]->ZeroCrossing(i) - wf[1]->ZeroCrossing(i) + delay_introduced_in_ns;
+
+			if( i % step == 0 ) cout<<"*"<<flush;
+
 		}}
 
 	TH1F* GetTimeDistrHisto(){
-		if(calculate_time_distribution_in_each_time_distr_hist_request)
+		if( calculate_time_distribution_in_each_time_distr_hist_request || delta_time_distribution.size() < 1 )
 			CalculateTimeDistribution();
 		TH1F* h = new TH1F("Time_distribution in ps", "", 540,0, 360*1000);
 		for(int i=0;i<delta_time_distribution.size();i++)
 			h->Fill(int(delta_time_distribution[i]*1000));
 		h->Draw();
-		return h;}
+
+		// Print FWHM with error
+		// Find Maximum
+		double max_half = h->GetMaximum() / 2;
+		double max_bin = h->GetMaximumBin();
+		int n_bin = h->GetNbinsX();
+		double last_below_before = -1, first_above_before, last_above_before = -1, first_below_after;
+
+		for (int i=0; i<n_bin; i++) {
+			double c = h->GetBinContent(i);
+			if ( c > max_half && last_below_before == -1 ) last_below_before = i-1;
+			if ( c < max_half && i < max_bin ) first_above_before = i+1;
+			if ( c < max_half && i > max_bin && last_above_before == -1 ) last_above_before = i-1;
+			if ( c > max_half ) first_below_after = i+1;
+		}
+
+		last_below_before = h->GetBinCenter( last_below_before );
+		first_above_before = h->GetBinCenter( first_above_before );
+		last_above_before = h->GetBinCenter( last_above_before );
+		first_below_after = h->GetBinCenter( first_below_after );
+
+		return h;
+	}
 
 	void EnergyFiltering(){
 		wf[0]->EnergyFiltering();
@@ -274,3 +309,4 @@ class TwoChannelWaveform{
 	Waveform* 		wf [2];
 	const char* 	original_data_file;
 };
+
