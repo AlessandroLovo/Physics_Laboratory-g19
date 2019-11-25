@@ -98,6 +98,10 @@ class Waveform{
 		if(make_sum_histo_in_costructor) MakeSumHisto();
 	}
 
+	~Waveform() {
+		delete sum_events;
+	}
+
 	Waveform* GetOtherChannel(){ return new Waveform(original_data_file, (int)(channel == 0) );	}
 
 	void RemoveZeroEnergyEvents(){
@@ -245,6 +249,11 @@ class TwoChannelWaveform{
 		if (check_coincidences_in_costructor)
 			CheckCoincidences();	}
 
+	~TwoChannelWaveform() {
+		delete wf[0];
+		delete wf[1];
+	}
+
 	Waveform* at(int ch){
 		if (ch < 0 || ch > 1 )
 			return 0x0;
@@ -269,10 +278,10 @@ class TwoChannelWaveform{
 
 		}}
 
-	TH1F* GetTimeDistrHisto(){
+	TH1F* GetTimeDistrHisto(ofstream* out = NULL){
 		if( calculate_time_distribution_in_each_time_distr_hist_request || delta_time_distribution.size() < 1 )
 			CalculateTimeDistribution();
-		TH1F* h = new TH1F("Time_distribution_in_ps", "", 540,0, 360*1000);
+		TH1F* h = new TH1F("Time_distribution_in_ps", "", 5000,0, 360*1000); // 5000 (experimentally found binning that permit noise neglecting keeping sufficient resolution)
 		for(int i=0;i<delta_time_distribution.size();i++)
 			h->Fill(int(delta_time_distribution[i]*1000));
 		//h->Draw();
@@ -297,10 +306,10 @@ class TwoChannelWaveform{
 		last_above_after = h->GetBinCenter( last_above_after );
 		first_below_after = h->GetBinCenter( first_below_after );
 		
-		double FWHM = ( first_above_before + last_below_before ) / 2 - ( first_below_after + last_above_after ) / 2 ;
+		double FWHM = ( first_below_after + last_above_after ) / 2 - ( first_above_before + last_below_before ) / 2 ;
 		double FWHM_err = sqrt( pow( first_above_before - last_below_before ,2) + pow( first_below_after - last_above_after ,2) ) / sqrt(12);
 		cout << endl << attenuation_fraction << '\t' << delay_in_ns_ch0 << '\t' << FWHM << '\t' << FWHM_err <<endl;
-
+		if ( out != NULL ) *out         << attenuation_fraction << '\t' << delay_in_ns_ch0 << '\t' << FWHM << '\t' << FWHM_err <<endl;
 		return h;
 	}
 
@@ -318,12 +327,16 @@ class TwoChannelWaveform{
 void simulateCFTD() {
 	vector<double> fracs{0.25, 0.5, 0.75};
 	vector<double> delays{1,2,3,4,5,6,7};
+	int i = 0;
+	ofstream out("CFTD_simulations.txt");
+	out << "Frac\tDelay\tFWHM\tFWHM_sigma"<<endl;
 	for ( double f : fracs)
 		for ( double d : delays) {
-			cout<<setw(5)<<f<<" - "<<setw(5)<<d<<" - "<<"Loading data; "<<flush;
-			auto tcw = new TwoChannelWaveform("Digital_CFTD.root", 0.25, 5.0);
+			i++;
+			cout<<setw(5)<<f<<" - "<<setw(5)<<d<<" - "<<setw(2)<<i<<" of "<<setw(2)<<fracs.size()*delays.size()<<" - Loading data; "<<flush;
+			auto tcw = new TwoChannelWaveform("Digital_CFTD.root", f, d);
 			cout<<"Analizing data: "<<flush;
-			auto tdh = tcw->GetTimeDistrHisto();
+			auto tdh = tcw->GetTimeDistrHisto(&out);
 			delete tdh;
 			delete tcw;
 		}
