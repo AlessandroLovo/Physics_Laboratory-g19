@@ -3,9 +3,9 @@ void plot_CFTD_simulations () {
 	TGraphErrors* tge25 = new TGraphErrors();
 	TGraphErrors* tge50 = new TGraphErrors();
 	TGraphErrors* tge75 = new TGraphErrors();
-	tge25->SetMarkerColor(1);
-	tge50->SetMarkerColor(2);
-	tge75->SetMarkerColor(3);
+	tge25->SetLineColor(1);
+	tge50->SetLineColor(2);
+	tge75->SetLineColor(3);
 	double a,b,c,d;
 	in.ignore(10000,'\n');
 	while (in>>a>>b>>c>>d) {
