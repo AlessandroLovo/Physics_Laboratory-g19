@@ -61,24 +61,38 @@
 \end{itemize}
 
 \section{Experimental setup}
-The experimental setup consist of two collinear organic scintillators, mounted on a sledge, and a \ce{^22Na} source collimated between two lead bricks.
+The experimental setup consist of two collinear organic scintillators, mounted on a sledge, and a \ce{^22Na} source collimated between two lead bricks. The peaks for this source are in tab \ref{tab:gammavalue}.
 
-Data are collected from the detectors through a electronic chain: a fan-in-fan-out quad module replies the signal of each detector and produces four copies of it; then, through a CFD, a trigger signal is produced. The CFD trigger threshold has been set so that the background noise is discarded, while the interesting signals produce an output.
+Data are collected from the detectors through a electronic chain: a fan-in-fan-out quad module replies the signal of each detector and produces four copies of it; then, through a CFTD, a trigger signal is produced. The CFTD trigger threshold has been set so that the noise is discarded, while the interesting signals produce an output.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{cccccccc}
+        \toprule
+        photopeak [keV] & Compton Edge [keV] \\
+        \midrule
+        $511.0$ & $340.7$\\
+        $1274.537$ & $1061.7$ \\
+        \bottomrule\vspace{0.01cm}
+    \end{tabular}
+    \caption{Gamma radiation for \ce{^22Na} from NuDat, \url{https://www.nndc.bnl.gov/nudat2/decaysearchdirect.jsp?nuc=22NA\&unc=nds}}
+    \label{tab:gammavalue}
+\end{table}
 
 \section{Apparatus calibration}
 Both the detectors and the TAC need to be calibrated. Firstly, let's calibrate the detectors.
 
-A spectra for each detector is acquired; due to the composition of the detector, the photopeaks are negligible and only the compton effect are detected. Through the position of the compton edge (CE), the calibration can be done.
+A spectra for each detector is acquired; due to the composition of the detector, the photopeaks are negligible and only the compton effect are detected. The calibration can then be done through the position of the compton edge (CE).
 
 \begin{figure}[H]
     \centering
     \resizebox{0.8\textwidth}{!}{\import{img/}{det1_calibr_final.tex}}
-    \caption{Det 1: Position of CE's centroids and widths}
+    \caption{Position of CE's centroids and widths for DET 1}
     \label{fig:det1:calibr}
 \end{figure}
 
-The gaussian fit way was discarded, due to its strongly dependence from fit range choice. After a proper spectra rebinning, then for each CE the position of the maximum $c_{ch}$ and the half width half maximum $w_{ch}$ in channels have been found (fig \ref{fig:det1:calibr}, tab \ref{tab:calibr:fits})\footnote{As described in Dietze, Klein: \emph{Gamma-calibration of NE 213 scintillation counters}, Nuc. Instr. and Meth., 193 (1982), \url{https://doi.org/10.1016/0029-554X(82)90249-X}}.
-The observed CE is a convolution of a real CE with a gaussian noise whose width is proportional to the resolution of the detector $\sigma_{res}$; this convolution results in a shift of the maximum of the CE towards lower energies. By simulating effects on CE varying $\sigma_{res}$ we compute the simulated resolution $r_{sim} = \frac{w_{sim}}{c_{sim}}$ and correlate it with $c_{sim}$, i.e the peak position in energy (fig \ref{fig:sim}).
+The gaussian fit way was discarded, due to its strong dependence on the fit range choice. Then, after a proper spectra rebinning, for each CE the position of the maximum $c_{ch}$ and the half width half maximum $w_{ch}$ in channels have been found (fig \ref{fig:det1:calibr}, tab \ref{tab:calibr:fits})\footnote{As described in Dietze, Klein: \emph{Gamma-calibration of NE 213 scintillation counters}, Nuc. Instr. and Meth., 193 (1982), \url{https://doi.org/10.1016/0029-554X(82)90249-X}}.
+The observed CE is a convolution of a real CE with a gaussian noise whose width is proportional to the resolution of the detector $\sigma_{res}$; this convolution results in a shift of the maximum of the CE towards lower energies. By simulating\footnote{We used the formulas from N. Kudomi \emph{Energy calibration of plastic scintillators for low energy electrons by using Compton scattering of $\gamma$ rays}, Nuc. Instr. and Meth., 430 (1999), \url{www.elsevier.nl/locate/nima}} the effects on CE varying $\sigma_{res}$ we can compute the simulated resolution $r_{sim} = \frac{w_{sim}}{c_{sim}}$ and correlate it with $c_{sim}$, i.e the peak position in energy (fig \ref{fig:sim}).
 
 If we assume the calibration relation $E = a*ch + b$, then the resolution in energy is:
 
@@ -86,30 +100,37 @@ If we assume the calibration relation $E = a*ch + b$, then the resolution in ene
   r_E = \frac{w_E}{c_E} = \frac{a w_{ch}}{a c_{ch} + b} = \frac{w_{ch}}{c_{ch} + \frac[f]{b}{a}}
 \end{equation*}
 
-So we first assume $\frac[f]{b}{a} = 0$ to compute $r_E$, and then by imposing $r_E = r_{sim}$ we can find the peak positions in energy $c_E$ allowing us to compute $a$ and $b$ via linear fit. We can now update the value of $r_E$ and repeat the process. After a few iterations the process converges and gives us the results in tab \ref{tab:calibr:coeffs}.
+So we first assume $\frac[f]{b}{a} = 0$ to compute $r_E$, and then by imposing $r_E = r_{sim}$ we can find the peak positions in energy $c_E = c_{sim}(r_{sim})$ allowing us to compute $a$ and $b$ via linear fit. We can now update the value of $r_E$ and repeat the process. After a few iterations the process converges and gives us the results in tab \ref{tab:calibr:coeffs}.
 
 \begin{figure}[H]
-  \centering
-  \subfloat[]{\includegraphics[width=0.4\textwidth]{img/sim_511.png}} \quad
-  \subfloat[]{\includegraphics[width=0.4\textwidth]{img/sim_1275.png}}
-  \caption{Relation between the resolution of the peak and the peak position}
-  \label{fig:sim}
+    \centering
+    \resizebox{0.8\textwidth}{!}{\import{img/}{shift_from_CE.pgf}}
+    \caption{Relation between the resolution of the peak and the peak position}
+    \label{fig:sim}
 \end{figure}
+
+% \begin{figure}[H]
+%   \centering
+%   \subfloat[]{\includegraphics[width=0.45\textwidth]{img/sim_511.png}} \quad
+%   \subfloat[]{\includegraphics[width=0.45\textwidth]{img/sim_1275.png}}
+%   \caption{Relation between the resolution of the peak and the peak position}
+%   \label{fig:sim}
+% \end{figure}
 
 \begin{table}[H]
   \centering
   \begin{tabular}{cccccccc}
     \toprule
-    Det & photopeak [keV] & $c_{ch}$ & $w_{ch}$ & $c_E$ [keV] \\
+    Det & photopeak [keV] & $c_{ch}$ & $w_{ch}$ & $c_E$ [keV] & $w_E$ [keV] & $r_E$ \\
     \midrule
-    \#1 & 511 & $3440 \pm 9$ & $832 \pm 13$ & $283.6 \pm 0.8$ \\
-        & 1275 & $11312 \pm 9$ & $960 \pm 13$ & $992.9 \pm 0.7$ \\
-    \#2 & 511 & $4400 \pm 9$ & $896 \pm 13$ & $286.2 \pm 0.7$ \\
-        & 1275 & $13392 \pm 9$ & $960 \pm 13$ & $1000.5 \pm 0.7$ \\
+    \#1 & 511 & $3440 \pm 9$ & $832 \pm 13$ & $283.6 \pm 0.8$ & $75 \pm 1$ & $0.264 \pm 0.004$ \\
+        & 1275 & $11312 \pm 9$ & $960 \pm 13$ & $992.9 \pm 0.7$ & $262 \pm 4$ & $0.087 \pm 0.001$ \\
+    \#2 & 511 & $4400 \pm 9$ & $896 \pm 13$ & $286.2 \pm 0.7$ & $71 \pm 1$ & $0.249 \pm 0.004$ \\
+        & 1275 & $13392 \pm 9$ & $960 \pm 13$ & $1000.5 \pm 0.7$ & $249 \pm 4$ & $0.076 \pm 0.001$ \\
     \bottomrule
   \end{tabular}
   \caption{Centroids and widths of the CE peaks: the errors for the values in channels come from a uniform distribution on the bin width of the histogram.
-  The value of $c_E$ here is the one after the calibration process converged}
+  The values of $c_E$, $w_E$ and $r_E$ here are the ones after the calibration process converged.}
   \label{tab:calibr:fits}
 \end{table}
 
@@ -135,7 +156,8 @@ So we first assume $\frac[f]{b}{a} = 0$ to compute $r_E$, and then by imposing $
 % \end{figure}
 %
 % The observed compton edge are produced by the convolution of real compton edge and gaussian acquisition error. This lead to a shift of the observed compton edge that must be considered.
-Even the TAC must be calibrated. The system is setup with a delay module just before the TAC \emph{stop}. Multiple events are acquired with different delays, and centroid of each peak are found.
+Also the TAC must be calibrated. The system is set with a delay module just before the TAC's \emph{stop}. Multiple events are acquired with different delays, and the centroid of each peak is found.
+\todo[inline]{How have the centroid been found?}
 
 \begin{figure}[H]
     \centering
@@ -161,7 +183,7 @@ Even the TAC must be calibrated. The system is setup with a delay module just be
     \label{tab:tac:calibr}
 \end{table}
 
-The found centroid are fitted using a linear relation (the $\chi^2$ value confirm the linear dependence):
+The found centroid are fitted using a linear relation (the $\chi^2$ value confirms the linear dependence):
 \begin{gather*}
     t = m\cdot \text{channel} + q \\
     m = ( 1.477 \pm 0.005) \si{\pico\second}
@@ -185,12 +207,12 @@ A set of LEMO cables is provided. Setting external delay to $13\si{\nano\second}
         \toprule
         LEMO ID & LEMO length [cm], $\pm 0.1$ & LEMO time \\
         \midrule
-        $7$ & $23.0$ & $1.15\pm0.04$\\
         $6$ & $22.5$ & $1.17\pm0.04$\\
-        $13$ & $53.5$ & $2.71\pm0.05$\\
-        $5$ & $101.0$ & $5.08\pm0.07$\\
-        $4$ & $101.0$ & $5.12\pm0.04$\\
+        $7$ & $23.0$ & $1.15\pm0.04$\\
         $2$ & $53.5$ & $2.70\pm0.03$\\
+        $13$ & $53.5$ & $2.71\pm0.05$\\
+        $4$ & $101.0$ & $5.12\pm0.04$\\
+        $5$ & $101.0$ & $5.08\pm0.07$\\
         \bottomrule
     \end{tabular}
     \caption{LEMO cables}
@@ -205,9 +227,9 @@ A set of LEMO cables is provided. Setting external delay to $13\si{\nano\second}
 \end{figure}
 
 
-\section{CFD delay optimization}
+\section{CFTD delay optimization}
 
-The CFD is provided by an external delay to properly superimpose a delayed copy of the signal to a inverted reduced one. This delay must be properly set to optimize the TAC resolution. With only the preset delay, the signal detected by the TAC is large and not gaussian (see fig. \ref{fig:delay:bad}); after some tests, a setup which lead to a better resolution and a more gaussian-like output is obtained.
+The CFTD superimposes a delayed copy of the signal to an inverted reduced one. This delay must be properly set using LEMO cables to optimize the TAC resolution. With only the default delay, the signal detected by the TAC is large and not gaussian (see fig. \ref{fig:delay:bad}); after some tests, a setup which lead to a better resolution and a more gaussian-like output is obtained.
 
 \begin{figure}[H]
     \centering
@@ -216,16 +238,16 @@ The CFD is provided by an external delay to properly superimpose a delayed copy 
     \label{fig:delay:bad}
 \end{figure}
 
-Different combination of LEMO cable has been inserted in series with the pre-set delay; every time the configuration changed, the WALK ADJ potentiometer has been regulated to minimize the dispersion (see fig. \ref{fig:oscilloscope}).
+Different combination of LEMO cable have been inserted in series with the pre-set delay; every time the configuration changed, the WALK ADJ potentiometer has been regulated to minimize the dispersion (see fig. \ref{fig:oscilloscope}) at the zero-crossing point of the signals.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{img/oscilloscope.jpg}
-    \caption{Monitor CFD signal triggered on CFD output, seen by the oscilloscope.}
+    \caption{Monitor CFTD signal triggered on CFTD output, seen by the oscilloscope.}
     \label{fig:oscilloscope}
 \end{figure}
 
-Fitting the obtained peaks with gaussian and relating them to the delay inserted in the CFDs (after some tests, we noticed that the optimal setup is with the same delay in both the CFD), the figure \ref{fig:CFD:delay} is obtained. As can be seen from the figure, a minimum is found at about $3\si{\nano\second}$ of delay (LEMO 13 and 2 for detector 1 and 2, respectively). Considering the pre-set delay (around $2\si{\nano\second}$), this lead to a optimal delay of around $5\si{\nano\second}$, that is about $80\%$ the rise time ($\sim6\si{\nano\second}$) as expected.
+Fitting the obtained peaks with gaussian and relating them to the delay inserted in the CFTDs (after some tests, we noticed that the optimal setup is with the same delay in both CFTDs), the figure \ref{fig:CFD:delay} is obtained. As can be seen from the figure, a minimum is found at about $3\si{\nano\second}$ of delay (LEMO 13 and 2 for detector 1 and 2, respectively). Considering the pre-set delay (around $2\si{\nano\second}$), this lead to a optimal delay of around $5\si{\nano\second}$, that is about $80\%$ the rise time of the detector signal ($\sim6\si{\nano\second}$) as expected.
 
 \begin{figure}[H]
     \centering
@@ -237,9 +259,9 @@ Fitting the obtained peaks with gaussian and relating them to the delay inserted
 The minimum configuration has been kept for all the following Measurements.
 
 \section{Time resolution in function of energy range}
-In order to have a larger compton energy spectra, we acquired 20 hours of data using a \ce{^60Co}. This source decays emitting two photons of energy around 1\si{\mega\electronvolt}: a few of them are emitted back-to-back and hence can trigger the coincidence unit (fig \ref{fig:Co:spectra} ).\\
+In order to have a wider Compton energy spectra, we acquired 20 hours of data using a \ce{^60Co} source. This source decays emitting two photons of energy around 1\si{\mega\electronvolt}: a few of them are emitted back-to-back and hence can trigger the coincidence unit (fig \ref{fig:Co:spectra}).\\
 We can now proceed by filtering in energy the spectra and looking how the resolution of the TAC peak behaves. Since the TAC peak has a fat-tailed distribution, the gaussian fit is far from accurate, so we used the Full Width Half Maximum (FWHM) as a quantifier of the resoultion of the peaks.
-The filtering can be done either by setting a Lower Energy Threshold (LET) or by selecting a window in energy, i.e. keeping only the data between the LET and an Upper Energy Threshold (UET). The results are shown in fig \ref{fig:Co:results}.
+The filtering can be done either by setting a Lower Energy Threshold (LET) or by selecting a window in energy, i.e. keeping only the data with energy between the LET and an Upper Energy Threshold (UET). The results are shown in fig \ref{fig:Co:results}.
 
 \begin{figure}[H]
     \centering
@@ -255,11 +277,15 @@ The filtering can be done either by setting a Lower Energy Threshold (LET) or by
     \label{fig:Co:results}
 \end{figure}
 
+From fig \ref{fig:Co:results} we can see that the resolution improves dramatically as we discard the events at lower energy, and then remains almost constant as the LET increases. Considering that using only a LET implies that as it increases the number of discarded data increases too, the best choice for the LET is at around \SI{200}{\kilo\electronvolt}. On the other hand when using both a LET and a UET, given the shape of the \ce{^60Co}, moving the energy window does not drastically affect the number of discarded events. So in this case the best choice is a window near the Compton Edge.
+
+\todo[inline]{Comment the results better}
+
 \section{Speed of light}
-The detectors have been placed such that they're about $170\si{\metre}$ away. The source has been placed firstly near the detector 1 and then near the detector 2, and the TAC signal has been acquired; therefore, the centroids $\mu_1$ and $\mu_2$ of the two measurements have been found through a gaussian interpolation. Measuring the distance between the two source positions $d$, the light speed can be computed. Observe that the two centroids have been firstly subtracted and then calibrated, to preserve the resolution.
+The detectors have been placed such that they're about $1.70\si{\metre}$ away. The source has been placed firstly near the detector 1 and then near the detector 2, and the TAC signal has been acquired (one hour for each configuration); therefore, the centroids $\mu_1$ and $\mu_2$ of the two measurements have been found through a gaussian interpolation. Measuring the distance between the two source positions $d$, the light speed can be computed. Observe that the two centroids have been firstly subtracted and then calibrated, to preserve the resolution.
 \todo[inline]{Not clear}
 
-The errors has been propagated as casual errors. Note the high error on the distance between the positions of the source, due to the width of the source. 
+The errors have been propagated as statistical errors. Note the high error on the distance between the positions of the source, due to the width of the source.
 
 \begin{gather*}
     \mu_1 = (16433 \pm 2) \\
@@ -268,6 +294,7 @@ The errors has been propagated as casual errors. Note the high error on the dist
     c = \frac{2d}{(\mu_1-\mu_2)m} = (2.94 \pm 0.01 )\cdot 10^8 \si{\metre\per\second}
 \end{gather*}
 
+\todo[inline]{Which is the unit of $\mu$?}
 
 
 
