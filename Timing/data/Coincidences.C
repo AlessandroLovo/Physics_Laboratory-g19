@@ -203,7 +203,7 @@ class Coincidences{
         
         void CalibrateHisto(int chan = -1, double a = 0, double b = 0) {
             if (chan == -1)
-                for(int c=1;c<n_chan;c++)
+                for(int c=0;c<n_chan;c++)
                     CalibrateHisto(c);
             
             if (chan < 0 || chan > n_chan)

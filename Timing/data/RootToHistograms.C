@@ -215,7 +215,7 @@ class Histograms{
 	
 	int e2ch(int chan, double e){
         if (chan < 0 || chan > 2)
-			return;
+			return -1;
 		if(alpha[chan]==-1.0){
 			cout << "Detector not calibrated" << endl;
             return -1;

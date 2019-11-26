@@ -57,7 +57,7 @@ double FWHM(TH1F* h, double e_min, double e_max, bool draw = false){
 }
 
 
-void Co(){
+Coincidences* Co(){
     Coincidences* C = new Coincidences("CO_night_20_24.root",3);
     C->SetAlphaBeta(0,0.0901,-26);
     C->SetAlphaBeta(1,0.0794,-63);
@@ -75,12 +75,12 @@ void Co(){
     ofstream lthr("lower_thr.txt");
     if(!lthr){
         cout << "Failed to open lower_thr.txt" << endl;
-        return;
+        return 0x0;
     }
     ofstream win("window.txt");
     if(!win){
         cout << "Failed to open window.txt" << endl;
-        return;
+        return 0x0;
     }
     ofstream win_n("window_n.txt");
     ofstream lthr_n("lower_thr_n.txt");
@@ -113,7 +113,7 @@ void Co(){
     win.close();
 
 
-    return;
+    return C;
 }
 
 

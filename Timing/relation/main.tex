@@ -231,10 +231,30 @@ Fitting the obtained peaks with gaussian and relating them to the delay inserted
     \label{fig:CFD:delay}
 \end{figure}
 
-The minimum configuration as been kept for all the following Measurements.
+The minimum configuration has been kept for all the following Measurements.
+
+\section{Time resolution in function of energy range}
+In order to have a larger compton energy spectra, we acquired 20 hours of data using a \ce{^60Co}. This source decays emitting two photons of energy around 1\si{\mega\electronvolt}: a few of them are emitted back-to-back and hence can trigger the coincidence unit (fig \ref{fig:Co:spectra} ).\\
+We can now proceed by filtering in energy the spectra and looking how the resolution of the TAC peak behaves. Since the TAC peak has a fat-tailed distribution, the gaussian fit is far from accurate, so we used the Full Width Half Maximum (FWHM) as a quantifier of the resoultion of the peaks.
+The filtering can be done either by setting a Lower Energy Threshold (LET) or by selecting a window in energy, i.e. keeping only the data between the LET and an Upper Energy Threshold (UET). The results are shown in fig \ref{fig:Co:results}.
+
+\begin{figure}[H]
+    \centering
+    \resizebox{0.8\textwidth}{!}{\import{img/}{Co_spectra.tex}}
+    \caption{Energy spectra of the two detectors with \ce{^60Co} source.}
+    \label{fig:Co:spectra}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \resizebox{0.8\textwidth}{!}{\import{img/}{Co.tex}}
+    \caption{When computing the FWHM the peaks had been properly rebinned in order to have them sufficiently smooth. The errors on the FWHMs come from a uniform distribution on the bin width.}
+    \label{fig:Co:results}
+\end{figure}
 
 \section{Speed of light}
-The detector has been placed such that they're about $170\si{\metre}$ away. The source has been placed firstly near the detector 1 and then near the detector 2, and the TAC signal has been acquired; therefore, the centroids $\mu_1$ and $\mu_2$ of the two measurements has been found through a gaussian interpolation. Measuring the distance between the two source positions $d$, the light speed can be computed. Observe that the two centroids has been firstly subtracted and then calibrated, to preserve the resolution.
+The detectors have been placed such that they're about $170\si{\metre}$ away. The source has been placed firstly near the detector 1 and then near the detector 2, and the TAC signal has been acquired; therefore, the centroids $\mu_1$ and $\mu_2$ of the two measurements have been found through a gaussian interpolation. Measuring the distance between the two source positions $d$, the light speed can be computed. Observe that the two centroids have been firstly subtracted and then calibrated, to preserve the resolution.
+\todo[inline]{Not clear}
 
 \begin{gather*}
     \mu_1 = (16433 \pm 2) \\
