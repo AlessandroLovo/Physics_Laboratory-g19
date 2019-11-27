@@ -2,26 +2,25 @@
 #include <vector>
 using namespace std;
 
-//This is useful to improve speed in loading heavy files. 
-//Anyway in this version it tooks less than 30 sec to load 500Mb of datas (in my Mac u.u ) 
-const int entries_analized = 100000;
+const int entries_analized = 500000;
 const bool analize_all_entries = false;
 
 //CFTD
 float attenuation_fraction = 0.25f;
-float delay_in_ns_ch0 = 5.0f;
-float delay_in_ns_ch1 = 5.0f;
+float delay_in_ns_ch0 = 3.5f;
+float delay_in_ns_ch1 = 3.5f;
 const int steps_in_zero_crossing_binary_search = 13; //-> precision < 1ps
-const int steps_in_delay_optimization = 20;
+const int steps_in_delay_optimization = 15;
 
 //WAVEFORM CLASS
 const bool remove_cutted_energies = true;
 const bool make_sum_histo_in_costructor = false;
 const bool remove_zero_events_in_costructor = true;
-const int aligment_channel = 100;
+const int  aligment_channel = 100;
 
 //TWO_CHANNEL_WAVEFORM CLASS
 const bool check_coincidences_in_costructor = true;
+const bool filter_energy_in_costructor = true;
 const bool calculate_time_distribution_in_each_time_distr_hist_request = false;
 const double delay_introduced_in_ns = 150;
 
@@ -253,14 +252,17 @@ class Waveform{
 		//h->Draw();
 		return h;}
 
+	//Try to find optimal delay aligning (minimal) peaks of raw samples to the value "aligment_channel"
+	//and then minimizing variation of crossing points in CFTD from "aligment_channel".
 	TGraph* OptimalCFTDDelay(double start, double stop){
 		EnergyFiltering();
 		AlignEventPeaks();
 		double x[steps_in_delay_optimization], y[steps_in_delay_optimization];
 		for(int i=0; i<steps_in_delay_optimization; i++){
 			x[i] = start + (stop-start)/(steps_in_delay_optimization-1)*i;
-			y[i] = (ZeroCrossingDistribution(x[i])->GetStdDev())/1000;
-			cout << "Delay = " << x[i] << "ns, zero crossing STD = " << y[i] << endl;
+			y[i]=0;
+			for(int j=0; j < events.size(); j++) y[i] += TMath::Power(ZeroCrossing(j, x[i])-aligment_channel,2);
+			cout << "Delay = " << x[i] << "ns, sum of square variations from peaks alignment = " << y[i] << endl;
 		}
 		TGraph* gr = new TGraph(steps_in_delay_optimization,x,y);
 		gr->Draw();
@@ -316,7 +318,9 @@ class TwoChannelWaveform{
 		wf[0] = new Waveform(original_data_file, 0);
 		wf[1] = new Waveform(original_data_file, 1);
 		if (check_coincidences_in_costructor)
-			CheckCoincidences();	}
+			CheckCoincidences();	
+		if(filter_energy_in_costructor)
+			EnergyFiltering();	}
 
 	~TwoChannelWaveform() {
 		delete wf[0];
