@@ -1,0 +1,10 @@
+G. Dietze, H. Klein,
+Gamma-calibration of NE 213 scintillation counters,
+Nuclear Instruments and Methods in Physics Research,
+Volume 193, Issue 3,
+1982,
+Pages 549-556,
+ISSN 0167-5087,
+https://doi.org/10.1016/0029-554X(82)90249-X.
+(http://www.sciencedirect.com/science/article/pii/0029554X8290249X)
+Abstract: A method is described of calibrating the light output of NE 213 scintillation detectors by means of “monoenergetic” photon sources. The position of the Compton edge can be precisely determined by comparing the measured pulse-height spectrum with a Monte Carlo simulated distribution properly folded with the pulse-height dependent resolution. For the various sizes of scintallator systems the position of the Compton edge relative to the position of the maximum and the half maximum of the distribution is tabulated in dependence on relevant detector resolutions. The results may be used to determine the resolution function and to check the linearity of the light output.

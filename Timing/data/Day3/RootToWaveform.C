@@ -8,9 +8,9 @@ const int entries_analized = 100000;
 const bool analize_all_entries = false;
 
 //CFTD
-const float attenuation_fraction = 0.25f;
-const float delay_in_ns_ch0 = 5.0f;
-const float delay_in_ns_ch1 = 5.0f;
+float attenuation_fraction = 0.25f;
+float delay_in_ns_ch0 = 5.0f;
+float delay_in_ns_ch1 = 5.0f;
 const int steps_in_zero_crossing_binary_search = 13; //-> precision < 1ps
 const int steps_in_delay_optimization = 20;
 
@@ -21,8 +21,8 @@ const bool remove_zero_events_in_costructor = true;
 const int aligment_channel = 100;
 
 //TWO_CHANNEL_WAVEFORM CLASS
-const bool check_coincidences_in_costructor = false;
-const bool calculate_time_distribution_in_each_time_distr_hist_request = true;
+const bool check_coincidences_in_costructor = true;
+const bool calculate_time_distribution_in_each_time_distr_hist_request = false;
 const double delay_introduced_in_ns = 150;
 
 //ENERGY FILTERING WINDOW
@@ -99,6 +99,10 @@ class Waveform{
 
 		if(make_sum_histo_in_costructor) MakeSumHisto();}
 
+	~Waveform() {
+		delete sum_events;
+	}
+
 	Waveform* GetOtherChannel(){ return new Waveform(original_data_file, (int)(channel == 0) );	}
 
 	void RemoveZeroEnergyEvents(){
@@ -117,7 +121,7 @@ class Waveform{
 		num_events = new_num_events;}
 
 	TH2F* MakeSumHisto(){
-		sum_events = new TH2F(Form("Sum_events"),"", 360,0,360,256,0,1024);
+		sum_events = new TH2F(Form("Sum_events_%d",channel),"", 360,0,360,256,0,1024);
 		for (int i=0; i<num_events; i++)
 			for(int j=0; j<360; j++)
 				sum_events->Fill(j, events[i].value[j]);
@@ -180,6 +184,7 @@ class Waveform{
 			y[360+i]=(double)baseline[channel]-ev[i] + (gr->Eval(i+delay_in_ns) - (double)baseline[channel]) * attenuation_fraction;
 		for(int i=360-((int)delay_in_ns+1); i<360; i++)
 			y[360+i]=0.0;
+		delete gr;
 		return new TGraph(720, x, y); }
 
 	TGraph* CFTD(int e, double CFTD_delay){
@@ -232,7 +237,9 @@ class Waveform{
 			else r=(l+r)/2;
 			//cout << r-l <<endl;
 		}
-		return (l+r)/2;}
+		delete gr;
+		return (l+r)/2;
+	}
 
 	TH1F* ZeroCrossingDistribution(){
 		TH1F* h = new TH1F("Zero Crossing Distr.","", 360*1000/4, 0,360*1000);
@@ -302,12 +309,19 @@ class Waveform{
 class TwoChannelWaveform{
 	public:
 
-	TwoChannelWaveform(const char *name_file){
+	TwoChannelWaveform(const char *name_file, double att_frac = -1, double delay = -1){
+		if( att_frac != -1 ) attenuation_fraction = att_frac;
+		if( delay != -1 ) { delay_in_ns_ch0 = delay; delay_in_ns_ch1 = delay; }
 		original_data_file = name_file;
 		wf[0] = new Waveform(original_data_file, 0);
 		wf[1] = new Waveform(original_data_file, 1);
 		if (check_coincidences_in_costructor)
 			CheckCoincidences();	}
+
+	~TwoChannelWaveform() {
+		delete wf[0];
+		delete wf[1];
+	}
 
 	Waveform* at(int ch){
 		if (ch < 0 || ch > 1 )
@@ -317,21 +331,56 @@ class TwoChannelWaveform{
 	void CheckCoincidences(){ wf[0]->CheckCoincidences(wf[1]); }
 
 	void CalculateTimeDistribution(){
-		CheckCoincidences();
+		if ( !check_coincidences_in_costructor ) CheckCoincidences();
 		int num_events = wf[0]->GetNumEvents();
 		delta_time_distribution.resize(num_events);
+
+		// To have something like a progress bar
+		int step = num_events / 100;
+		cout << setw(3) << 0 <<"%" <<flush;
+
+
 		for(int i=0; i < num_events; i++){
 			delta_time_distribution[i]=wf[0]->ZeroCrossing(i) - wf[1]->ZeroCrossing(i) + delay_introduced_in_ns;
+
+			if( i % step == 0 ) cout << "\b\b\b\b" << setw(3) << i/step <<"%" <<flush;
+
 		}}
 
-	TH1F* GetTimeDistrHisto(){
-		if(calculate_time_distribution_in_each_time_distr_hist_request)
+	TH1F* GetTimeDistrHisto(ofstream* out = NULL){
+		if( calculate_time_distribution_in_each_time_distr_hist_request || delta_time_distribution.size() < 1 )
 			CalculateTimeDistribution();
-		TH1F* h = new TH1F("Time_distribution in ps", "", 540,0, 360*1000);
+		TH1F* h = new TH1F("Time_distribution_in_ps", "", 5000,0, 360*1000); // 5000 (experimentally found binning that permit noise neglecting keeping sufficient resolution)
 		for(int i=0;i<delta_time_distribution.size();i++)
 			h->Fill(int(delta_time_distribution[i]*1000));
-		h->Draw();
-		return h;}
+		//h->Draw();
+
+		// Print FWHM with error
+		// Find Maximum
+		double max_half = h->GetMaximum() / 2;
+		double max_bin = h->GetMaximumBin();
+		int n_bin = h->GetNbinsX();
+		double last_below_before = -1, first_above_before, last_above_after = -1, first_below_after;
+
+		for (int i=0; i<n_bin; i++) {
+			double c = h->GetBinContent(i);
+			if ( c > max_half && last_below_before == -1 ) last_below_before = i-1;
+			if ( c < max_half && i < max_bin ) first_above_before = i+1;
+			if ( c < max_half && i > max_bin && last_above_after == -1 ) last_above_after = i-1;
+			if ( c > max_half ) first_below_after = i+1;
+		}
+
+		last_below_before = h->GetBinCenter( last_below_before );
+		first_above_before = h->GetBinCenter( first_above_before );
+		last_above_after = h->GetBinCenter( last_above_after );
+		first_below_after = h->GetBinCenter( first_below_after );
+		
+		double FWHM = ( first_below_after + last_above_after ) / 2 - ( first_above_before + last_below_before ) / 2 ;
+		double FWHM_err = sqrt( pow( first_above_before - last_below_before ,2) + pow( first_below_after - last_above_after ,2) ) / sqrt(12);
+		cout << endl << attenuation_fraction << '\t' << delay_in_ns_ch0 << '\t' << FWHM << '\t' << FWHM_err <<endl;
+		if ( out != NULL ) *out         << attenuation_fraction << '\t' << delay_in_ns_ch0 << '\t' << FWHM << '\t' << FWHM_err <<endl;
+		return h;
+	}
 
 	void EnergyFiltering(){
 		wf[0]->EnergyFiltering();
@@ -342,3 +391,23 @@ class TwoChannelWaveform{
 	Waveform* 		wf [2];
 	const char* 	original_data_file;
 };
+
+void simulateCFTD(int id = 0) {
+	char* outfilename[] = {"CFTD_simulations.txt","CFTD_simulations_2.txt"};
+	char* sourcename[] = {"Digital_CFTD.root", "Digital_CFTD_2.root"};
+	vector<double> fracs{0.25, 0.5, 0.75};
+	vector<double> delays{1,2,3,4,5,6,7};
+	int i = 0;
+	ofstream out(outfilename[id]);
+	out << "Frac\tDelay\tFWHM\tFWHM_sigma"<<endl;
+	for ( double f : fracs)
+		for ( double d : delays) {
+			i++;
+			cout<<setw(5)<<f<<" - "<<setw(5)<<d<<" - "<<setw(2)<<i<<" of "<<setw(2)<<fracs.size()*delays.size()<<" - Loading data; "<<flush;
+			auto tcw = new TwoChannelWaveform(sourcename[id], f, d);
+			cout<<"Analizing data: "<<flush;
+			auto tdh = tcw->GetTimeDistrHisto(&out);
+			delete tdh;
+			delete tcw;
+		}
+}
