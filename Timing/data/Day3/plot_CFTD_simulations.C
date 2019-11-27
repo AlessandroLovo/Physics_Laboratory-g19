@@ -1,12 +1,12 @@
-void plot_CFTD_simulations (int id = 0) {
+void plot_CFTD_simulations (int id = 0, bool same = false) {
 	char* filename[] = {"CFTD_simulations.txt","CFTD_simulations_2.txt"};
 	ifstream in(filename[id]);
 	TGraphErrors* tge25 = new TGraphErrors();
 	TGraphErrors* tge50 = new TGraphErrors();
 	TGraphErrors* tge75 = new TGraphErrors();
-	tge25->SetLineColor(1);
-	tge50->SetLineColor(2);
-	tge75->SetLineColor(3);
+	tge25->SetLineColor(1 + same*3);
+	tge50->SetLineColor(2 + same*3);
+	tge75->SetLineColor(3 + same*3);
 	double a,b,c,d;
 	in.ignore(10000,'\n');
 	while (in>>a>>b>>c>>d) {
@@ -17,9 +17,9 @@ void plot_CFTD_simulations (int id = 0) {
 		tg->SetPoint( tg->GetN(), b, c);
 		tg->SetPointError ( tg->GetN() - 1, 0, d);
 	}
-	tge25->Draw();
-	if ( tge50->GetN() > 0 ) tge50->Draw("SAME");
-	if ( tge75->GetN() > 0 ) tge75->Draw("SAME");
+	tge25->Draw( ( same ? "SAME P" : "AP") );
+	if ( tge50->GetN() > 0 ) tge50->Draw("SAME P");
+	if ( tge75->GetN() > 0 ) tge75->Draw("SAME P");
 
 	tge25->GetXaxis()->SetTitle("Delay [ns]");
 	tge25->GetYaxis()->SetTitle("FWHM [ps]");
