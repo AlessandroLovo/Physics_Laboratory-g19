@@ -324,17 +324,19 @@ class TwoChannelWaveform{
 	const char* 	original_data_file;
 };
 
-void simulateCFTD() {
+void simulateCFTD(int id = 0) {
+	char* outfilename[] = {"CFTD_simulations.txt","CFTD_simulations_2.txt"};
+	char* sourcename[] = {"Digital_CFTD.root", "Digital_CFTD_2.root"};
 	vector<double> fracs{0.25, 0.5, 0.75};
 	vector<double> delays{1,2,3,4,5,6,7};
 	int i = 0;
-	ofstream out("CFTD_simulations.txt");
+	ofstream out(outfilename[id]);
 	out << "Frac\tDelay\tFWHM\tFWHM_sigma"<<endl;
 	for ( double f : fracs)
 		for ( double d : delays) {
 			i++;
 			cout<<setw(5)<<f<<" - "<<setw(5)<<d<<" - "<<setw(2)<<i<<" of "<<setw(2)<<fracs.size()*delays.size()<<" - Loading data; "<<flush;
-			auto tcw = new TwoChannelWaveform("Digital_CFTD.root", f, d);
+			auto tcw = new TwoChannelWaveform(sourcename[id], f, d);
 			cout<<"Analizing data: "<<flush;
 			auto tdh = tcw->GetTimeDistrHisto(&out);
 			delete tdh;
