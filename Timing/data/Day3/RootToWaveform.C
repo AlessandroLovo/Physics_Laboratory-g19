@@ -4,7 +4,7 @@ using namespace std;
 
 //This is useful to improve speed in loading heavy files. 
 //Anyway in this version it tooks less than 30 sec to load 500Mb of datas (in my Mac u.u ) 
-const int entries_analized = 500000;
+const int entries_analized = 50; //0000;
 const bool analize_all_entries = false;
 
 //CFTD
@@ -19,6 +19,7 @@ const bool make_sum_histo_in_costructor = false;
 const bool remove_zero_events_in_costructor = true;
 
 //TWO_CHANNEL_WAVEFORM CLASS
+const bool energy_filter_in_costructor = true;
 const bool check_coincidences_in_costructor = true;
 const bool calculate_time_distribution_in_each_time_distr_hist_request = false;
 const double delay_introduced_in_ns = 150;
@@ -152,11 +153,13 @@ class Waveform{
 				wf1->events.erase(it1);
 			else{ it0++; it1++; }
 		}
-		MakeSumHisto();
-		wf1->MakeSumHisto();}
+		//MakeSumHisto();
+		//wf1->MakeSumHisto();
+	}
 
 	void EnergyFiltering(){
-		GetEnergyHisto();	
+		//GetEnergyHisto();	
+		fast_CalculateEventEnergies();
 		int new_num_events = 0;
 		vector <waveform_event> filtered_events;
 		for (int i=0; i<num_events; i++) {
@@ -167,7 +170,8 @@ class Waveform{
 		}
 		events = filtered_events;
 		num_events = new_num_events;
-		GetEnergyHisto();	}
+		//GetEnergyHisto();
+	}
 
 	TGraph* CFTD(int e){
 		UShort_t* ev = events[e].value;
@@ -187,6 +191,7 @@ class Waveform{
 		for(int i=360-((int)delay_in_ns+1); i<360; i++)
 			y[360+i]=0.0;
 		delete gr;
+		delete ev;
 		return new TGraph(720, x, y); }
 
 	double ZeroCrossing(int e){
@@ -230,6 +235,14 @@ class Waveform{
 		events[e].energy = ((new TGraph(360, x, y))->Integral());
 		return events[e].energy;}
 
+	void fast_CalculateEventEnergies() {
+		for (int e=0; e< events.size(); e++) {
+			double sum = 0;
+			for(int i=0; i < 360; i++) sum += baseline[channel]-events[e].value[i]+5;
+			events[e].energy = sum;
+		}
+	}
+
 	int 				channel;
 	int 				num_events;
 	const char* 		original_data_file;
@@ -246,8 +259,11 @@ class TwoChannelWaveform{
 		original_data_file = name_file;
 		wf[0] = new Waveform(original_data_file, 0);
 		wf[1] = new Waveform(original_data_file, 1);
+		if (energy_filter_in_costructor)
+			EnergyFiltering();
 		if (check_coincidences_in_costructor)
-			CheckCoincidences();	}
+			CheckCoincidences();
+		}
 
 	~TwoChannelWaveform() {
 		delete wf[0];
@@ -264,7 +280,7 @@ class TwoChannelWaveform{
 	void CalculateTimeDistribution(){
 		if ( !check_coincidences_in_costructor ) CheckCoincidences();
 		int num_events = wf[0]->GetNumEvents();
-		delta_time_distribution.resize(num_events);
+		//delta_time_distribution.resize(num_events);
 
 		// To have something like a progress bar
 		int step = num_events / 100;
@@ -272,7 +288,8 @@ class TwoChannelWaveform{
 
 
 		for(int i=0; i < num_events; i++){
-			delta_time_distribution[i]=wf[0]->ZeroCrossing(i) - wf[1]->ZeroCrossing(i) + delay_introduced_in_ns;
+			delta_time_distribution . push_back ( wf[0]->ZeroCrossing(i) - wf[1]->ZeroCrossing(i) );
+			//delta_time_distribution[i]=wf[0]->ZeroCrossing(i) - wf[1]->ZeroCrossing(i) + delay_introduced_in_ns;
 
 			if( i % step == 0 ) cout << "\b\b\b\b" << setw(3) << i/step <<"%" <<flush;
 
@@ -281,7 +298,7 @@ class TwoChannelWaveform{
 	TH1F* GetTimeDistrHisto(ofstream* out = NULL){
 		if( calculate_time_distribution_in_each_time_distr_hist_request || delta_time_distribution.size() < 1 )
 			CalculateTimeDistribution();
-		TH1F* h = new TH1F("Time_distribution_in_ps", "", 5000,0, 360*1000); // 5000 (experimentally found binning that permit noise neglecting keeping sufficient resolution)
+		TH1F* h = new TH1F(Form("Time_distribution_in_ps_%f_%f", attenuation_fraction, delay_in_ns_ch0 ), "", 5000,0, 360*1000); // 5000 (experimentally found binning that permit noise neglecting keeping sufficient resolution)
 		for(int i=0;i<delta_time_distribution.size();i++)
 			h->Fill(int(delta_time_distribution[i]*1000));
 		//h->Draw();
@@ -308,8 +325,13 @@ class TwoChannelWaveform{
 		
 		double FWHM = ( first_below_after + last_above_after ) / 2 - ( first_above_before + last_below_before ) / 2 ;
 		double FWHM_err = sqrt( pow( first_above_before - last_below_before ,2) + pow( first_below_after - last_above_after ,2) ) / sqrt(12);
-		cout << endl << attenuation_fraction << '\t' << delay_in_ns_ch0 << '\t' << FWHM << '\t' << FWHM_err <<endl;
-		if ( out != NULL ) *out         << attenuation_fraction << '\t' << delay_in_ns_ch0 << '\t' << FWHM << '\t' << FWHM_err <<endl;
+		double mean = h->GetMean();
+		double mean_sigma = h->GetMeanError();
+		double kurt = h->GetKurtosis();
+		double kurt_sigma = h->GetKurtosis(11);
+		cout<<delta_time_distribution.size()<<endl;
+				   cout << endl << attenuation_fraction << '\t' << delay_in_ns_ch0 << '\t' << mean << '\t' << mean_sigma << '\t' << FWHM << '\t' << FWHM_err << '\t' << kurt << '\t' << kurt_sigma <<endl;
+		if ( out != NULL ) *out << attenuation_fraction << '\t' << delay_in_ns_ch0 << '\t' << mean << '\t' << mean_sigma << '\t' << FWHM << '\t' << FWHM_err << '\t' << kurt << '\t' << kurt_sigma <<endl;
 		return h;
 	}
 
@@ -324,14 +346,15 @@ class TwoChannelWaveform{
 	const char* 	original_data_file;
 };
 
-void simulateCFTD(int id = 0) {
+void simulateCFTD(int id = -1) {
+	if (id == -1) { simulateCFTD(0); simulateCFTD(1); }
 	char* outfilename[] = {"CFTD_simulations.txt","CFTD_simulations_2.txt"};
 	char* sourcename[] = {"Digital_CFTD.root", "Digital_CFTD_2.root"};
 	vector<double> fracs{0.25, 0.5, 0.75};
 	vector<double> delays{1,2,3,4,5,6,7};
 	int i = 0;
 	ofstream out(outfilename[id]);
-	out << "Frac\tDelay\tFWHM\tFWHM_sigma"<<endl;
+	out << "Frac\tDelay\tMean\tMean_sigma\tFWHM\tFWHM_sigma\tKurtosis\tKurtosis_sigma"<<endl;
 	for ( double f : fracs)
 		for ( double d : delays) {
 			i++;
