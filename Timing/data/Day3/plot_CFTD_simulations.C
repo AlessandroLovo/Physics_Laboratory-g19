@@ -1,5 +1,5 @@
 void plot_CFTD_simulations (int id = 0, bool same = false) {
-	char* filename[] = {"CFTD_simulations.txt","CFTD_simulations_2.txt"};
+	char* filename[] = {"CFTD_simulations_1.txt","CFTD_simulations_2.txt"};
 	ifstream in(filename[id]);
 	TGraphErrors* tge25 = new TGraphErrors();
 	TGraphErrors* tge50 = new TGraphErrors();

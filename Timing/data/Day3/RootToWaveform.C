@@ -4,7 +4,7 @@ using namespace std;
 
 //This is useful to improve speed in loading heavy files. 
 //Anyway in this version it tooks less than 30 sec to load 500Mb of datas (in my Mac u.u ) 
-const int entries_analized = 50; //0000;
+const int entries_analized = 500000;
 const bool analize_all_entries = false;
 
 //CFTD
@@ -100,7 +100,7 @@ class Waveform{
 	}
 
 	~Waveform() {
-		delete sum_events;
+		if ( sum_events != nullptr ) delete sum_events;
 	}
 
 	Waveform* GetOtherChannel(){ return new Waveform(original_data_file, (int)(channel == 0) );	}
@@ -191,8 +191,8 @@ class Waveform{
 		for(int i=360-((int)delay_in_ns+1); i<360; i++)
 			y[360+i]=0.0;
 		delete gr;
-		delete ev;
-		return new TGraph(720, x, y); }
+		return new TGraph(720, x, y);
+	}
 
 	double ZeroCrossing(int e){
 		TGraph* gr = CFTD(e);
@@ -246,7 +246,7 @@ class Waveform{
 	int 				channel;
 	int 				num_events;
 	const char* 		original_data_file;
-	TH2F*				sum_events;
+	TH2F*				sum_events = nullptr;
 	vector <waveform_event> events;
 };
 
@@ -288,12 +288,13 @@ class TwoChannelWaveform{
 
 
 		for(int i=0; i < num_events; i++){
-			delta_time_distribution . push_back ( wf[0]->ZeroCrossing(i) - wf[1]->ZeroCrossing(i) );
+			delta_time_distribution . push_back ( wf[0]->ZeroCrossing(i) - wf[1]->ZeroCrossing(i) + delay_introduced_in_ns);
 			//delta_time_distribution[i]=wf[0]->ZeroCrossing(i) - wf[1]->ZeroCrossing(i) + delay_introduced_in_ns;
 
 			if( i % step == 0 ) cout << "\b\b\b\b" << setw(3) << i/step <<"%" <<flush;
 
-		}}
+		}
+	}
 
 	TH1F* GetTimeDistrHisto(ofstream* out = NULL){
 		if( calculate_time_distribution_in_each_time_distr_hist_request || delta_time_distribution.size() < 1 )
@@ -302,8 +303,7 @@ class TwoChannelWaveform{
 		for(int i=0;i<delta_time_distribution.size();i++)
 			h->Fill(int(delta_time_distribution[i]*1000));
 		//h->Draw();
-
-		// Print FWHM with error
+				// Print FWHM with error
 		// Find Maximum
 		double max_half = h->GetMaximum() / 2;
 		double max_bin = h->GetMaximumBin();
@@ -329,8 +329,46 @@ class TwoChannelWaveform{
 		double mean_sigma = h->GetMeanError();
 		double kurt = h->GetKurtosis();
 		double kurt_sigma = h->GetKurtosis(11);
-		cout<<delta_time_distribution.size()<<endl;
 				   cout << endl << attenuation_fraction << '\t' << delay_in_ns_ch0 << '\t' << mean << '\t' << mean_sigma << '\t' << FWHM << '\t' << FWHM_err << '\t' << kurt << '\t' << kurt_sigma <<endl;
+
+		/*
+		// COMPUTE WITHOUT FUNCTIONS
+		mean = 0;
+		for (int i=0; i<n_bin; i++) {
+			mean += ( h->GetBinCenter(i) * h->GetBinContent(i) );
+		}
+		mean /= h->GetEntries();
+		double sum2 = 0, sum4 = 0;
+		for (int i=0; i<n_bin; i++) {
+			sum2 += ( pow(h->GetBinCenter(i) - mean, 2) * h->GetBinContent(i) );
+			sum4 += ( pow(h->GetBinCenter(i) - mean, 4) * h->GetBinContent(i) );
+		}
+		sum2 /= h->GetEntries();
+		sum4 /= h->GetEntries();
+		kurt = sum4 / sum2 / sum2 - 3;
+
+						   cout << endl << attenuation_fraction << '\t' << delay_in_ns_ch0 << '\t' << mean << '\t' << mean_sigma << '\t' << FWHM << '\t' << FWHM_err << '\t' << kurt << '\t' << kurt_sigma <<endl;
+		*/
+		/*
+			COMPUTE DIRECTLY FROM ARRAY
+		mean = 0;
+		for (int i=0; i< delta_time_distribution.size(); i++) {
+			mean += delta_time_distribution[i]*1000;
+		}
+		mean /= delta_time_distribution.size();
+		sum2 = 0, sum4 = 0;
+		for (int i=0; i<delta_time_distribution.size(); i++) {
+			sum2 += ( pow( delta_time_distribution[i] *1000 - mean, 2) );
+			sum4 += ( pow( delta_time_distribution[i] *1000 - mean, 4) );
+		}
+		sum2 /= delta_time_distribution.size();
+		sum4 /= delta_time_distribution.size();
+		kurt = sum4 / sum2 / sum2 - 3;
+						   cout << endl << attenuation_fraction << '\t' << delay_in_ns_ch0 << '\t' << mean << '\t' << mean_sigma << '\t' << FWHM << '\t' << FWHM_err << '\t' << kurt << '\t' << kurt_sigma <<endl;
+		cout << delta_time_distribution.size();	
+		*/
+
+
 		if ( out != NULL ) *out << attenuation_fraction << '\t' << delay_in_ns_ch0 << '\t' << mean << '\t' << mean_sigma << '\t' << FWHM << '\t' << FWHM_err << '\t' << kurt << '\t' << kurt_sigma <<endl;
 		return h;
 	}
@@ -348,10 +386,10 @@ class TwoChannelWaveform{
 
 void simulateCFTD(int id = -1) {
 	if (id == -1) { simulateCFTD(0); simulateCFTD(1); }
-	char* outfilename[] = {"CFTD_simulations.txt","CFTD_simulations_2.txt"};
+	char* outfilename[] = {"CFTD_simulations_1.txt","CFTD_simulations_2.txt"};
 	char* sourcename[] = {"Digital_CFTD.root", "Digital_CFTD_2.root"};
 	vector<double> fracs{0.25, 0.5, 0.75};
-	vector<double> delays{1,2,3,4,5,6,7};
+	vector<double> delays{2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7};
 	int i = 0;
 	ofstream out(outfilename[id]);
 	out << "Frac\tDelay\tMean\tMean_sigma\tFWHM\tFWHM_sigma\tKurtosis\tKurtosis_sigma"<<endl;
@@ -362,6 +400,8 @@ void simulateCFTD(int id = -1) {
 			auto tcw = new TwoChannelWaveform(sourcename[id], f, d);
 			cout<<"Analizing data: "<<flush;
 			auto tdh = tcw->GetTimeDistrHisto(&out);
+			tdh->Draw();
+			double temp; cin>>temp;
 			delete tdh;
 			delete tcw;
 		}
