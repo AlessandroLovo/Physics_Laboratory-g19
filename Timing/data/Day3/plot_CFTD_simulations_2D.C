@@ -1,4 +1,4 @@
-TGraph2DErrors* plot_CFTD_simulations_2D (int what, int id = 0, bool same = false) {
+void plot_CFTD_simulations_2D (int what, int id = 0, bool same = false) {
 
 	// what: 0->Mean, 1->FWHM, 2->Kurtosis
 
@@ -18,5 +18,5 @@ TGraph2DErrors* plot_CFTD_simulations_2D (int what, int id = 0, bool same = fals
 		tge->SetPoint( tge->GetN(), a, b, point);
 		tge->SetPointError ( tge->GetN() - 1, 0, 0, error);
 	}
-    return tge;
+    tge->Draw("colz");
 }
