@@ -4,7 +4,7 @@ using namespace std;
 
 //This is useful to improve speed in loading heavy files. 
 //Anyway in this version it tooks less than 30 sec to load 500Mb of datas (in my Mac u.u ) 
-const int entries_analized = 500000;
+const int entries_analized = 100000;
 const bool analize_all_entries = false;
 
 //CFTD
@@ -12,11 +12,13 @@ const float attenuation_fraction = 0.25f;
 const float delay_in_ns_ch0 = 5.0f;
 const float delay_in_ns_ch1 = 5.0f;
 const int steps_in_zero_crossing_binary_search = 13; //-> precision < 1ps
+const int steps_in_delay_optimization = 20;
 
 //WAVEFORM CLASS
 const bool remove_cutted_energies = true;
 const bool make_sum_histo_in_costructor = false;
 const bool remove_zero_events_in_costructor = true;
+const int aligment_channel = 100;
 
 //TWO_CHANNEL_WAVEFORM CLASS
 const bool check_coincidences_in_costructor = false;
@@ -25,7 +27,7 @@ const double delay_introduced_in_ns = 150;
 
 //ENERGY FILTERING WINDOW
 const int energy_window_center_channel[2] = {6000, 6000};
-const int energy_window_half_size[2] = {300, 300};
+const int energy_window_half_size[2] = {100, 100};
 
 const int baseline[2] = {923, 925};
 
@@ -95,8 +97,7 @@ class Waveform{
 		}
 		
 
-		if(make_sum_histo_in_costructor) MakeSumHisto();
-	}
+		if(make_sum_histo_in_costructor) MakeSumHisto();}
 
 	Waveform* GetOtherChannel(){ return new Waveform(original_data_file, (int)(channel == 0) );	}
 
@@ -113,8 +114,7 @@ class Waveform{
 			}
 		}
 		events = filtered_events;
-		num_events = new_num_events;
-		MakeSumHisto();	}
+		num_events = new_num_events;}
 
 	TH2F* MakeSumHisto(){
 		sum_events = new TH2F(Form("Sum_events"),"", 360,0,360,256,0,1024);
@@ -147,9 +147,7 @@ class Waveform{
 			else if ((*it0).timetag > (*it1).timetag)
 				wf1->events.erase(it1);
 			else{ it0++; it1++; }
-		}
-		MakeSumHisto();
-		wf1->MakeSumHisto();}
+		}}
 
 	void EnergyFiltering(){
 		GetEnergyHisto();	
@@ -184,6 +182,41 @@ class Waveform{
 			y[360+i]=0.0;
 		return new TGraph(720, x, y); }
 
+	TGraph* CFTD(int e, double CFTD_delay){
+		UShort_t* ev = events[e].value;
+		TGraph* gr = GetGraph(e);
+		double x[720], y[720];
+		for(int i=0; i < 360; i++)
+			x[i] = (double)i;
+		for(int i=0; i<=(int)CFTD_delay; i++)
+			y[i] = 0.0;
+		for(int i=(int)CFTD_delay+1; i<360; i++)
+			y[i] = ((double)ev[i] - baseline[channel]) * attenuation_fraction + ((double)baseline[channel] - gr->Eval(i-CFTD_delay));
+		for(int i=0; i<360; i++)
+			x[360+i]=(double)i+CFTD_delay;
+		for(int i=0; i <360-((int)CFTD_delay+1); i++)
+			y[360+i]=(double)baseline[channel]-ev[i] + (gr->Eval(i+CFTD_delay) - (double)baseline[channel]) * attenuation_fraction;
+		for(int i=360-((int)CFTD_delay+1); i<360; i++)
+			y[360+i]=0.0;
+		return new TGraph(720, x, y); }
+
+	double ZeroCrossing(int e, double CFTD_delay){
+		TGraph* gr = CFTD(e, CFTD_delay);
+		double* x = gr->GetX();
+		double* y = gr->GetY();
+		double xmin, xmax, ymin=0, ymax=0;
+		for(int i=0; i<720; i++){
+			if(y[i]<ymin){xmin=x[i];ymin=y[i];}
+			if(y[i]>ymax){xmax=x[i];ymax=y[i];}
+		}
+		double r = xmax, l = xmin;
+		for(int i=0;i<steps_in_zero_crossing_binary_search;i++){
+			if(gr->Eval((l+r)/2)<0) l=(l+r)/2;
+			else r=(l+r)/2;
+			//cout << r-l <<endl;
+		}
+		return (l+r)/2;}
+
 	double ZeroCrossing(int e){
 		TGraph* gr = CFTD(e);
 		double* x = gr->GetX();
@@ -201,15 +234,51 @@ class Waveform{
 		}
 		return (l+r)/2;}
 
+	TH1F* ZeroCrossingDistribution(){
+		TH1F* h = new TH1F("Zero Crossing Distr.","", 360*1000/4, 0,360*1000);
+		for(int i=0;i<events.size();i++) h->Fill(ZeroCrossing(i)*1000);
+		h->Draw();
+		return h;}
+
+	TH1F* ZeroCrossingDistribution(double delay_in_ns){
+		TH1F* h = new TH1F("Zero Crossing Distr.","", 360*1000/4, 0,360*1000);
+		for(int i=0;i<events.size();i++) h->Fill(ZeroCrossing(i, delay_in_ns)*1000);
+		//h->Draw();
+		return h;}
+
+	TGraph* OptimalCFTDDelay(double start, double stop){
+		EnergyFiltering();
+		AlignEventPeaks();
+		double x[steps_in_delay_optimization], y[steps_in_delay_optimization];
+		for(int i=0; i<steps_in_delay_optimization; i++){
+			x[i] = start + (stop-start)/(steps_in_delay_optimization-1)*i;
+			y[i] = (ZeroCrossingDistribution(x[i])->GetStdDev())/1000;
+			cout << "Delay = " << x[i] << "ns, zero crossing STD = " << y[i] << endl;
+		}
+		TGraph* gr = new TGraph(steps_in_delay_optimization,x,y);
+		gr->Draw();
+		return gr;
+	}
+
 	TH1F* GetEnergyHisto(){
 		TH1F* h = new TH1F("Distribution_of_energies","",300, 0, 20000);
 		for(int i=0; i<num_events;i++){
 			h->Fill(CalculateEventEnergy(i));
 		}
-		h->Draw();
+		//h->Draw();
 		return h;}
 
 	int GetNumEvents(){return num_events;}
+
+	void AlignEventPeaks(){
+		for(vector<waveform_event>::iterator it = events.begin(); it != events.end(); it++){
+			int xmin=0, ymin=1000;
+			for(int i=0;i<360;i++) if((*it).value[i]<ymin) {xmin=i; ymin=(*it).value[i];}
+			int delta = aligment_channel - xmin;
+			if(delta > 0) for(int i = 360-1; i > delta; i--) (*it).value[i]=(*it).value[i-delta];
+			else if (delta < 0) for(int i=0; i < 360+delta;i++) (*it).value[i]=(*it).value[i-delta];
+		}
+	}
 
 	private:
 
@@ -266,8 +335,7 @@ class TwoChannelWaveform{
 
 	void EnergyFiltering(){
 		wf[0]->EnergyFiltering();
-		wf[1]->EnergyFiltering();
-	}
+		wf[1]->EnergyFiltering();}
 
 	private:
 	vector<double>	delta_time_distribution;
