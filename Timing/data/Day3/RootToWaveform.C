@@ -359,7 +359,7 @@ class TwoChannelWaveform{
 		//delta_time_distribution.resize(num_events);
 
 		// To have something like a progress bar
-		int step = num_events / 100;
+		int step = num_events / 20;
 		cout << setw(3) << 0 <<"%" <<flush;
 
 
@@ -367,7 +367,7 @@ class TwoChannelWaveform{
 			delta_time_distribution . push_back ( wf[0]->ZeroCrossing(i) - wf[1]->ZeroCrossing(i) + delay_introduced_in_ns);
 			//delta_time_distribution[i]=wf[0]->ZeroCrossing(i) - wf[1]->ZeroCrossing(i) + delay_introduced_in_ns;
 
-			if( i % step == 0 ) cout << "\b\b\b\b" << setw(3) << i/step <<"%" <<flush;
+			if( i % step == 0 ) cout << "\b\b\b\b" << setw(3) << i/step*5 <<"%" <<flush;
 
 		}
 	}
@@ -461,10 +461,10 @@ class TwoChannelWaveform{
 
 void simulateCFTD(int id = -1) {
 	if (id == -1) { simulateCFTD(0); simulateCFTD(1); }
-	char* outfilename[] = {"CFTD_simulations_1.txt","CFTD_simulations_2.txt"};
+	char* outfilename[] = {"CFTD_simulations_1_2D.txt","CFTD_simulations_2_2D.txt"};
 	char* sourcename[] = {"Digital_CFTD.root", "Digital_CFTD_2.root"};
-	vector<double> fracs{0.25, 0.5, 0.75};
-	vector<double> delays{2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7};
+	vector<double> fracs{0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9};
+	vector<double> delays{1 , 1.25 , 1.5 , 1.75 , 2 , 2.25 , 2.5 , 2.75 , 3 , 3.25 , 3.5 , 3.75 , 4 , 4.25 , 4.5 , 4.75 , 5 , 5.25 , 5.5 , 5.75 , 6 , 6.25 , 6.5 , 6.75 , 7 , 7.25 , 7.5 , 7.75 , 8 , 8.25 , 8.5 , 8.75 , 9 , 9.25 , 9.5 , 9.75 , 10};
 	int i = 0;
 	ofstream out(outfilename[id]);
 	out << "Frac\tDelay\tMean\tMean_sigma\tFWHM\tFWHM_sigma\tKurtosis\tKurtosis_sigma"<<endl;
@@ -475,8 +475,6 @@ void simulateCFTD(int id = -1) {
 			auto tcw = new TwoChannelWaveform(sourcename[id], f, d);
 			cout<<"Analizing data: "<<flush;
 			auto tdh = tcw->GetTimeDistrHisto(&out);
-			tdh->Draw();
-			double temp; cin>>temp;
 			delete tdh;
 			delete tcw;
 		}
