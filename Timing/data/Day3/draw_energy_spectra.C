@@ -2,7 +2,7 @@ void draw_energy_spectra() {
 	auto wf = new Waveform("Digital_CFTD.root", 0);
 	auto hist = wf->GetEnergyHisto();
 
-	hist->GetXaxis()->SetTitle("Energy [keV]");
+	hist->GetXaxis()->SetTitle("Energy [a.u.]");
 	hist->GetYaxis()->SetTitle("Counts");
 	hist->SetTitle("A-Posteriori energy spectra");
 
@@ -10,7 +10,7 @@ void draw_energy_spectra() {
 
 	// calibration
 
-	double m = 0.093;
+/*	double m = 0.093;
 	double q = -282;
 
 	double xmax = hist->GetXaxis()->GetXmax();
@@ -26,5 +26,5 @@ void draw_energy_spectra() {
 
 	TLine* tl2 = new TLine( 358.6, 6250, 358.6, 3250 );
 	tl2->SetLineColor(2);
-	tl2->Draw();
+	tl2->Draw();*/
 }
