@@ -6,9 +6,9 @@ const int entries_analized = 500000;
 const bool analize_all_entries = false;
 
 //CFTD
-float attenuation_fraction = 0.25f;
-float delay_in_ns_ch0 = 3.5f;
-float delay_in_ns_ch1 = 3.5f;
+float attenuation_fraction = 0.2f;
+float delay_in_ns_ch0 = 5.0f;
+float delay_in_ns_ch1 = 5.0f;
 const int steps_in_zero_crossing_binary_search = 13; //-> precision < 1ps
 const int steps_in_delay_optimization = 15;
 
@@ -138,6 +138,16 @@ class Waveform{
 			y[i]=events[event].value[i];
 		}
 		return new TGraph(360,x,y);	}
+
+	TGraph* GetGraphWithoutBaseline(int event) {
+		TGraph* tg = GetGraph(event);
+		for( int i=0 ; i < tg->GetN(); i++) {
+			double x,y;
+			tg->GetPoint(i, x,y);
+			tg->SetPoint(i, x,y-(double)baseline[channel]);
+		}
+		return tg;
+	}
 
 	const char* GetDataFile(){ return original_data_file; }
 
