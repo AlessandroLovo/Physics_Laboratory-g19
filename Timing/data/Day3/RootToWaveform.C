@@ -334,6 +334,10 @@ class Waveform{
 	vector <waveform_event> events;
 };
 
+
+
+
+
 class TwoChannelWaveform{
 	public:
 
@@ -469,10 +473,15 @@ class TwoChannelWaveform{
 	const char* 	original_data_file;
 };
 
+
+
+
+
+
 void simulateCFTD(int id = -1) {
 	if (id == -1) { simulateCFTD(0); simulateCFTD(1); }
-	char* outfilename[] = {"CFTD_simulations_1_2D.txt","CFTD_simulations_2_2D.txt"};
-	char* sourcename[] = {"Digital_CFTD.root", "Digital_CFTD_2.root"};
+	const char* outfilename[] = {"CFTD_simulations_1_2D.txt","CFTD_simulations_2_2D.txt"};
+	const char* sourcename[] = {"Digital_CFTD.root", "Digital_CFTD_2.root"};
 	vector<double> fracs{0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9};
 	vector<double> delays{1 , 1.25 , 1.5 , 1.75 , 2 , 2.25 , 2.5 , 2.75 , 3 , 3.25 , 3.5 , 3.75 , 4 , 4.25 , 4.5 , 4.75 , 5 , 5.25 , 5.5 , 5.75 , 6 , 6.25 , 6.5 , 6.75 , 7 , 7.25 , 7.5 , 7.75 , 8 , 8.25 , 8.5 , 8.75 , 9 , 9.25 , 9.5 , 9.75 , 10};
 	int i = 0;
