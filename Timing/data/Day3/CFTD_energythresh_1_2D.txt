@@ -1,0 +1,2 @@
+ELow	ETop	Mean	Mean_sigma	FWHM	FWHM_sigma	Kurtosis	Kurtosis_sigma
+100	600	160185	12.9236	15480	213.991	69.5987	0.00779257
