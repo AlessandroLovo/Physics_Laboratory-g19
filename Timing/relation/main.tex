@@ -122,16 +122,15 @@ So we first assume $\frac[f]{b}{a} = 0$ to compute $r_E$, and then by imposing $
   \centering
   \begin{tabular}{cccccccc}
     \toprule
-    Det & photopeak [keV] & $c_{ch}$ & $w_{ch}$ & $c_E$ [keV] & $w_E$ [keV] & $r_E$ \\
+    Det & $p$ [keV] & $c_{ch}$ & $w_{ch}$ & $c_E$ [keV] & $w_E$ [keV] & $r_E$ & $\sigma_{res}$ [keV]\\
     \midrule
-    \#1 & 511 & $3440 \pm 9$ & $832 \pm 13$ & $283.6 \pm 0.8$ & $75 \pm 1$ & $0.264 \pm 0.004$ \\
-        & 1275 & $11312 \pm 9$ & $960 \pm 13$ & $992.9 \pm 0.7$ & $262 \pm 4$ & $0.087 \pm 0.001$ \\
-    \#2 & 511 & $4400 \pm 9$ & $896 \pm 13$ & $286.2 \pm 0.7$ & $71 \pm 1$ & $0.249 \pm 0.004$ \\
-        & 1275 & $13392 \pm 9$ & $960 \pm 13$ & $1000.5 \pm 0.7$ & $249 \pm 4$ & $0.076 \pm 0.001$ \\
+    \#1 & 511 & $3440 \pm 9$ & $736 \pm 13$ & $290.2 \pm 0.7$ & $66 \pm 1$ & $0.227 \pm 0.004$ & $38.8 \pm 0.5$ \\
+        & 1275 & $11312 \pm 9$ & $960 \pm 13$ & $994.1 \pm 0.8$ & $225 \pm 4$ & $0.086 \pm 0.001$ & $37.0 \pm 0.5$ \\
+    \#2 & 511 & $4400 \pm 9$ & $768 \pm 13$ & $293.8 \pm 0.7$ & $60 \pm 1$ & $0.205 \pm 0.004$ & $35.7 \pm 0.6$ \\
+        & 1275 & $13392 \pm 9$ & $960 \pm 13$ & $1000.5 \pm 0.7$ & $206 \pm 4$ & $0.075 \pm 0.001$ & $33.9 \pm 0.5$ \\
     \bottomrule
   \end{tabular}
-  \caption{Centroids and widths of the CE peaks: the errors for the values in channels come from a uniform distribution on the bin width of the histogram.
-  The values of $c_E$, $w_E$ and $r_E$ here are the ones after the calibration process converged.}
+  \caption{Centroids and widths of the CE peaks: $p$ is the photopeak energy. The errors for the values in channels come from a uniform distribution on the bin width of the histogram. The values of $c_E$, $w_E$, $r_E$ and $\sigma_{res}$ here are the ones after the calibration process converged.}
   \label{tab:calibr:fits}
 \end{table}
 
@@ -141,8 +140,8 @@ So we first assume $\frac[f]{b}{a} = 0$ to compute $r_E$, and then by imposing $
     \toprule
     Det & $a$ [keV] & $b$ [keV] \\
     \midrule
-    \#1 & $0.0901 \pm 0.0002$ & $-26 \pm 2$ \\
-    \#2 & $0.0794 \pm 0.0002$ & $-63 \pm 2$ \\
+    \#1 & $0.0894 \pm 0.0002$ & $-17 \pm 2$ \\
+    \#2 & $0.0786 \pm 0.0002$ & $-52 \pm 2$ \\
     \bottomrule
   \end{tabular}
   \caption{Calibrations coefficients after the calibration process converged}
