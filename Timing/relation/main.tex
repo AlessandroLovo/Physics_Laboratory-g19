@@ -315,7 +315,8 @@ During the last day, two datasets of waveforms have been collected directly from
     \label{fig:waveform}
 \end{figure}
 
-As can be seen from fig. \ref{fig:waveform}, the shape of waveform and signal is similar for the two system. The signal, however, is very short in time and the low time resolution of the digitizer (a sample each $1$ns) result in a rougher waveform.
+As can be seen from fig. \ref{fig:waveform}, the shape of waveform and signal is similar for the two system. Rise time (about $6\si{\nano\second}$) and falling time (about $20\si{\nano\second}$) are the same. The signal, however, is very short in time and the low time resolution of the digitizer (a sample each $1$ns) result in a rougher waveform.
+
 
 \subsection{Energy spectra}
 \begin{figure}[H]
@@ -325,22 +326,41 @@ As can be seen from fig. \ref{fig:waveform}, the shape of waveform and signal is
     \label{fig:aposteriori_energy}
 \end{figure}
 
-\todo{Rifare grafico ma senza calibrare!}
+Integrating the waveform (substracted of the baseline) over the domain, an energy spectra can be computed. As can be seen comparing fig. \ref{fig:aposteriori_energy} with fig. \ref{fig:det1:calibr}, here only the $511\si{\kilo\electronvolt}$ peak is visible: the trigger set on coincidences and the low acceptance of the digitized cut away the higher peak.
 
-Integrating the waveform (substracted of the baseline) over the domain, an energy spectra can be computed. As can be seen comparing fig. \ref{fig:aposteriori_energy} with fig. \ref{fig:det1:calibr}, some difference are clear:
+Even with only one peaks, the comparison with the previous calibration permit us to make a rough calibration using position of peak and half maximum (in red in figure).
 
+Note that in this plot there are some energy that are below zero; this is due to the combination between the low trigger threshold and the detectors resolution, the convolution of which result in a tail in negative energies.
+
+\subsection{CFD parameters}
+For each dataset, the following procedure is followed:
 \begin{itemize}[noitemsep]
-    \item Only the $511\si{\kilo\electronvolt}$ peak is visible: the signal for the higher peak exceed the digitizer acceptance, and are therefore discarded;
-    \item Due to the time discretization done before integration, the energy spectra is rougher; the resolution, therefore, get worse.
+    \item Coincidences are searched, i.e. events that are recorded by both the detectors;
+    \item For each event, a simulated CFD is applied to the two waveforms and zero crossing are computed;
+    \item For each event, the time difference between the zero crossings in the two detector is computed;
+    \item The distribution of the time difference is builded: mean, full with at half maximum (FWHM) and kurtosis (a measure of the \emph{gaussianity} of the distribution, equals $0$ for a perfect gaussian) are computed;
 \end{itemize}
-The combination of this two factors prevent the possibility to do a correct calibration of the graph.
+This procedure is repeated for different combination of CFD delay (from $1$ to $10\si{\nano\second}$, with $0.25\si{\nano\second}$ step) and attenuation fraction (from $0.1$ to $0.9$, with $0.1$ step) and the plots of FWHM and kurtosis are builded. 
 
+\begin{figure}[H]
+    \centering
+    \resizebox{0.7\textwidth}{!}{\import{img/}{FWHM.tex}}
+    \caption{FWHM of the time differences distribution as function of CFD parameters.}
+    \label{fig:FWHM:sim}
+\end{figure}
 
+\begin{figure}[H]
+    \centering
+    \resizebox{0.7\textwidth}{!}{\import{img/}{kurtosis.tex}}
+    \caption{Kurtosis of the time differences distribution as function of CFD parameters.}
+    \label{fig:FWHM:sim}
+\end{figure}
 
+Note that the low-delay low-fraction corner points has been discarded: their means result incompatible with the others and their FWHM extremely high, reflecting errors (probably due to low digitizer time resolution) in zero-crossings finding.
 
+The kurtosis values are very high: plotting one of the distribution, it's clear they aren't gaussian-like, but triangular-like, again because of digitizer resolution. It records only 5-6 points in the rising time, digitally sampled; the zero crossing is therefore individuated by interpolating two (or in very good conditions four) points: a very rough interpolation! Assuming the uniform probability density function (PdF) typical of digital instruments and convolving the start and stop PdF, they result in a triangular-like PdF as experimental results show.
 
-
-
+\subsection{Time resolution and energy threshold}
 
 
 
