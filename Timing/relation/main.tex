@@ -168,8 +168,8 @@ So we first assume $\frac[f]{b}{a} = 0$ to compute $r_E$, and then by imposing $
 
 \subsection{Calibration of the TAC}
 
-The system is set with a delay module just before the TAC's \emph{stop}. Multiple events are acquired with different delays, and the centroid of each peak is found.
-\todo[inline]{How have the centroid been found? -> A OCCHIO (mi spiace ma è la cruda realtà, non c'erano tanti altri modi visto che non erano fittabili in nessun modo (per quanto ne so io)). Anche le varianze sono a occhio ovviamente. Giuro che non mi metterò mai a costruire ponti.}
+The system is set with a delay module just before the TAC's \emph{stop}. Multiple events are acquired with different delays, and the centroid of each peak is found through gaussian fits on a small range around maximums.
+%\todo[inline]{How have the centroid been found? -> A OCCHIO (mi spiace ma è la cruda realtà, non c'erano tanti altri modi visto che non erano fittabili in nessun modo (per quanto ne so io)). Anche le varianze sono a occhio ovviamente. Giuro che non mi metterò mai a costruire ponti.}
 
 \begin{figure}[H]
     \centering
@@ -294,19 +294,18 @@ From fig \ref{fig:Co:results} we can see that the resolution improves dramatical
 \todo[inline]{Comment the results better}
 
 \section{Speed of light}
-The detectors have been placed such that they're about $1.70\si{\metre}$ away. The source has been placed firstly near the detector 1 and then near the detector 2, and the TAC signal has been acquired (one hour for each configuration); therefore, the centroids $\mu_1$ and $\mu_2$ of the two measurements have been found through a gaussian interpolation. Measuring the distance between the two source positions $d$, the light speed can be computed. Observe that the two centroids have been firstly subtracted and then calibrated, to preserve the resolution.
-\todo[inline]{Not clear}
+The detectors have been placed such that they're about $1.70\si{\metre}$ away. The source has been placed firstly near detector 1 and then near detector 2, and the TAC signal has been acquired (one hour for each configuration); then, the centroids $\mu_1$ and $\mu_2$ of the two measurements have been found through a gaussian interpolation. Measuring the distance between the two source positions $d$, the light speed can be computed.
+
+Observe that the two centroids have been firstly subtracted keeping them in channel and then calibrated, to prevent the introduction of correlation between the two measures and so preserve the resolution.
 
 The errors have been propagated as statistical errors. Note the high error on the distance between the positions of the source, due to the width of the source.
 
 \begin{gather*}
-    \mu_1 = (16433 \pm 2) \\
-    \mu_2 = (8966 \pm 2) \\
+    \mu_1 = (16433 \pm 2)\si{channel}\\
+    \mu_2 = (8966 \pm 2)\si{channel} \\
     d = (161.9 \pm 0.5) \si{\centi\metre} \\
     c = \frac{2d}{(\mu_1-\mu_2)m} = (2.94 \pm 0.01 )\cdot 10^8 \si{\metre\per\second}
 \end{gather*}
-
-\todo[inline]{Which is the unit of $\mu$? Channels!}
 
 \section{A-Posteriori CFD}
 During the last day, two datasets of waveforms have been collected directly from the detectors. This allow us to simulate an a-posteriori software CFD, and compare it with the analogic one.
@@ -349,29 +348,39 @@ For each dataset, the following procedure is followed:
     \item Coincidences are searched, i.e. events that are recorded by both the detectors;
     \item For each event, a simulated CFD is applied to the two waveforms and zero crossing are computed;
     \item For each event, the time difference between the zero crossings in the two detector is computed;
-    \item The distribution of the time difference is builded: mean, full with at half maximum (FWHM) and kurtosis (a measure of the \emph{gaussianity} of the distribution, equals $0$ for a perfect gaussian) are computed;
+    \item The distribution of the time difference is builded: mean, sigma (defined as the square root of the normalized centered second moment of data) and kurtosis (a measure of the \emph{gaussianity} of the distribution, equals $0$ for a perfect gaussian) are computed;
 \end{itemize}
-This procedure is repeated for different combination of CFD delay (from $1$ to $10\si{\nano\second}$, with $0.25\si{\nano\second}$ step) and attenuation fraction (from $0.1$ to $0.9$, with $0.1$ step) and the plots of FWHM and kurtosis are builded.
+This procedure is repeated for different combination of CFD delay (from $1$ to $10\si{\nano\second}$, with $0.25\si{\nano\second}$ step) and attenuation fraction (from $0.1$ to $0.9$, with $0.1$ step) and the plots of sigma and kurtosis are builded.
 
 \begin{figure}[H]
     \centering
-    \resizebox{0.7\textwidth}{!}{\import{img/}{FWHM.tex}}
-    \caption{FWHM of the time differences distribution as function of CFD parameters.}
-    \label{fig:FWHM:sim}
+    \resizebox{0.7\textwidth}{!}{\import{img/}{sigma_2D.tex}}
+    \caption{Sigma of the time differences distribution as function of CFD parameters.}
+    \label{fig:sigma:sim}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \resizebox{0.7\textwidth}{!}{\import{img/}{kurtosis.tex}}
+    \resizebox{0.7\textwidth}{!}{\import{img/}{kurt_2D.tex}}
     \caption{Kurtosis of the time differences distribution as function of CFD parameters.}
-    \label{fig:FWHM:sim}
+    \label{fig:kurt:sim}
 \end{figure}
 
-Note that the low-delay low-fraction corner points has been discarded: their means result incompatible with the others and their FWHM extremely high, reflecting errors (probably due to low digitizer time resolution) in zero-crossings finding.
+Note that the low-delay low-fraction corner points has been discarded: their means result incompatible with the others and their sigma extremely high, reflecting errors (probably due to low digitizer time resolution) in zero-crossings finding.
 
 The kurtosis values are very high: plotting one of the distribution, it's clear they aren't gaussian-like, but triangular-like, again because of digitizer resolution. It records only 5-6 points in the rising time, digitally sampled; the zero crossing is therefore individuated by interpolating two (or in very good conditions four) points: a very rough interpolation! Assuming the uniform probability density function (PdF) typical of digital instruments and convolving the start and stop PdF, they result in a triangular-like PdF as experimental results show.
 
 \subsection{Time resolution and energy threshold}
+
+\begin{figure}[H]
+    \centering
+    \resizebox{0.8\textwidth}{!}{\import{img/}{sigma_sim.tex}}
+    \caption{Sigma as a function of energy threshold.}
+    \label{fig:sigma:sim}
+\end{figure}
+
+Finally, sigma has been computed varying the energy threshold, replying the procedure done for cobalt and setting the same CFD parameters. As can be seen in figure comparing fig. \ref{fig:Co:results} with fig. \ref{fig:sigma:sim}, the $y$ axis scale is different: there are about 2 order of magnitude of difference. This lead us to impute the main contribute to the sigma to the sampling done by the digitizer. In the same figure, a strong growth in sigma can be seen in high $LET$ zone, probably due to the lack of data at high energy to make a precise mean. On the other hand, a minimum can be seen in the black line: This minimum is however not so relevant observing the $\sigma$ scale.
+
 
 
 
