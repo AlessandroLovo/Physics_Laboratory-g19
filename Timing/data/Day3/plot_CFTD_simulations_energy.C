@@ -8,7 +8,7 @@ void plot_CFTD_simulations_energy (int what, int id = 0) {
     TGraphErrors* tge_notop = new TGraphErrors();
     TGraphErrors* tge_sitop = new TGraphErrors();
 
-	double a,b,c,d,e,f,g,h;
+	double a,b,c,d,e,f,g,h,point,error;
 	in.ignore(10000,'\n');
 	while (in>>a>>b>>c>>d>>e>>f>>g>>h) {
 		if(what == 0) { point = c; error = d; }
@@ -30,11 +30,11 @@ void plot_CFTD_simulations_energy (int what, int id = 0) {
 	tge_notop->GetXaxis()->SetTitle("LET [keV]");
 	tge_notop->GetYaxis()->SetTitle("FWHM [ps]");
 
-	tge_notop->SetLineColor(1);
+	tge_notop->SetLineColor(2);
 
 	TLegend* tl = new TLegend(2.5,20);
-	tl->AddEntry(tge_notop,"Upper Energy Threshold (UET) = LET + 100 keV","l")
-	tl->AddEntry(tge_notop,"Only Lower Energy Threshold (LET)","l")
+	tl->AddEntry(tge_sitop,"Upper Energy Threshold (UET) = LET + 100 keV","l");
+	tl->AddEntry(tge_notop,"Only Lower Energy Threshold (LET)","l");
 
 	tge_notop->Draw();
 	tge_sitop->Draw("SAME");
