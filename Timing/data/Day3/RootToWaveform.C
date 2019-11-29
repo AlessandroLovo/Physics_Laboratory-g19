@@ -2,7 +2,7 @@
 #include <vector>
 using namespace std;
 
-const int entries_analized = 500000;
+const int entries_analized = 500; //000;
 const bool analize_all_entries = false;
 
 //CFTD
@@ -476,6 +476,57 @@ class TwoChannelWaveform{
 		return h;
 	}
 
+	void GetTimeDistrHisto_withstd(ofstream* out = NULL, double elow = -1, double etop = -1) {
+		if( calculate_time_distribution_in_each_time_distr_hist_request || delta_time_distribution.size() < 1 )
+			CalculateTimeDistribution();
+
+		double sum = 0, sum2 = 0, t;
+		int n = delta_time_distribution.size();
+		for(int i = 0; i < n; i++) {
+			t = delta_time_distribution[i];
+			sum += t;
+			sum2+= (t*t);
+		}
+
+		double mean = sum / n;
+		double mean_sigma = ( sum2 / n - (mean*mean) ) / sqrt(n);
+
+		sum = 0;
+		sum2 = 0;
+		for(int i = 0; i < n; i++) {
+			t = ( delta_time_distribution[i] - mean ) * ( delta_time_distribution[i] - mean );
+			sum += t;
+			sum2+= (t*t);
+		}
+		double mu2 = sqrt ( sum / n );
+		double mu2_sigma = ( sum2 / n - (mu2*mu2) ) / sqrt(n);
+		double std = sqrt ( mu2 );
+		double std_sigma = mu2_sigma / 2 / std;
+
+
+		sum = 0;
+		sum2 = 0;
+		for(int i = 0; i < n; i++) {
+			t = ( delta_time_distribution[i] - mean ) * ( delta_time_distribution[i] - mean ) * ( delta_time_distribution[i] - mean ) * ( delta_time_distribution[i] - mean );
+			sum += t;
+			sum2+= (t*t);
+		}
+		double mu4 = sum / n;
+		double mu4_sigma = ( sum2 / n - (mu4*mu4) ) / sqrt(n);	
+
+		double kurt = 3 - ( mu4 / std / std );
+		double kurt_sigma = sqrt( mu4_sigma / std / std * mu4_sigma / std / std + 2 * mu4 * std_sigma / std / std / std * 2 * mu4 * std_sigma / std / std / std );
+
+		if(elow != -1) {
+		 		  	   cout << endl << elow << '\t' << etop << '\t' << mean << '\t' << mean_sigma << '\t' << std << '\t' << std_sigma << '\t' << kurt << '\t' << kurt_sigma <<endl;
+			if ( out != NULL ) *out << elow << '\t' << etop << '\t' << mean << '\t' << mean_sigma << '\t' << std << '\t' << std_sigma << '\t' << kurt << '\t' << kurt_sigma <<endl;
+		
+		} else {
+					   cout << endl << attenuation_fraction << '\t' << delay_in_ns_ch0 << '\t' << mean << '\t' << mean_sigma << '\t' << std << '\t' << std_sigma << '\t' << kurt << '\t' << kurt_sigma <<endl;
+			if ( out != NULL ) *out << attenuation_fraction << '\t' << delay_in_ns_ch0 << '\t' << mean << '\t' << mean_sigma << '\t' << std << '\t' << std_sigma << '\t' << kurt << '\t' << kurt_sigma <<endl;
+		}
+	}
+
 	void EnergyFiltering(double elow, double etop){
 		wf[0]->EnergyFiltering(elow, etop);
 		wf[1]->EnergyFiltering(elow, etop);}
@@ -507,20 +558,21 @@ void simulateCFTD(int id = -1) {
 		}
 }
 
-void simulateCFTD_energythresh(int id = -1) {
-	if (id == -1) { simulateCFTD_energythresh(0); simulateCFTD_energythresh(1); return; }
+void simulateCFTD_energythresh(int id = -1, bool std = false) {
+	if (id == -1) { simulateCFTD_energythresh(0, std); simulateCFTD_energythresh(1, std); return; }
 	const char* outfilename[] = {"CFTD_energythresh_1_2D.txt","CFTD_energythresh_2_2D.txt"};
 	const char* sourcename[] = {"Digital_CFTD.root", "Digital_CFTD_2.root"};
 	vector<double> energy_low{ 50, 100, 150, 200, 250, 300, 350,  50, 100, 150, 200, 250 };
 	vector<double> energy_top{600, 600, 600, 600, 600, 600, 600, 150, 250, 350, 450, 550 };
 	ofstream out(outfilename[id]);
-	out << "ELow\tETop\tMean\tMean_sigma\tFWHM\tFWHM_sigma\tKurtosis\tKurtosis_sigma"<<endl;
+	if ( std ) out << "ELow\tETop\tMean\tMean_sigma\tVar\tVar_sigma\tKurtosis\tKurtosis_sigma"<<endl;
+	else out << "ELow\tETop\tMean\tMean_sigma\tFWHM\tFWHM_sigma\tKurtosis\tKurtosis_sigma"<<endl;
 	for( int i=0; i<energy_low.size(); i++) {
 		cout<<setw(5)<<energy_low[i]<<" - "<<energy_top[i]<<" - "<<setw(2)<<i<<" of "<<setw(2)<<energy_low.size()<<" - Loading data; "<<flush;
 		auto tcw = new TwoChannelWaveform(sourcename[id], -1, -1, energy_low[i], energy_top[i]);
 		cout<<"Analizing data: "<<flush;
-		auto tdh = tcw->GetTimeDistrHisto(&out,energy_low[i],energy_top[i]);
-		delete tdh;
+		if (std) tcw->GetTimeDistrHisto_withstd(&out,energy_low[i],energy_top[i]);
+		else { auto tdh = tcw->GetTimeDistrHisto(&out,energy_low[i],energy_top[i]); delete tdh; }
 		delete tcw;
 	}
 }
