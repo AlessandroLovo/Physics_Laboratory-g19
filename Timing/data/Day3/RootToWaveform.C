@@ -2,7 +2,7 @@
 #include <vector>
 using namespace std;
 
-const int entries_analized = 500;
+const int entries_analized = 500000;
 const bool analize_all_entries = false;
 
 //CFTD
