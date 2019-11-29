@@ -534,23 +534,24 @@ class TwoChannelWaveform{
 	const char* 	original_data_file;
 };
 
-void simulateCFTD(int id = -1) {
-	if (id == -1) { simulateCFTD(0); simulateCFTD(1); return; }
+void simulateCFTD(int id = -1,  bool std = false) {
+	if (id == -1) { simulateCFTD(0,std); simulateCFTD(1,std); return; }
 	const char* outfilename[] = {"CFTD_simulations_1_2D.txt","CFTD_simulations_2_2D.txt"};
 	const char* sourcename[] = {"Digital_CFTD.root", "Digital_CFTD_2.root"};
 	vector<double> fracs{0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9};
 	vector<double> delays{1 , 1.25 , 1.5 , 1.75 , 2 , 2.25 , 2.5 , 2.75 , 3 , 3.25 , 3.5 , 3.75 , 4 , 4.25 , 4.5 , 4.75 , 5 , 5.25 , 5.5 , 5.75 , 6 , 6.25 , 6.5 , 6.75 , 7 , 7.25 , 7.5 , 7.75 , 8 , 8.25 , 8.5 , 8.75 , 9 , 9.25 , 9.5 , 9.75 , 10};
 	int i = 0;
 	ofstream out(outfilename[id]);
-	out << "Frac\tDelay\tMean\tMean_sigma\tFWHM\tFWHM_sigma\tKurtosis\tKurtosis_sigma"<<endl;
+	if (std) out << "Frac\tDelay\tMean\tMean_sigma\tStd\tStd_sigma\tKurtosis\tKurtosis_sigma"<<endl;
+	else out << "Frac\tDelay\tMean\tMean_sigma\tFWHM\tFWHM_sigma\tKurtosis\tKurtosis_sigma"<<endl;
 	for ( double f : fracs)
 		for ( double d : delays) {
 			i++;
 			cout<<setw(5)<<f<<" - "<<setw(5)<<d<<" - "<<setw(2)<<i<<" of "<<setw(2)<<fracs.size()*delays.size()<<" - Loading data; "<<flush;
 			auto tcw = new TwoChannelWaveform(sourcename[id], f, d);
 			cout<<"Analizing data: "<<flush;
-			auto tdh = tcw->GetTimeDistrHisto(&out);
-			delete tdh;
+			if (std) tcw->GetTimeDistrHisto_withstd(&out);
+			else { auto tdh = tcw->GetTimeDistrHisto(&out);	delete tdh;}
 			delete tcw;
 		}
 }
@@ -562,7 +563,7 @@ void simulateCFTD_energythresh(int id = -1, bool std = false) {
 	vector<double> energy_low{ 50, 100, 150, 200, 250, 300, 350,  50, 100, 150, 200, 250 };
 	vector<double> energy_top{600, 600, 600, 600, 600, 600, 600, 150, 250, 350, 450, 550 };
 	ofstream out(outfilename[id]);
-	if ( std ) out << "ELow\tETop\tMean\tMean_sigma\tVar\tVar_sigma\tKurtosis\tKurtosis_sigma"<<endl;
+	if ( std ) out << "ELow\tETop\tMean\tMean_sigma\tStd\tStd_sigma\tKurtosis\tKurtosis_sigma"<<endl;
 	else out << "ELow\tETop\tMean\tMean_sigma\tFWHM\tFWHM_sigma\tKurtosis\tKurtosis_sigma"<<endl;
 	for( int i=0; i<energy_low.size(); i++) {
 		cout<<setw(5)<<energy_low[i]<<" - "<<energy_top[i]<<" - "<<setw(2)<<i<<" of "<<setw(2)<<energy_low.size()<<" - Loading data; "<<flush;
