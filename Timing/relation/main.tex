@@ -63,6 +63,7 @@
 
 \section{Experimental setup}
 The experimental setup consist of two collinear organic scintillators, mounted on a sledge, and a \ce{^22Na} source collimated between two lead bricks. The peaks for this source are in tab \ref{tab:gammavalue}.
+\todo[inline]{Explain better}
 
 Data are collected from the detectors through a electronic chain: a fan-in-fan-out quad module replies the signal of each detector and produces four copies of it; then, through a CFTD, a trigger signal is produced. The CFTD trigger threshold has been set so that the noise is discarded, while the interesting signals produce an output.
 
@@ -81,8 +82,8 @@ Data are collected from the detectors through a electronic chain: a fan-in-fan-o
 \end{table}
 
 \section{Apparatus calibration}
-Both the detectors and the TAC need to be calibrated. Firstly, let's calibrate the detectors.
 
+\subsection{Calibration of DET 1 and 2}
 A spectra for each detector is acquired; due to the composition of the detector, the photopeaks are negligible and only the compton effect are detected. The calibration can then be done through the position of the compton edge (CE).
 
 \begin{figure}[H]
@@ -93,7 +94,8 @@ A spectra for each detector is acquired; due to the composition of the detector,
 \end{figure}
 
 The gaussian fit way was discarded, due to its strong dependence on the fit range choice. Then, after a proper spectra rebinning, for each CE the position of the maximum $c_{ch}$ and the half width half maximum $w_{ch}$ in channels have been found (fig \ref{fig:det1:calibr}, tab \ref{tab:calibr:fits})\footnote{As described in Dietze, Klein: \emph{Gamma-calibration of NE 213 scintillation counters}, Nuc. Instr. and Meth., 193 (1982), \url{https://doi.org/10.1016/0029-554X(82)90249-X}}.
-The observed CE is a convolution of a real CE with a gaussian noise whose width is proportional to the resolution of the detector $\sigma_{res}$; this convolution results in a shift of the maximum of the CE towards lower energies. By simulating\footnote{We used the formulas from N. Kudomi \emph{Energy calibration of plastic scintillators for low energy electrons by using Compton scattering of $\gamma$ rays}, Nuc. Instr. and Meth., 430 (1999), \url{www.elsevier.nl/locate/nima}} the effects on CE varying $\sigma_{res}$ we can compute the simulated resolution $r_{sim} = \frac{w_{sim}}{c_{sim}}$ and correlate it with $c_{sim}$, i.e the peak position in energy (fig \ref{fig:sim}).
+Note that for the peak relative to the \SI{511}{\kilo\electronvolt} photon the half maximum needs to be computed with respect to the baseline due to the low energy Compton events of the \SI{1275}{\kilo\electronvolt} photon.\\
+The observed CE is a convolution of a real CE with a gaussian noise whose width is proportional to the resolution of the detector $\sigma_{res}$; this convolution results in a shift of the maximum of the CE towards lower energies. By simulating\footnote{We used the formulas from N. Kudomi \emph{Energy calibration of plastic scintillators for low energy electrons by using Compton scattering of $\gamma$ rays}, Nuc. Instr. and Meth., 430 (1999), \url{www.elsevier.nl/locate/nima}} the effects on CE varying $\sigma_{res}$ (fig \ref{fig:sim:spectra}) we can compute the simulated resolution $r_{sim} = \frac{w_{sim}}{c_{sim}}$ and correlate it with $c_{sim}$, i.e the peak position in energy (fig \ref{fig:sim}).
 
 If we assume the calibration relation $E = a*ch + b$, then the resolution in energy is:
 
@@ -102,6 +104,13 @@ If we assume the calibration relation $E = a*ch + b$, then the resolution in ene
 \end{equation*}
 
 So we first assume $\frac[f]{b}{a} = 0$ to compute $r_E$, and then by imposing $r_E = r_{sim}$ we can find the peak positions in energy $c_E = c_{sim}(r_{sim})$ allowing us to compute $a$ and $b$ via linear fit. We can now update the value of $r_E$ and repeat the process. After a few iterations the process converges and gives us the results in tab \ref{tab:calibr:coeffs}.
+
+\begin{figure}
+  \centering
+  \resizebox{0.8\textwidth}{!}{\import{img/}{sim_Compton_spectra.pgf}}
+  \caption{Simulated Compton spectra with different values of $\sigma_{res}$ ($\sigma_{res} = 0$ is the real spectrum). Even if here the two peaks are represented together, they were analized independently.}
+  \label{fig:sim:spectra}
+\end{figure}
 
 \begin{figure}[H]
     \centering
@@ -156,7 +165,10 @@ So we first assume $\frac[f]{b}{a} = 0$ to compute $r_E$, and then by imposing $
 % \end{figure}
 %
 % The observed compton edge are produced by the convolution of real compton edge and gaussian acquisition error. This lead to a shift of the observed compton edge that must be considered.
-Also the TAC must be calibrated. The system is set with a delay module just before the TAC's \emph{stop}. Multiple events are acquired with different delays, and the centroid of each peak is found.
+
+\subsection{Calibration of the TAC}
+
+The system is set with a delay module just before the TAC's \emph{stop}. Multiple events are acquired with different delays, and the centroid of each peak is found.
 \todo[inline]{How have the centroid been found? -> A OCCHIO (mi spiace ma è la cruda realtà, non c'erano tanti altri modi visto che non erano fittabili in nessun modo (per quanto ne so io)). Anche le varianze sono a occhio ovviamente. Giuro che non mi metterò mai a costruire ponti.}
 
 \begin{figure}[H]
@@ -339,7 +351,7 @@ For each dataset, the following procedure is followed:
     \item For each event, the time difference between the zero crossings in the two detector is computed;
     \item The distribution of the time difference is builded: mean, full with at half maximum (FWHM) and kurtosis (a measure of the \emph{gaussianity} of the distribution, equals $0$ for a perfect gaussian) are computed;
 \end{itemize}
-This procedure is repeated for different combination of CFD delay (from $1$ to $10\si{\nano\second}$, with $0.25\si{\nano\second}$ step) and attenuation fraction (from $0.1$ to $0.9$, with $0.1$ step) and the plots of FWHM and kurtosis are builded. 
+This procedure is repeated for different combination of CFD delay (from $1$ to $10\si{\nano\second}$, with $0.25\si{\nano\second}$ step) and attenuation fraction (from $0.1$ to $0.9$, with $0.1$ step) and the plots of FWHM and kurtosis are builded.
 
 \begin{figure}[H]
     \centering
