@@ -2,7 +2,7 @@
 #include <vector>
 using namespace std;
 
-const int entries_analized = 500; //000;
+const int entries_analized = 500;
 const bool analize_all_entries = false;
 
 //CFTD
@@ -480,42 +480,39 @@ class TwoChannelWaveform{
 		if( calculate_time_distribution_in_each_time_distr_hist_request || delta_time_distribution.size() < 1 )
 			CalculateTimeDistribution();
 
-		double sum = 0, sum2 = 0, t;
+		double sum = 0;
 		int n = delta_time_distribution.size();
 		for(int i = 0; i < n; i++) {
-			t = delta_time_distribution[i];
-			sum += t;
-			sum2+= (t*t);
+			sum += delta_time_distribution[i];
 		}
 
 		double mean = sum / n;
-		double mean_sigma = ( sum2 / n - (mean*mean) ) / sqrt(n);
 
-		sum = 0;
-		sum2 = 0;
+		double sum2 = 0, sum4 = 0;
+		for(int i = 0; i < n; i++) {
+			sum2 += ( delta_time_distribution[i] - mean ) * ( delta_time_distribution[i] - mean );
+			sum4 += ( delta_time_distribution[i] - mean ) * ( delta_time_distribution[i] - mean ) * ( delta_time_distribution[i] - mean ) * ( delta_time_distribution[i] - mean );
+		}
+
+		double mean_sigma = sqrt ( sum2 ) / n;
+		double mu2 = sum2 / n;
+		double mu4 = sum4 / n;
+
+		double sum2e = 0, sum4e = 0, t;
 		for(int i = 0; i < n; i++) {
 			t = ( delta_time_distribution[i] - mean ) * ( delta_time_distribution[i] - mean );
-			sum += t;
-			sum2+= (t*t);
-		}
-		double mu2 = sqrt ( sum / n );
-		double mu2_sigma = ( sum2 / n - (mu2*mu2) ) / sqrt(n);
-		double std = sqrt ( mu2 );
-		double std_sigma = mu2_sigma / 2 / std;
-
-
-		sum = 0;
-		sum2 = 0;
-		for(int i = 0; i < n; i++) {
+			sum2e = ( t - mu2 )*( t - mu2 );
+			
 			t = ( delta_time_distribution[i] - mean ) * ( delta_time_distribution[i] - mean ) * ( delta_time_distribution[i] - mean ) * ( delta_time_distribution[i] - mean );
-			sum += t;
-			sum2+= (t*t);
+			sum4e = ( t - mu4 )*( t - mu4 );
 		}
-		double mu4 = sum / n;
-		double mu4_sigma = ( sum2 / n - (mu4*mu4) ) / sqrt(n);	
-
-		double kurt = 3 - ( mu4 / std / std );
-		double kurt_sigma = sqrt( mu4_sigma / std / std * mu4_sigma / std / std + 2 * mu4 * std_sigma / std / std / std * 2 * mu4 * std_sigma / std / std / std );
+		double mu2_sigma = sqrt ( sum2e ) / sqrt(n);
+		double mu4_sigma = sqrt ( sum4e ) / sqrt(n);
+		
+		double std = sqrt ( mu2 );
+		double std_sigma = mu2_sigma / 2 / sqrt ( mu2 );
+		double kurt = 3 - mu4 / mu2 / mu2;
+		double kurt_sigma = sqrt( mu4_sigma / mu2 / mu2 * mu4_sigma / mu2 / mu2 + 2 * mu4 * mu2_sigma / mu2 / mu2 / mu2 * 2 * mu4 * mu2_sigma / mu2 / mu2 / mu2 );
 
 		if(elow != -1) {
 		 		  	   cout << endl << elow << '\t' << etop << '\t' << mean << '\t' << mean_sigma << '\t' << std << '\t' << std_sigma << '\t' << kurt << '\t' << kurt_sigma <<endl;
