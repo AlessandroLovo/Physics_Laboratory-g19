@@ -21,13 +21,14 @@ const int  aligment_channel = 100;
 //TWO_CHANNEL_WAVEFORM CLASS
 const bool energy_filter_in_costructor = true;
 const bool check_coincidences_in_costructor = true;
-const bool filter_energy_in_costructor = true;
 const bool calculate_time_distribution_in_each_time_distr_hist_request = false;
 const double delay_introduced_in_ns = 150;
 
 //ENERGY FILTERING WINDOW
 const int energy_window_center_channel[2] = {6000, 6000};
 const int energy_window_half_size[2] = {100, 100};
+const double e_cal_m[2] = {0.08199, 0.06579};
+const double e_cal_q[2] = {-208.5, -106.8};
 
 const int baseline[2] = {923, 925};
 
@@ -167,15 +168,24 @@ class Waveform{
 		//wf1->MakeSumHisto();
 	}
 
-	void EnergyFiltering(){
+	void EnergyFiltering(double elow = -1, double emax = -1){
 		//GetEnergyHisto();	
 		fast_CalculateEventEnergies();
 		int new_num_events = 0;
 		vector <waveform_event> filtered_events;
 		for (int i=0; i<num_events; i++) {
-			if(TMath::Abs(events[i].energy - energy_window_center_channel[channel]) < energy_window_half_size[channel]){
-				filtered_events.push_back(events[i]);
-				new_num_events++;
+			if (elow == -1) {
+				if(TMath::Abs(events[i].energy - energy_window_center_channel[channel]) < energy_window_half_size[channel]){
+					filtered_events.push_back(events[i]);
+					new_num_events++;
+				}
+			}
+			else {
+				double e_en = events[i].energy * e_cal_m[channel] + e_cal_q[channel];
+				if ( e_en >= elow && e_en <= emax ) {
+					filtered_events.push_back(events[i]);
+					new_num_events++;
+				}
 			}
 		}
 		events = filtered_events;
@@ -341,18 +351,16 @@ class Waveform{
 class TwoChannelWaveform{
 	public:
 
-	TwoChannelWaveform(const char *name_file, double att_frac = -1, double delay = -1){
+	TwoChannelWaveform(const char *name_file, double att_frac = -1, double delay = -1, double elow = -1, double etop = -1){
 		if( att_frac != -1 ) attenuation_fraction = att_frac;
 		if( delay != -1 ) { delay_in_ns_ch0 = delay; delay_in_ns_ch1 = delay; }
 		original_data_file = name_file;
 		wf[0] = new Waveform(original_data_file, 0);
 		wf[1] = new Waveform(original_data_file, 1);
-		if (energy_filter_in_costructor)
-			EnergyFiltering();
+		if (energy_filter_in_costructor || elow != -1)
+			EnergyFiltering(elow, etop);
 		if (check_coincidences_in_costructor)
-			CheckCoincidences();	
-		if(filter_energy_in_costructor)
-			EnergyFiltering();	
+			CheckCoincidences();
 		}
 
 	~TwoChannelWaveform() {
@@ -386,7 +394,7 @@ class TwoChannelWaveform{
 		}
 	}
 
-	TH1F* GetTimeDistrHisto(ofstream* out = NULL){
+	TH1F* GetTimeDistrHisto(ofstream* out = NULL, double elow = -1, double etop = -1){
 		if( calculate_time_distribution_in_each_time_distr_hist_request || delta_time_distribution.size() < 1 )
 			CalculateTimeDistribution();
 		TH1F* h = new TH1F(Form("Time_distribution_in_ps_%f_%f", attenuation_fraction, delay_in_ns_ch0 ), "", 5000,0, 360*1000); // 5000 (experimentally found binning that permit noise neglecting keeping sufficient resolution)
@@ -419,8 +427,7 @@ class TwoChannelWaveform{
 		double mean_sigma = h->GetMeanError();
 		double kurt = h->GetKurtosis();
 		double kurt_sigma = h->GetKurtosis(11);
-				   cout << endl << attenuation_fraction << '\t' << delay_in_ns_ch0 << '\t' << mean << '\t' << mean_sigma << '\t' << FWHM << '\t' << FWHM_err << '\t' << kurt << '\t' << kurt_sigma <<endl;
-
+		
 		/*
 		// COMPUTE WITHOUT FUNCTIONS
 		mean = 0;
@@ -458,14 +465,68 @@ class TwoChannelWaveform{
 		cout << delta_time_distribution.size();	
 		*/
 
-
-		if ( out != NULL ) *out << attenuation_fraction << '\t' << delay_in_ns_ch0 << '\t' << mean << '\t' << mean_sigma << '\t' << FWHM << '\t' << FWHM_err << '\t' << kurt << '\t' << kurt_sigma <<endl;
+		if(elow != -1) {
+		 		  	   cout << endl << elow << '\t' << etop << '\t' << mean << '\t' << mean_sigma << '\t' << FWHM << '\t' << FWHM_err << '\t' << kurt << '\t' << kurt_sigma <<endl;
+			if ( out != NULL ) *out << elow << '\t' << etop << '\t' << mean << '\t' << mean_sigma << '\t' << FWHM << '\t' << FWHM_err << '\t' << kurt << '\t' << kurt_sigma <<endl;
+		
+		} else {
+					   cout << endl << attenuation_fraction << '\t' << delay_in_ns_ch0 << '\t' << mean << '\t' << mean_sigma << '\t' << FWHM << '\t' << FWHM_err << '\t' << kurt << '\t' << kurt_sigma <<endl;
+			if ( out != NULL ) *out << attenuation_fraction << '\t' << delay_in_ns_ch0 << '\t' << mean << '\t' << mean_sigma << '\t' << FWHM << '\t' << FWHM_err << '\t' << kurt << '\t' << kurt_sigma <<endl;
+		}
 		return h;
 	}
 
-	void EnergyFiltering(){
-		wf[0]->EnergyFiltering();
-		wf[1]->EnergyFiltering();}
+	void GetTimeDistrHisto_withstd(ofstream* out = NULL, double elow = -1, double etop = -1) {
+		if( calculate_time_distribution_in_each_time_distr_hist_request || delta_time_distribution.size() < 1 )
+			CalculateTimeDistribution();
+
+		double sum = 0;
+		int n = delta_time_distribution.size();
+		for(int i = 0; i < n; i++) {
+			sum += delta_time_distribution[i];
+		}
+
+		double mean = sum / n;
+
+		double sum2 = 0, sum4 = 0;
+		for(int i = 0; i < n; i++) {
+			sum2 += ( delta_time_distribution[i] - mean ) * ( delta_time_distribution[i] - mean );
+			sum4 += ( delta_time_distribution[i] - mean ) * ( delta_time_distribution[i] - mean ) * ( delta_time_distribution[i] - mean ) * ( delta_time_distribution[i] - mean );
+		}
+
+		double mean_sigma = sqrt ( sum2 ) / n;
+		double mu2 = sum2 / n;
+		double mu4 = sum4 / n;
+
+		double sum2e = 0, sum4e = 0, t;
+		for(int i = 0; i < n; i++) {
+			t = ( delta_time_distribution[i] - mean ) * ( delta_time_distribution[i] - mean );
+			sum2e = ( t - mu2 )*( t - mu2 );
+			
+			t = ( delta_time_distribution[i] - mean ) * ( delta_time_distribution[i] - mean ) * ( delta_time_distribution[i] - mean ) * ( delta_time_distribution[i] - mean );
+			sum4e = ( t - mu4 )*( t - mu4 );
+		}
+		double mu2_sigma = sqrt ( sum2e ) / sqrt(n);
+		double mu4_sigma = sqrt ( sum4e ) / sqrt(n);
+		
+		double std = sqrt ( mu2 );
+		double std_sigma = mu2_sigma / 2 / sqrt ( mu2 );
+		double kurt = 3 - mu4 / mu2 / mu2;
+		double kurt_sigma = sqrt( mu4_sigma / mu2 / mu2 * mu4_sigma / mu2 / mu2 + 2 * mu4 * mu2_sigma / mu2 / mu2 / mu2 * 2 * mu4 * mu2_sigma / mu2 / mu2 / mu2 );
+
+		if(elow != -1) {
+		 		  	   cout << endl << elow << '\t' << etop << '\t' << mean << '\t' << mean_sigma << '\t' << std << '\t' << std_sigma << '\t' << kurt << '\t' << kurt_sigma <<endl;
+			if ( out != NULL ) *out << elow << '\t' << etop << '\t' << mean << '\t' << mean_sigma << '\t' << std << '\t' << std_sigma << '\t' << kurt << '\t' << kurt_sigma <<endl;
+		
+		} else {
+					   cout << endl << attenuation_fraction << '\t' << delay_in_ns_ch0 << '\t' << mean << '\t' << mean_sigma << '\t' << std << '\t' << std_sigma << '\t' << kurt << '\t' << kurt_sigma <<endl;
+			if ( out != NULL ) *out << attenuation_fraction << '\t' << delay_in_ns_ch0 << '\t' << mean << '\t' << mean_sigma << '\t' << std << '\t' << std_sigma << '\t' << kurt << '\t' << kurt_sigma <<endl;
+		}
+	}
+
+	void EnergyFiltering(double elow, double etop){
+		wf[0]->EnergyFiltering(elow, etop);
+		wf[1]->EnergyFiltering(elow, etop);}
 
 	private:
 	vector<double>	delta_time_distribution;
@@ -473,28 +534,43 @@ class TwoChannelWaveform{
 	const char* 	original_data_file;
 };
 
-
-
-
-
-
-void simulateCFTD(int id = -1) {
-	if (id == -1) { simulateCFTD(0); simulateCFTD(1); }
+void simulateCFTD(int id = -1,  bool std = false) {
+	if (id == -1) { simulateCFTD(0,std); simulateCFTD(1,std); return; }
 	const char* outfilename[] = {"CFTD_simulations_1_2D.txt","CFTD_simulations_2_2D.txt"};
 	const char* sourcename[] = {"Digital_CFTD.root", "Digital_CFTD_2.root"};
 	vector<double> fracs{0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9};
 	vector<double> delays{1 , 1.25 , 1.5 , 1.75 , 2 , 2.25 , 2.5 , 2.75 , 3 , 3.25 , 3.5 , 3.75 , 4 , 4.25 , 4.5 , 4.75 , 5 , 5.25 , 5.5 , 5.75 , 6 , 6.25 , 6.5 , 6.75 , 7 , 7.25 , 7.5 , 7.75 , 8 , 8.25 , 8.5 , 8.75 , 9 , 9.25 , 9.5 , 9.75 , 10};
 	int i = 0;
 	ofstream out(outfilename[id]);
-	out << "Frac\tDelay\tMean\tMean_sigma\tFWHM\tFWHM_sigma\tKurtosis\tKurtosis_sigma"<<endl;
+	if (std) out << "Frac\tDelay\tMean\tMean_sigma\tStd\tStd_sigma\tKurtosis\tKurtosis_sigma"<<endl;
+	else out << "Frac\tDelay\tMean\tMean_sigma\tFWHM\tFWHM_sigma\tKurtosis\tKurtosis_sigma"<<endl;
 	for ( double f : fracs)
 		for ( double d : delays) {
 			i++;
 			cout<<setw(5)<<f<<" - "<<setw(5)<<d<<" - "<<setw(2)<<i<<" of "<<setw(2)<<fracs.size()*delays.size()<<" - Loading data; "<<flush;
 			auto tcw = new TwoChannelWaveform(sourcename[id], f, d);
 			cout<<"Analizing data: "<<flush;
-			auto tdh = tcw->GetTimeDistrHisto(&out);
-			delete tdh;
+			if (std) tcw->GetTimeDistrHisto_withstd(&out);
+			else { auto tdh = tcw->GetTimeDistrHisto(&out);	delete tdh;}
 			delete tcw;
 		}
+}
+
+void simulateCFTD_energythresh(int id = -1, bool std = false) {
+	if (id == -1) { simulateCFTD_energythresh(0, std); simulateCFTD_energythresh(1, std); return; }
+	const char* outfilename[] = {"CFTD_energythresh_1_2D.txt","CFTD_energythresh_2_2D.txt"};
+	const char* sourcename[] = {"Digital_CFTD.root", "Digital_CFTD_2.root"};
+	vector<double> energy_low{ 50, 100, 150, 200, 250, 300, 350,  50, 100, 150, 200, 250 };
+	vector<double> energy_top{600, 600, 600, 600, 600, 600, 600, 150, 250, 350, 450, 550 };
+	ofstream out(outfilename[id]);
+	if ( std ) out << "ELow\tETop\tMean\tMean_sigma\tStd\tStd_sigma\tKurtosis\tKurtosis_sigma"<<endl;
+	else out << "ELow\tETop\tMean\tMean_sigma\tFWHM\tFWHM_sigma\tKurtosis\tKurtosis_sigma"<<endl;
+	for( int i=0; i<energy_low.size(); i++) {
+		cout<<setw(5)<<energy_low[i]<<" - "<<energy_top[i]<<" - "<<setw(2)<<i<<" of "<<setw(2)<<energy_low.size()<<" - Loading data; "<<flush;
+		auto tcw = new TwoChannelWaveform(sourcename[id], -1, -1, energy_low[i], energy_top[i]);
+		cout<<"Analizing data: "<<flush;
+		if (std) tcw->GetTimeDistrHisto_withstd(&out,energy_low[i],energy_top[i]);
+		else { auto tdh = tcw->GetTimeDistrHisto(&out,energy_low[i],energy_top[i]); delete tdh; }
+		delete tcw;
+	}
 }

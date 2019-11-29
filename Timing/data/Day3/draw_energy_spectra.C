@@ -1,5 +1,5 @@
-void draw_energy_spectra() {
-	auto wf = new Waveform("Digital_CFTD.root", 0);
+void draw_energy_spectra(int id = 0) {
+	auto wf = new Waveform("Digital_CFTD.root", id);
 	auto hist = wf->GetEnergyHisto();
 
 	hist->GetXaxis()->SetTitle("Energy [a.u.]");
@@ -10,12 +10,12 @@ void draw_energy_spectra() {
 
 	// calibration
 
-/*	double m = 0.093;
-	double q = -282;
+	double m[] = { 0.08199, 0.06579 };
+	double q[] = { -208.5, -106.8 };
 
 	double xmax = hist->GetXaxis()->GetXmax();
 	double xmin = hist->GetXaxis()->GetXmin();
-	hist->GetXaxis()->SetLimits( xmin * m + q, xmax * m + q );
+	hist->GetXaxis()->SetLimits( xmin * m[id] + q[id], xmax * m[id] + q[id] );
 
 	hist->GetYaxis()->SetRangeUser(0, 11000);
 
@@ -26,5 +26,6 @@ void draw_energy_spectra() {
 
 	TLine* tl2 = new TLine( 358.6, 6250, 358.6, 3250 );
 	tl2->SetLineColor(2);
-	tl2->Draw();*/
+	tl2->Draw();
+
 }

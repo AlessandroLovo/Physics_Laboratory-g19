@@ -10,7 +10,7 @@ TGraph2DErrors* plot_CFTD_simulations_2D (int what, int id = 0, bool same = fals
 	double a,b,c,d,e,f,g,h,point,error;
 	in.ignore(10000,'\n');
 	while (in>>a>>b>>c>>d>>e>>f>>g>>h) {
-		if( c <= 160000 ) continue;
+		//if( c <= 160000 ) continue;
 		if(what == 0) { point = c; error = d; }
 		else if(what == 1) { point = e; error = f; }
 		else if(what == 2) { point = g; error = h; }
@@ -22,7 +22,6 @@ TGraph2DErrors* plot_CFTD_simulations_2D (int what, int id = 0, bool same = fals
 	if ( what == 0) tge->SetTitle("Mean");
 	else if ( what == 1) {
 		tge->SetTitle("FWHM [ps]");
-		tge->GetZaxis()->SetRangeUser(9.7e3,15.5e3);
 	}
 	else if ( what == 2) tge->SetTitle("Kurtosis");
 
