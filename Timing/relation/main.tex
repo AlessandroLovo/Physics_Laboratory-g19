@@ -119,6 +119,8 @@ So we first assume $\frac[f]{b}{a} = 0$ to compute $r_E$, and then by imposing $
     \label{fig:sim}
 \end{figure}
 
+
+
 % \begin{figure}[H]
 %   \centering
 %   \subfloat[]{\includegraphics[width=0.45\textwidth]{img/sim_511.png}} \quad
@@ -239,6 +241,7 @@ A set of LEMO cables is provided. Setting external delay to $13\si{\nano\second}
 \end{figure}
 
 
+
 \section{CFTD delay optimization}
 
 The CFTD superimposes a delayed copy of the signal to an inverted reduced one. This delay must be properly set using LEMO cables to optimize the TAC resolution. With only the default delay, the signal detected by the TAC is large and not gaussian (see fig. \ref{fig:delay:bad}); after some tests, a setup which lead to a better resolution and a more gaussian-like output is obtained.
@@ -336,7 +339,7 @@ As can be seen from fig. \ref{fig:waveform}, the shape of waveform and signal is
     \label{fig:aposteriori_energy}
 \end{figure}
 
-\todo[inline]{Si potrebbe sovrapporre lo spettro analogico (eventualmente normalizzando i due istogrammi)}  
+\todo[inline]{Si potrebbe sovrapporre lo spettro analogico (eventualmente normalizzando i due istogrammi)}
 
 Integrating the waveform (substracted of the baseline) over the domain, an energy spectra can be computed. As can be seen comparing fig. \ref{fig:aposteriori_energy} with fig. \ref{fig:det1:calibr}, here only the $511\si{\kilo\electronvolt}$ peak is visible: the trigger set on coincidences and the low acceptance of the digitized cut away the higher peak.
 
