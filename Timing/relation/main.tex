@@ -62,11 +62,14 @@
 \end{itemize}
 
 \section{Experimental setup}
-The experimental setup consist of two collinear organic scintillators, mounted on a sledge, and a \ce{^22Na} source collimated between two lead bricks. The peaks for this source are in tab \ref{tab:gammavalue}.
-\todo[inline]{Explain better}
+The experimental setup consist of two collinear organic scintillators (DET 1 and DET 2), mounted on a sledge and facing each other. Between them there is a \ce{^22Na} source collimated by two lead bricks. The energy peaks of photons emitted by this source are shown in tab \ref{tab:gammavalue}.
+
 
 Data are collected from the detectors through a electronic chain: a fan-in-fan-out quad module replies the signal of each detector and produces four copies of it; then, through a CFTD, a trigger signal is produced. The CFTD trigger threshold has been set so that the noise is discarded, while the interesting signals produce an output.
 \todo[inline]{A TAC detects coincidences between signals coming out from the two detectors after they have been elaborated by CFTD}
+
+Data are collected from the detectors through a electronic chain: a fan-in-fan-out quad module replies the signal of each detector and produces four copies of it; then, through a Constant Fraction Time Discriminator (CFTD), a logic signal is produced. The CFTD trigger threshold has been set so that the noise is discarded, while the interesting signals produce an output. From the CFTD the logic signal run through a coincidence unit, used as a trigger. Besides, the logic signal of DET 1 runs into the \emph{start} of a Time to Amplitude Converter (TAC) module, while the one from DET 2 passes through a delay module and then runs into the \emph{stop} of the TAC. A digitizer, triggered by the coincidence unit, acquires the energy spectra of both detectors and the time spectrum of the TAC.
+
 
 \begin{table}[H]
     \centering
@@ -85,26 +88,27 @@ Data are collected from the detectors through a electronic chain: a fan-in-fan-o
 \section{Apparatus calibration}
 
 \subsection{Calibration of DET 1 and 2}
-A spectra for each detector is acquired; due to the composition of the detector, the photopeaks are negligible and only the compton effect are detected. The calibration can then be done through the position of the compton edge (CE).
+Disabling the coincidence unit in order to collect both peaks of the \ce{^22Na} source, a spectrum for each detector is acquired. Due to the chemical composition of the detector (low Z materials), photopeaks are negligible and only the Compton effect is detected.
 
-\begin{figure}[H]
-    \centering
-    \resizebox{0.8\textwidth}{!}{\import{img/}{det12_calibrated.tex}}
-    \caption{Position of CE's centroids and widths}
-    \label{fig:det1:calibr}
-\end{figure}
+The observed Compton Edge (CE) is a convolution of the real CE with a gaussian noise whose width is the energy resolution of the detector $\sigma_{res}$; this convolution results in a shift of the maximum of the CE towards lower energies, so, in order to calibrate the detecters, we need to obtain an estimate of this shift.
+By simulating\footnote{We used the formulas from N. Kudomi \emph{Energy calibration of plastic scintillators for low energy electrons by using Compton scattering of $\gamma$ rays}, Nuc. Instr. and Meth., 430 (1999), \url{www.elsevier.nl/locate/nima}} the effects on CE varying $\sigma_{res}$ (fig \ref{fig:sim:spectra}) we can compute the position of the peak $c_{sim}$ and its right hand side Half Width Half Maximum $w_{sim}$\footnote{We used this approach instead of a gaussian fit of the peaks because both in the simulation and in the experimental spectra the result of the fit was highly dependent on the range chosen for the fit, which is arbitrary. See also Dietze, Klein: \emph{Gamma-calibration of NE 213 scintillation counters}, Nuc. Instr. and Meth., 193 (1982), \url{https://doi.org/10.1016/0029-554X(82)90249-X}},
+and  then correlate the simulated resolution $r_{sim} = \frac{w_{sim}}{c_{sim}}$ with $c_{sim}$ (fig \ref{fig:sim}).
 
-The gaussian fit way was discarded, due to its strong dependence on the fit range choice. Then, after a proper spectra rebinning, for each CE the position of the maximum $c_{ch}$ and the half width half maximum $w_{ch}$ in channels have been found (fig \ref{fig:det1:calibr}, tab \ref{tab:calibr:fits})\footnote{As described in Dietze, Klein: \emph{Gamma-calibration of NE 213 scintillation counters}, Nuc. Instr. and Meth., 193 (1982), \url{https://doi.org/10.1016/0029-554X(82)90249-X}}.
-Note that for the peak relative to the \SI{511}{\kilo\electronvolt} photon the half maximum needs to be computed with respect to the baseline due to the low energy Compton events of the \SI{1275}{\kilo\electronvolt} photon.\\
-The observed CE is a convolution of a real CE with a gaussian noise whose width is proportional to the resolution of the detector $\sigma_{res}$; this convolution results in a shift of the maximum of the CE towards lower energies. By simulating\footnote{We used the formulas from N. Kudomi \emph{Energy calibration of plastic scintillators for low energy electrons by using Compton scattering of $\gamma$ rays}, Nuc. Instr. and Meth., 430 (1999), \url{www.elsevier.nl/locate/nima}} the effects on CE varying $\sigma_{res}$ (fig \ref{fig:sim:spectra}) we can compute the simulated resolution $r_{sim} = \frac{w_{sim}}{c_{sim}}$ and correlate it with $c_{sim}$, i.e the peak position in energy (fig \ref{fig:sim}).
-
-If we assume the calibration relation $E = a*ch + b$, then the resolution in energy is:
+We can now compute $c_{ch}$ and $w_{ch}$ for the experimental spectra in channels (fig \ref{fig:det12:calibr}, tab \ref{tab:calibr:fits}), noting that for the peak relative to the \SI{511}{\kilo\electronvolt} photon the half maximum needs to be computed with respect to the baseline due to the low energy Compton events of the \SI{1275}{\kilo\electronvolt} photon.\\
+If we assume the calibration relation $E = a \cdot ch + b$, then the resolution in energy is:
 
 \begin{equation*}
   r_E = \frac{w_E}{c_E} = \frac{a w_{ch}}{a c_{ch} + b} = \frac{w_{ch}}{c_{ch} + \frac[f]{b}{a}}
 \end{equation*}
 
-So we first assume $\frac[f]{b}{a} = 0$ to compute $r_E$, and then by imposing $r_E = r_{sim}$ we can find the peak positions in energy $c_E = c_{sim}(r_{sim})$ allowing us to compute $a$ and $b$ via linear fit. We can now update the value of $r_E$ and repeat the process. After a few iterations the process converges and gives us the results in tab \ref{tab:calibr:coeffs}.
+So we first assume $\frac[f]{b}{a} = 0$ to compute $r_E$, and then by imposing $r_E = r_{sim}$ we can find the peak positions in energy $c_E = c_{sim}(r_{sim})$ allowing us to compute $a$ and $b$ via linear fit. We can now update the value of $r_E$ and repeat the process. After a few iterations the process converges and gives us the results in tab \ref{tab:calibr:coeffs}.\\
+This way we obtained also an estimate of the resolution of the detectors.
+
+\begin{gather*}
+  \sigma_{res}^{(1)} \sim 38\, \text{keV} \qquad
+  \sigma_{res}^{(2)} \sim 35\, \text{keV}
+\end{gather*}
+
 
 \begin{figure}
   \centering
@@ -113,24 +117,21 @@ So we first assume $\frac[f]{b}{a} = 0$ to compute $r_E$, and then by imposing $
   \label{fig:sim:spectra}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}
     \centering
     \resizebox{0.8\textwidth}{!}{\import{img/}{shift_from_CE.pgf}}
     \caption{Relation between the resolution of the peak and the peak position}
     \label{fig:sim}
 \end{figure}
 
+\begin{figure}
+    \centering
+    \resizebox{0.8\textwidth}{!}{\import{img/}{det12_calibrated.tex}}
+    \caption{Position of CE's centroids and widths}
+    \label{fig:det12:calibr}
+\end{figure}
 
-
-% \begin{figure}[H]
-%   \centering
-%   \subfloat[]{\includegraphics[width=0.45\textwidth]{img/sim_511.png}} \quad
-%   \subfloat[]{\includegraphics[width=0.45\textwidth]{img/sim_1275.png}}
-%   \caption{Relation between the resolution of the peak and the peak position}
-%   \label{fig:sim}
-% \end{figure}
-
-\begin{table}[H]
+\begin{table}
   \centering
   \begin{tabular}{cccccccc}
     \toprule
@@ -146,7 +147,7 @@ So we first assume $\frac[f]{b}{a} = 0$ to compute $r_E$, and then by imposing $
   \label{tab:calibr:fits}
 \end{table}
 
-\begin{table}[H]
+\begin{table}
   \centering
   \begin{tabular}{cccccccc}
     \toprule
@@ -160,28 +161,20 @@ So we first assume $\frac[f]{b}{a} = 0$ to compute $r_E$, and then by imposing $
   \label{tab:calibr:coeffs}
 \end{table}
 
-% \begin{figure}[H]
-%     \centering
-%     \resizebox{0.8\textwidth}{!}{\import{img/}{det1_calibr.tex}}
-%     \caption{Det 1: fits of compton edges}
-%     \label{fig:det1:calibr}
-% \end{figure}
-%
-% The observed compton edge are produced by the convolution of real compton edge and gaussian acquisition error. This lead to a shift of the observed compton edge that must be considered.
-
 \subsection{Calibration of the TAC}
 
-The system is set with a delay module just before the TAC's \emph{stop}. Multiple events are acquired with different delays, and the centroid of each peak is found through gaussian fits on a small range around maximums.
+By changing the delay of the delay module just before the TAC's \emph{stop}, we can acquire different TAC peaks and use them for calibration (fig \ref{fig:tac:calibr}).
+For each peak the centroid is found through gaussian fit on a small range around the maximum (tab \ref{tab:tac:calibr}).
 %\todo[inline]{How have the centroid been found? -> A OCCHIO (mi spiace ma è la cruda realtà, non c'erano tanti altri modi visto che non erano fittabili in nessun modo (per quanto ne so io)). Anche le varianze sono a occhio ovviamente. Giuro che non mi metterò mai a costruire ponti.}
 
-\begin{figure}[H]
+\begin{figure}
     \centering
     \resizebox{0.8\textwidth}{!}{\import{img/}{TACcalibr.tex}}
-    \caption{Different peaks with different delays.}
+    \caption{Different peaks with different delays. Different height of the peaks are due to different acquisition time.}
     \label{fig:tac:calibr}
 \end{figure}
 
-\begin{table}[H]
+\begin{table}
     \centering
     \begin{tabular}{cccccccc}
         \toprule
@@ -194,17 +187,20 @@ The system is set with a delay module just before the TAC's \emph{stop}. Multipl
         $29$ & $13080\pm 40$ \\
         \bottomrule
     \end{tabular}
-    \caption{TAC centroids. Different height of the peaks are due to different acquiring time.}
+    \caption{TAC centroids.}
     \label{tab:tac:calibr}
 \end{table}
 
-The found centroid are fitted using a linear relation (the $\chi^2$ value confirms the linear dependence):
+The centroids are fitted using a linear relation:
 \begin{gather*}
-    t = m\cdot \text{channel} + q \\
-    m = ( 1.477 \pm 0.005) \si{\pico\second}
+    t = m\cdot ch + q \\
+    m = (1.477 \pm 0.005) \si{\pico\second} \qquad
+    \chi^2/\text{ndf} = 11/3
 \end{gather*}
 % q = (9.71 +- 0.03)
 where the $q$ value isn't reported, having no meaning. In fact, delays are introduced in a more complex system, which already have an internal delay: zero external delay therefore doesn't mean zero time in TAC.
+
+
 
 \section{LEMO calibration}
 A set of LEMO cables is provided. Setting external delay to $13\si{\nano\second}$ and inserting one by one each LEMO cable in series with the external delay module, 5-minutes datasets are acquired; computing the difference between the observed centroids and the centroid without LEMO cable previously measured, and converting it with the calibration parameter, the time-length of each LEMO cable is computed.
@@ -220,7 +216,7 @@ A set of LEMO cables is provided. Setting external delay to $13\si{\nano\second}
     \centering
     \begin{tabular}{cccccccc}
         \toprule
-        LEMO ID & LEMO length [cm], $\pm 0.1$ & LEMO time \\
+        LEMO ID & LEMO length [cm], $\pm 0.1$ & LEMO time [ns]\\
         \midrule
         $6$ & $22.5$ & $1.17\pm0.04$\\
         $7$ & $23.0$ & $1.15\pm0.04$\\
@@ -240,6 +236,7 @@ A set of LEMO cables is provided. Setting external delay to $13\si{\nano\second}
     \caption{Relation between LEMO length and time: as expected, the dependence is confirmed.}
     \label{fig:lemo_length}
 \end{figure}
+\todo[inline]{Serve davvero fig \ref{fig:lemo_length}? Sarebbe piuttosto meglio mettere il grafico del fit lineare della calibrazione dei 5 picchi TAC}
 
 
 
@@ -247,7 +244,7 @@ A set of LEMO cables is provided. Setting external delay to $13\si{\nano\second}
 
 The CFTD superimposes a delayed copy of the signal to an inverted reduced one. This delay must be properly set using LEMO cables to optimize the TAC resolution. With only the default delay, the signal detected by the TAC is large and not gaussian (see fig. \ref{fig:delay:bad}); after some tests, a setup which lead to a better resolution and a more gaussian-like output is obtained.
 
-\begin{figure}[H]
+\begin{figure}
     \centering
     \resizebox{0.8\textwidth}{!}{\import{img/}{delay_optim_bad.tex}}
     \caption{Initial situation: large not-guassian shape.}
@@ -256,51 +253,53 @@ The CFTD superimposes a delayed copy of the signal to an inverted reduced one. T
 
 Different combination of LEMO cable have been inserted in series with the pre-set delay; every time the configuration changed, the WALK ADJ potentiometer has been regulated to minimize the dispersion (see fig. \ref{fig:oscilloscope}) at the zero-crossing point of the signals.
 
-\begin{figure}[H]
+\begin{figure}
     \centering
     \includegraphics[width=0.7\textwidth]{img/oscilloscope.jpg}
     \caption{Monitor CFTD signal triggered on CFTD output, seen by the oscilloscope.}
     \label{fig:oscilloscope}
 \end{figure}
 
-Fitting the obtained peaks with gaussian and relating them to the delay inserted in the CFTDs (after some tests, we noticed that the optimal setup is with the same delay in both CFTDs), the figure \ref{fig:CFD:delay} is obtained. As can be seen from the figure, a minimum is found at about $3\si{\nano\second}$ of delay (LEMO 13 and 2 for detector 1 and 2, respectively). Considering the pre-set delay (around $2\si{\nano\second}$), this lead to a optimal delay of around $5\si{\nano\second}$, that is about $80\%$ the rise time of the detector signal ($\sim6\si{\nano\second}$) as expected.
+Fitting the obtained peaks with a gaussian and relating them to the delay inserted in the CFTDs (after some tests, we noticed that the optimal setup is with the same delay in both CFTDs), we obtain the result in fig \ref{fig:CFTD:delay}. As can be seen from the figure, a minimum is found at about $3\si{\nano\second}$ of delay (LEMO 13 for DET 1 and LEMO 2 for DET 2). Considering the pre-set delay (around $2\si{\nano\second}$), this lead to a optimal delay of around $5\si{\nano\second}$, that is about $80\%$ the rise time of the detector signal ($\sim6\si{\nano\second}$) as expected.
 
 \begin{figure}[H]
     \centering
-    \resizebox{0.8\textwidth}{!}{\import{img/}{CFDdelay.tex}}
-    \caption{Optimization of the CFD delay.}
-    \label{fig:CFD:delay}
+    \resizebox{0.8\textwidth}{!}{\import{img/}{CFTDdelay.tex}}
+    \caption{Optimization of the CFTD delay.}
+    \label{fig:CFTD:delay}
 \end{figure}
 
-The minimum configuration has been kept for all the following Measurements.
+The minimum configuration has been kept for all the following measurements.
+
+
 
 \section{Time resolution in function of energy range}
 In order to have a wider Compton energy spectra, we acquired 20 hours of data using a \ce{^60Co} source. This source decays emitting two photons of energy around 1\si{\mega\electronvolt}: a few of them are emitted back-to-back and hence can trigger the coincidence unit (fig \ref{fig:Co:spectra}).\\
-We can now proceed by filtering in energy the spectra and looking how the resolution of the TAC peak behaves. Since the TAC peak has a fat-tailed distribution, the gaussian fit is far from accurate, so we used the Full Width Half Maximum (FWHM) as a quantifier of the resoultion of the peaks.
+We can now proceed by filtering in energy the spectra and looking how the resolution of the TAC peak behaves. Since the TAC peak has a fat-tailed distribution, the gaussian fit is not accurate, so we used the Full Width Half Maximum (FWHM) as a quantifier of the resoultion of the peaks.
 The filtering can be done either by setting a Lower Energy Threshold (LET) or by selecting a window in energy, i.e. keeping only the data with energy between the LET and an Upper Energy Threshold (UET). The results are shown in fig \ref{fig:Co:results}.
 
-\begin{figure}[H]
+\begin{figure}
     \centering
     \resizebox{0.8\textwidth}{!}{\import{img/}{Co_spectra.tex}}
     \caption{Energy spectra of the two detectors with \ce{^60Co} source.}
     \label{fig:Co:spectra}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}
     \centering
     \resizebox{0.8\textwidth}{!}{\import{img/}{Co.tex}}
-    \caption{When computing the FWHM the peaks had been properly rebinned in order to have them sufficiently smooth. The errors on the FWHMs come from a uniform distribution on the bin width.}
+    \caption{When computing the FWHM, the peaks had been properly rebinned in order to have them sufficiently smooth. The errors on the FWHMs come from a uniform distribution on the bin width.}
     \label{fig:Co:results}
 \end{figure}
 
-From fig \ref{fig:Co:results} we can see that the resolution improves dramatically as we discard the events at lower energy, and then remains almost constant as the LET increases. Considering that using only a LET implies that as it increases the number of discarded data increases too, the best choice for the LET is at around \SI{200}{\kilo\electronvolt}. On the other hand when using both a LET and a UET, given the shape of the \ce{^60Co}, moving the energy window does not drastically affect the number of discarded events. So in this case the best choice is a window near the Compton Edge.
+From fig \ref{fig:Co:results} we can see that the resolution improves dramatically as we discard the events at lower energy, and then remains almost constant as the LET increases. Considering that using only a LET implies that as it increases the number of discarded data increases too, the best choice for the LET is at around \SI{200}{\kilo\electronvolt}. On the other hand when using both a LET and a UET, given the shape of the \ce{^60Co} spectrum, moving the energy window does not drastically affect the number of discarded events. So in this case the best choice is a window near the Compton Edge.
 
-\todo[inline]{Comment the results better}
+
 
 \section{Speed of light}
-The detectors have been placed such that they're about $1.70\si{\metre}$ away. The source has been placed firstly near detector 1 and then near detector 2, and the TAC signal has been acquired (one hour for each configuration); then, the centroids $\mu_1$ and $\mu_2$ of the two measurements have been found through a gaussian interpolation. Measuring the distance between the two source positions $d$, the light speed can be computed.
+The detectors have been placed such that they're about $1.70\si{\metre}$ away. The \ce{^22Na} source has been placed firstly near DET 1 and then near DET 2, and the TAC signal has been acquired (one hour for each configuration); then, the centroids $\mu_1$ and $\mu_2$ of the two measurements have been found through a gaussian interpolation. Measuring the distance between the two source positions $d$, the light speed can be computed.
 
-Observe that the two centroids have been firstly subtracted keeping them in channel and then calibrated, to prevent the introduction of correlation between the two measures and so preserve the resolution.
+Observe that the two centroids have been firstly subtracted keeping them in channel and then calibrated, to prevent the introduction of correlation between the two measures.
 
 The errors have been propagated as statistical errors. Note the high error on the distance between the positions of the source, due to the width of the source.
 
@@ -311,21 +310,23 @@ The errors have been propagated as statistical errors. Note the high error on th
     c = \frac{2d}{(\mu_1-\mu_2)m} = (2.94 \pm 0.01 )\cdot 10^8 \si{\metre\per\second}
 \end{gather*}
 
-\section{A-Posteriori CFD}
-During the last day, two datasets of waveforms have been collected directly from the detectors. This allow us to simulate an a-posteriori software CFD, and compare it with the analogic one.
+\todo[inline]{Dire qualcosa sul fatto ch siamo incompatibili con il valore teorico}
+
+\section{A-Posteriori CFTD}
+During the last day, we disabled the digitizer's FPGA and acquired two datasets of raw waveforms directly from the detectors. This allows us to simulate an a-posteriori software CFTD, and compare it with the analogic one.
 
 \subsection{Waveforms}
 \begin{figure}[H]
     \centering
-    \begin{subfigure}[Analogic CFD]{
+    \begin{subfigure}[Analogic CFTD]{
         \includegraphics[width=0.38\textwidth]{img/waveform_osc.jpg}
         \label{fig:waveform_osc}
     }\end{subfigure}
-    \begin{subfigure}[APosteriori CFD]{
+    \begin{subfigure}[APosteriori CFTD]{
         \resizebox{0.58\textwidth}{!}{\import{img/}{waveform_sim.tex}}
         \label{fig:waveform_sim}
     }\end{subfigure}
-    \caption{Waveforms (yellow) and monitor signals (cyan) for analogic and software CFD, set with the same parameters (fraction = $20\%$, delay = $\sim 5\si{\nano\second}$)}
+    \caption{Waveforms (yellow) and monitor signals (cyan) for analogic and software CFTD, set with the same parameters (fraction = $20\%$, delay = $\sim 5\si{\nano\second}$)}
     \label{fig:waveform}
 \end{figure}
 
@@ -342,31 +343,31 @@ As can be seen from fig. \ref{fig:waveform}, the shape of waveform and signal is
 
 \todo[inline]{Si potrebbe sovrapporre lo spettro analogico (eventualmente normalizzando i due istogrammi)}
 
-Integrating the waveform (substracted of the baseline) over the domain, an energy spectra can be computed. As can be seen comparing fig. \ref{fig:aposteriori_energy} with fig. \ref{fig:det1:calibr}, here only the $511\si{\kilo\electronvolt}$ peak is visible: the trigger set on coincidences and the low acceptance of the digitized cut away the higher peak.
+Integrating the waveform (substracted of the baseline) over the domain, an energy spectra can be computed. As can be seen comparing fig. \ref{fig:aposteriori_energy} with fig. \ref{fig:det12:calibr}, here only the $511\si{\kilo\electronvolt}$ peak is visible: the trigger set on coincidences and the low acceptance of the digitized cut away the higher peak.
 
 Even with only one peaks, the comparison with the previous calibration permit us to make a rough calibration using position of peak and half maximum (in red in figure).
 
 Note that in this plot there are some energy that are below zero; this is due to the combination between the low trigger threshold and the detectors resolution, the convolution of which result in a tail in negative energies.
 
-\subsection{CFD parameters}
+\subsection{CFTD parameters}
 \todo[inline]{Ma tipo, se quando calcoliamo il crossing point invece di interpolare i valori con segmenti usiamo una curva più morbida, come cambiano i risultati? Se la cosa implica troppo tempo ignoratemi (:}
 For each dataset, the following procedure is followed:
 \begin{itemize}[noitemsep]
     \item Coincidences are searched, i.e. events that are recorded by both the detectors;
-    \item For each event, a simulated CFD is applied to the two waveforms and zero crossing are computed;
+    \item For each event, a simulated CFTD is applied to the two waveforms and zero crossing are computed;
     \item For each event, the time difference between the zero crossings in the two detector is computed;
     \item The distribution of the time difference is builded: mean, sigma (defined as the square root of the normalized centered second moment of data) and kurtosis (a measure of the \emph{gaussianity} of the distribution, equals $0$ for a perfect gaussian) are computed;
 \end{itemize}
 \todo[inline]{And for awful gaussian the values of kurtosis are positive or negative?}
-This procedure is repeated for different combination of CFD delay (from $1$ to $10\si{\nano\second}$, with $0.25\si{\nano\second}$ step) and attenuation fraction (from $0.1$ to $0.9$, with $0.1$ step) and the plots of sigma and kurtosis are builded.
+This procedure is repeated for different combination of CFTD delay (from $1$ to $10\si{\nano\second}$, with $0.25\si{\nano\second}$ step) and attenuation fraction (from $0.1$ to $0.9$, with $0.1$ step) and the plots of sigma and kurtosis are builded.
 \todo[inline]{Io farei i due grafici seguenti usando lo stesso colore per valori belli (es. rosso) e lo stesso per valori brutti (es. blu). Può essere che sia già cosi e che io non abbia capito come funziona il Kurtosis e/o perché abbia valori negativi oggi (ieri eran positivi). Ma sono abbastanza sicuro di avere ragione e che quindi sia carino invertire i colori di uno dei due.}
 \todo[inline]{Siamo sicuri che con un delay di ~9.5ns le due onde (invertita e attenuata) si sovrappongano ancora? Giusto per esser sicuri che i risultati abbiano senso. Domani comunque vedo di verificare, per ora lo scrivo così domani mi ricordo.}
 
 \begin{figure}[H]
     \centering
     \resizebox{0.7\textwidth}{!}{\import{img/}{sigma_2D.tex}}
-    \caption{Sigma of the time differences distribution as function of CFD parameters.}
-    \label{fig:sigma:sim}
+    \caption{Sigma of the time differences distribution as function of CFTD parameters.}
+    \label{fig:sigma2D:sim}
 \end{figure}
 
 \todo[inline]{I valori nell'angolo in basso a sx del kurtosis han ben poco senso, li cancellerei piuttosto che lasciarli come valori più attendibili}
@@ -374,7 +375,7 @@ This procedure is repeated for different combination of CFD delay (from $1$ to $
 \begin{figure}[H]
     \centering
     \resizebox{0.7\textwidth}{!}{\import{img/}{kurt_2D.tex}}
-    \caption{Kurtosis of the time differences distribution as function of CFD parameters.}
+    \caption{Kurtosis of the time differences distribution as function of CFTD parameters.}
     \label{fig:kurt:sim}
 \end{figure}
 
@@ -397,7 +398,7 @@ The kurtosis values are very high: plotting one of the distribution, it's clear 
 
 \todo[inline]{Volendo si potrebbe fare la stessa analisi di risoluzione del Co sul sodio e confrontare la versione analogica e quella digitale}
 
-Finally, sigma has been computed varying the energy threshold, replying the procedure done for cobalt and setting the same CFD parameters. As can be seen in figure comparing fig. \ref{fig:Co:results} with fig. \ref{fig:sigma:sim}, the $y$ axis scale is different: there are about 2 order of magnitude of difference. This lead us to impute the main contribute to the sigma to the sampling done by the digitizer. In the same figure, a strong growth in sigma can be seen in high $LET$ zone, probably due to the lack of data at high energy to make a precise mean. On the other hand, a minimum can be seen in the black line: This minimum is however not so relevant observing the $\sigma$ scale.
+Finally, sigma has been computed varying the energy threshold, replying the procedure done for cobalt and setting the same CFTD parameters. As can be seen in figure comparing fig. \ref{fig:Co:results} with fig. \ref{fig:sigma:sim}, the $y$ axis scale is different: there are about 2 order of magnitude of difference. This lead us to impute the main contribute to the sigma to the sampling done by the digitizer. In the same figure, a strong growth in sigma can be seen in high $LET$ zone, probably due to the lack of data at high energy to make a precise mean. On the other hand, a minimum can be seen in the black line: This minimum is however not so relevant observing the $\sigma$ scale.
 
 
 
