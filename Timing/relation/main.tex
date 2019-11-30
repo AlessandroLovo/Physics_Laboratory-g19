@@ -62,10 +62,9 @@
 \end{itemize}
 
 \section{Experimental setup}
-The experimental setup consist of two collinear organic scintillators, mounted on a sledge, and a \ce{^22Na} source collimated between two lead bricks. The peaks for this source are in tab \ref{tab:gammavalue}.
-\todo[inline]{Explain better}
+The experimental setup consist of two collinear organic scintillators (DET 1 and DET 2), mounted on a sledge and facing each other. Between them there is a \ce{^22Na} source collimated by two lead bricks. The energy peaks of photons emitted by this source are shown in tab \ref{tab:gammavalue}.
 
-Data are collected from the detectors through a electronic chain: a fan-in-fan-out quad module replies the signal of each detector and produces four copies of it; then, through a CFTD, a trigger signal is produced. The CFTD trigger threshold has been set so that the noise is discarded, while the interesting signals produce an output.
+Data are collected from the detectors through a electronic chain: a fan-in-fan-out quad module replies the signal of each detector and produces four copies of it; then, through a Constant Fraction Time Discriminator (CFTD), a logic signal is produced. The CFTD trigger threshold has been set so that the noise is discarded, while the interesting signals produce an output. From the CFTD the logic signal run through a coincidence unit, used as a trigger. Besides, the logic signal of DET 1 runs into the \emph{start} of a Time to Amplitude Converter (TAC) module, while the one from DET 2 passes through a delay module and then runs into the \emph{stop} of the TAC. A digitizer, triggered by the coincidence unit, acquires the energy spectra of both detectors and the time spectrum of the TAC.
 
 \begin{table}[H]
     \centering
@@ -84,19 +83,13 @@ Data are collected from the detectors through a electronic chain: a fan-in-fan-o
 \section{Apparatus calibration}
 
 \subsection{Calibration of DET 1 and 2}
-A spectra for each detector is acquired; due to the composition of the detector, the photopeaks are negligible and only the compton effect are detected. The calibration can then be done through the position of the compton edge (CE).
+Disabling the coincidence unit in order to collect both peaks of the \ce{^22Na} source, a spectrum for each detector is acquired. Due to the chemical composition of the detector (low Z materials), photopeaks are negligible and only the Compton effect is detected.
 
-\begin{figure}[H]
-    \centering
-    \resizebox{0.8\textwidth}{!}{\import{img/}{det12_calibrated.tex}}
-    \caption{Position of CE's centroids and widths}
-    \label{fig:det1:calibr}
-\end{figure}
+The observed Compton Edge (CE) is a convolution of the real CE with a gaussian noise whose width is proportional to the resolution of the detector $\sigma_{res}$; this convolution results in a shift of the maximum of the CE towards lower energies, so, in order to calibrate the detecters, we need to obtain an estimate of this shift.
+By simulating\footnote{We used the formulas from N. Kudomi \emph{Energy calibration of plastic scintillators for low energy electrons by using Compton scattering of $\gamma$ rays}, Nuc. Instr. and Meth., 430 (1999), \url{www.elsevier.nl/locate/nima}} the effects on CE varying $\sigma_{res}$ (fig \ref{fig:sim:spectra}) we can compute the position of the peak $c_{sim}$ and its right hand side Half Width Half Maximum $w_{sim}$\footnote{We used this approach instead of a gaussian fit of the peaks because both in the simulation and in the experimental spectra the result of the fit was highly dependent on the range chosen for the fit, which is arbitrary. See also Dietze, Klein: \emph{Gamma-calibration of NE 213 scintillation counters}, Nuc. Instr. and Meth., 193 (1982), \url{https://doi.org/10.1016/0029-554X(82)90249-X}},
+and  then correlate the simulated resolution $r_{sim} = \frac{w_{sim}}{c_{sim}}$ with $c_{sim}$ (fig \ref{fig:sim}).
 
-The gaussian fit way was discarded, due to its strong dependence on the fit range choice. Then, after a proper spectra rebinning, for each CE the position of the maximum $c_{ch}$ and the half width half maximum $w_{ch}$ in channels have been found (fig \ref{fig:det1:calibr}, tab \ref{tab:calibr:fits})\footnote{As described in Dietze, Klein: \emph{Gamma-calibration of NE 213 scintillation counters}, Nuc. Instr. and Meth., 193 (1982), \url{https://doi.org/10.1016/0029-554X(82)90249-X}}.
-Note that for the peak relative to the \SI{511}{\kilo\electronvolt} photon the half maximum needs to be computed with respect to the baseline due to the low energy Compton events of the \SI{1275}{\kilo\electronvolt} photon.\\
-The observed CE is a convolution of a real CE with a gaussian noise whose width is proportional to the resolution of the detector $\sigma_{res}$; this convolution results in a shift of the maximum of the CE towards lower energies. By simulating\footnote{We used the formulas from N. Kudomi \emph{Energy calibration of plastic scintillators for low energy electrons by using Compton scattering of $\gamma$ rays}, Nuc. Instr. and Meth., 430 (1999), \url{www.elsevier.nl/locate/nima}} the effects on CE varying $\sigma_{res}$ (fig \ref{fig:sim:spectra}) we can compute the simulated resolution $r_{sim} = \frac{w_{sim}}{c_{sim}}$ and correlate it with $c_{sim}$, i.e the peak position in energy (fig \ref{fig:sim}).
-
+We can now compute $c_{ch}$ and $w_{ch}$ for the experimental spectra in channels (fig \ref{fig:det12:calibr}, tab \ref{tab:calibr:fits}), noting that for the peak relative to the \SI{511}{\kilo\electronvolt} photon the half maximum needs to be computed with respect to the baseline due to the low energy Compton events of the \SI{1275}{\kilo\electronvolt} photon.\\
 If we assume the calibration relation $E = a*ch + b$, then the resolution in energy is:
 
 \begin{equation*}
@@ -104,6 +97,7 @@ If we assume the calibration relation $E = a*ch + b$, then the resolution in ene
 \end{equation*}
 
 So we first assume $\frac[f]{b}{a} = 0$ to compute $r_E$, and then by imposing $r_E = r_{sim}$ we can find the peak positions in energy $c_E = c_{sim}(r_{sim})$ allowing us to compute $a$ and $b$ via linear fit. We can now update the value of $r_E$ and repeat the process. After a few iterations the process converges and gives us the results in tab \ref{tab:calibr:coeffs}.
+
 
 \begin{figure}
   \centering
@@ -114,11 +108,17 @@ So we first assume $\frac[f]{b}{a} = 0$ to compute $r_E$, and then by imposing $
 
 \begin{figure}[H]
     \centering
+    \resizebox{0.8\textwidth}{!}{\import{img/}{det12_calibrated.tex}}
+    \caption{Position of CE's centroids and widths}
+    \label{fig:det12:calibr}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
     \resizebox{0.8\textwidth}{!}{\import{img/}{shift_from_CE.pgf}}
     \caption{Relation between the resolution of the peak and the peak position}
     \label{fig:sim}
 \end{figure}
-
 
 
 % \begin{figure}[H]
@@ -341,7 +341,7 @@ As can be seen from fig. \ref{fig:waveform}, the shape of waveform and signal is
 
 \todo[inline]{Si potrebbe sovrapporre lo spettro analogico (eventualmente normalizzando i due istogrammi)}
 
-Integrating the waveform (substracted of the baseline) over the domain, an energy spectra can be computed. As can be seen comparing fig. \ref{fig:aposteriori_energy} with fig. \ref{fig:det1:calibr}, here only the $511\si{\kilo\electronvolt}$ peak is visible: the trigger set on coincidences and the low acceptance of the digitized cut away the higher peak.
+Integrating the waveform (substracted of the baseline) over the domain, an energy spectra can be computed. As can be seen comparing fig. \ref{fig:aposteriori_energy} with fig. \ref{fig:det12:calibr}, here only the $511\si{\kilo\electronvolt}$ peak is visible: the trigger set on coincidences and the low acceptance of the digitized cut away the higher peak.
 
 Even with only one peaks, the comparison with the previous calibration permit us to make a rough calibration using position of peak and half maximum (in red in figure).
 
