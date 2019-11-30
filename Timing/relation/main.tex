@@ -336,6 +336,8 @@ As can be seen from fig. \ref{fig:waveform}, the shape of waveform and signal is
     \label{fig:aposteriori_energy}
 \end{figure}
 
+\todo[inline]{Si potrebbe sovrapporre lo spettro analogico (eventualmente normalizzando i due istogrammi)}  
+
 Integrating the waveform (substracted of the baseline) over the domain, an energy spectra can be computed. As can be seen comparing fig. \ref{fig:aposteriori_energy} with fig. \ref{fig:det1:calibr}, here only the $511\si{\kilo\electronvolt}$ peak is visible: the trigger set on coincidences and the low acceptance of the digitized cut away the higher peak.
 
 Even with only one peaks, the comparison with the previous calibration permit us to make a rough calibration using position of peak and half maximum (in red in figure).
@@ -386,6 +388,10 @@ The kurtosis values are very high: plotting one of the distribution, it's clear 
     \caption{Sigma as a function of energy threshold.}
     \label{fig:sigma:sim}
 \end{figure}
+
+\todo[inline]{Non sarebbe meglio mettere FWHM invece della $\sigma$ per confrontare meglio i due grafici (anche semplicemente facendo $FWHM = 2\sqrt{2\ln{2}} \sigma$)}
+
+\todo[inline]{Volendo si potrebbe fare la stessa analisi di risoluzione del Co sul sodio e confrontare la versione analogica e quella digitale}
 
 Finally, sigma has been computed varying the energy threshold, replying the procedure done for cobalt and setting the same CFD parameters. As can be seen in figure comparing fig. \ref{fig:Co:results} with fig. \ref{fig:sigma:sim}, the $y$ axis scale is different: there are about 2 order of magnitude of difference. This lead us to impute the main contribute to the sigma to the sampling done by the digitizer. In the same figure, a strong growth in sigma can be seen in high $LET$ zone, probably due to the lack of data at high energy to make a precise mean. On the other hand, a minimum can be seen in the black line: This minimum is however not so relevant observing the $\sigma$ scale.
 
