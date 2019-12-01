@@ -295,7 +295,7 @@ which is compatible with the true value.
 
 \section{A-Posteriori CFTD}
 \todo{@Leonardo: riletto fin qui}
-During the last day, we disabled the digitizer's FPGA and acquired two datasets of raw waveforms directly from the detectors. This allows us to simulate an a-posteriori software CFTD, and compare it with the analogic one.
+During the last day, we disabled the digitizer's FPGA and acquired two datasets of raw waveforms directly from the detectors. This allows us to simulate an a-posteriori software CFTD and FPGA, and compare it with the analogic one.
 
 \subsection{Waveforms}
 \begin{figure}[H]
@@ -323,11 +323,9 @@ As can be seen from fig. \ref{fig:waveform}, the shape of waveform and signal is
     \label{fig:aposteriori_energy}
 \end{figure}
 
-\todo[inline]{Si potrebbe sovrapporre lo spettro analogico (eventualmente normalizzando i due istogrammi)}
-
 Integrating the waveform (substracted of the baseline) over the domain, an energy spectra can be computed. As can be seen comparing fig. \ref{fig:aposteriori_energy} with fig. \ref{fig:det12:calibr}, here only the $511\si{\kilo\electronvolt}$ peak is visible: the trigger set on coincidences and the low acceptance of the digitized cut away the higher peak.
 
-Even with only one peaks, the comparison with the previous calibration permit us to make a rough calibration using position of peak and half maximum (in red in figure).
+Even with only one peak, the comparison with the previous calibration permit us to make a rough calibration using position of peak and half maximum (in red in figure).
 
 Note that in this plot there are some energy that are below zero; this is due to the combination between the low trigger threshold and the detectors resolution, the convolution of which result in a tail in negative energies.
 
@@ -335,7 +333,7 @@ Note that in this plot there are some energy that are below zero; this is due to
 For each dataset, the following procedure is followed:
 \begin{itemize}[noitemsep]
     \item Coincidences are searched, i.e. events that are recorded by both the detectors;
-    \item For each event, a simulated CFTD is applied to the two waveforms and zero crossing are computed;
+    \item For each event, a simulated CFTD is applied to the two waveforms and zero crossings are computed;
     \item For each event, the time difference between the zero crossings in the two detector is computed;
     \item The distribution of the time difference is builded: mean, sigma (defined as the square root of the normalized centered second moment of data) and kurtosis (a measure of the \emph{gaussianity} of the distribution) are computed;
 \end{itemize}
