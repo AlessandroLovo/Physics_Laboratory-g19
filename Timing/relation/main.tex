@@ -231,7 +231,7 @@ A set of LEMO cables is provided. Setting external delay to $13\si{\nano\second}
     \caption{Relation between LEMO length and time: as expected, the dependence is confirmed.}
     \label{fig:lemo_length}
 \end{figure}
-\todo[inline]{Serve davvero fig \ref{fig:lemo_length}? Sarebbe piuttosto meglio mettere il grafico del fit lineare della calibrazione dei 5 picchi TAC}
+\todo[inline]{Serve davvero fig \ref{fig:lemo_length}? Sarebbe piuttosto meglio mettere il grafico del fit lineare della calibrazione dei 5 picchi TAC - secondo me è interessante, però se abbiamo problemi di spazio possiamo toglierla}
 
 
 
@@ -305,8 +305,6 @@ The errors have been propagated as statistical errors. Note the high error on th
     c = \frac{2d}{(\mu_1-\mu_2)m} = (2.94 \pm 0.01 )\cdot 10^8 \si{\metre\per\second}
 \end{gather*}
 
-\todo[inline]{Dire qualcosa sul fatto ch siamo incompatibili con il valore teorico}
-
 \section{A-Posteriori CFTD}
 During the last day, we disabled the digitizer's FPGA and acquired two datasets of raw waveforms directly from the detectors. This allows us to simulate an a-posteriori software CFTD, and compare it with the analogic one.
 
@@ -345,18 +343,15 @@ Even with only one peaks, the comparison with the previous calibration permit us
 Note that in this plot there are some energy that are below zero; this is due to the combination between the low trigger threshold and the detectors resolution, the convolution of which result in a tail in negative energies.
 
 \subsection{CFTD parameters}
-\todo[inline]{Ma tipo, se quando calcoliamo il crossing point invece di interpolare i valori con segmenti usiamo una curva più morbida, come cambiano i risultati? Se la cosa implica troppo tempo ignoratemi (:}
 For each dataset, the following procedure is followed:
 \begin{itemize}[noitemsep]
     \item Coincidences are searched, i.e. events that are recorded by both the detectors;
     \item For each event, a simulated CFTD is applied to the two waveforms and zero crossing are computed;
     \item For each event, the time difference between the zero crossings in the two detector is computed;
-    \item The distribution of the time difference is builded: mean, sigma (defined as the square root of the normalized centered second moment of data) and kurtosis (a measure of the \emph{gaussianity} of the distribution, equals $0$ for a perfect gaussian) are computed;
+    \item The distribution of the time difference is builded: mean, sigma (defined as the square root of the normalized centered second moment of data) and kurtosis (a measure of the \emph{gaussianity} of the distribution) are computed;
 \end{itemize}
-\todo[inline]{And for awful gaussian the values of kurtosis are positive or negative?}
 This procedure is repeated for different combination of CFTD delay (from $1$ to $10\si{\nano\second}$, with $0.25\si{\nano\second}$ step) and attenuation fraction (from $0.1$ to $0.9$, with $0.1$ step) and the plots of sigma and kurtosis are builded.
 \todo[inline]{Io farei i due grafici seguenti usando lo stesso colore per valori belli (es. rosso) e lo stesso per valori brutti (es. blu). Può essere che sia già cosi e che io non abbia capito come funziona il Kurtosis e/o perché abbia valori negativi oggi (ieri eran positivi). Ma sono abbastanza sicuro di avere ragione e che quindi sia carino invertire i colori di uno dei due.}
-\todo[inline]{Siamo sicuri che con un delay di ~9.5ns le due onde (invertita e attenuata) si sovrappongano ancora? Giusto per esser sicuri che i risultati abbiano senso. Domani comunque vedo di verificare, per ora lo scrivo così domani mi ricordo.}
 
 \begin{figure}[H]
     \centering
@@ -365,8 +360,6 @@ This procedure is repeated for different combination of CFTD delay (from $1$ to 
     \label{fig:sigma2D:sim}
 \end{figure}
 
-\todo[inline]{I valori nell'angolo in basso a sx del kurtosis han ben poco senso, li cancellerei piuttosto che lasciarli come valori più attendibili}
-
 \begin{figure}[H]
     \centering
     \resizebox{0.7\textwidth}{!}{\import{img/}{kurt_2D.tex}}
@@ -374,10 +367,9 @@ This procedure is repeated for different combination of CFTD delay (from $1$ to 
     \label{fig:kurt:sim}
 \end{figure}
 
-Note that the low-delay low-fraction corner points has been discarded: their means result incompatible with the others and their sigma extremely high, reflecting errors (probably due to low digitizer time resolution) in zero-crossings finding.
+Note that the low-delay low-fraction corner points seems the best in kurtosis: on a more accurate analysis, however, their means result incompatible with the others and their sigma extremely high, reflecting errors (probably due to low digitizer time resolution) in zero-crossings finding.
 
 The kurtosis values are very high: plotting one of the distribution, it's clear they aren't gaussian-like, but triangular-like, again because of digitizer resolution. It records only 5-6 points in the rising time, digitally sampled; the zero crossing is therefore individuated by interpolating two (or in very good conditions four) points: a very rough interpolation! Assuming the uniform probability density function (PdF) typical of digital instruments and convolving the start and stop PdF, they result in a triangular-like PdF as experimental results show.
-\todo[inline]{In conclusions make some discussion about the fact that analogic CFTD is better than offline one for these reasons (despite the scazzo col cambiare i cavetti)}
 \todo[inline]{Qui, una volta scelto il valore ottimale  di delay e attenuation fraction, potremmo inserire un grafico in cui, per un solo canale alla volta, una volta allineati i picchi originali applichiamo il CFTD su tutti i campioni e poi li grafichiamo tutti in un TH2F di quelli belli colorati (capitemi, è quello che mi ha fatto fare il prof l'ultimo giorno di esperimento). Se siam stati bravi dovremmo vedere la maggior parte delle onde passare per il canale a cui abbiamo allineato i picchi inizialmente.}
 
 \subsection{Time resolution and energy threshold}
@@ -389,12 +381,13 @@ The kurtosis values are very high: plotting one of the distribution, it's clear 
     \label{fig:sigma:sim}
 \end{figure}
 
-\todo[inline]{Non sarebbe meglio mettere FWHM invece della $\sigma$ per confrontare meglio i due grafici (anche semplicemente facendo $FWHM = 2\sqrt{2\ln{2}} \sigma$)}
-
 \todo[inline]{Volendo si potrebbe fare la stessa analisi di risoluzione del Co sul sodio e confrontare la versione analogica e quella digitale}
 
-Finally, sigma has been computed varying the energy threshold, replying the procedure done for cobalt and setting the same CFTD parameters. As can be seen in figure comparing fig. \ref{fig:Co:results} with fig. \ref{fig:sigma:sim}, the $y$ axis scale is different: there are about 2 order of magnitude of difference. This lead us to impute the main contribute to the sigma to the sampling done by the digitizer. In the same figure, a strong growth in sigma can be seen in high $LET$ zone, probably due to the lack of data at high energy to make a precise mean. On the other hand, a minimum can be seen in the black line: This minimum is however not so relevant observing the $\sigma$ scale.
+Finally, sigma has been computed varying the energy threshold, replying the procedure done for cobalt and setting the same CFTD parameters. Note that, while in the fig. \ref{fig:Co:results} the low-gaussianity of the peaks lead us to compute the FWHM, here the non-gaussianity is combined with a strong white noise, which suggest us to use $\sigma$ (defined as the square root of the second centered momentum, computed directly from data and without a fit). As can be seen in figure comparing fig. \ref{fig:Co:results} with fig. \ref{fig:sigma:sim}, the $y$ axis scale is different: there are about 2 order of magnitude of difference. This lead us to impute the main contribute to the sigma to the sampling done by the digitizer. In the same figure, a strong growth in sigma can be seen in high $LET$ zone, probably due to the lack of data at high energy to make a precise mean. On the other hand, a minimum can be seen in the black line: This minimum is however not so relevant observing the $\sigma$ scale.
 
+\section{Conclusions}
+\todo[inline]{Dire qualcosa sul fatto ch siamo incompatibili con il valore teorico -> conclusioni }
+\todo[inline]{In conclusions make some discussion about the fact that analogic CFTD is better than offline one for these reasons (despite the scazzo col cambiare i cavetti)}
 
 
 
