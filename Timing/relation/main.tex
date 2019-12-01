@@ -62,11 +62,7 @@
 \end{itemize}
 
 \section{Experimental setup}
-The experimental setup consist of two collinear organic scintillators (DET 1 and DET 2), mounted on a sledge and facing each other. Between them there is a \ce{^22Na} source collimated by two lead bricks. The energy peaks of photons emitted by this source are shown in tab \ref{tab:gammavalue}.
-
-
-Data are collected from the detectors through a electronic chain: a fan-in-fan-out quad module replies the signal of each detector and produces four copies of it; then, through a CFTD, a trigger signal is produced. The CFTD trigger threshold has been set so that the noise is discarded, while the interesting signals produce an output.
-\todo[inline]{A TAC detects coincidences between signals coming out from the two detectors after they have been elaborated by CFTD}
+The experimental setup consist of two collinear organic scintillators (DET 1 and DET 2), mounted on a sledge and facing each other. Between them there is a \ce{^22Na} source collimated by two lead bricks. The energy peaks of photons emitted by this source are shown in Table \ref{tab:gammavalue}.
 
 Data are collected from the detectors through a electronic chain: a fan-in-fan-out quad module replies the signal of each detector and produces four copies of it; then, through a Constant Fraction Time Discriminator (CFTD), a logic signal is produced. The CFTD trigger threshold has been set so that the noise is discarded, while the interesting signals produce an output. From the CFTD the logic signal run through a coincidence unit, used as a trigger. Besides, the logic signal of DET 1 runs into the \emph{start} of a Time to Amplitude Converter (TAC) module, while the one from DET 2 passes through a delay module and then runs into the \emph{stop} of the TAC. A digitizer, triggered by the coincidence unit, acquires the energy spectra of both detectors and the time spectrum of the TAC.
 
@@ -221,7 +217,7 @@ A set of LEMO cables is provided. Setting external delay to $13\si{\nano\second}
         $6$ & $22.5$ & $1.17\pm0.04$\\
         $7$ & $23.0$ & $1.15\pm0.04$\\
         $2$ & $53.5$ & $2.70\pm0.03$\\
-        $13$ & $53.5$ & $2.71\pm0.05$\\
+        A$13$ & $53.5$ & $2.71\pm0.05$\\
         $4$ & $101.0$ & $5.12\pm0.04$\\
         $5$ & $101.0$ & $5.08\pm0.07$\\
         \bottomrule
@@ -362,6 +358,7 @@ For each dataset, the following procedure is followed:
 This procedure is repeated for different combination of CFTD delay (from $1$ to $10\si{\nano\second}$, with $0.25\si{\nano\second}$ step) and attenuation fraction (from $0.1$ to $0.9$, with $0.1$ step) and the plots of sigma and kurtosis are builded.
 \todo[inline]{Io farei i due grafici seguenti usando lo stesso colore per valori belli (es. rosso) e lo stesso per valori brutti (es. blu). Può essere che sia già cosi e che io non abbia capito come funziona il Kurtosis e/o perché abbia valori negativi oggi (ieri eran positivi). Ma sono abbastanza sicuro di avere ragione e che quindi sia carino invertire i colori di uno dei due.}
 \todo[inline]{Siamo sicuri che con un delay di ~9.5ns le due onde (invertita e attenuata) si sovrappongano ancora? Giusto per esser sicuri che i risultati abbiano senso. Domani comunque vedo di verificare, per ora lo scrivo così domani mi ricordo.}
+\todo[inline]{Dai grafici sembrerebbe che la scelta migliore sia porre un attenuazione del 100\% (cosa che ovviamente non va bene), penso bisogni commentare bene questa cosa, che comunque mi fa paura perché secondo me c'è qualcosa che non va)}
 
 \begin{figure}[H]
     \centering
