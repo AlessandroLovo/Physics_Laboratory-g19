@@ -32,6 +32,8 @@ const double e_cal_q[2] = {-208.5, -106.8};
 
 const int baseline[2] = {923, 925};
 
+#ifndef slimport
+#define slimport
 struct slimport_data_t {
 	ULong64_t	timetag; //time stamp
 	UInt_t		baseline;
@@ -40,6 +42,7 @@ struct slimport_data_t {
 	UShort_t	pur;
 	UShort_t	samples[360];
 };
+#endif
 
 struct waveform_event{
 	ULong64_t	timetag;
@@ -511,7 +514,7 @@ class TwoChannelWaveform{
 		
 		double std = sqrt ( mu2 );
 		double std_sigma = mu2_sigma / 2 / sqrt ( mu2 );
-		double kurt = 3 - mu4 / mu2 / mu2;
+		double kurt = mu4 / mu2 / mu2 - 3;
 		double kurt_sigma = sqrt( mu4_sigma / mu2 / mu2 * mu4_sigma / mu2 / mu2 + 2 * mu4 * mu2_sigma / mu2 / mu2 / mu2 * 2 * mu4 * mu2_sigma / mu2 / mu2 / mu2 );
 
 		if(elow != -1) {

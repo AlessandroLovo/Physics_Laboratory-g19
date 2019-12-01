@@ -10,14 +10,17 @@
 #include <iostream>
 using namespace std;
 
+#ifndef slimport
+#define slimport
 struct slimport_data_t {
 	ULong64_t	timetag; //time stamp
 	UInt_t		baseline;
 	UShort_t	qshort; //integration with shorter time
 	UShort_t	qlong; //integration with longer time
 	UShort_t	pur;
-	UShort_t	samples[4096];
+	UShort_t	samples[360];
 };
+#endif
 
 class Histograms{
 

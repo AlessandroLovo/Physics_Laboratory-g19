@@ -8,6 +8,8 @@
 
 using namespace std;
 
+#ifndef slimport
+#define slimport
 struct slimport_data_t {
 	ULong64_t	timetag; //time stamp
 	UInt_t		baseline;
@@ -16,6 +18,7 @@ struct slimport_data_t {
 	UShort_t	pur;
 	UShort_t	samples[4096];
 };
+#endif
 
 
 struct enhanced_data_t {
