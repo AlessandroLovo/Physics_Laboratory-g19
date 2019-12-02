@@ -294,8 +294,7 @@ The errors have been propagated as statistical errors. Note the high error on th
 which is compatible with the true value.
 
 \section{A-Posteriori CFTD}
-\todo{@Leonardo: riletto fin qui}
-During the last day, we disabled the digitizer's FPGA and acquired two datasets of raw waveforms directly from the detectors. This allows us to simulate an a-posteriori software CFTD and FPGA, and compare it with the analogic one.
+During the last day, we disabled the digitizer FPGA and acquired two datasets of raw waveforms directly from the detectors. This allows us to simulate an a-posteriori software CFTD and FPGA, and compare it with the analogic one.
 
 \subsection{Waveforms}
 \begin{figure}[H]
@@ -312,22 +311,21 @@ During the last day, we disabled the digitizer's FPGA and acquired two datasets 
     \label{fig:waveform}
 \end{figure}
 
-As can be seen from fig. \ref{fig:waveform}, the shape of waveform and signal is similar for the two system. Rise time (about $6\si{\nano\second}$) and falling time (about $20\si{\nano\second}$) are the same. The signal, however, is very short in time and the low time resolution of the digitizer (a sample each $1$ns) result in a rougher waveform.
+In fig. \ref{fig:waveform} a waveform sample is showed (yellow), as seen by oscilloscope and digitizer. The shape is, as expected, the same; in particular, both rise time (about $6\si{\nano\second}$) and falling time (about $20\si{\nano\second}$) are the same.  Moreover, the signal transformed from the CFTD is also showed (cyan); it is formed by an attenuated reply of the original signal summed to a inverted delayed one. While the analogic CFTD does the transformation through electronic components, the APosteriori one is computed computationally. Even in this case the two system return a similar signal; however, the shortness in time of the signal and the low time resolution of the digitizer (a sample each $1$ns) result in a rougher waveform.
 
 
 \subsection{Energy spectra}
+
+Integrating the waveform (substracted of the baseline) over the domain, an energy spectra can be computed. As can be seen comparing fig. \ref{fig:aposteriori_energy} with fig. \ref{fig:det12:calibr}, here only the $511\si{\kilo\electronvolt}$ peak is visible: the trigger set on coincidences and the low acceptance of the digitized cut away the higher peak.
+
+Even with only one peak, the comparison with the previous calibration allow us to make a rough calibration using position of peak and right half maximum (in red in figure), and using the result of the previous calibration.
+
 \begin{figure}[H]
     \centering
     \resizebox{0.7\textwidth}{!}{\import{img/}{aposteriori_energy.tex}}
     \caption{APosteriori energy spectra.}
     \label{fig:aposteriori_energy}
 \end{figure}
-
-Integrating the waveform (substracted of the baseline) over the domain, an energy spectra can be computed. As can be seen comparing fig. \ref{fig:aposteriori_energy} with fig. \ref{fig:det12:calibr}, here only the $511\si{\kilo\electronvolt}$ peak is visible: the trigger set on coincidences and the low acceptance of the digitized cut away the higher peak.
-
-Even with only one peak, the comparison with the previous calibration permit us to make a rough calibration using position of peak and half maximum (in red in figure).
-
-Note that in this plot there are some energy that are below zero; this is due to the combination between the low trigger threshold and the detectors resolution, the convolution of which result in a tail in negative energies.
 
 \subsection{CFTD parameters}
 For each dataset, the following procedure is followed:
@@ -338,7 +336,6 @@ For each dataset, the following procedure is followed:
     \item The distribution of the time difference is builded: mean, sigma (defined as the square root of the normalized centered second moment of data) and kurtosis (a measure of the \emph{gaussianity} of the distribution) are computed;
 \end{itemize}
 This procedure is repeated for different combination of CFTD delay (from $1$ to $10\si{\nano\second}$, with $0.25\si{\nano\second}$ step) and attenuation fraction (from $0.1$ to $0.9$, with $0.1$ step) and the plots of sigma and kurtosis are builded.
-\todo[inline]{Io farei i due grafici seguenti usando lo stesso colore per valori belli (es. rosso) e lo stesso per valori brutti (es. blu). Può essere che sia già cosi e che io non abbia capito come funziona il Kurtosis e/o perché abbia valori negativi oggi (ieri eran positivi). Ma sono abbastanza sicuro di avere ragione e che quindi sia carino invertire i colori di uno dei due.}
 \todo[inline]{Siamo sicuri che con un delay di ~9.5ns le due onde (invertita e attenuata) si sovrappongano ancora? Giusto per esser sicuri che i risultati abbiano senso. Domani comunque vedo di verificare, per ora lo scrivo così domani mi ricordo.}
 \todo[inline]{Dai grafici sembrerebbe che la scelta migliore sia porre un attenuazione del 100\% (cosa che ovviamente non va bene), penso bisogni commentare bene questa cosa, che comunque mi fa paura perché secondo me c'è qualcosa che non va)}
 
@@ -382,6 +379,6 @@ With respect to the initial aims:
     \item The external delay has been optimized to enhance peak sigma; the optimal delay has been found around 5ns, has theoretically expected;
     \item The inverse dependence of the resolution from the energy has been observed, especially for lower energies;
     \item The speed of light has been measured, obtaining a value compatible with the real one;
-    \item A comparison between analogic CFD and a simulated a-posteriori ones, finding that the analogic one provide a better resolution. This result have different origins; the main one can be found in the sampling that the digitizer make, wasting precision in time and energy results.
+    \item A comparison between analogic CFTD and a simulated a-posteriori ones, finding that the analogic one provide a better resolution. This result have different origins; the main one can be found in the sampling that the digitizer make, wasting precision in time and energy results.
 \end{itemize}
 \end{document}
