@@ -257,7 +257,7 @@ Fitting the obtained peaks with a gaussian and relating them to the delay insert
 
 The minimum configuration has been kept for all the following measurements.
 
-\section{Time resolution in function of energy range} \label{sec:Co}
+\section{Time resolution as function of energy range} \label{sec:Co}
 In order to have a wider Compton energy spectra, 20 hours of data are acquired using a \ce{^60Co} source. This source decays emitting two photons of energy around 1\si{\mega\electronvolt}: a few of them are emitted back-to-back and hence can trigger the coincidence unit (fig \ref{fig:Co:spectra}), that is set in \emph{AND} configuration.
 
 
@@ -278,7 +278,7 @@ The filtering can be done either by setting a Lower Energy Threshold (LET) or by
     \label{fig:Co:results}
 \end{figure}
 
-From fig \ref{fig:Co:results} we can see the resolution improves dramatically as we discard the events at lower energy, and then keep to slowly improve as LET increases. An equilibrium must be found between discarding low energy events with poor time resolution and keeping enough events to have a rich statistic. This equilibrium strongly depend from from the shape and the width of the source energetic spectra.
+From fig \ref{fig:Co:results} we can see the resolution improves dramatically as we discard the events at lower energy, and then keep to slowly improve as LET increases. An equilibrium must be found between discarding low energy events with poor time resolution and keeping enough events to have a rich statistic. This equilibrium strongly depend on the shape and the width of the source energetic spectra, and it is better achieved around compton edge.
 
 \section{Speed of light}
 The detectors have been placed such that they're about $1.70\si{\metre}$ away. The \ce{^22Na} source has been placed firstly near DET 1 and then near DET 2, and the TAC signal has been acquired (one hour for each configuration); then, the centroids $\mu_1$ and $\mu_2$ of the two measurements have been found through a gaussian interpolation. Measuring the distance between the two source positions $d$, the light speed can be computed.
@@ -336,7 +336,8 @@ Even with only one peak, the comparison with the previous calibration allow us t
 For each dataset, the following procedure is followed:
 \begin{itemize}[noitemsep]
     \item Coincidences are searched, i.e. events that are recorded by both the detectors;
-    \item For each event, a simulated CFTD is applied to the two waveforms and zero crossings are computed via a linear interpolation around where the final waveform changes sign;
+    \item For each event, a simulated CFTD is applied to the two waveforms and monitor signals are computed;
+    \item Zero crossings are computed via a linear interpolation around the sign change;
     \item For each event, the time difference between the zero crossings in the two detector is computed;
     \item The distribution of the time difference is built and its FWHM is computed;
 \end{itemize}
@@ -349,7 +350,7 @@ This procedure is repeated for different combination of CFTD delay $\tau$ (from 
 \begin{figure}[H]
     \centering
     \resizebox{0.7\textwidth}{!}{\import{img/}{FWHM_2D.tex}}
-    \caption{FWHM of the time differences distribution as function of CFTD parameters. The minimum is in the red circle.}
+    \caption{FWHM of the time differences distribution as function of CFTD parameters. The chosen minimum is in the red circle.}
     \label{fig:FWHM2D:sim}
 \end{figure}
 
@@ -367,8 +368,8 @@ This procedure is repeated for different combination of CFTD delay $\tau$ (from 
 %     \label{fig:kurt:sim}
 % \end{figure}
 
-In fig \ref{fig:FWHM2D:sim} we need to discard data in the low-$\tau$ low-$f$ region, as there the mean of the TAC peak is incompatible with the other configurations (fig \ref{fig:Mean2D:sim}), due to problems in finding the zero-crossing point. The best choice for the attenuation fraction and the delay is then the one of the analog CFTD: $f \sim 0.2$ and $\tau \sim 5\si{\nano\second}$.\\
-From the theory the best choice for the delay given the fraction is $\tau = (1 - f)*t_{rise}$ where $t_{rise}$ is the rise time of the signals: this trend is roughly visible in fig \ref{fig:FWHM2D:sim}.
+Note that in fig \ref{fig:FWHM2D:sim} data in the low-$\tau$ low-$f$ region must be discarded, as in that area the means of the TAC peaks are strongly incompatible with the others configurations (fig \ref{fig:Mean2D:sim}). This is probably due to problems in finding the zero-crossing point. The best choice for the attenuation fraction and the delay is then the same of the analog CFTD: $f \sim 0.2$ and $\tau \sim 5\si{\nano\second}$.\\
+From the theory the best choice for the delay given the fraction is $\tau = (1 - f)t_{rise}$ where $t_{rise}$ is the rise time of the signals (in our case, $t_{rise}\sim 6\si{\nano\second}$): this trend is roughly visible in fig \ref{fig:FWHM2D:sim}.
 
 % Note that the low-delay low-fraction corner points seems the best in kurtosis: on a more accurate analysis, however, their means result incompatible with the others and their sigma extremely high, reflecting errors (probably due to low digitizer time resolution) in zero-crossings finding.
 %
@@ -376,7 +377,7 @@ From the theory the best choice for the delay given the fraction is $\tau = (1 -
 % \todo[inline]{Qui, una volta scelto il valore ottimale  di delay e attenuation fraction, potremmo inserire un grafico in cui, per un solo canale alla volta, una volta allineati i picchi originali applichiamo il CFTD su tutti i campioni e poi li grafichiamo tutti in un TH2F di quelli belli colorati (capitemi, è quello che mi ha fatto fare il prof l'ultimo giorno di esperimento). Se siam stati bravi dovremmo vedere la maggior parte delle onde passare per il canale a cui abbiamo allineato i picchi inizialmente.}
 
 \subsection{Time resolution and energy threshold}
-Finally, keeping the best settings for $f$ and $\tau$ the FWHM the TAC peak has been computed in function of the energy threshold, as done for the analog CFTD in \ref{sec:Co}
+Keeping the best settings for fraction and delay, the FWHM of the TAC peak has been computed as function of the energy threshold, as done for the analog CFTD in sect. \ref{sec:Co}.
 
 \begin{figure}[H]
     \centering
@@ -385,15 +386,13 @@ Finally, keeping the best settings for $f$ and $\tau$ the FWHM the TAC peak has 
     \label{fig:FWHM:sim}
 \end{figure}
 
-As can be seen from fig \ref{fig:FWHM:sim} the results are very similar to the analog version, and in both cases the best resolution is achieved filtering the energy spectra with a window around the Compton Edge ($\sim 300\si{\kilo\electronvolt}$ for \ce{^22Na} and $\sim 1\si{\mega\electronvolt}$ for \ce{^60Co}).
+As can be seen from fig \ref{fig:FWHM:sim} results are very similar to the analog version, and in both cases best resolution is achieved considering the events whose energy is around the Compton Edge ($\sim 300\si{\kilo\electronvolt}$ for \ce{^22Na} and $\sim 1\si{\mega\electronvolt}$ for \ce{^60Co}).
 
-So the best resolution achieved by the a-posteriori CFTD is around 0.5\si{\nano\second} while the best one achieved by the analog one is around 0.3\si{\nano\second}. The main reason for this can be found in the fact that the digital waveforms' bin width is 1\si{\nano\second}, which is very coarse.
+The best resolution achieved by the a-posteriori CFTD is $\sim0.5\si{\nano\second}$ while the best one achieved by the analog one is $\sim0.3\si{\nano\second}$. The main reason for this can be found in the fact that the digital waveforms are sampled each $1\si{\nano\second}$, a coarse ratio considering the resolution we're working with.
 
 % \todo[inline]{Volendo si potrebbe fare la stessa analisi di risoluzione del Co sul sodio e confrontare la versione analoga e quella digitale}
 
 % Finally, setti has been computed varying the energy threshold, replying the procedure done for cobalt and setting the same CFTD parameters. Note that, while in the fig. \ref{fig:Co:results} the low-gaussianity of the peaks lead us to compute the FWHM, here the non-gaussianity is combined with a strong white noise, which suggest us to use $\sigma$ (defined as the square root of the second centered momentum, computed directly from data and without a fit). As can be seen in figure comparing fig. \ref{fig:Co:results} with fig. \ref{fig:sigma:sim}, the $y$ axis scale is different: there are about 2 order of magnitude of difference. This lead us to impute the main contribute to the sigma to the sampling done by the digitizer. In the same figure, a strong growth in sigma can be seen in high $LET$ zone, probably due to the lack of data at high energy to make a precise mean. On the other hand, a minimum can be seen in the black line: This minimum is however not so relevant observing the $\sigma$ scale.
-
-
 
 
 \section{Conclusions}
@@ -401,8 +400,8 @@ With respect to the initial aims:
 \begin{itemize}[noitemsep]
     \item The energy spectra have been successfully calibrated through the compton edge and the half maximum position;
     \item The external delay has been optimized to enhance peak resolution; the optimal delay has been found around 5ns, as theoretically expected;
-    \item The fact that the best time resolution is achieved when filtering in energy around the Compton Edge has been observed;
+    \item The best time resolution has been achieved filtering in energy around the Compton Edge;
     \item The speed of light has been measured, obtaining a value compatible with the real one;
-    \item A comparison between analog CFTD and a simulated a-posteriori one has been done, finding that they provide similar resolution, with the analog one being slighty better.
+    \item A comparison between analog CFTD and a simulated a-posteriori one has been done, finding that they provide similar resolution, even if the analog one is slighty better.
 \end{itemize}
 \end{document}
