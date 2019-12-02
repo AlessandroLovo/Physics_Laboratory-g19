@@ -55,9 +55,9 @@
 \section{Aims}
 \begin{itemize}[noitemsep]
     \item Energy calibration of the organic scintillators and calculation of the energy resolution from the analysis of the Compton edge;
-    \item Optimization of the external delay of the analogue CFTD to obtain the best time resolution;
+    \item Optimization of the external delay of the analog CFTD to obtain the best time resolution;
     \item Study of the time resolution behaviour as a function of the energy;
-    \item Comparison between the timing resolutions obtained from analogue and digital treatment of the signals;
+    \item Comparison between the timing resolutions obtained from analog and digital treatment of the signals;
     \item Measurement of the speed of light.
 \end{itemize}
 
@@ -257,8 +257,10 @@ Fitting the obtained peaks with a gaussian and relating them to the delay insert
 
 The minimum configuration has been kept for all the following measurements.
 
-\section{Time resolution in function of energy range}
-In order to have a wider Compton energy spectra, 20 hours of data are acquired using a \ce{^60Co} source. This source decays emitting two photons of energy around 1\si{\mega\electronvolt}: a few of them are emitted back-to-back and hence can trigger the coincidence unit (fig \ref{fig:Co:spectra}), that is set in \emph{AND} configuration.\\
+\section{Time resolution in function of energy range} \label{sec:Co}
+In order to have a wider Compton energy spectra, 20 hours of data are acquired using a \ce{^60Co} source. This source decays emitting two photons of energy around 1\si{\mega\electronvolt}: a few of them are emitted back-to-back and hence can trigger the coincidence unit (fig \ref{fig:Co:spectra}), that is set in \emph{AND} configuration.
+
+
 \begin{figure}[H]
     \centering
     \resizebox{0.7\textwidth}{!}{\import{img/}{Co_spectra.tex}}
@@ -293,13 +295,16 @@ The errors have been propagated as statistical errors. Note the high error on th
 \end{gather*}
 which is compatible with the true value.
 
+
+
+
 \section{A-Posteriori CFTD}
-During the last day, we disabled the digitizer FPGA and acquired two datasets of raw waveforms directly from the detectors. This allows us to simulate an a-posteriori software CFTD and FPGA, and compare it with the analogic one.
+During the last day, we disabled the digitizer FPGA and acquired two datasets of raw waveforms directly from the detectors. This allows us to simulate an a-posteriori software CFTD and FPGA, and compare it with the analog one.
 
 \subsection{Waveforms}
 \begin{figure}[H]
     \centering
-    \begin{subfigure}[Analogic CFTD]{
+    \begin{subfigure}[analog CFTD]{
         \includegraphics[width=0.38\textwidth]{img/waveform_osc.jpg}
         \label{fig:waveform_osc}
     }\end{subfigure}
@@ -307,11 +312,11 @@ During the last day, we disabled the digitizer FPGA and acquired two datasets of
         \resizebox{0.58\textwidth}{!}{\import{img/}{waveform_sim.tex}}
         \label{fig:waveform_sim}
     }\end{subfigure}
-    \caption{Waveforms (yellow) and monitor signals (cyan) for analogic and software CFTD, set with the same parameters (fraction = $20\%$, delay = $\sim 5\si{\nano\second}$)}
+    \caption{Waveforms (yellow) and monitor signals (cyan) for analog and software CFTD, set with the same parameters (fraction = $20\%$, delay = $\sim 5\si{\nano\second}$)}
     \label{fig:waveform}
 \end{figure}
 
-In fig. \ref{fig:waveform} a waveform sample is showed (yellow), as seen by oscilloscope and digitizer. The shape is, as expected, the same; in particular, both rise time (about $6\si{\nano\second}$) and falling time (about $20\si{\nano\second}$) are the same.  Moreover, the signal transformed from the CFTD is also showed (cyan); it is formed by an attenuated reply of the original signal summed to a inverted delayed one. While the analogic CFTD does the transformation through electronic components, the APosteriori one is computed computationally. Even in this case the two system return a similar signal; however, the shortness in time of the signal and the low time resolution of the digitizer (a sample each $1$ns) result in a rougher waveform.
+In fig. \ref{fig:waveform} a waveform sample is showed (yellow), as seen by oscilloscope and digitizer. The shape is, as expected, the same; in particular, both rise time (about $6\si{\nano\second}$) and falling time (about $20\si{\nano\second}$) are the same.  Moreover, the signal transformed from the CFTD is also showed (cyan); it is formed by an attenuated reply of the original signal summed to a inverted delayed one. While the analog CFTD does the transformation through electronic components, the APosteriori one is computed computationally. Even in this case the two system return a similar signal; however, the shortness in time of the signal and the low time resolution of the digitizer (a sample each $1$ns) result in a rougher waveform.
 
 
 \subsection{Energy spectra}
@@ -331,54 +336,73 @@ Even with only one peak, the comparison with the previous calibration allow us t
 For each dataset, the following procedure is followed:
 \begin{itemize}[noitemsep]
     \item Coincidences are searched, i.e. events that are recorded by both the detectors;
-    \item For each event, a simulated CFTD is applied to the two waveforms and zero crossings are computed;
+    \item For each event, a simulated CFTD is applied to the two waveforms and zero crossings are computed via a linear interpolation around where the final waveform changes sign;
     \item For each event, the time difference between the zero crossings in the two detector is computed;
-    \item The distribution of the time difference is builded: mean, sigma (defined as the square root of the normalized centered second moment of data) and kurtosis (a measure of the \emph{gaussianity} of the distribution) are computed;
+    \item The distribution of the time difference is built and its FWHM is computed;
 \end{itemize}
-This procedure is repeated for different combination of CFTD delay (from $1$ to $10\si{\nano\second}$, with $0.25\si{\nano\second}$ step) and attenuation fraction (from $0.1$ to $0.9$, with $0.1$ step) and the plots of sigma and kurtosis are builded.
-\todo[inline]{Siamo sicuri che con un delay di ~9.5ns le due onde (invertita e attenuata) si sovrappongano ancora? Giusto per esser sicuri che i risultati abbiano senso. Domani comunque vedo di verificare, per ora lo scrivo così domani mi ricordo.}
-\todo[inline]{Dai grafici sembrerebbe che la scelta migliore sia porre un attenuazione del 100\% (cosa che ovviamente non va bene), penso bisogni commentare bene questa cosa, che comunque mi fa paura perché secondo me c'è qualcosa che non va)}
+This procedure is repeated for different combination of CFTD delay $\tau$ (from $1$ to $10\si{\nano\second}$, with $1\si{\nano\second}$ step) and attenuation fraction $f$ (from $0.1$ to $0.9$, with $0.1$ step): the results are shown in fig \ref{fig:FWHM2D:sim}.
+
+% \todo[inline]{Siamo sicuri che con un delay di ~9.5ns le due onde (invertita e attenuata) si sovrappongano ancora? Giusto per esser sicuri che i risultati abbiano senso. Domani comunque vedo di verificare, per ora lo scrivo così domani mi ricordo.}
+% \todo[inline]{Dai grafici sembrerebbe che la scelta migliore sia porre un attenuazione del 100\% (cosa che ovviamente non va bene), penso bisogni commentare bene questa cosa, che comunque mi fa paura perché secondo me c'è qualcosa che non va)}
 
 
 \begin{figure}[H]
     \centering
-    \resizebox{0.7\textwidth}{!}{\import{img/}{sigma_2D.tex}}
-    \caption{Sigma of the time differences distribution as function of CFTD parameters.}
-    \label{fig:sigma2D:sim}
+    \resizebox{0.7\textwidth}{!}{\import{img/}{FWHM_2D.tex}}
+    \caption{FWHM of the time differences distribution as function of CFTD parameters. The minimum is in the red circle.}
+    \label{fig:FWHM2D:sim}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \resizebox{0.7\textwidth}{!}{\import{img/}{kurt_2D.tex}}
-    \caption{Kurtosis of the time differences distribution as function of CFTD parameters.}
-    \label{fig:kurt:sim}
+    \resizebox{0.7\textwidth}{!}{\import{img/}{Mean_2D.tex}}
+    \caption{Mean of the time differences distribution as function of CFTD parameters.}
+    \label{fig:Mean2D:sim}
 \end{figure}
 
-Note that the low-delay low-fraction corner points seems the best in kurtosis: on a more accurate analysis, however, their means result incompatible with the others and their sigma extremely high, reflecting errors (probably due to low digitizer time resolution) in zero-crossings finding.
+% \begin{figure}[H]
+%     \centering
+%     \resizebox{0.7\textwidth}{!}{\import{img/}{kurt_2D.tex}}
+%     \caption{Kurtosis of the time differences distribution as function of CFTD parameters.}
+%     \label{fig:kurt:sim}
+% \end{figure}
 
-The kurtosis values are very high: plotting one of the distribution, it's clear they aren't gaussian-like, but triangular-like, again because of digitizer resolution. It records only 5-6 points in the rising time, digitally sampled; the zero crossing is therefore individuated by interpolating two (or in very good conditions four) points: a very rough interpolation! Assuming the uniform probability density function (PdF) typical of digital instruments and convolving the start and stop PdF, they result in a triangular-like PdF as experimental results show.
-\todo[inline]{Qui, una volta scelto il valore ottimale  di delay e attenuation fraction, potremmo inserire un grafico in cui, per un solo canale alla volta, una volta allineati i picchi originali applichiamo il CFTD su tutti i campioni e poi li grafichiamo tutti in un TH2F di quelli belli colorati (capitemi, è quello che mi ha fatto fare il prof l'ultimo giorno di esperimento). Se siam stati bravi dovremmo vedere la maggior parte delle onde passare per il canale a cui abbiamo allineato i picchi inizialmente.}
+In fig \ref{fig:FWHM2D:sim} we need to discard data in the low-$\tau$ low-$f$ region, as there the mean of the TAC peak is incompatible with the other configurations (fig \ref{fig:Mean2D:sim}), due to problems in finding the zero-crossing point. The best choice for the attenuation fraction and the delay is then the one of the analog CFTD: $f \sim 0.2$ and $\tau \sim 5\si{\nano\second}$.\\
+From the theory the best choice for the delay given the fraction is $\tau = (1 - f)*t_{rise}$ where $t_{rise}$ is the rise time of the signals: this trend is roughly visible in fig \ref{fig:FWHM2D:sim}.
+
+% Note that the low-delay low-fraction corner points seems the best in kurtosis: on a more accurate analysis, however, their means result incompatible with the others and their sigma extremely high, reflecting errors (probably due to low digitizer time resolution) in zero-crossings finding.
+%
+% The kurtosis values are very high: plotting one of the distribution, it's clear they aren't gaussian-like, but triangular-like, again because of digitizer resolution. It records only 5-6 points in the rising time, digitally sampled; the zero crossing is therefore individuated by interpolating two (or in very good conditions four) points: a very rough interpolation! Assuming the uniform probability density function (PdF) typical of digital instruments and convolving the start and stop PdF, they result in a triangular-like PdF as experimental results show.
+% \todo[inline]{Qui, una volta scelto il valore ottimale  di delay e attenuation fraction, potremmo inserire un grafico in cui, per un solo canale alla volta, una volta allineati i picchi originali applichiamo il CFTD su tutti i campioni e poi li grafichiamo tutti in un TH2F di quelli belli colorati (capitemi, è quello che mi ha fatto fare il prof l'ultimo giorno di esperimento). Se siam stati bravi dovremmo vedere la maggior parte delle onde passare per il canale a cui abbiamo allineato i picchi inizialmente.}
 
 \subsection{Time resolution and energy threshold}
+Finally, keeping the best settings for $f$ and $\tau$ the FWHM the TAC peak has been computed in function of the energy threshold, as done for the analog CFTD in \ref{sec:Co}
 
 \begin{figure}[H]
     \centering
-    \resizebox{0.8\textwidth}{!}{\import{img/}{sigma_sim.tex}}
-    \caption{Sigma as a function of energy threshold.}
-    \label{fig:sigma:sim}
+    \resizebox{0.8\textwidth}{!}{\import{img/}{FWHM_sim.tex}}
+    \caption{FWHM of the TAC peak as a function of energy threshold.}
+    \label{fig:FWHM:sim}
 \end{figure}
 
-\todo[inline]{Volendo si potrebbe fare la stessa analisi di risoluzione del Co sul sodio e confrontare la versione analogica e quella digitale}
+As can be seen from fig \ref{fig:FWHM:sim} the results are very similar to the analog version, and in both cases the best resolution is achieved filtering the energy spectra with a window around the Compton Edge ($\sim 300\si{\kilo\electronvolt}$ for \ce{^22Na} and $\sim 1\si{\mega\electronvolt}$ for \ce{^60Co}).
 
-Finally, sigma has been computed varying the energy threshold, replying the procedure done for cobalt and setting the same CFTD parameters. Note that, while in the fig. \ref{fig:Co:results} the low-gaussianity of the peaks lead us to compute the FWHM, here the non-gaussianity is combined with a strong white noise, which suggest us to use $\sigma$ (defined as the square root of the second centered momentum, computed directly from data and without a fit). As can be seen in figure comparing fig. \ref{fig:Co:results} with fig. \ref{fig:sigma:sim}, the $y$ axis scale is different: there are about 2 order of magnitude of difference. This lead us to impute the main contribute to the sigma to the sampling done by the digitizer. In the same figure, a strong growth in sigma can be seen in high $LET$ zone, probably due to the lack of data at high energy to make a precise mean. On the other hand, a minimum can be seen in the black line: This minimum is however not so relevant observing the $\sigma$ scale.
+So the best resolution achieved by the a-posteriori CFTD is around 0.5\si{\nano\second} while the best one achieved by the analog one is around 0.3\si{\nano\second}. The main reason for this can be found in the fact that the digital waveforms' bin width is 1\si{\nano\second}, which is very coarse.
+
+% \todo[inline]{Volendo si potrebbe fare la stessa analisi di risoluzione del Co sul sodio e confrontare la versione analoga e quella digitale}
+
+% Finally, setti has been computed varying the energy threshold, replying the procedure done for cobalt and setting the same CFTD parameters. Note that, while in the fig. \ref{fig:Co:results} the low-gaussianity of the peaks lead us to compute the FWHM, here the non-gaussianity is combined with a strong white noise, which suggest us to use $\sigma$ (defined as the square root of the second centered momentum, computed directly from data and without a fit). As can be seen in figure comparing fig. \ref{fig:Co:results} with fig. \ref{fig:sigma:sim}, the $y$ axis scale is different: there are about 2 order of magnitude of difference. This lead us to impute the main contribute to the sigma to the sampling done by the digitizer. In the same figure, a strong growth in sigma can be seen in high $LET$ zone, probably due to the lack of data at high energy to make a precise mean. On the other hand, a minimum can be seen in the black line: This minimum is however not so relevant observing the $\sigma$ scale.
+
+
+
 
 \section{Conclusions}
 With respect to the initial aims:
 \begin{itemize}[noitemsep]
-    \item The energy spectra has been successfully calibrated through the compton edge and the half maximum position;
-    \item The external delay has been optimized to enhance peak sigma; the optimal delay has been found around 5ns, has theoretically expected;
-    \item The inverse dependence of the resolution from the energy has been observed, especially for lower energies;
+    \item The energy spectra have been successfully calibrated through the compton edge and the half maximum position;
+    \item The external delay has been optimized to enhance peak resolution; the optimal delay has been found around 5ns, as theoretically expected;
+    \item The fact that the best time resolution is achieved when filtering in energy around the Compton Edge has been observed;
     \item The speed of light has been measured, obtaining a value compatible with the real one;
-    \item A comparison between analogic CFTD and a simulated a-posteriori ones, finding that the analogic one provide a better resolution. This result have different origins; the main one can be found in the sampling that the digitizer make, wasting precision in time and energy results.
+    \item A comparison between analog CFTD and a simulated a-posteriori one has been done, finding that they provide similar resolution, with the analog one being slighty better.
 \end{itemize}
 \end{document}
