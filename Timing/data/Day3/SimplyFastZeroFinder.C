@@ -26,9 +26,11 @@ public:
         this->timetag = timetag;
         baseline = 0;
         double sum = 0;
+        zero_sample=false;
         for( int i = 0; i < 360; i++) {
             this->samples[i] = samples[i];
             if ( i < 15 ) baseline += samples[i];
+            zero_sample |= (samples[i]==0);
             sum += samples[i];
         }
         baseline /= 15.0;
@@ -56,6 +58,7 @@ public:
     short samples[360];
     double baseline;
     double energy;
+    bool zero_sample;
 };
 
 class SimplyFastZeroFinder {
@@ -72,7 +75,9 @@ public:
         num_events = min( (int)inbranch->GetEntries(), max_events);
         for (int i=0; i<num_events; i++) {
 				inbranch->GetEntry(i);
-                ch0.push_back( new Event(indata.timetag, indata.samples) );
+                Event* e = new Event(indata.timetag, indata.samples);
+                if (!(e->zero_sample))
+                    ch0.push_back( e );
 		}
 
         // CHANNEL 1
@@ -81,21 +86,25 @@ public:
         num_events = min( (int)inbranch->GetEntries(), max_events);
         for (int i=0; i<num_events; i++) {
 				inbranch->GetEntry(i);
-                ch1.push_back( new Event(indata.timetag, indata.samples) );
+                Event* e = new Event(indata.timetag, indata.samples);
+                if (!(e->zero_sample))
+                    ch1.push_back( e );
 		}
 
-        // CHECK COINCIDENCES: sarebbe da fare ma il mio pc è lento quindi trascuriamo, tanto guardando i dati si vede che son tutti già coincidenti
+        // CHECK COINCIDENCES
         cout<<"Event before:\t"<<ch0.size()<<'\t'<<ch1.size()<<endl;
-       /* int i0, i1;
+        int i0=0, i1=0;
         while ( i0 < ch0.size() && i1 < ch1.size() ) {
             if ( ch0[i0]->timetag < ch1[i1]->timetag ) {
                 ch0.erase(ch0.begin() + i0);
             }
             else if ( ch0[i0]->timetag > ch1[i1]->timetag ) {
-                ch0.erase(ch0.begin() + i1);
+                ch1.erase(ch1.begin() + i1);
             }
             else { i0++; i1++; }
-        }*/
+        }
+        ch0.resize(min(ch0.size(),ch1.size()));
+        ch1.resize(min(ch0.size(),ch1.size()));
         cout<<"Event after:\t"<<ch0.size()<<'\t'<<ch1.size()<<endl;
 
         enabled = new vector<bool>(ch0.size(), true);
