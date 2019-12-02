@@ -173,7 +173,7 @@ class Coincidences{
         }
         
         
-        double ch2e(int chan, double ch){
+        double ch2e(int chan, int ch){
             if (chan < 0 || chan >= n_chan)
                 return -1;
             if(alpha[chan]==-1.0){
@@ -218,7 +218,14 @@ class Coincidences{
             axis->SetLimits(axis->GetXmin()*a+b, axis->GetXmax()*a+b);
             //hist[chan]->Scale(1/a); //to ensure keeping the proportions
         }
-    
+        
+        unsigned int GetNData(){
+            return data->size();
+        }
+        
+        enhanced_data_t* GetData(unsigned int i){
+            return data->at(i);
+        }
     
     private:
         unsigned int n_chan;
