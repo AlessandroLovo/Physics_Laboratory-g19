@@ -1,4 +1,4 @@
-const int max_events = 500000;
+const int max_events = 50000;
 
 #ifndef slimport
 #define slimport
@@ -110,7 +110,7 @@ public:
         return width;
     }
 
-    void getProprieties(vector<double>* vec, statistic &mean, statistic &std, statistic &kurt, bool delete_vec = false) {
+    void getProprieties(vector<double>* vec, statistic &mean, statistic &FWHM, statistic &kurt, bool delete_vec = false) {
         
         double sum = 0;
 		int n = vec->size();
@@ -122,11 +122,20 @@ public:
 
 		double sum2 = 0.0, sum4 = 0.0;
 		for(int i = 0; i < n; i++) {
+             
+            
 			sum2 += ( vec->at(i) - mean.value ) * ( vec->at(i) - mean.value );
 			sum4 += ( vec->at(i) - mean.value ) * ( vec->at(i) - mean.value ) * ( vec->at(i) - mean.value ) * ( vec->at(i) - mean.value );
 		}
 
 		mean.error = sqrt ( sum2 ) / n;
+
+        if( mean.value < 20 && mean.value > 5 ) {
+            TH1F* histo = getHisto( vec );
+            FWHM = this->FWHM( histo );
+            delete histo;
+        } else { FWHM.value = 100; FWHM.error = 100; }
+        /*
 		statistic mu2, mu4;
         mu2.value = sum2 / n;
 		mu4.value = sum4 / n;
@@ -146,12 +155,12 @@ public:
 		std.error = mu2.error / 2.0 / sqrt ( mu2.value );
 		kurt.value = mu4.value / mu2.value / mu2.value - 3.0;
 		kurt.error = sqrt( mu4.error / mu2.value / mu2.value * mu4.error / mu2.value / mu2.value + 2.0 *  mu4.value * mu2.error / mu2.value / mu2.value / mu2.value * 2 * mu4.value * mu2.error / mu2.value / mu2.value / mu2.value );
-
+        */
         if(delete_vec) delete vec;
     }
 
     TH1F* getHisto(vector<double>* vec) {
-        TH1F* hist = new TH1F ( "hist", "hist", 250, 0, 20);
+        TH1F* hist = new TH1F ( "hist", "hist", 2000, 0, 20);
         for (int i=0; i < vec->size(); i++) hist->Fill( vec->at(i) );
         return hist;
     }
@@ -178,6 +187,51 @@ public:
         }
     }
 
+    statistic FWHM(TH1F* h, double e_min = 5, double e_max = 20, bool draw = false){
+        float centroid = 0., width_sx = 0., width_dx = 0.;
+        float max_bin_content = 0.;
+        int max_i = 0;
+        for(unsigned int i = 1; i < h->GetXaxis()->GetNbins(); i++){
+            if(h->GetXaxis()->GetBinCenter(i) < e_min)
+                continue;
+            if(h->GetXaxis()->GetBinCenter(i) > e_max)
+                break;
+            if(h->GetBinContent(i) > max_bin_content){
+                max_bin_content = h->GetBinContent(i);
+                centroid = h->GetXaxis()->GetBinCenter(i);
+                max_i = i;
+            }            
+        }
+        
+        for(unsigned int i = 0; i < max_i; i++){
+            if(h->GetXaxis()->GetBinCenter(i) < e_min)
+                continue;
+            if(h->GetBinContent(i) > max_bin_content*0.5){
+                width_sx = centroid - h->GetXaxis()->GetBinCenter(i);
+                break;
+            }
+        }
+        
+        for(unsigned int i = max_i; i < h->GetXaxis()->GetNbins(); i++){
+            if(h->GetXaxis()->GetBinCenter(i) > e_max)
+                break;
+            if(h->GetBinContent(i) < max_bin_content*0.5){
+                width_dx = h->GetXaxis()->GetBinCenter(i) - centroid;
+                break;
+            }
+        }
+        
+        if(draw){
+            h->Draw();
+            TLine* l = new TLine(centroid - width_sx,0.5*max_bin_content,centroid + width_dx,0.5*max_bin_content);
+            l->Draw("SAME");
+        }
+        statistic FWHM;
+        FWHM.value = width_sx + width_dx;
+        FWHM.error = h->GetXaxis()->GetBinWidth(5) / 2.45;
+        return FWHM;
+    }
+
     vector<Event*> ch0, ch1;
     vector<bool>* enabled;
 
@@ -194,37 +248,43 @@ void analysis(int id = -1) {
 	vector<int> delays{1 , 2 , 3 , 4 , 5 ,  6 , 7 , 8 , 9 , 10};
 	int i = 0;
 	ofstream out(outfilename[id]);
-	out << "Frac\tDelay\tMean\tMean_sigma\tStd\tStd_sigma\tKurtosis\tKurtosis_sigma"<<endl;
+	out << "Frac\tDelay\tMean\tMean_sigma\tFWHM\tFWHM_sigma\tKurtosis\tKurtosis_sigma"<<endl;
 
-    statistic mean, sigma, kurtosis;
+    statistic mean, FWHM, kurtosis;
     SimplyFastZeroFinder* s = new SimplyFastZeroFinder(sourcename[id]);
 	for ( double f : fracs)
 		for ( int d : delays) {
 			i++;
-			cout<<setw(5)<<f<<" - "<<setw(5)<<d<<" - "<<setw(2)<<i<<" of "<<setw(2)<<fracs.size()*delays.size()<<" - Loading data; "<<flush;
-			s->getProprieties ( s->getWidths(f,d), mean, sigma, kurtosis, true );
-            cout << f << '\t' << d << '\t' << mean.value  << '\t' << mean.error << '\t' << sigma.value << '\t' << sigma.error << '\t' << kurtosis.value << '\t' << kurtosis.error << endl;
-            out << f << '\t' << d << '\t' << mean.value  << '\t' << mean.error << '\t' << sigma.value << '\t' << sigma.error << '\t' << kurtosis.value << '\t' << kurtosis.error << endl;
+			s->getProprieties ( s->getWidths(f,d), mean, FWHM, kurtosis, true );
+            cout << i << " of " << fracs.size()*delays.size() << '\t' << f << '\t' << d << '\t' << mean.value  << '\t' << mean.error << '\t' << FWHM.value << '\t' << FWHM.error << '\t' << kurtosis.value << '\t' << kurtosis.error << endl;
+            out << f << '\t' << d << '\t' << mean.value  << '\t' << mean.error << '\t' << FWHM.value << '\t' << FWHM.error << '\t' << kurtosis.value << '\t' << kurtosis.error << endl;
 		}
 
     delete s;
 }
-/*
+
 void analysis_energythresh(int id = -1) {
+    double fraction = 0.2;
+    int delay = 5.0;
+
 	if (id == -1) { analysis_energythresh(0); analysis_energythresh(1); return; }
 	const char* outfilename[] = {"CFTD_energythresh_1_2D.txt","CFTD_energythresh_2_2D.txt"};
 	const char* sourcename[] = {"Digital_CFTD.root", "Digital_CFTD_2.root"};
 	vector<double> energy_low{ 50, 100, 150, 200, 250, 300, 350,  50, 100, 150, 200, 250 };
 	vector<double> energy_top{600, 600, 600, 600, 600, 600, 600, 150, 250, 350, 450, 550 };
 	ofstream out(outfilename[id]);
-	if ( std ) out << "ELow\tETop\tMean\tMean_sigma\tStd\tStd_sigma\tKurtosis\tKurtosis_sigma"<<endl;
-	else out << "ELow\tETop\tMean\tMean_sigma\tFWHM\tFWHM_sigma\tKurtosis\tKurtosis_sigma"<<endl;
+	out << "ELow\tETop\tMean\tMean_sigma\tFWHM\tFWHM_sigma\tKurtosis\tKurtosis_sigma"<<endl;
+
+    statistic mean, FWHM, kurtosis;
+    SimplyFastZeroFinder* s = new SimplyFastZeroFinder(sourcename[id]);
+
 	for( int i=0; i<energy_low.size(); i++) {
-		cout<<setw(5)<<energy_low[i]<<" - "<<energy_top[i]<<" - "<<setw(2)<<i<<" of "<<setw(2)<<energy_low.size()<<" - Loading data; "<<flush;
-		auto tcw = new TwoChannelWaveform(sourcename[id], -1, -1, energy_low[i], energy_top[i]);
-		cout<<"Analizing data: "<<flush;
-		if (std) tcw->GetTimeDistrHisto_withstd(&out,energy_low[i],energy_top[i]);
-		else { auto tdh = tcw->GetTimeDistrHisto(&out,energy_low[i],energy_top[i]); delete tdh; }
-		delete tcw;
+
+        s->energyFilter( energy_low[i], energy_top[i] );
+        s->getProprieties ( s->getWidths(fraction,delay), mean, FWHM, kurtosis, true );
+
+        cout << setw(2) << i << " of " << energy_low.size() << '\t' << energy_low[i] << '\t' << energy_top[i] << '\t' << mean.value  << '\t' << mean.error << '\t' << FWHM.value << '\t' << FWHM.error << '\t' << kurtosis.value << '\t' << kurtosis.error << endl;
+        out << energy_low[i] << '\t' << energy_top[i] << '\t' << mean.value  << '\t' << mean.error << '\t' << FWHM.value << '\t' << FWHM.error << '\t' << kurtosis.value << '\t' << kurtosis.error << endl;
+
 	}
-}*/
+}

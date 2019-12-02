@@ -8,27 +8,30 @@ void plot_CFTD_simulations_energy (int what, int id = 0) {
     TGraphErrors* tge_notop = new TGraphErrors();
     TGraphErrors* tge_sitop = new TGraphErrors();
 
-	double a,b,c,d,e,f,g,h,point,error;
+	double a,b,c,d,e,f,g,h,point,error, min = 100000, max = -1000000;
 	in.ignore(10000,'\n');
 	while (in>>a>>b>>c>>d>>e>>f>>g>>h) {
 		if(what == 0) { point = c; error = d; }
-		else if(what == 1) { point = e; error = f; }
+		else if(what == 1) { point =  e; error =  f; }
 		else if(what == 2) { point = g; error = h; }
 
 		TGraphErrors* tge = ( b > 550 ? tge_notop : tge_sitop );
 		
+		if ( point > max ) max = point;
+		if ( point < min ) min = point;
 		tge->SetPoint( tge->GetN(), a, point);
 		tge->SetPointError ( tge->GetN() - 1, 0, error);
 	}
 
 	if ( what == 0) tge_notop->SetTitle("Mean");
 	else if ( what == 1) {
-		tge_notop->SetTitle("FWHM [ps]");
+		tge_notop->SetTitle("#sigma [ns]");
 	}
 	else if ( what == 2) tge_notop->SetTitle("Kurtosis");
 
 	tge_notop->GetXaxis()->SetTitle("LET [keV]");
-	tge_notop->GetYaxis()->SetTitle("FWHM [ps]");
+	tge_notop->GetYaxis()->SetTitle("#sigma [ns]");
+	tge_notop->GetYaxis()->SetRangeUser( min - 0.1 * (max-min) , max + 0.1 * (max-min) );
 
 	tge_notop->SetLineColor(2);
 

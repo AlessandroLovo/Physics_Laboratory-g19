@@ -1,1 +1,0 @@
-Frac	Delay	Mean	Mean_sigma	Std	Std_sigma	Kurtosis	Kurtosis_sigma

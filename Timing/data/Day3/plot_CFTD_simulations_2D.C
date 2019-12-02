@@ -21,12 +21,15 @@ TGraph2DErrors* plot_CFTD_simulations_2D (int what, int id = 0, bool same = fals
 
 	if ( what == 0) tge->SetTitle("Mean");
 	else if ( what == 1) {
-		tge->SetTitle("FWHM [ps]");
+		tge->SetTitle("#sigma [ns]");
 	}
 	else if ( what == 2) tge->SetTitle("Kurtosis");
 
 	tge->Draw("colz");
 	tge->GetXaxis()->SetTitle("Attenuation fraction");
-	tge->GetYaxis()->SetTitle("Delay");
+	tge->GetYaxis()->SetTitle("Delay [ns]");
+	tge->GetZaxis()->SetRangeUser(6,10);
+	gStyle->SetPalette(kInvertedDarkBodyRadiator);
+
 	return tge;
 }
