@@ -11,7 +11,7 @@ TGraph2DErrors* plot_CFTD_simulations_2D (int what, int id = 0, bool same = fals
 	in.ignore(10000,'\n');
 	while (in>>a>>b>>c>>d>>e>>f>>g>>h) {
 		//if( c <= 160000 ) continue;
-		if(what == 0) { point = c; error = d; }
+		if(what == 0) { point = ( 10.3 - c ) / 10.3 * 100; error = d; }
 		else if(what == 1) { point = e; error = f; }
 		else if(what == 2) { point = g; error = h; }
 
