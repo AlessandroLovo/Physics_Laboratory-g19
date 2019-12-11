@@ -1,0 +1,5 @@
+- scrivere incertezze sui parametri
+- scrivere Vmin e Vmax
+- Scrivere nome del file
+- Ricordare impostazione fit
+- Fit 3 parametri
