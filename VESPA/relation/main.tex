@@ -1,0 +1,64 @@
+\documentclass[11pt,a4 paper]{article}
+\usepackage{subfiles}
+
+\usepackage{amsmath, amsthm}
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=2cm]{geometry}
+\usepackage{graphicx}
+\usepackage{subfig}
+\usepackage{caption}
+\usepackage{siunitx}
+\captionsetup{tableposition=top,font=small,width=0.8\textwidth}
+\usepackage{booktabs}
+\usepackage[table]{xcolor}
+\usepackage[arrowdel]{physics}
+\usepackage{mathtools}
+\usepackage{tablefootnote}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{multicol}
+\setlist[description]{font={\scshape}} %style=unboxed,style=nextline
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{import}
+\usepackage{floatflt}
+\usepackage{url}
+\usepackage{commath}
+\usepackage{bm}
+\usepackage[version=4]{mhchem}
+\usepackage{nicefrac}
+\usepackage{ifthen}
+\usepackage{comment}
+\usepackage[colorinlistoftodos,textsize=tiny]{todonotes}
+\usepackage{hyperref}
+
+\renewcommand*{\thefootnote}{\fnsymbol{footnote}}
+\sisetup{exponent-product = \cdot}
+\newcommand{\tc}{\,\mbox{tc}\,}
+\newcommand{\Epsilon}{\mathcal{E}}
+\newcommand{\half}{\frac{1}{2}}
+\newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
+\let\oldfrac\frac
+\renewcommand{\frac}[3][d]{\ifthenelse{\equal{#1}{d}}{\oldfrac{#2}{#3}}{\nicefrac{#2}{#3}}}
+
+\title{Positronium}
+\author{Andrea Grossutti, mat. 1237344\\Alessandro Lovo, mat. 1236048\\Leonardo Zampieri, mat. 1237351}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Aims}
+Study the \emph{Vespa} experimental apparatus, and in particular:
+\begin{itemize}[noitemsep]
+    \item Model the vacuum system behavior, finding the characteristic parameters;
+    \item Obtain the current-voltage and the current-temperature characteristics curves of the filament;
+    \item Draw the voltage-current characteristics curves of the gas discharge, enhancing their behavior as varying pressure;
+    \item Find the Paschen curve, both in DC and RF condition;
+    \item Measurement of plasma parameters through a Langmuir probe, both in stationary conditions and via ionic-sonic wave propagation.
+\end{itemize}
+
+\end{document}
