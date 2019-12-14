@@ -62,7 +62,7 @@ Study the \emph{Vespa} experimental apparatus, and in particular:
 \end{itemize}
 
 \section{Vacuum system}
-The vacuum inside the VESPA vessel is obtained and keep thanks to a rotary pump and a turbomolecular pump. The vessel is not perfectly isolated and some small leaks affect the vacuum keeping. To study this phenomena, the vessel has been taken to a low pressure (...\todo{insert pressure}) and all the valves around has been closed. Measuring (thanks to a ionization pressure gauge) the pressure in the vessel as function of the time, effect as leaks and degasing can be observer.
+The vacuum inside the VESPA vessel (a cylindrical  vessel, with a length of $\sim80\si{\centi\metre}$ and a radius of $\sim20\si{\centi\metre}$) is obtained and keep thanks to a rotary pump and a turbomolecular pump. The vessel is not perfectly isolated and some small leaks affect the vacuum keeping. To study this phenomena, the vessel has been taken to a low pressure (...\todo{insert pressure}) and all the valves around has been closed. Measuring (thanks to a ionization pressure gauge) the pressure in the vessel as function of the time, effect as leaks and degasing can be observer.
 
 \todo[inline]{Highering pressure plot}
 
@@ -70,5 +70,33 @@ Subsequently, the valves has been opened; the turbomolecular pump acts to extrac
 
 \todo[inline]{Lowering pressure plot}
 
-\section{}
+\section{Voltage-Current characteristic of the filament}
+The filament inside the vessel is a tungsten filament with diameter $2r\sim0.25\si{{\milli\metre}}$ and length $L\sim10\si{\centi\metre}$. Combining Ohm law and emissivity rules, a theoretical characteristic curve can be obtained:
+\[
+    V = \frac{A^{\frac[f]{10}{7}}L}{\pi^{\frac[f]{13}{7}}r^{\frac[f]{23}{7}}(2\epsilon\alpha)^{\frac[f]{3}{7}}} \cdot I^{\frac[f]{13}{7}}
+\]
+where $\epsilon$ is the effective emissivity, $\alpha$ the StefanBoltzmann constant and $A$ a the resistivity proportional constant, such that the resistivity $\rho$ can be expressed as function of the temperature $T$ as
+\[
+    \rho(T) = AT^{\frac[f]{6}{5}}
+\]
+
+Pumping the vessel to a low density (...\todo{how much?}), the voltage-current characteristic curve of the filament has been measured, producing the following data:
+\todo[inline]{Plot V-I filamento}
+
+Fitting the data with a $V\propto I^{\frac[f]{13}{7}}$, the following parameters are found:
+\begin{align}
+    V &= m I ^{\frac[f]{13}{7}} + q \\
+    m &= ...                        \\
+    q &= ...                        
+\end{align}
+which lead to a value of
+\[
+    \epsilon = ...
+\]
+Finally, the estimated filament temperature as a function of the driven current can be found:
+\[
+    T = \frac{A^{\frac[f]{5}{14}}}{\pi^{\frac[f]{5}{7}}r^{\frac[f]{15}{14}}(2\epsilon\alpha)^{\frac[f]{5}{14}}} \cdot I ^{\frac[f]{5}{7}}
+\]
+
+\todo[inline]{Insert T-I plot}
 \end{document}
