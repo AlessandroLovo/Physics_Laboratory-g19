@@ -61,14 +61,88 @@ Study the \emph{Vespa} experimental apparatus, and in particular:
     \item Measurement of plasma parameters through a Langmuir probe, both in stationary conditions and via ionic-sonic wave propagation.
 \end{itemize}
 
+
 \section{Vacuum system}
-The vacuum inside the VESPA vessel (a cylindrical  vessel, with a length of $\sim80\si{\centi\metre}$ and a radius of $\sim20\si{\centi\metre}$) is obtained and keep thanks to a rotary pump and a turbomolecular pump. The vessel is not perfectly isolated and some small leaks affect the vacuum keeping. To study this phenomena, the vessel has been taken to a low pressure (...\todo{insert pressure}) and all the valves around has been closed. Measuring (thanks to a ionization pressure gauge) the pressure in the vessel as function of the time, effect as leaks and degasing can be observer.
+The vacuum inside the VESPA vessel (a cylindrical  vessel, with a length of $\sim80\si{\centi\metre}$ and a radius of $\sim20\si{\centi\metre}$: $V\sim0.1\si{\metre^3}$) is obtained and kept thanks to a rotary pump and a turbomolecular pump. The vessel is not perfectly isolated and some small leaks affect the vacuum keeping. To study this phenomena, the vessel has been taken to a low pressure ($\sim 6 \cdot 10^{-5} \si{\milli\bar}$) and all the valves around have been closed. Isolating the chamber from the pumping system one can measure (thanks to a ionization pressure gauge) the pressure in the vessel as function of time. Effects as leaks and degasing contribute to an inflow in the chamber $F_0(p)$ that in principle could depend on the pressure. If it doesn't, $F_0$ can be estimated by performing a linear fit on the data ($P = a + b \cdot t$): $F_0 = V \cdot b$.
 
-\todo[inline]{Highering pressure plot}
+In all these measurements we consider a 5\% error on the pressure and a 0.5\si{\second} error on the time.
 
-Subsequently, the valves has been opened; the turbomolecular pump acts to extract all the gas from the vessel, and therefore a pressure lowering can be observed.
+\begin{figure}[H]
+  \centering
+  \resizebox{0.5\textwidth}{!}{\import{img/vacuum/}{increase_all_fit.tex}} \hspace{-0.05\textwidth}
+  \resizebox{0.5\textwidth}{!}{\import{img/vacuum/}{increase_all_residuals.tex}}
+  \caption{Presure increasing in the chamber}
+  \label{fig:increase_all}
+\end{figure}
 
-\todo[inline]{Lowering pressure plot}
+As can be seen from fig \ref{fig:increase_all} there is an evident trend in the residuals, proving that $F_0$ cannot be assumed constant throughout all the explored range of pressures. The simplest correction to this is considering a low pressure regime and a high pressure one.
+
+\begin{figure}[H]
+  \centering
+  \resizebox{0.5\textwidth}{!}{\import{img/vacuum/}{increase_lowP_fit.tex}} \hspace{-0.05\textwidth}
+  \resizebox{0.5\textwidth}{!}{\import{img/vacuum/}{increase_lowP_residuals.tex}}
+  \caption{Low pressure regime}
+  \label{fig:increase_lowP}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \resizebox{0.5\textwidth}{!}{\import{img/vacuum/}{increase_highP_fit.tex}} \hspace{-0.05\textwidth}
+  \resizebox{0.5\textwidth}{!}{\import{img/vacuum/}{increase_highP_residuals.tex}}
+  \caption{High pressure regime}
+  \label{fig:increase_highP}
+\end{figure}
+
+Assuming a 5\% error on the volume,
+
+\begin{gather*}
+  F_0^\text{low} = (6.4 \pm 0.4) \cdot 10^{-8} \si{\pascal}\, \si{\metre^3}/\si{\second} \quad
+  F_0^\text{high} = (4.5 \pm 0.4) \cdot 10^{-8} \si{\pascal}\, \si{\metre^3}/\si{\second}
+\end{gather*}
+
+Subsequently, the valve has been opened connecting the chamber to the pumping system. An exponential decay of the pressure is expected: $P(t) = (P_i - P_0)exp{-t/\tau} + P_0$, where $P_i$ is the starting pressure and $P_0$ the asymptotic pressure.
+
+\begin{figure}[H]
+  \centering
+  \resizebox{0.5\textwidth}{!}{\import{img/vacuum/}{decrease_all_fit.tex}} \hspace{-0.05\textwidth}
+  \resizebox{0.5\textwidth}{!}{\import{img/vacuum/}{decrease_all_residuals.tex}}
+  \caption{Presure decreasing in the chamber}
+  \label{fig:decrease_all}
+\end{figure}
+
+As can be seen from fig \ref{fig:decrease_all} there is an evident trend in the residuals, similarly as what seen before, and as before one should distinguish between the two regimes.
+
+\begin{figure}[H]
+  \centering
+  \resizebox{0.5\textwidth}{!}{\import{img/vacuum/}{decrease_lowP_fit.tex}} \hspace{-0.05\textwidth}
+  \resizebox{0.5\textwidth}{!}{\import{img/vacuum/}{decrease_lowP_residuals.tex}}
+  \caption{Low pressure regime}
+  \label{fig:decrease_lowP}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \resizebox{0.5\textwidth}{!}{\import{img/vacuum/}{decrease_highP_fit.tex}} \hspace{-0.05\textwidth}
+  \resizebox{0.5\textwidth}{!}{\import{img/vacuum/}{decrease_highP_residuals.tex}}
+  \caption{High pressure regime}
+  \label{fig:decrease_highP}
+\end{figure}
+
+From the values of $\tau$ and $P_0$ one can estimate the effective pumping speed $S_e = V/\tau$, the inflow $F_0 = P_0 \cdot S_e$ and, given the nominal value of the pumping speed $S = 33 \si{\litre/\second}$, the conductance of the chamber-pump connection $C = 1/(1/S_e - 1/S)$.
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{cccccc}
+    \toprule
+    regime & $S_e$ [\si{\litre/\second}] & $F_0$ [\si{\pascal}\, \si{\metre^3}/\si{\second}] & $C$ [\si{\litre/\second}] \\
+    \midrule
+    jhba & gfjha & bfgjlb & hasgjbha \\
+    \bottomrule
+  \end{tabular}
+  \caption{Vacuum parameters}
+  \label{tab:vacuum}
+\end{table}
+
 
 \section{Voltage-Current characteristic of the filament}
 The filament inside the vessel is a tungsten filament with diameter $2r\sim0.25\si{{\milli\metre}}$ and length $L\sim10\si{\centi\metre}$. Combining Ohm law and emissivity rules, a theoretical characteristic curve can be obtained:
@@ -87,7 +161,7 @@ Fitting the data with a $V\propto I^{\frac[f]{13}{7}}$, the following parameters
 \begin{align}
     V &= m I ^{\frac[f]{13}{7}} + q \\
     m &= ...                        \\
-    q &= ...                        
+    q &= ...
 \end{align}
 which lead to a value of
 \[
