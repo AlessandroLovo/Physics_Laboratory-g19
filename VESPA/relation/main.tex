@@ -63,9 +63,9 @@ Study the \emph{Vespa} experimental apparatus, and in particular:
 
 
 \section{Vacuum system}
-The vacuum inside the VESPA vessel (a cylindrical  vessel, with a length of $\sim80\si{\centi\metre}$ and a radius of $\sim20\si{\centi\metre}$: $V\sim0.1\si{\metre^3}$) is obtained and kept thanks to a rotary pump and a turbomolecular pump. The vessel is not perfectly isolated and some small leaks affect the vacuum keeping. To study this phenomena, the vessel has been taken to a low pressure ($\sim 6 \cdot 10^{-5} \si{\milli\bar}$) and all the valves around have been closed. Isolating the chamber from the pumping system one can measure (thanks to a ionization pressure gauge) the pressure in the vessel as function of time. Effects as leaks and degasing contribute to an inflow in the chamber $F_0(p)$ that in principle could depend on the pressure. If it doesn't, $F_0$ can be estimated by performing a linear fit on the data ($P = a + b \cdot t$): $F_0 = V \cdot b$.
+The vacuum inside the VESPA vessel (a cylindrical  vessel, with a length of $\sim80\si{\centi\metre}$ and a radius of $\sim20\si{\centi\metre}$: $V\sim0.1\si{\metre^3}$) is obtained and kept thanks to a rotary pump and a turbomolecular pump. The vessel is not perfectly isolated and some small leaks affect the vacuum keeping. To study this phenomena, the vessel has been taken to a low pressure ($\sim 6 \cdot 10^{-5} \si{\milli\bar}$) and all the valves around have been closed. Isolating the chamber from the pumping system one can measure (thanks to a ionization pressure gauge) the pressure in the vessel as function of time. Effects as leaks and degasing contribute to an inflow in the chamber $F_0(p)$ that in principle could depend on the pressure. Assuming instead $F_0$ constant, its value can be estimated through a linear fit on the data: $P = a + b \cdot t$, $F_0 = V \cdot b$.
 
-In all these measurements we consider a 5\% error on the pressure and a 0.5\si{\second} error on the time.
+Considering the reaction time, the slowness of the ionization gauge in stabilizing and the pressure oscillations, the errors are estimated as $5\%$ on the pressure and a $0.5\si{\second}$ error on the time.
 
 \begin{figure}[H]
   \centering
@@ -75,7 +75,7 @@ In all these measurements we consider a 5\% error on the pressure and a 0.5\si{\
   \label{fig:increase_all}
 \end{figure}
 
-As can be seen from fig \ref{fig:increase_all} there is an evident trend in the residuals, proving that $F_0$ cannot be assumed constant throughout all the explored range of pressures. The simplest correction to this is considering a low pressure regime and a high pressure one.
+As can be seen from fig \ref{fig:increase_all} there is an evident trend in the residuals, proving that $F_0$ cannot be assumed constant throughout all the explored range of pressures. A simple way to correct this is to consider a low pressure regime and a high pressure one\todo{Limiti dei regimi}.
 
 \begin{figure}[H]
   \centering
@@ -93,14 +93,14 @@ As can be seen from fig \ref{fig:increase_all} there is an evident trend in the 
   \label{fig:increase_highP}
 \end{figure}
 
-Assuming a 5\% error on the volume,
+Splitting the high pressure area and the low pressure area and performing two different fits, the inflow can be estimated as (assuming a 5\% error on the volume):
 
 \begin{gather*}
   F_0^\text{low} = (6.4 \pm 0.4) \cdot 10^{-8} \si{\pascal}\, \si{\metre^3}/\si{\second} \quad
   F_0^\text{high} = (4.5 \pm 0.4) \cdot 10^{-8} \si{\pascal}\, \si{\metre^3}/\si{\second}
 \end{gather*}
 
-Subsequently, the valve has been opened connecting the chamber to the pumping system. An exponential decay of the pressure is expected: $P(t) = (P_i - P_0)exp{-t/\tau} + P_0$, where $P_i$ is the starting pressure and $P_0$ the asymptotic pressure.
+Subsequently, the valve has been opened connecting the chamber to the pumping system. An exponential decay of the pressure is expected: $P(t) = (P_i - P_0)\exp(-t/\tau) + P_0$, where $P_i$ is the starting pressure and $P_0$ the asymptotic pressure.
 
 \begin{figure}[H]
   \centering
@@ -110,7 +110,7 @@ Subsequently, the valve has been opened connecting the chamber to the pumping sy
   \label{fig:decrease_all}
 \end{figure}
 
-As can be seen from fig \ref{fig:decrease_all} there is an evident trend in the residuals, similarly as what seen before, and as before one should distinguish between the two regimes.
+As can be seen from fig \ref{fig:decrease_all} there is an evident trend in the residuals, similarly as what seen before, and as before two regimes can be distinguished \todo{Limits of regimes}.
 
 \begin{figure}[H]
   \centering
@@ -128,13 +128,13 @@ As can be seen from fig \ref{fig:decrease_all} there is an evident trend in the 
   \label{fig:decrease_highP}
 \end{figure}
 
-From the values of $\tau$ and $P_0$ one can estimate the effective pumping speed $S_e = V/\tau$, the inflow $F_0 = P_0 \cdot S_e$ and, given the nominal value of the pumping speed $S = 33 \si{\litre/\second}$, the conductance of the chamber-pump connection $C = 1/(1/S_e - 1/S)$.
+Performing two different exponential fits, from the values of $\tau$ and $P_0$ the effective pumping speed $S_e$, the inflow $F_0$ and, given the nominal value of the pumping speed $S = 33 \si{\litre/\second}$, the conductance of the chamber-pump connection $C$ can be estimated.
 
 \begin{table}[H]
   \centering
   \begin{tabular}{cccccc}
     \toprule
-    regime & $S_e$ [\si{\litre/\second}] & $F_0$ [\si{\pascal}\, \si{\metre^3}/\si{\second}] & $C$ [\si{\litre/\second}] \\
+    regime & $S_e = V/\tau$ [\si{\litre/\second}] & $F_0 = P_0 \cdot S_e$ [\si{\pascal}\, \si{\metre^3}/\si{\second}] & $C = 1/(1/S_e - 1/S)$ [\si{\litre/\second}] \\
     \midrule
     jhba & gfjha & bfgjlb & hasgjbha \\
     \bottomrule
@@ -155,22 +155,34 @@ where $\epsilon$ is the effective emissivity, $\alpha$ the StefanBoltzmann const
 \]
 
 Pumping the vessel to a low density (...\todo{how much?}), the voltage-current characteristic curve of the filament has been measured, producing the following data:
-\todo[inline]{Plot V-I filamento}
+
+\begin{figure}[H]
+  \centering
+  \resizebox{0.8\textwidth}{!}{\import{img/voltage-current-filament/}{I137V_1.tex}}
+  \caption{Voltage-Current characteristic for a filament; errors has been chosen as $0.3A^{13/7}$ and $0.1V$, due to the low sensibility of the measure system.}
+  \label{fig:I137V_1}
+\end{figure}
 
 Fitting the data with a $V\propto I^{\frac[f]{13}{7}}$, the following parameters are found:
 \begin{align}
-    V &= m I ^{\frac[f]{13}{7}} + q \\
-    m &= ...                        \\
-    q &= ...
+    V &= m I ^{\frac[f]{13}{7}}\\
+    m &= ( 0.391\pm0.002) \si{V\cdot A^{-\frac[f]{13}{7}}}
 \end{align}
 which lead to a value of
 \[
-    \epsilon = ...
+    \epsilon \sim 0.2
 \]
+The $\chi^2$ confirm the meaningfulness of the fit; moreover, the effective emissivity have a value similar to the typical ones.
+
 Finally, the estimated filament temperature as a function of the driven current can be found:
 \[
-    T = \frac{A^{\frac[f]{5}{14}}}{\pi^{\frac[f]{5}{7}}r^{\frac[f]{15}{14}}(2\epsilon\alpha)^{\frac[f]{5}{14}}} \cdot I ^{\frac[f]{5}{7}}
+    T = \underbrace{\frac{A^{\frac[f]{5}{14}}}{\pi^{\frac[f]{5}{7}}r^{\frac[f]{15}{14}}(2\epsilon\alpha)^{\frac[f]{5}{14}}}}_k \cdot I ^{\frac[f]{5}{7}} \qquad \text{with } k\sim811\si{K\cdot A^{-\frac[f]{5}{7}}}
 \]
 
-\todo[inline]{Insert T-I plot}
+\begin{figure}[H]
+  \centering
+  \resizebox{0.8\textwidth}{!}{\import{img/voltage-current-filament/}{temp_1.tex}}
+  \caption{Projection of the filament temperature as function of the current}
+  \label{fig:temp_1}
+\end{figure}
 \end{document}
