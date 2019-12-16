@@ -75,7 +75,7 @@ Considering the reaction time, the slowness of the ionization gauge in stabilizi
   \label{fig:increase_all}
 \end{figure}
 
-As can be seen from fig \ref{fig:increase_all} there is an evident trend in the residuals, proving that $F_0$ cannot be assumed constant throughout all the explored range of pressures. A simple way to correct this is to consider a low pressure regime and a high pressure one\todo{Limiti dei regimi}.
+As can be seen from fig \ref{fig:increase_all} there is an evident trend in the residuals, proving that $F_0$ cannot be assumed constant throughout all the explored range of pressures. A simple way to correct this is to consider a low pressure regime and a high pressure one: the limit should be put where the trend in the residuals inverts, i.e. around 200\si{\nano\pascal}.
 
 \begin{figure}[H]
   \centering
@@ -93,11 +93,11 @@ As can be seen from fig \ref{fig:increase_all} there is an evident trend in the 
   \label{fig:increase_highP}
 \end{figure}
 
-Splitting the high pressure area and the low pressure area and performing two different fits, the inflow can be estimated as (assuming a 5\% error on the volume):
+Splitting the high pressure area and the low pressure area, performing two different fits and assuming a 5\% error on the volume, the inflow can be estimated as:
 
 \begin{gather*}
-  F_0^\text{low} = (6.4 \pm 0.4) \cdot 10^{-8} \si{\pascal}\, \si{\metre^3}/\si{\second} \quad
-  F_0^\text{high} = (4.5 \pm 0.4) \cdot 10^{-8} \si{\pascal}\, \si{\metre^3}/\si{\second}
+  F_0^\text{low} = (6.4 \pm 0.4) \cdot 10^{-16} \si{\pascal}\, \si{\metre^3}/\si{\second}, \quad
+  F_0^\text{high} = (4.5 \pm 0.4) \cdot 10^{-16} \si{\pascal}\, \si{\metre^3}/\si{\second}
 \end{gather*}
 
 Subsequently, the valve has been opened connecting the chamber to the pumping system. An exponential decay of the pressure is expected: $P(t) = (P_i - P_0)\exp(-t/\tau) + P_0$, where $P_i$ is the starting pressure and $P_0$ the asymptotic pressure.
@@ -110,7 +110,7 @@ Subsequently, the valve has been opened connecting the chamber to the pumping sy
   \label{fig:decrease_all}
 \end{figure}
 
-As can be seen from fig \ref{fig:decrease_all} there is an evident trend in the residuals, similarly as what seen before, and as before two regimes can be distinguished \todo{Limits of regimes}.
+As can be seen from fig \ref{fig:decrease_all}, similarly as what seen before, the result are not acceptable and as before two regimes can be distinguished. For coherence the same limit as before has been used.
 
 \begin{figure}[H]
   \centering
@@ -128,7 +128,7 @@ As can be seen from fig \ref{fig:decrease_all} there is an evident trend in the 
   \label{fig:decrease_highP}
 \end{figure}
 
-Performing two different exponential fits, from the values of $\tau$ and $P_0$ the effective pumping speed $S_e$, the inflow $F_0$ and, given the nominal value of the pumping speed $S = 33 \si{\litre/\second}$, the conductance of the chamber-pump connection $C$ can be estimated.
+Performing two different exponential fits there are still trends in the residuals, but now the result is acceptable. From the values of $\tau$ and $P_0$ the effective pumping speed $S_e$, the inflow $F_0$ and, given the nominal value of the pumping speed $S = 33 \si{\litre/\second}$, the conductance of the chamber-pump connection $C$ can be estimated.
 
 \begin{table}[H]
   \centering
@@ -136,13 +136,15 @@ Performing two different exponential fits, from the values of $\tau$ and $P_0$ t
     \toprule
     regime & $S_e = V/\tau$ [\si{\litre/\second}] & $F_0 = P_0 \cdot S_e$ [\si{\pascal}\, \si{\metre^3}/\si{\second}] & $C = 1/(1/S_e - 1/S)$ [\si{\litre/\second}] \\
     \midrule
-    jhba & gfjha & bfgjlb & hasgjbha \\
+    low pressure & $0.51 \pm 0.04$ & $(2.2 \pm 0.2)\cdot 10^{-16}$ & $0.52 \pm 0.05$ \\
+    high pressure & $4.0 \pm 0.6$ & $(2 \pm 1)\cdot 10^{-15}$ & $4.6 \pm 0.7$ \\
     \bottomrule
   \end{tabular}
   \caption{Vacuum parameters}
   \label{tab:vacuum}
 \end{table}
 
+In the low pressure regime the two estimates of $F_0$ are not compatible but still comparable, on the other hand at high pressure the two estimates differ by an order of magnitude. By comparing the nominal value of the pumping speed with $S_e$ one can deduce that most of the pump potential is wasted by a very low conductance connection.
 
 \section{Voltage-Current characteristic of the filament}
 The filament inside the vessel is a tungsten filament with diameter $2r\sim0.25\si{{\milli\metre}}$ and length $L\sim10\si{\centi\metre}$. Combining Ohm law and emissivity rules, a theoretical characteristic curve can be obtained:
@@ -154,7 +156,7 @@ where $\epsilon$ is the effective emissivity, $\alpha$ the StefanBoltzmann const
     \rho(T) = AT^{\frac[f]{6}{5}}
 \]
 
-Pumping the vessel to a low density (...\todo{how much?}), the voltage-current characteristic curve of the filament has been measured, producing the following data:
+Pumping the vessel to a low pressure ($\sim 2 $), the voltage-current characteristic curve of the filament has been measured, producing the following data:
 
 \begin{figure}[H]
   \centering
