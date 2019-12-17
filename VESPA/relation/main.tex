@@ -97,8 +97,8 @@ As can be seen from fig \ref{fig:increase_all} there is an evident trend in the 
 Splitting the high pressure area and the low pressure area, performing two different fits and assuming a 5\% error on the volume, the inflow can be estimated as:
 
 \begin{gather*}
-  F_0^\text{low} = (6.4 \pm 0.4) \cdot 10^{-16} \si{\pascal}\, \si{\metre^3}/\si{\second}, \quad
-  F_0^\text{high} = (4.5 \pm 0.4) \cdot 10^{-16} \si{\pascal}\, \si{\metre^3}/\si{\second}
+  F_0^\text{low} = (6.4 \pm 0.4) \cdot 10^{-6} \si{\pascal}\, \si{\metre^3}/\si{\second}, \quad
+  F_0^\text{high} = (4.5 \pm 0.4) \cdot 10^{-6} \si{\pascal}\, \si{\metre^3}/\si{\second}
 \end{gather*}
 
 Subsequently, the valve has been opened connecting the chamber to the pumping system. An exponential decay of the pressure is expected: $P(t) = (P_i - P_0)\exp(-t/\tau) + P_0$, where $P_i$ is the starting pressure and $P_0$ the asymptotic pressure.
@@ -137,8 +137,8 @@ Performing two different exponential fits there are still trends in the residual
     \toprule
     regime & $S_e = V/\tau$ [\si{\litre/\second}] & $F_0 = P_0 \cdot S_e$ [\si{\pascal}\, \si{\metre^3}/\si{\second}] & $C = 1/(1/S_e - 1/S)$ [\si{\litre/\second}] \\
     \midrule
-    low pressure & $0.51 \pm 0.04$ & $(2.2 \pm 0.2)\cdot 10^{-16}$ & $0.52 \pm 0.05$ \\
-    high pressure & $4.0 \pm 0.6$ & $(2 \pm 1)\cdot 10^{-15}$ & $4.6 \pm 0.7$ \\
+    low pressure & $0.51 \pm 0.04$ & $(2.2 \pm 0.2)\cdot 10^{-6}$ & $0.52 \pm 0.05$ \\
+    high pressure & $4.0 \pm 0.6$ & $(2 \pm 1)\cdot 10^{-5}$ & $4.6 \pm 0.7$ \\
     \bottomrule
   \end{tabular}
   \caption{Vacuum parameters}
@@ -201,6 +201,20 @@ By measuring the polarization voltage on the power supply (0.1 \si{\volt} error)
   \label{fig:constP}
 \end{figure}
 
+As can be seen from fig \ref{fig:constP} changing $I_f$ doesn't change the breakdown voltage, but changes the the characteristics of the plasma once it is ignited. This effect is due to the thermoionic emission of the filament and is explained by Richardson law:
+
+\begin{equation*}
+  I = \Sigma A T^2 \exp(-\frac{e\Phi}{k_BT})
+\end{equation*}
+
+where $A = 7\cdot 10^5 \si{\ampere/\metre^2\kelvin^2}$, $\Phi =  4.55 \si{\volt}$ and $\Sigma$ is the surface of the filament \todo[inline]{compute $\Sigma$}
+
+By using the previous found relation between the temperature and the filament current $T = k\cdot I_f^{\frac[f]{5}{7}}$ the expected plasma current can be computed.
+
+\todo[inline]{Ma In Richardson non c'e' nessuna dipendenza dalla tensione di polarizzazione... inoltre in che regime di plasma siamo? Bagliore o arco?}
+
+By studying instead the V-I characteristics varying the Argon pressure one obtains the results in fig \ref{fig:constIf}, where it is visible the influence of the pressure on the breakdown voltage, effect that can be better understood building the experimental Paschen curve.
+
 \begin{figure}[H]
   \centering
   \resizebox{0.8\textwidth}{!}{\import{img/Paschen-DC/}{constIf.tex}}
@@ -210,7 +224,14 @@ By measuring the polarization voltage on the power supply (0.1 \si{\volt} error)
 
 \subsection{Paschen curve in DC condition}
 
+\begin{figure}[H]
+  \centering
+  \resizebox{0.8\textwidth}{!}{\import{img/Paschen-DC/}{Paschen.tex}}
+  \caption{Experimental Paschen curve: breakdown voltage vs $P$}
+  \label{fig:DCP}
+\end{figure}
 
+As can be seen from fig \ref{fig:DCP} the curve is quite noisy so a fit with the theoretical formula of the Paschen curve would fail. On the other hand the Paschen's minimum is clear to be between 3 and 4 \si{\micro\bar}.
 
 \section{Paschen curve in radiofrequency condition}
 Inside VESPA a magnetic antenna is provided, which allow to induce a plasma through radiofrequency waves that, coupling with gas electrons, excite them and generate the discharge.
