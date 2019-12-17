@@ -18,6 +18,7 @@
 \usepackage{tablefootnote}
 \usepackage{amssymb}
 \usepackage{enumitem}
+\usepackage{mathcomp}
 \usepackage{multicol}
 \setlist[description]{font={\scshape}} %style=unboxed,style=nextline
 \usepackage{wrapfig}
@@ -188,8 +189,8 @@ Finally, the estimated filament temperature as a function of the driven current 
   \label{fig:temp_1}
 \end{figure}
 
-
-\section{Voltage-current characteristics of the discharge}
+\section{DC analysis of the plasma}
+\subsection{Voltage-current characteristics of the discharge}
 By polarizing the filament with respect to the grid (grounded) a discharge in the plasma can be achieved.
 By measuring the polarization voltage on the power supply (0.1 \si{\volt} error) and the plasma current via the voltage fall on a resistor $R_{shunt} = (1 \pm 0.03) \si{\ohm}$, the discharge V-I curve can be studied. In particular the breakdown voltage is clearly visible.
 
@@ -206,6 +207,48 @@ By measuring the polarization voltage on the power supply (0.1 \si{\volt} error)
   \caption{V-I characteristics of the discharge at constant filament current $I_f$, varying the pressure $P$}
   \label{fig:constIf}
 \end{figure}
+
+\subsection{Paschen curve in DC condition}
+
+
+
+\section{Paschen curve in radiofrequency condition}
+Inside VESPA a magnetic antenna is provided, which allow to induce a plasma through radiofrequency waves that, coupling with gas electrons, excite them and generate the discharge.
+
+The antenna is powered through a RF generator and a RLC circuit; firstly, the response of the circuit is studied. Keeping fixed the generator power and varying the frequency, through an oscilloscope the peak-to-peak amplitude of the wave downstream the circuit is measured. The result is a typical resonance courve (fig. \ref{fig:RF:response}).
+
+\begin{figure}[H]
+  \centering
+  \resizebox{0.8\textwidth}{!}{\import{img/paschen-RF/}{circuit_response.tex}}
+  \caption{Peak-to-peak amplitude downstream the circuit, varying the wave frequency.  From the oscillation in the measurements and the instrumentation sensibility, the errors has been estimated at $5\tcperthousand$ in the frequencies and $1\%$ in voltages.}
+  \label{fig:RF:response}
+\end{figure}
+
+From the fig. \ref{fig:RF:response} the maximum can be detected: it is around $4\si{\mega\hertz}$. Therefore the operation area is identified in the range $3\textup{--}4\si{\mega\hertz}$, when the amplitude is high and increasing with the frequency.
+
+Varying the pressure in the vessel, the breakdown voltage trend can be studied. For each pressure, the frequency has been increased until the discharge took place (it's a clearly visible phenomena, so the discrimination has been done visually), and the peak-to-peak voltage in the breakdown point has been measured. The result is the Paschen curve in fig. \ref{fig:RF:Paschen}.
+
+\begin{figure}[H]
+  \centering
+  \resizebox{0.8\textwidth}{!}{\import{img/paschen-RF/}{paschen.tex}}
+  \caption{Radiofrequency Paschen curve. From the oscillation in the measurements and the instrumentation sensibility, the errors has been estimated at $5\%$ in the pressures and $1\%$ in voltages.}
+  \label{fig:RF:Paschen}
+\end{figure}
+
+As can be seen from the plot, the minimum of the Paschen curve in radiofrequency condition is very large: the optimal area can be identified in the range: $$3\textup{--}7 \cdot 10^{-5}\si{\bar}$$
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
