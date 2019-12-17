@@ -1,5 +1,5 @@
-Freq [MHz]	Peak_to_peak [V]		Err_{pp} ~ 1%
-1.001	106		Err_{f} ~ 0.5%
+Freq [MHz]	Peak_to_peak [V]		Err_{pp} ~ 1%		Err_{f} ~ 0.5%
+1.001	106
 1.499	122		
 1.996	196		
 2.497	180		
