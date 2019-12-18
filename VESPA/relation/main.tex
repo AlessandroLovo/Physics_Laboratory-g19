@@ -207,9 +207,14 @@ As can be seen from fig \ref{fig:constP} changing $I_f$ doesn't change the break
   I = \Sigma A T^2 \exp(-\frac{e\Phi}{k_BT})
 \end{equation*}
 
-where $A = 7\cdot 10^5 \si{\ampere/\metre^2\kelvin^2}$, $\Phi =  4.55 \si{\volt}$ and $\Sigma$ is the surface of the filament \todo[inline]{compute $\Sigma$}
+where $A = 7\cdot 10^5 \si{\ampere/\metre^2\kelvin^2}$, $\Phi =  4.55 \si{\volt}$ and $\Sigma = 2\pi r L \sim 79$ \si{\milli\metre^2} is the surface of the filament.
 
-By using the previous found relation between the temperature and the filament current $T = k\cdot I_f^{\frac[f]{5}{7}}$ the expected plasma current can be computed.
+By using the previous found relation between the temperature and the filament current $T = k\cdot I_f^{\frac[f]{5}{7}}$ the expected plasma current can be computed as:
+\begin{gather*}
+  I = JI_f^{\frac[f]{10}{7}}\exp(-QI_f^{-\frac[f]{5}{7}}) \qquad
+  J \sim 3.6 \cdot 10^7 \text{A}^{-\frac[f]{3}{7}} \quad
+  Q \sim 65 \text{A}^{-\frac[f]{5}{7}}
+\end{gather*}
 
 \todo[inline]{Ma In Richardson non c'e' nessuna dipendenza dalla tensione di polarizzazione... inoltre in che regime di plasma siamo? Bagliore o arco?}
 
