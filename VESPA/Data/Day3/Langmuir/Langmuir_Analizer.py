@@ -8,9 +8,7 @@ last edited: April 2017
 """
 
 import sys, shelve, os, traceback
-import QtGui
-import QtCore
-import QtWidgets
+from PyQt5 import QtGui, QtCore, QtWidgets
 #from PyQt4 import QtGui, QtCore
 import pyqtgraph as pg
 import numpy as np
