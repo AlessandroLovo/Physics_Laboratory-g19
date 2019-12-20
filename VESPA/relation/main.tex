@@ -190,17 +190,17 @@ Finally, the estimated filament temperature as a function of the driven current 
 \end{figure}
 
 \section{V-I characteristics of the discharge \& DC Paschen curve}
-By polarizing the filament with respect to the grid (grounded) a discharge in the plasma can be achieved.
-By measuring the polarization voltage on the power supply (0.1 \si{\volt} error) and the plasma current via the voltage fall on a resistor $R_{shunt} = (1 \pm 0.03) \si{\ohm}$, the discharge V-I curve can be studied. In particular the breakdown voltage is clearly visible.
+By polarizing the filament with respect to the whole vessel (grounded) a discharge in the plasma can be achieved.
+By measuring the polarization voltage on the power supply ($0.1 \si{\volt}$ estimated error) and the plasma current via the voltage across a resistor $R_\text{shunt} = (1.00 \pm 0.03) \si{\ohm}$, the discharge characteristic curve can be studied. In particular the breakdown is clearly visible.
 
 \begin{figure}[H]
   \centering
   \resizebox{0.8\textwidth}{!}{\import{img/Paschen-DC/}{constP.tex}}
-  \caption{V-I characteristics of the discharge at constant pressure $P$, varying the filament current $I_f$}
+  \caption{V-I characteristics of the discharge at constant pressure $P$, varying the filament current $I_f$. The breakdown is clearly visible around $\sim18\si{V}$.}
   \label{fig:constP}
 \end{figure}
 
-As can be seen from fig \ref{fig:constP} changing $I_f$ doesn't change the breakdown voltage, but changes the the characteristics of the plasma once it is ignited. This effect is due to the thermoionic emission of the filament and is explained by Richardson law:
+As can be seen from fig \ref{fig:constP}, variations on filament current doesn't affect breakdown voltage, but changes the behavior of plasma once it is ignited. This effect is due to the thermoionic emission of the filament and it is explained by Richardson law:\todo{Riguardare questa parte. C'è un po' di casino, mancano gli errori, i simboli non sono chiari ed in generale non è scorrevole}
 
 \begin{equation*}
   I = \Sigma A T^2 \exp(-\frac{e\Phi}{k_BT})
@@ -232,6 +232,8 @@ A first comparison between the predicted plasma current and the experimental one
   \label{tab:Richardson}
 \end{table}
 
+\todo[inline]{AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA THE ERRORS }
+
 As can be seen from tab \ref{tab:Richardson} the prediction and the data differ by a factor $\sim 25$, that is almost the same for every value of the filament current, suggesting that the main error in the estimate concerns coefficient $J$; or equivalently that the current emitted by the filament is not the plasma current, and this is due to electron absorption in the plasma. In this case the error in the prediction of the current could be an estimate of percentage of absorbed electrons ($\sim 96\%$). \todo[inline]{Hmm: it seems very high: comment}
 On the other hand, Richardson model fails to predict other observed effects:
 \begin{itemize}
@@ -256,13 +258,14 @@ By studying instead the V-I characteristics varying the Argon pressure one obtai
   \label{fig:DCP}
 \end{figure}
 
+\todo[inline]{Meh, riguardare}
 As can be seen from fig \ref{fig:DCP} the curve is quite noisy so a fit with the theoretical formula (\ref{eq:paschen}) of the Paschen curve would fail.
 
 \begin{gather} \label{eq:paschen}
   V_b = \frac{Bpd}{\log(Apd) - C} \qquad (pd)_{min} = \frac{e^{1+C}}{A}
 \end{gather}
 
-where $d$ is the distance between the electrodes (in this experiment the filament and the grid) and for Argon $A = 8.63 \si{\metre^{-1}\pascal^{-1}}$, $B = 132.0 \si{\volt\metre^{-1}\pascal^{-1}}$ and $C = 1.004$.
+where $d$ is the distance between the electrodes (in this experiment the filament and the grid\todo{Falso! Tutta la camera è a terra e funge da elettrodo negativo}) and for Argon $A = 8.63 \si{\metre^{-1}\pascal^{-1}}$, $B = 132.0 \si{\volt\metre^{-1}\pascal^{-1}}$ and $C = 1.004$.
 
 From fig \ref{fig:DCP} it is clear that Paschen's minimum is between 3 and 4 \si{\micro\bar}, but this would imply $d \sim 2.4$ \si{\metre}, that is rather unphysical considering that the whole chamber is only 0.8 \si{\metre} long. On the other hand using a more reasonable $d \sim 0.4$ \si{\metre} one obtains $p_{min} \sim 20$ \si{\micro\bar}.
 
@@ -295,9 +298,10 @@ Varying the pressure in the vessel, the breakdown voltage trend can be studied. 
 
 As can be seen from the plot, the minimum of the Paschen curve in radiofrequency condition is very large: the optimal area can be identified in the range: $$3\textup{--}7 \cdot 10^{-5}\si{\bar}$$
 
+\section{...}
 
-
-
+\section{IonicSonic waves}
+Through the Langmuir probes, some measurements of the ionic-sonic waves propagation can be done. The system has been set with a pressure of $1.03\cdot10^{-3}\si{\milli\bar}$ and the filament with a current of $6.5\si{\ampere}$; the grid has been polarized with a sinusoidal waves (frequency $\sim20.8\si{\kilo\hertz}$, $V_\text{peak-peak}\sim50\si{\volt}$) and the Langmuir probe has been connected to an oscilloscope. One of the first things noticed is that the plasma distorts 
 
 
 
