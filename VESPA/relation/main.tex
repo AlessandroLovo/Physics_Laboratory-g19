@@ -300,15 +300,41 @@ As can be seen from the plot, the minimum of the Paschen curve in radiofrequency
 
 \section{...}
 
-\section{IonicSonic waves}
-Through the Langmuir probes, some measurements of the ionic-sonic waves propagation can be done. The system has been set with a pressure of $1.03\cdot10^{-3}\si{\milli\bar}$ and the filament with a current of $6.5\si{\ampere}$; the grid has been polarized with a sinusoidal waves (frequency $\sim20.8\si{\kilo\hertz}$, $V_\text{peak-peak}\sim50\si{\volt}$) and the Langmuir probe has been connected to an oscilloscope. One of the first things noticed is that the plasma distorts 
+\section{IonicSonic speed}
+Through the Langmuir probes, some measurements of the ionic-sonic waves propagation can be done. The system has been set with a pressure of $1.03\cdot10^{-3}\si{\milli\bar}$ and the filament with a current of $6.5\si{\ampere}$; the grid has been polarized with a sinusoidal waves (frequency $\sim20.8\si{\kilo\hertz}$, $V_\text{peak-peak}\sim50\si{\volt}$, which also trigger the oscilloscope) and the Langmuir probe has been connected to an oscilloscope. One of the first things noticed is that the plasma distorts the sinusoidal wave: as can be seen from fig. \ref{fig:isspeed:oscill}, in the output wave the rising time is greater than the lowering time.
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\textwidth]{img/ionicsonic/oscill.jpg}
+  \caption{Signal from Langmuir probe: note the distorted sinusoidal wave. Scale: 1 square = $10\si{\micro\second}\times500\si{\milli\volt}$}
+  \label{fig:isspeed:oscill}
+\end{figure}
 
+Moving the probe perpendicularly to the grid, the shift of the maximum and minimum of the detected wave has been measured, and thus the speed estimated.
 
+\begin{table}[H]
+  \centering
+  \begin{tabular}{cccccccc}
+    \toprule
+    $\Delta x [\si{\milli\metre}]$ & $\Delta t_{min} [\si{\micro\second}]$ & $\Delta t_{max} [\si{\micro\second}]$ \\
+    \midrule
+    $5.0\pm0.1$ & $2.0\pm0.2$ & $5.0\pm0.2$\\
+    $10.0\pm0.1$ & $5.0\pm0.2$ & $7.0\pm0.2$\\
+    \bottomrule
+  \end{tabular}
+  \caption{IonicSonic speed: maximum and minimum shifts}
+  \label{tab:isspeed}
+\end{table}
 
+\begin{gather*}
+  v_{min} \sim 2.3\cdot10^{3} \si{\metre\per\second} \\
+  v_{max} \sim 1.3\cdot10^{3} \si{\metre\per\second} \\
+  v \sim 1.8\cdot10^{3} \si{\metre\per\second}
+\end{gather*}
 
+Observe that thes-e estimations are very coarse; the used method, the available apparatus and the non-linearity terms doesn't allow a better result.
 
-
+\section{IonicSonic decay}
 
 
 
