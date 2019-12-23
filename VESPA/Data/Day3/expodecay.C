@@ -4,9 +4,21 @@ void read(TGraphErrors* tge, string title) {
 	double a,b;
 	in.ignore(1000000,'\n');
 	while( in>>a>>b ) {
-		tge->SetPoint( tge->GetN(), (a-30)/10, b );
-		tge->SetPointError( tge->GetN()-1, 0.01, 0.05*b );
+		tge->SetPoint( tge->GetN(), (32.5-a)/100, b );
+		tge->SetPointError( tge->GetN()-1, 0.001, 0.05*b );
 	}
+}
+
+void simpleplot() {
+	TGraphErrors* tge3 = new TGraphErrors();
+	read(tge3,"expodecay_3.txt");
+	tge3->Draw();
+
+
+	tge3->SetTitle("Wave amplitude");
+	tge3->GetXaxis()->SetTitle("Position [m]");
+	tge3->GetYaxis()->SetTitle("Amplitude [V]");
+	
 }
 
 void plot() {
