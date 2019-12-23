@@ -2,10 +2,11 @@
 void read(TGraphErrors* tge, string title) {
 	ifstream in(title);
 	double a,b;
+	double moltiplic = 1000;
 	in.ignore(1000000,'\n');
 	while( in>>a>>b ) {
-		tge->SetPoint( tge->GetN(), (32.5-a)/100, b );
-		tge->SetPointError( tge->GetN()-1, 0.001, 0.05*b );
+		tge->SetPoint( tge->GetN(), (32.5-a)/100 * moltiplic, b );
+		tge->SetPointError( tge->GetN()-1, 0.001 * moltiplic, 0.05*b );
 	}
 }
 
