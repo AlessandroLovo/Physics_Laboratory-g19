@@ -94,6 +94,16 @@ As can be seen from fig \ref{fig:increase_all} there is an evident trend in the 
   \label{fig:increase_highP}
 \end{figure}
 
+\todo[inline]{Secondo me è un po' un casino, un po' tutto stretto. Proporrei invece al posto delle figure \ref{fig:increase_highP} e \ref{fig:increase_lowP} la figura seguente:}
+
+\begin{figure}[H]
+  \centering
+  \resizebox{0.8\textwidth}{!}{\import{img/vacuum/}{combined.tex}}
+  \caption{Fits in the two regimes.}
+  \label{fig:increase_combined}
+\end{figure}
+
+
 Splitting the high pressure area and the low pressure area, performing two different fits and assuming a 5\% error on the volume, the inflow can be estimated as:
 \begin{gather*}
   F_0^\text{low} = (6.4 \pm 0.4) \cdot 10^{-6} \si{\pascal}\, \si{\metre^3}/\si{\second}, \quad
@@ -127,6 +137,16 @@ As can be seen from fig \ref{fig:decrease_all}, similarly as what seen before, t
   \caption{High pressure regime}
   \label{fig:decrease_highP}
 \end{figure}
+
+\todo[inline]{Facendo un grafico in scala logaritmica, sembra invece che ci siano tre regimi! Vedere figura seguente}
+
+\begin{figure}[H]
+  \centering
+  \resizebox{0.8\textwidth}{!}{\import{img/vacuum/}{combined_emptying.tex}}
+  \caption{Fits in different regimes.}
+  \label{fig:combined_emptying}
+\end{figure}
+
 
 Performing two different exponential fits there are still trends in the residuals, but now the result is acceptable. From the values of $\tau$ and $P_0$ the effective pumping speed $S_e$, the inflow $F_0$ and, given the nominal value of the pumping speed $S = 33 \si{\litre/\second}$, the conductance of the chamber-pump connection $C$ can be estimated.
 
@@ -202,19 +222,19 @@ By measuring the polarization voltage on the power supply ($0.1 \si{\volt}$ esti
   \label{fig:constP}
 \end{figure}
 
-As can be seen from fig \ref{fig:constP}, variations on filament current doesn't affect breakdown voltage, but changes the behavior of the plasma once it is ignited. This effect is mainly due to the thermoionic emission of the filament: the current emitted by the filament into the plasma can be modeled by Richardson law:
+As can be seen from fig \ref{fig:constP}, variations on filament current doesn't affect breakdown voltage, but changes the behavior of the plasma once it is ignited.
+
+The current emitted by the filament into the plasma can be modeled by Richardson law:
 
 \begin{equation*}
   I = \Sigma A T^2 \exp(-\frac{e\Phi}{k_BT})
 \end{equation*}
 
-where for our tungsten filament $A = 7\cdot 10^5 \si{\ampere/\metre^2\kelvin^2}$, $\Phi =  4.55 \si{\volt}$ and $\Sigma = 2\pi r L \sim 79$ \si{\milli\metre^2} is the surface aera of the filament.
-
-By using the previous found relation between the temperature and the filament current $T = k\cdot I_f^{\frac[f]{5}{7}}$, and assuming that the plasma current is the current emitted by the filament, one obtains:
+where for our tungsten filament $A = 7\cdot 10^5 \si{\ampere/\metre^2\kelvin^2}$, $\Phi =  4.55 \si{\volt}$ and $\Sigma = 2\pi r L \sim 80$ \si{\milli\metre^2} is the surface aera of the filament. By using the previous found relation between the temperature and the filament current $T = k\cdot I_f^{\frac[f]{5}{7}}$, and assuming that the plasma current is the whole current emitted by the filament, an expression for the current can be obtained:
 \begin{gather*}
-  I = JI_f^{\frac[f]{10}{7}}\exp(-QI_f^{-\frac[f]{5}{7}}) \qquad
+  I = JI_f^{\frac[f]{10}{7}}\exp(-QI_f^{-\frac[f]{5}{7}}) \quad\text{where:}\quad
   J = \Sigma A k^2 \sim 3.6 \cdot 10^7 \text{A}^{-\frac[f]{3}{7}} \quad
-  Q = \frac{e\Phi}{k_Bk} \sim 65 \text{A}^{-\frac[f]{5}{7}}
+  Q = \frac{e\Phi}{k_Bk} \sim 65 \text{A}^{\frac[f]{5}{7}}
 \end{gather*}
 
 Richardson law predicts no dependence of the plasma current on the polarization voltage $V$, so a first comparison between the predicted plasma current and the experimental one is to use for the latter the value at $V = 60$ \si{\volt}: value at which the plasma has been ignited but the electric field is not strong enough to induce a high multiplication of electrons.
@@ -233,13 +253,13 @@ Richardson law predicts no dependence of the plasma current on the polarization 
   \caption{Experimental plasma current at $V = 60$ \si{\volt} and prediction from Richardson law (since the discrepancies between theoretical and experimental values are very high only approximate values are shown).}
   \label{tab:Richardson}
 \end{table}
+\todo[inline]{Proposta: se invece inserissimo nel grafico i valori a cui ci aspettiamo la corrente, magari linee orizzontali tratteggiate dello stesso colore dei dati? Così evitiamo di mettere valori così a caso.}
 
 As can be seen from tab \ref{tab:Richardson} the prediction and the data differ by a factor $\sim 25$, that is almost the same for every value of the filament current, suggesting that the main error is either in the estimate of coefficient $J$ or in the assumption that the current emitted by the filament is the plasma current. The latter seems more reasonable since the plasma current varies with $V$ and can be explained by the predominance of electron absorption in the plasma at low $V$ and electron multiplication at high $V$.
-In this case the error in the prediction of the current could be used as an estimate of the percentage of absorbed electrons: $\sim 96\%$.
+\todo[inline]{Leggi la teoria, paragrafo 1.4. Spiega perché Richardson è sbagliata.}
+In this case the error in the prediction of the current could be used as an estimate of the percentage of absorbed electrons: $\sim 96\%$\todo{Da dove è uscito 'sto numero?}.
 
 On the other hand during data acquisition it has been observed that the voltage across the filament $V_f$ increases with $V$, meaning that the resistivity of the filament becomes greater. This means either that the resistivity does not depend only on the temperature of the filament, or that the temperature does not depend only on $I_f$.
-
-In any case the model used for the filament is unable to explain the experimental data.
 
 % On the other hand, Richardson model fails to predict other observed effects:
 % \begin{itemize}
@@ -249,7 +269,7 @@ In any case the model used for the filament is unable to explain the experimenta
 
 \subsection{Varying $P$}
 
-By studying instead the V-I characteristics varying the Argon pressure one obtains the results in fig \ref{fig:constIf}. If one ignores the weird behavior of the $P = 8$ \si{\micro\bar} curve at high $V$, it is visible that the main influence of the pressure on the curve is the value of the breakdown voltage, effect that can be better understood building the experimental Paschen curve (fig \ref{fig:DCP}).
+By studying instead the V-I characteristics varying the Argon pressure one obtains the results in fig \ref{fig:constIf}. If one ignores the weird behavior of the $P = 8$ \si{\micro\bar} curve at high $V$\todo{Sono due punti palesemente sbagliati, reiettiamoli e basta secondo me}, it is visible that the main influence of the pressure on the curve is the value of the breakdown voltage, effect that can be better understood building the experimental Paschen curve (fig \ref{fig:DCP})\todo{Come l'abbiamo costruita?}.
 
 \begin{figure}[H]
   \centering
@@ -264,11 +284,11 @@ By studying instead the V-I characteristics varying the Argon pressure one obtai
   \caption{Experimental Paschen curve: breakdown voltage vs $P$}
   \label{fig:DCP}
 \end{figure}
+\todo[inline]{No amici, questo fit è inguardabile, non prende nemmeno bene il minimo, direi di ammazzarlo}
 
 The theoretical formula of the Paschen curve is
-\todo[inline]{No amici, questo fit è inguardabile}
 \begin{gather} \label{eq:paschen}
-  V_b = \frac{Bpd}{\log(Apd) - C} \qquad (pd)_{min} = \frac{e^{1+C}}{A}
+  V_b = \frac{Bpd}{\log(Apd) - C} %\qquad (pd)_{min} = \frac{e^{1+C}}{A}
 \end{gather}
 
 where $d$ is the distance between the electrodes and for Argon $A = 8.63 \si{\metre^{-1}\pascal^{-1}}$, $B = 132.0 \si{\volt\metre^{-1}\pascal^{-1}}$ and $C = 1.004$. By keeping $C$ fixed\footnote{Eventual variations of $C$ can be absorbed into the variation of $A$, so keeping $C$ fixed is not limiting.} at the theoretical value and varying $A$ and $B$ it is possible to perform a fit on the data (fig \ref{fig:DCP}).
@@ -278,6 +298,7 @@ A way to compare the results of the fit with the theoretical ones is to take con
   \left( \frac{A}{B} \right)_{\text{experimental}} = \left( \frac{Ad}{Bd} \right) = (0.41 \pm 0.01) \si{\volt^{-1}} \qquad
   \left( \frac{A}{B} \right)_{\text{theoretical}} \sim 0.07 \si{\volt^{-1}}
 \end{gather*}
+\todo[inline]{Dai, non mi serve un conto così complicato per vedere che la curva non fitta.}
 
 As can be seen the experimental results do not agree with the theory both in the sense that the fit with the theoretical curve has a very high $\chi^2$ and in the sense that the fitting parameters are incompatible with the expected theoretical values.
 
@@ -285,7 +306,7 @@ Another way to see this incompatibility is that from fig \ref{fig:DCP} it is cle
 
 It can then be deduced that this system does not follow the theoretical Paschen's curve.
 
-\todo[inline]{Other comments?}
+\todo[inline]{Non abbiamo dato un risultato, un chiaro valore per questo minimo}
 
 \section{Paschen curve in radiofrequency condition}
 Inside VESPA a magnetic antenna is provided, which allow to induce a plasma through radiofrequency waves that, coupling with gas electrons, excite them and generate the discharge.
