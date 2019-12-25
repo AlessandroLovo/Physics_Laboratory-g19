@@ -1,0 +1,208 @@
+#include <iostream>
+
+TGraph* DependenceOnDischargePolVolt(int side, int par){
+	double v []={20,30,40,50,60};
+	double T_dx []={0.5101,0.6179,0.5901,0.5995,0.5481};
+	double T_sx []={0.8566,0.5152,0.4471,0.4125,0.5254};
+	double n_dx []={9.43E+15,2.40E+16,3.23E+16,4.18E+16,4.87E+16};
+	double n_sx []={5.45E+15,7.80E+15,7.77E+15,9.54E+15,1.19E+16};
+	double Vp_dx []={0.89,1.48,1.65,1.71,1.76};
+	double Vp_sx []={2.12,0.93,0.80,0.82,1.12};
+	TGraph* g;
+	switch (par){
+		case 0:{
+			g = !((bool) side) ? new TGraph (5, v, T_dx) : new TGraph (5, v, T_sx);
+			g->GetYaxis()->SetRangeUser(0.4, 0.9);
+			break;
+		};
+		case 1:{
+			g = !((bool) side) ? new TGraph (5, v, n_dx) : new TGraph (5, v, n_sx);
+			g->GetYaxis()->SetRangeUser(0, 5.0E+16);
+			break;
+		};
+		case 2:{
+			g = !((bool) side) ? new TGraph (5, v, Vp_dx) : new TGraph (5, v, Vp_sx);
+			g->GetYaxis()->SetRangeUser(0.75, 2.2);
+			break;
+		};
+	}
+	return g;
+}
+
+void DischargePolVolt(int par){
+	auto g = DependenceOnDischargePolVolt(0,par);
+	g->SetLineColor(kViolet);
+ 	g->SetName("right");
+
+ 	g->GetXaxis()->SetTitle("Discharge Polarization Voltage [V]");
+ 	switch(par){
+ 		case 0:{
+	 		g->GetYaxis()->SetTitle("Te [eV]");
+	 		break;
+ 		}
+ 		case 1:{
+ 			g->GetYaxis()->SetTitle("n [m^(-3)]");
+ 			break;
+ 		}
+ 		case 2:{
+ 			g->GetYaxis()->SetTitle("Vp [V]");
+ 			break;
+ 		}
+ 	}
+
+ 	g->Draw();
+
+ 	g = DependenceOnDischargePolVolt(1,par);
+	g->SetLineColor(kRed);
+ 	g->SetName("left");
+ 	g->Draw("SAME");
+
+ 	auto legend = new TLegend(0.1,0.7,0.48,0.9);
+ 	legend->AddEntry("right","Filament Side","l");
+ 	legend->AddEntry("left","Pump Side","l");
+ 	legend->Draw();
+}
+
+
+
+// class LangFit{
+// 	public:
+// 	LangFit(char* f){
+// 		file = f;
+// 		ifstream in;
+// 		in.open(Form("/Users/andreagrossutti/Documents/GitHub/Physics_Laboratory-g19/VESPA/Data/Day3/Langmuir/DatiAcquisiti/%s.txt",file));
+// 		in.ignore(10000,'\n');
+// 		g=new TGraph();
+// 		double i,j,k,l;
+// 		while(in >> i >> j >> k >> l)
+// 			g->SetPoint(g->GetN(),k,l);
+// 		//g->Draw();
+// 		//Is_fit();
+// 	}
+
+// 	void Is_fit(){
+// 		TF1* Linear = new TF1("Linear","[Is]*x+[q]",-19,-2);
+// 		Linear -> SetParameter("Is", 0.070);
+// 		Linear -> SetParameter("q", 0);
+// 		g->Fit("Linear","RS");
+// 	}
+	
+// 	void DrawFitFunc(){
+// 		TF1* f = g->GetFunction("LangmuirFourParam");
+// 		f->SetRange(f->GetXmin(),f->GetXmax()+2);
+// 		f->Draw("SAME");
+// 	}
+
+// 	void DrawGraph(){
+// 		g->GetXaxis()->SetTitle("Potential [V]");
+// 		g->GetYaxis()->SetTitle("Current [mA]");
+// 		g->Draw();
+// 	}
+
+// 	void Fit(){
+// 		TF1* f = g->GetFunction("Linear");
+// 		Is = f->GetParameter(0);
+// 		Is_err = f->GetParError(0);
+// 		TF1* LangmuirFourParam = new TF1("LangmuirFourParam","[Is]*(1.+[R]*(x-[Vf]))*(exp((x-[Vf])/[Te])-1.)",-19,2);
+// 		LangmuirFourParam -> FixParameter(0, Is);
+// 		LangmuirFourParam -> SetParameter("R", -0.14);
+// 		LangmuirFourParam -> SetParameter("Vf", -2.);
+// 		LangmuirFourParam -> SetParameter("Te", 0.68);
+// 		g->Fit("LangmuirFourParam","RS");
+// 	}
+
+// 	void DerivatedData(){
+// 		TF1* f = g->GetFunction("LangmuirFourParam");
+// 		R = f->GetParameter(1);
+// 		R_err = f->GetParError(1);
+// 		Te = f->GetParameter(2);
+// 		Te_err = f->GetParError(2);
+// 		Vf = f->GetParameter(3);
+// 		Vf_err = f->GetParError(3);
+// 		double Rshunt = 100.;
+// 		double area = 30.; //sq. mm
+// 		double e = 1.6022e-19;//C
+// 		double mp = 1.67e-27;//KG
+// 		double me = 9.1e-31;//KG
+// 		double mi = mp * 39.948;
+// 		double pi = 3.14159265358979323846;
+// 		double alpha = 0.5*(log(mi/(2*pi*me))+1.);
+// 		double cs = sqrt(e*Te/mi);
+// 		n = 2.*Is/(e*cs*area*1e-6)/1000;
+// 		Vp = Vf + alpha*Te;
+// 	}
+
+// 	void DrawResults(){
+// 		DerivatedData();
+// 		ofstream out;
+// 		out.open("/Users/andreagrossutti/Documents/GitHub/Physics_Laboratory-g19/VESPA/Data/Day3/Langmuir/Langmuir_Fit_Results.txt", ofstream::out | ofstream::app);
+// 		out << file << '\t';
+// 		out << Is << '\t' << Is_err << '\t';
+// 		out << R << '\t' << R_err << '\t';
+// 		out << Te << '\t' << Te_err << '\t';
+// 		out << Vf << '\t' << Vf_err << '\t';
+// 		out << n << '\t'<< Vp << endl;
+// 		cout << n << '\t'<< Vp << endl;
+// 	}
+
+// 	TGraph* GetGraph(){
+// 		return g;
+// 	}
+
+// 	private:
+// 	char* file;
+// 	TGraph* g;
+// 	double Is;
+// 	double Is_err;
+// 	double Te;
+// 	double Te_err;
+// 	double Vf;
+// 	double Vf_err;
+// 	double R;
+// 	double R_err;
+// 	double n;
+// 	double Vp;
+// };
+
+// void MultGraph(){
+// 	fit_in_costructor = false;
+// 	auto l = new LangFit("dx6");
+// 	auto g = l->GetGraph();
+// 	g->SetLineColor(kBlack);
+// 	g->SetName("sx6");
+// 	l->DrawGraph();
+
+// 	l = new LangFit("dx2");
+// 	g = l->GetGraph();
+// 	g->SetLineColor(kGreen);
+// 	g->SetName("sx2");
+// 	g->Draw("SAME");
+
+// 	l = new LangFit("dx3");
+// 	g = l->GetGraph();
+// 	g->SetLineColor(kRed);
+// 	g->SetName("sx3");
+// 	g->Draw("SAME");
+
+// 	l = new LangFit("dx4");
+// 	g = l->GetGraph();
+// 	g->SetLineColor(kBlue);
+// 	g->SetName("sx4");
+// 	g->Draw("SAME");
+
+// 	l = new LangFit("dx5");
+// 	g = l->GetGraph();
+// 	g->SetLineColor(kViolet);
+// 	g->SetName("sx5");
+// 	g->Draw("SAME");
+
+// 	auto legend = new TLegend(0.1,0.7,0.48,0.9);
+//    legend->AddEntry("sx2","20V","l");
+//    legend->AddEntry("sx3","30V","l");
+//    legend->AddEntry("sx4","40V","l");
+//    legend->AddEntry("sx5","50V","l");
+//    legend->AddEntry("sx6","60V","l");
+//    legend->Draw();
+
+// }
+

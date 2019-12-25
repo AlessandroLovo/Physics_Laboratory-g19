@@ -5,17 +5,17 @@ CorrenteFilo = 6.5A
 																
 Acquisizioni:	(P_init e' la pressione prima della creazione del plasma)					(P_fin e' la pressine alla fine dell'acquisizione)										
 NomeFile	P_init[muBar]	P_init[Baratron]	TensionePolarizzazione[V]	Corrente[mA]	Lato	P__fin_Baratron	Discharge_Current[mA]				Te[eV]	Is[mA]	Vf[V]	R[]	n[m^-3]	Vp[V]
-dx1	2.7		20	322	F(filo-dx)											
-dx2	2.94		20	323	F(filo-dx)											
-sx2	(la pressione non e' stata toccata dopo l'acquisizione dx2)		20	323	P(pompa)	1.16										
-sx3	2.84	1.14	30	700	P(pompa)	1.15	668									
-dx3	(la pressione non e' stata toccata dopo l'acquisizione dx2)	1.15	30	667	F(filo-dx)	1.15	664									
-dx4	(la pressione non e' stata toccata dopo l'acquisizione dx2)	1.15	40	721	F(filo-dx)	1.15	717									
-sx4	(la pressione non e' stata toccata dopo l'acquisizione dx2)	1.15	40	717	P(pompa)	1.14	716									
-sx5	(la pressione non e' stata toccata dopo l'acquisizione dx2)	1.14	50	762	P(pompa)	1.14	758									
-dx5	(la pressione non e' stata toccata dopo l'acquisizione dx2)	1.14	50	756	F(filo-dx)	1.14	756									
-dx6	(la pressione non e' stata toccata dopo l'acquisizione dx2)	1.13	60	801	F(filo-dx)	1.13	802									
-sx6	(la pressione non e' stata toccata dopo l'acquisizione dx2)	1.13	60	804	P(pompa)	1.13	807									
+dx1	2.7		20	322	F(filo-dx)						0.665	0.028088	-2.0268	-0.1344	9.24E+15	1.42
+dx2	2.94		20	323	F(filo-dx)						0.5101	0.025109	-1.7551	-0.2344	9.43E+15	0.89
+sx2	(la pressione non e' stata toccata dopo l'acquisizione dx2)		20	323	P(pompa)	1.16					0.8566				5.45E+15	2.12
+sx3	2.84	1.14	30	700	P(pompa)	1.15	668				0.5152				7.80E+15	0.93
+dx3	(la pressione non e' stata toccata dopo l'acquisizione dx2)	1.15	30	667	F(filo-dx)	1.15	664				0.6179				2.40E+16	1.48
+dx4	(la pressione non e' stata toccata dopo l'acquisizione dx2)	1.15	40	721	F(filo-dx)	1.15	717				0.5901				3.23E+16	1.65
+sx4	(la pressione non e' stata toccata dopo l'acquisizione dx2)	1.15	40	717	P(pompa)	1.14	716				0.4471				7.77E+15	0.8
+sx5	(la pressione non e' stata toccata dopo l'acquisizione dx2)	1.14	50	762	P(pompa)	1.14	758				0.4125				9.54E+15	0.82
+dx5	(la pressione non e' stata toccata dopo l'acquisizione dx2)	1.14	50	756	F(filo-dx)	1.14	756				0.5995				4.18E+16	1.71
+dx6	(la pressione non e' stata toccata dopo l'acquisizione dx2)	1.13	60	801	F(filo-dx)	1.13	802				0.5481				4.87E+16	1.76
+sx6	(la pressione non e' stata toccata dopo l'acquisizione dx2)	1.13	60	804	P(pompa)	1.13	807				0.5254				1.19E+16	1.12
 																
 																
 																
@@ -29,8 +29,8 @@ TensioneFilo = 13.64V
 CorrenteFilo = 6.7A																
 																
 NomeFile	P_init[muBar]	P_init[Baratron]	TensionePolarizzazione[V]	Corrente[mA]	Lato	P__fin_Baratron	Discharge_Current[mA]									
-sx7	2.84	1.15	40	1478	P(pompa)	1.13	1453									
-dx7	(la pressione non e' stata toccata dopo l'acquisizione sx7)	1.13	40	1444	F(filo-dx)	1.13	1438									
+sx7	2.84	1.15	40	1478	P(pompa)	1.13	1453				0.6184				1.40E+16	1.09
+dx7	(la pressione non e' stata toccata dopo l'acquisizione sx7)	1.13	40	1444	F(filo-dx)	1.13	1438				0.8145				5.92E+16	1.91
 																
 																
 Filo:																
@@ -39,8 +39,8 @@ TensioneFilo = 10.69V
 CorrenteFilo = 6.1A																
 																
 NomeFile	P_init[muBar]	P_init[Baratron]	TensionePolarizzazione[V]	Corrente[mA]	Lato	P__fin_Baratron	Discharge_Current[mA]									
-dx8	(la pressione non e' stata toccata dopo l'acquisizione sx7)	1.18	40	171	F(filo-dx)	1.18	173									
-sx8	(la pressione non e' stata toccata dopo l'acquisizione sx7)	1.18	40	177	P(pompa)	1.18	179									
+dx8	(la pressione non e' stata toccata dopo l'acquisizione sx7)	1.18	40	171	F(filo-dx)	1.18	173				0.2834				1.04E+16	0.87
+sx8	(la pressione non e' stata toccata dopo l'acquisizione sx7)	1.18	40	177	P(pompa)	1.18	179				0.21				3.92E+15	0.48
 																
 																
 																
@@ -52,8 +52,8 @@ TensioneFilo = 12.28V
 CorrenteFilo = 6.5A																
 																
 NomeFile	P_init[muBar]	P_init[Baratron]	TensionePolarizzazione[V]	Corrente[mA]	Lato	P__fin_Baratron	Discharge_Current[mA]									
-sx9		-1.56	40	582	P(pompa)	-1.56	580									
-dx9		-1.56	40	580	F(filo-dx)	-1.56	580									
+sx9		-1.56	40	582	P(pompa)	-1.56	580				0.907499				2.65E+15	1.72722
+dx9		-1.56	40	580	F(filo-dx)	-1.56	580				2.04895				4.43E+15	-9.83853
 																
 																
 																
@@ -64,5 +64,5 @@ TensioneFilo = 12.45V
 CorrenteFilo = 6.5A																
 																
 NomeFile	P_init[muBar]	P_init[Baratron]	TensionePolarizzazione[V]	Corrente[mA]	Lato	P__fin_Baratron	Discharge_Current[mA]									
-dx10		52.42	40	683	F(filo-dx)	52.2	589									
+dx10		52.42	40	683	F(filo-dx)	52.2	589				0.5189				3.46E+16	1.1
 sx10		52.87	40	425	P(pompa)	52.95	414									

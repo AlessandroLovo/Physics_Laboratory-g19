@@ -332,7 +332,54 @@ Varying the pressure in the vessel, the breakdown voltage trend can be studied. 
 
 As can be seen from the plot, the minimum of the Paschen curve in radiofrequency condition is very large: the optimal area can be identified in the range: $$3\textup{--}7 \cdot 10^{-5}\si{\bar}$$
 
-\section{...}
+\section{Measurement of plasma parameters}
+Using a Langmuir probe an estimation of plasma parameters such as density, electron temperature and plasma potential can be obtained, throw electric parameters of the filament of which the probe is composed. 
+The electron current from the probe to the plasma is given by the following formula:\footnote{This formula is a different version of the one derivated in D. Desideri and G.Serianni \emph{Four Parameter data fit for Langmuir probes with nonsaturation of ion current}, Rev. Sci. Instrum., 69 (1998), \url{https://doi.org/10.1063/1.1148942}}
+\[I=I_{si}\left(1+R(V-V_f)\right)\left(\exp\left(\frac{e(V-V_f)}{kT_e}\right)-1\right)\]
+where $I_{si}$ is the \emph{Ion Saturation Current}, $V_f$ is the \emph{Floating Potential}, $T_e$ is the \emph{Electronic Temperature} and $R$ is an additional factor that describes the current--voltage characteristic for $V\ll V_f$.
+Is important to notice that this formula describes experimental data for $V\lesssim V_f$, while for higher values of $V$ additional terms are required.
+These terms can be obtained throw fitting procedure. An example of electrical voltage-current characteristics is shown in fig. \ref{fig:Lang:dx} and \ref{fig:Lang:sx}.
+
+\begin{figure}[H]
+	\centering
+	\resizebox{0.7\textwidth}{!}{\import{img/Langmuir/}{dx_char.tex}}
+	\caption{Electrical voltage--current characteristic of the Langmuir probe for a pressure of $2.84\si{\mu\bar}$, a filament current of $6.5\si{\ampere}$ and different discharge polarization voltages (as described in legend). In this case the probe is placed in the same side of the filament.}
+	\label{fig:Lang:dx}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\resizebox{0.7\textwidth}{!}{\import{img/Langmuir/}{sx_char.tex}}
+	\caption{Electrical voltage--current characteristic of the Langmuir probe for a pressure of $2.84\si{\mu\bar}$, a filament current of $6.5\si{\ampere}$ and different discharge polarization voltages (as described in legend). In this case the probe is placed in the opposite side to the filament.}
+	\label{fig:Lang:sx}
+\end{figure}
+
+Other plasma parameter can be obtained with following formulas:
+\[c_s=\left(\frac{e\,T_e}{m_i}\right)^{1/2}\]
+\[n=\frac{2I_{si}}{e\,c_s\,A}\]
+\[V_p=V_f+\frac12\left(\log(\frac{m_i}{2\pi m_e})+1\right) T_e\]
+where $c_s$ is the \emph{ion sound velocity}, $n$ is the \emph{plasma density}, $V_p$ is the \emph{plasma potential}, $m_i$ is the the ion mass, $A$ is the probe area and $e$ is electron charge.
+
+\begin{figure}[H]
+	\centering
+	\resizebox{0.8\textwidth}{!}{\import{img/Langmuir/}{Te.tex}}
+	\caption{ehi}
+	\label{fig:Lang:Te}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\resizebox{0.8\textwidth}{!}{\import{img/Langmuir/}{n.tex}}
+	\caption{ehi}
+	\label{fig:Lang:n}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\resizebox{0.8\textwidth}{!}{\import{img/Langmuir/}{Vp.tex}}
+	\caption{ehi}
+	\label{fig:Lang:Vp}
+\end{figure}
+
 
 \section{IonicSonic speed}
 Through the Langmuir probes, some measurements of the ionic-sonic waves propagation can be done. Igniting the plasma with a filament current of $6.5\si{\ampere}$, the grid has been polarized with a sinusoidal waves (frequency $\sim20.8\si{\kilo\hertz}$, $V_\text{peak-peak}\sim50\si{\volt}$, which also trigger the oscilloscope) and the Langmuir probe has been connected to an oscilloscope. One of the first things noticed is that the plasma distorts the sinusoidal wave: as can be seen from fig. \ref{fig:isspeed:oscill}, in the output wave the rising time is greater than the lowering time.
