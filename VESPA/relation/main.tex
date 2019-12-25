@@ -66,7 +66,7 @@ Study the \emph{Vespa} experimental apparatus, and in particular:
 \section{Vacuum system}
 The vacuum inside the VESPA vessel (a cylindrical  vessel, with a length of $\sim80\si{\centi\metre}$ and a radius of $\sim20\si{\centi\metre}$: $V\sim0.1\si{\metre^3}$) is obtained and kept thanks to a rotary pump and a turbomolecular pump. The vessel is not perfectly isolated and some small leaks affect the vacuum keeping. To study this phenomena, the vessel has been taken to a low pressure ($\sim 6 \cdot 10^{-5} \si{\milli\bar}$) and all the valves around have been closed. Isolating the chamber from the pumping system one can measure (thanks to a ionization pressure gauge) the pressure in the vessel as function of time. Effects as leaks and degasing contribute to an inflow in the chamber $F_0(p)$ that in principle could depend on the pressure. Assuming instead $F_0$ constant, its value can be estimated through a linear fit on the data: $P = a + b \cdot t$, $F_0 = V \cdot b$.
 
-Considering the reaction time, the slowness of the ionization gauge in stabilizing and the pressure oscillations, the errors are estimated as $5\%$ on the pressure and a $0.5\si{\second}$ error on the time.
+Considering the reaction time, the slowness of the ionization gauge in stabilizing and the pressure oscillations, the errors are estimated as $5\%$ on the pressure and $0.5\si{\second}$ error on the time.
 
 \begin{figure}[H]
   \centering
@@ -74,10 +74,9 @@ Considering the reaction time, the slowness of the ionization gauge in stabilizi
   \resizebox{0.5\textwidth}{!}{\import{img/vacuum/}{increase_all_residuals.tex}}
   \caption{Presure increasing in the chamber}
   \label{fig:increase_all}
-\end{figure}
+\end{figure} 
 
-As can be seen from fig \ref{fig:increase_all} there is an evident trend in the residuals, proving that $F_0$ cannot be assumed constant throughout all the explored range of pressures. A simple way to correct this is to consider a low pressure regime and a high pressure one: the limit has been put where the trend in the residuals inverts, i.e. around 200\si{\nano\pascal}.
-
+As can be seen from fig \ref{fig:increase_all} there is an evident trend in the residuals, proving that $F_0$ cannot be assumed constant throughout all the explored range of pressures. A possible way to correct this is to consider a low pressure regime and a high pressure one: the limit has been put where the trend in the residuals inverts, i.e. around 200\si{\nano\pascal}.
 \begin{figure}[H]
   \centering
   \resizebox{0.5\textwidth}{!}{\import{img/vacuum/}{increase_lowP_fit.tex}} \hspace{-0.05\textwidth}
@@ -85,7 +84,6 @@ As can be seen from fig \ref{fig:increase_all} there is an evident trend in the 
   \caption{Low pressure regime}
   \label{fig:increase_lowP}
 \end{figure}
-
 \begin{figure}[H]
   \centering
   \resizebox{0.5\textwidth}{!}{\import{img/vacuum/}{increase_highP_fit.tex}} \hspace{-0.05\textwidth}
@@ -93,36 +91,34 @@ As can be seen from fig \ref{fig:increase_all} there is an evident trend in the 
   \caption{High pressure regime}
   \label{fig:increase_highP}
 \end{figure}
+% \todo[inline]{Secondo me è un po' un casino, un po' tutto stretto. Proporrei invece al posto delle figure \ref{fig:increase_highP} e \ref{fig:increase_lowP} la figura seguente:}
 
-\todo[inline]{Secondo me è un po' un casino, un po' tutto stretto. Proporrei invece al posto delle figure \ref{fig:increase_highP} e \ref{fig:increase_lowP} la figura seguente:}
+% \begin{figure}[H]
+%   \centering
+%   \resizebox{0.8\textwidth}{!}{\import{img/vacuum/}{combined.tex}}
+%   \caption{Fits in the two regimes.}
+%   \label{fig:increase_combined}
+% \end{figure}
 
-\begin{figure}[H]
-  \centering
-  \resizebox{0.8\textwidth}{!}{\import{img/vacuum/}{combined.tex}}
-  \caption{Fits in the two regimes.}
-  \label{fig:increase_combined}
-\end{figure}
-
-\todo[inline]{REPLY: secondo me no: i residui ci stanno}
-
-
-Splitting the high pressure area and the low pressure area, performing two different fits and assuming a 5\% error on the volume, the inflow can be estimated as:
+% \todo[inline]{REPLY: secondo me no: i residui ci stanno}
+Splitting the high pressure regime and the low pressure one two different estimation of the inflow can be computed:
 \begin{gather*}
   F_0^\text{low} = (6.4 \pm 0.4) \cdot 10^{-6} \si{\pascal}\, \si{\metre^3}/\si{\second}, \quad
   F_0^\text{high} = (4.5 \pm 0.4) \cdot 10^{-6} \si{\pascal}\, \si{\metre^3}/\si{\second}
 \end{gather*}
+where a 5\% error on the volume is assumed.
 
-Subsequently, the valve has been opened connecting the chamber to the pumping system. An exponential decay of the pressure is expected: $P(t) = (P_i - P_0)\exp(-t/\tau) + P_0$, where $P_i$ is the starting pressure and $P_0$ the asymptotic pressure.
+Subsequently, the valve has been opened connecting the chamber to the pumping system. An exponential lowering of the pressure is expected: $P(t) = (P_i - P_0)e^{-\frac[f]{t}{\tau}} + P_0$, where $P_i$ is the starting pressure and $P_0$ the asymptotic one.
 
 \begin{figure}[H]
   \centering
   \resizebox{0.5\textwidth}{!}{\import{img/vacuum/}{decrease_all_fit.tex}} \hspace{-0.05\textwidth}
   \resizebox{0.5\textwidth}{!}{\import{img/vacuum/}{decrease_all_residuals.tex}}
-  \caption{Presure decreasing in the chamber}
+  \caption{Pressure lowering in the chamber}
   \label{fig:decrease_all}
 \end{figure}
 
-As can be seen from fig \ref{fig:decrease_all}, similarly as what seen before, the result are not acceptable and as before two regimes can be distinguished. For coherence the same limit as before has been used.
+As can be seen from fig \ref{fig:decrease_all}, similarly as what seen before, the result are not acceptable and as before two regimes can be distinguished. For coherence and for a better comparison, the same limit previously chosen has been used.
 
 \begin{figure}[H]
   \centering
@@ -140,35 +136,35 @@ As can be seen from fig \ref{fig:decrease_all}, similarly as what seen before, t
   \label{fig:decrease_highP}
 \end{figure}
 
-\todo[inline]{Facendo un grafico in scala logaritmica, sembra invece che ci siano tre regimi! Vedere figura seguente}
+% \todo[inline]{Facendo un grafico in scala logaritmica, sembra invece che ci siano tre regimi! Vedere figura seguente}
 
-\begin{figure}[H]
-  \centering
-  \resizebox{0.8\textwidth}{!}{\import{img/vacuum/}{combined_emptying.tex}}
-  \caption{Fits in different regimes.}
-  \label{fig:combined_emptying}
-\end{figure}
+% \begin{figure}[H]
+%   \centering
+%   \resizebox{0.8\textwidth}{!}{\import{img/vacuum/}{combined_emptying.tex}}
+%   \caption{Fits in different regimes.}
+%   \label{fig:combined_emptying}
+% \end{figure}
 
-\todo[inline]{REPLY: secondo me no: 1) Il regime intermedio non sembra un gran che: c'\`e forte andamento nei residui. 2) tenendo solo due regimi si riesce a fare meglio il confronto pi\`u avanti}
+% \todo[inline]{REPLY: secondo me no: 1) Il regime intermedio non sembra un gran che: c'\`e forte andamento nei residui. 2) tenendo solo due regimi si riesce a fare meglio il confronto pi\`u avanti}
 
 
-Performing two different exponential fits there are still trends in the residuals, but now the result is acceptable. From the values of $\tau$ and $P_0$ the effective pumping speed $S_e$, the inflow $F_0$ and, given the nominal value of the pumping speed $S = 33 \si{\litre/\second}$, the conductance of the chamber-pump connection $C$ can be estimated.
+Performing two separate exponential fits, they result in a meaningful result (even if a small trend in residual is still visible). From the values of $\tau$ and $P_0$ the effective pumping speed $S_e$, the inflow $F_0$ and, given the nominal value of the pumping speed $S = 33 \si{\litre/\second}$, the conductance of the chamber-pump connection $C$ can be estimated.
 
 \begin{table}[H]
   \centering
   \begin{tabular}{cccccc}
     \toprule
-    regime & $S_e = V/\tau$ [\si{\litre/\second}] & $F_0 = P_0 \cdot S_e$ [\si{\pascal}\, \si{\metre^3}/\si{\second}] & $C = 1/(1/S_e - 1/S)$ [\si{\litre/\second}] \\
+    Regime & $S_e = \frac[f]{V}{\tau}\,[\si{\litre\per\second}]$ & $F_0 = P_0 \cdot S_e\,[\si{\pascal\,\metre^3\per\second}]$ & $C = (S_e^{-1} - S^{-1})^{-1}\,[\si{\litre\per\second}]$ \\
     \midrule
-    low pressure & $0.51 \pm 0.04$ & $(2.2 \pm 0.2)\cdot 10^{-6}$ & $0.52 \pm 0.05$ \\
-    high pressure & $4.0 \pm 0.6$ & $(2 \pm 1)\cdot 10^{-5}$ & $4.6 \pm 0.7$ \\
+    Low pressure & $0.51 \pm 0.04$ & $(2.2 \pm 0.2)\cdot 10^{-6}$ & $0.52 \pm 0.05$ \\
+    High pressure & $4.0 \pm 0.6$ & $(2 \pm 1)\cdot 10^{-5}$ & $4.6 \pm 0.7$ \\
     \bottomrule
   \end{tabular}
   \caption{Vacuum parameters}
   \label{tab:vacuum}
 \end{table}
 
-In the low pressure regime the two estimates of $F_0$ are not compatible but still comparable, on the other hand at high pressure the two estimates differ by an order of magnitude. By comparing the nominal value of the pumping speed with $S_e$ one can deduce that most of the pump potential is wasted by a very low conductance connection.
+In the low pressure regime the two estimates of $F_0$ are not compatible but still comparable, while at high pressure the two estimates differ by an order of magnitude. Moreover, by comparing the nominal pumping speed with the effective one, a discrepancy can be observed; this can be due both to a low-conductance of the connection or a not-complete efficiency of the pump.
 
 \section{Voltage-Current characteristic of the filament}
 The filament inside the vessel is a tungsten filament with diameter $2r\sim0.25\si{{\milli\metre}}$ and length $L\sim10\si{\centi\metre}$. Combining Ohm law and emissivity rules, a theoretical characteristic curve can be obtained:
@@ -180,7 +176,7 @@ where $\epsilon$ is the effective emissivity, $\alpha$ the StefanBoltzmann const
     \rho(T) = AT^{\frac[f]{6}{5}}
 \]
 
-Pumping the vessel to a low pressure ($\sim 2 $ \todo[inline]{missing unit} ), the voltage-current characteristic curve of the filament has been measured, producing the following data:
+Pumping the vessel to a low pressure ($\sim 3.7\cdot10^{-5}\si{\milli\bar}$), the voltage-current characteristic curve of the filament has been measured, producing the following data:
 
 \begin{figure}[H]
   \centering
@@ -198,7 +194,7 @@ which lead to a value of
 \[
     \epsilon \sim 0.2
 \]
-The $\chi^2$ confirm the meaningfulness of the fit; moreover, the effective emissivity has a value similar to the typical ones (0.3).
+The $\chi^2$ confirm the meaningfulness of the fit; moreover, the effective emissivity has a value similar to the typical one (0.3).
 
 Finally, the estimated filament temperature as a function of the driven current can be found:
 \[
@@ -214,7 +210,7 @@ Finally, the estimated filament temperature as a function of the driven current 
 
 \section{V-I characteristics of the discharge \& DC Paschen curve}
 By polarizing the filament with respect to the whole vessel (grounded) a discharge in the plasma can be achieved.
-By measuring the polarization voltage on the power supply ($0.1 \si{\volt}$ estimated error) and the plasma current via the voltage across a resistor $R_\text{shunt} = (1.00 \pm 0.03) \si{\ohm}$, the discharge characteristic curve can be studied. In particular the breakdown is clearly visible.
+By measuring the polarization voltage on the power supply ($0.1 \si{\volt}$ estimated error) and the plasma current via the voltage across a resistor $R_\text{shunt} = (1.00 \pm 0.03) \si{\ohm}$\footnote{The errors on the voltage measurement is negligible with respect to the errors in the resistance, therefore only the latters has been considered.}, the discharge characteristic curve can be studied. In particular the breakdown is clearly visible.
 
 \subsection{Varying $I_f$}
 
@@ -246,23 +242,22 @@ Richardson law predicts no dependence of the plasma current on the polarization 
   \centering
   \begin{tabular}{cccccc}
     \toprule
-    $I_f$ [\si{\ampere}] & $I^{\text{exp}}$ [\si{\ampere}] & $I^{\text{Rich}}$ [\si{\ampere}]  & $\frac[f]{I^{\text{Rich}}}{I^{\text{exp}}}$\\
+    $I_f\,[\si{\ampere},\pm0.1]$ & $I^{\text{exp}}\,[\si{\ampere},\pm0.1]$ & $I^{\text{Rich}}\,[\si{\ampere}]$  & $\frac[f]{I^{\text{Rich}}}{I^{\text{exp}}}$\\
     \midrule
-    6.1 & 0.2 & 8 & 34 \\
-    6.5 & 0.8 & 20 & 25 \\
-    6.7 & 1.6 & 30 & 19 \\
+    $6.1$ & $0.2$ & $\sim8$ & $\sim34$ \\
+    $6.5$ & $0.8$ & $\sim20$ & $\sim25$ \\
+    $6.7$ & $1.6$ & $\sim30$ & $\sim19$ \\
     \bottomrule
   \end{tabular}
-  \caption{Experimental plasma current at $V = 60$ \si{\volt} and prediction from Richardson law (since the discrepancies between theoretical and experimental values are very high only approximate values are shown).}
-  \label{tab:Richardson}
+  \caption{Experimental plasma current at $V = 60\si{\volt}$ and prediction from Richardson law.}
+  \label{tab:richardson}
 \end{table}
-\todo[inline]{Continuano a non convicermi questi valori un po' così. Ma se non troviamo nessuna alternativa ok.}
-\todo[inline]{Io non ho alternative in mente}
+% \todo[inline]{Continuano a non convicermi questi valori un po' così. Ma se non troviamo nessuna alternativa ok.}
+% \todo[inline]{Io non ho alternative in mente}
 
+As can be seen from tab \ref{tab:richardson} the prediction are about $\sim 25$ times greater than the data. This can be due to an error in the estimate of coefficient $k$ or in the assumption that the current emitted by the filament corresponds to the plasma current. The latter seems more reasonable, considering the behavior of electrons inside the plasma; in fact, they tend to form a cloud around the filament which prevent the emission of further electrons.
 
-As can be seen from tab \ref{tab:Richardson} the prediction and the data differ by a factor $\sim 25$, that is almost the same for every value of the filament current, suggesting that the main error is either in the estimate of coefficient $J$ or in the assumption that the current emitted by the filament is the plasma current. The latter seems more reasonable since the plasma current varies with $V$ and can be explained by the absorption of electrons by the gas and the creation of space charge.
-
-On the other hand during data acquisition it has been observed that the voltage across the filament $V_f$ increases with $V$, meaning that the resistivity of the filament becomes greater. This means either that the resistivity does not depend only on the temperature of the filament, or that the temperature does not depend only on $I_f$.
+% Moreover, during data acquisition it has been observed that the voltage across the filament $V_f$ increases with $V$, meaning that the resistivity of the filament becomes greater. This means either that the resistivity does not depend only on the temperature of the filament, or that the temperature does not depend only on $I_f$.
 
 % On the other hand, Richardson model fails to predict other observed effects:
 % \begin{itemize}
@@ -272,19 +267,19 @@ On the other hand during data acquisition it has been observed that the voltage 
 
 \subsection{Varying $P$}
 
-By studying instead the V-I characteristics varying the Argon pressure one obtains the results in fig \ref{fig:constIf}. If one ignores the weird behavior of the $P = 8$ \si{\micro\bar} curve at high $V$\todo{Sono due punti palesemente sbagliati, reiettiamoli e basta secondo me}, it is visible that the main influence of the pressure on the curve is the value of the breakdown voltage, effect that can be better understood building the experimental Paschen curve (fig \ref{fig:DCP}): by setting the presseure in the chamber the breakdown voltage is found by slowly increasing the polarization potential until the plasma ignites.
+By studying instead the V-I characteristics varying the Argon pressure one obtains the results in fig \ref{fig:constIf}. It is visible that the pressure influence the breakdown voltage, effect that can be better understood building the experimental Paschen curve (fig \ref{fig:DCP}): by setting the pressure in the chamber the breakdown voltage is found by slowly increasing the polarization potential until the plasma ignites.
 
 \begin{figure}[H]
   \centering
   \resizebox{0.8\textwidth}{!}{\import{img/Paschen-DC/}{constIf.tex}}
-  \caption{V-I characteristics of the discharge at constant filament current $I_f$, varying the pressure $P$}
+  \caption{V-I characteristics of the discharge at constant filament current $I_f$, varying the pressure $P$. The last-but-one point in the red dataset is clearly false, so it has been neglected.}
   \label{fig:constIf}
 \end{figure}
 
 \begin{figure}[H]
   \centering
   \resizebox{0.8\textwidth}{!}{\import{img/Paschen-DC/}{Paschen.tex}}
-  \caption{Experimental Paschen curve: breakdown voltage vs $P$; the theoretical Paschen curve is clearly unable to fit the data.}
+  \caption{Paschen curve: breakdown voltage as function of the pressure; the theoretical Paschen curve (red) is clearly unable to fit the data.}
   \label{fig:DCP}
 \end{figure}
 
@@ -304,12 +299,13 @@ A way to compare the results of the fit with the theoretical ones is to take con
 
 As can be seen the experimental results do not agree with the theory both in the sense that the fit with the theoretical curve has a very high $\chi^2$ and in the sense that the fitting parameters are incompatible with the expected theoretical values.
 
-Another way to see this incompatibility is that even ignoring the fit, from fig \ref{fig:DCP} it is clear that Paschen's minimum is between 2.5 and 4 \si{\micro\bar}, but this would imply that, using the theoretical value for $A$,  $d = \frac{e^{1+C}}{AP_{min}} \sim 2.4$ \si{\metre}. Result that is rather unphysical considering that the whole chamber is only 0.8 \si{\metre} long.
+%Another way to see this incompatibility is that even ignoring the fit, from fig \ref{fig:DCP} it is clear that Paschen's minimum is between 2.5 and 4 \si{\micro\bar}, but this would imply that, using the theoretical value for $A$,  $d = \frac{e^{1+C}}{AP_{min}} \sim 2.4$ \si{\metre}. Result that is rather unphysical considering that the whole chamber is only 0.8 \si{\metre} long.
+%Meh. d è la lunghezza tipica, che corrisponde alla lunghezza del plasma solo in caso di condensatore a FPP. In questo caso, con cilindri e forme strane, va tutto pesato col potenziale che va come 1/r^2 etc quindi potrebbe essere un casino, e venire fuori numeri grandi
 
-It can then be deduced that this system does not follow the theoretical Paschen's curve.
-Anyways, since it would be useful later one can state $P_{min} \sim 3$ \si{\micro\bar}.
-
-
+It can then be deduced that this system does not follow the theoretical Paschen's curve. A Paschen minimum can be however individuate as the range:
+\begin{equation*}
+  P_{\text{min,DC}} = 2.5\textup{--}4\cdot10^{-3}\si{\milli\bar}
+\end{equation*}
 
 \section{Paschen curve in radiofrequency condition}
 Inside VESPA a magnetic antenna is provided, which allows to ignite the plasma through radiofrequency waves that, coupling with gas electrons, excite them and generate the discharge.
@@ -334,9 +330,10 @@ Varying the pressure in the vessel, the breakdown voltage trend can be studied. 
   \label{fig:RF:Paschen}
 \end{figure}
 
-\todo[inline]{Si potrebbe provare a fare un fit con la formula di Paschen: i dati sembrano piuttosto belli}
+%\todo[inline]{Si potrebbe provare a fare un fit con la formula di Paschen: i dati sembrano piuttosto belli} Provato, viene una bruttura
 
 As can be seen from the plot, the minimum of the Paschen curve in radiofrequency condition is very wide: the optimal area can be identified in the range: $$3\textup{--}7 \cdot 10^{-5}\si{\bar}$$
+
 
 \section{Measurement of plasma parameters}
 Using a Langmuir probe an estimation of plasma parameters such as density, electron temperature and plasma potential can be obtained, throw electric parameters of the filament of which the probe is composed. 
@@ -490,6 +487,7 @@ Then, plasma parameters, i.e. electron density, electronic temperature and plasm
 	\label{fig:Lang:Vp_p}
 \end{figure}
 
+
 \section{IonicSonic speed}
 Through the Langmuir probes, some measurements of the ionic-sonic waves propagation can be done. Igniting the plasma with a filament current of $6.5\si{\ampere}$, the grid has been polarized with a sinusoidal waves (frequency $\sim20.8\si{\kilo\hertz}$, $V_\text{peak-peak}\sim50\si{\volt}$, which also triggers the oscilloscope) and the Langmuir probe has been connected to an oscilloscope. One of the first things noticed is that the plasma distorts the sinusoidal wave: as can be seen from fig. \ref{fig:isspeed:oscill}, in the output wave the rising time is greater than the falling time.
 
@@ -547,13 +545,12 @@ Keeping the same system conditions, the amplitude of the wave as function of the
   \label{fig:ionicsonic:expdecay}
 \end{figure}
 
-From the theory, the amplitude should decay as an exponential. The low range explored doesn't permit a proper exponential fit, thus a first-order approximation around an arbitrary $d_0$ has been done:
+From the theory, the amplitude should decay as an exponential. The low range explored doesn't permit a proper exponential fit, thus a first-order approximation around an arbitrary $d_0$ (a zero in the position is not available, therefore an arbitrary offset must be taken in account) has been done:
 \begin{equation*}
   Ae^{-\frac[f]{d}{\lambda}} = Ae^{-\frac[f]{(d-d_0+d_0)}{\lambda}} =  \underbrace{Ae^{-\frac[f]{d_0}{\lambda}}}_{a} \left( 1 - \frac{d-d_0}{\lambda}\right)
 \end{equation*}
 
 Having chosen in the plot the $x$ axis such that it has the $0$ around the middle of the fit range, can be assumed $x = d-d_0$. From the fit, the typical length is found:
-\todo[inline]{Non \`e ben chiaro questo discorso di $d_0$}
 \begin{equation*}
   \lambda = ( 0.030 \pm 0.001 )\si{\metre}
 \end{equation*}
@@ -564,15 +561,15 @@ This length can be approximated by:
 \end{equation*}
 being $\sigma_0$ the cross section of the collisions of electrons with the neutrals ($\sigma_0\sim2\cdot10^{-20}\si{\metre\squared}$), $c_s$ the previous found ionic-sonic speed and $v_{te}$ the electrons thermal speed ($v_{te}\sim\sqrt{\frac[f]{3k_bT_e}{m_e}}\sim8.4\cdot10^{5}\si{\metre\per\second}$). This lead to an estimation of the neutral particle density $n_0$ of:
 \begin{equation*}
-  n_0 = 7\cdot10^{18} \si{\metre^{-3}}
+  n_0 \sim 7\cdot10^{18} \si{\metre^{-3}}
 \end{equation*}
 
-From the perfect-gas law, we can instead compute (assuming a temperature near to the room one, $\sim300\si{\kelvin}$):
+On the other hand, from the perfect-gas law, we can instead compute (assuming a temperature near to the room one, $\sim300\si{\kelvin}$):
 \begin{equation*}
   p = nk_BT\quad\rightarrow\quad n = \frac{p}{k_BT} \sim 8\cdot10^{19} \si{\metre^{-3}}
 \end{equation*}
 
-\todo[inline]{Dire qualcosa sul fatto che le due stime di $n_0$ differiscono di un'ordine di grandezza}
+The two estimations are clearly incompatible: they differs from an order of magnitude. This can be due to the multiple approximations made to compute $n_0$. First of all the fit: the explored range is too narrow to appreciate the exponential shape, and the trick used make our estimation rougher. Moreover, the multiple approximate values used contribute to a inaccurate estimation of the neutral density.
 
 \section{Conclusions}
 With respect to the initial aims:
@@ -586,7 +583,9 @@ With respect to the initial aims:
 \end{itemize}
 
 
-\todo[inline]{Other?}
+\todo[inline]{Commenti sulla dipendenza di Vf da V.}
+\todo[inline]{Dire qualcosa sul fatto che le due stime di $n_0$ differiscono di un'ordine di grandezza}
+
 
 
 
