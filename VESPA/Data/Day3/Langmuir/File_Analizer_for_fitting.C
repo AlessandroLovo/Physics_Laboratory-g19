@@ -14,8 +14,8 @@ class LangFit{
 		double i,j,k,l;
 		while(in >> i >> j >> k >> l)
 			g->SetPoint(g->GetN(),k,l);
-		//g->Draw();
-		//Is_fit();
+		g->Draw();
+		Is_fit();
 	}
 
 	void Is_fit(){
@@ -42,7 +42,7 @@ class LangFit{
 		Is = f->GetParameter(0);
 		Is_err = f->GetParError(0);
 		TF1* LangmuirFourParam = new TF1("LangmuirFourParam","[Is]*(1.+[R]*(x-[Vf]))*(exp((x-[Vf])/[Te])-1.)",-19,2);
-		LangmuirFourParam -> FixParameter(0, Is);
+		LangmuirFourParam -> SetParameter(0, Is);
 		LangmuirFourParam -> SetParameter("R", -0.14);
 		LangmuirFourParam -> SetParameter("Vf", -2.);
 		LangmuirFourParam -> SetParameter("Te", 0.68);
@@ -60,8 +60,8 @@ class LangFit{
 		double Rshunt = 100.;
 		double area = 30.; //sq. mm
 		double e = 1.6022e-19;//C
-		double mp = 1.67e-27;//KG
-		double me = 9.1e-31;//KG
+		double mp = 1.66054e-27;//KG
+		double me = 9.10938356e-31;//KG
 		double mi = mp * 39.948;
 		double pi = 3.14159265358979323846;
 		double alpha = 0.5*(log(mi/(2*pi*me))+1.);
@@ -102,7 +102,7 @@ class LangFit{
 	double Vp;
 };
 
-void MultGraph(){
+void MultGraph_sameCurr(){
 	fit_in_costructor = false;
 	auto l = new LangFit("dx6");
 	auto g = l->GetGraph();
@@ -141,6 +141,65 @@ void MultGraph(){
    legend->AddEntry("sx5","50V","l");
    legend->AddEntry("sx6","60V","l");
    legend->Draw();
+}
+
+void MultGraph_sameVolt(){
+	fit_in_costructor = false;
+	auto l = new LangFit("sx7");
+	auto g = l->GetGraph();
+	g->SetLineColor(kBlack);
+	g->SetName("dx7");
+	l->DrawGraph();
+
+	l = new LangFit("sx4");
+	g = l->GetGraph();
+	g->SetLineColor(kBlue);
+	g->SetName("dx4");
+	g->Draw("SAME");
+
+	l = new LangFit("sx8");
+	g = l->GetGraph();
+	g->SetLineColor(kRed);
+	g->SetName("dx8");
+	g->Draw("SAME");
+
+
+	auto legend = new TLegend(0.1,0.7,0.48,0.9);
+   legend->AddEntry("dx8","6.1A","l");
+   legend->AddEntry("dx4","6.5A","l");
+   legend->AddEntry("dx7","6.7A","l");
+   legend->Draw();
 
 }
+
+void MultGraph_changePressure(){
+	fit_in_costructor = false;
+	auto l = new LangFit("sx10");
+	auto g = l->GetGraph();
+	g->SetLineColor(kRed);
+	g->SetName("dx10");
+	l->DrawGraph();
+
+	l = new LangFit("sx4");
+	g = l->GetGraph();
+	g->SetLineColor(kBlue);
+	g->SetName("dx4");
+	g->Draw("SAME");
+
+	l = new LangFit("sx9");
+	g = l->GetGraph();
+	g->SetLineColor(kBlack);
+	g->SetName("dx9");
+	g->Draw("SAME");
+
+
+	auto legend = new TLegend(0.1,0.7,0.48,0.9);
+   legend->AddEntry("dx9","0.282 muBar","l");
+   legend->AddEntry("dx4","2.82 muBar","l");
+   legend->AddEntry("dx10","28.2 muBar","l");
+   legend->Draw();
+
+}
+
+
 

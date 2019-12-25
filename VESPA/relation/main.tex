@@ -346,18 +346,7 @@ where $I_{si}$ is the \emph{Ion Saturation Current}, $V_f$ is the \emph{Floating
 Is important to notice that this formula describes experimental data for $V\lesssim V_f$, while for higher values of $V$ additional terms are required.
 These terms can be obtained throw fitting procedure. An example of electrical voltage-current characteristics is shown in fig. \ref{fig:Lang:dx} and \ref{fig:Lang:sx}.
 
-\begin{figure}[H]
-	\centering
-	\resizebox{0.7\textwidth}{!}{\import{img/Langmuir/}{dx_char.tex}}
-	\caption{Electrical voltage--current characteristic of the Langmuir probe for a pressure of $2.84\si{\mu\bar}$, a filament current of $6.5\si{\ampere}$ and different discharge polarization voltages (as described in legend). In this case the probe is placed in the same side of the filament.}
-	\label{fig:Lang:dx}
-\end{figure}
-\begin{figure}[H]
-	\centering
-	\resizebox{0.7\textwidth}{!}{\import{img/Langmuir/}{sx_char.tex}}
-	\caption{Electrical voltage--current characteristic of the Langmuir probe for a pressure of $2.84\si{\mu\bar}$, a filament current of $6.5\si{\ampere}$ and different discharge polarization voltages (as described in legend). In this case the probe is placed in the opposite side to the filament.}
-	\label{fig:Lang:sx}
-\end{figure}
+
 
 Other plasma parameter can be obtained with following formulas:
 \[c_s=\left(\frac{e\,T_e}{m_i}\right)^{1/2}\]
@@ -365,27 +354,141 @@ Other plasma parameter can be obtained with following formulas:
 \[V_p=V_f+\frac12\left(\log(\frac{m_i}{2\pi m_e})+1\right) T_e\]
 where $c_s$ is the \emph{ion sound velocity}, $n$ is the \emph{plasma density}, $V_p$ is the \emph{plasma potential}, $m_i$ is the the ion mass, $A$ is the probe area and $e$ is electron charge.
 
+For the characterization of the plasma two Langmuir probes were inserted in the chamber, one in the same side of the filament ("filament side"), and one in the opposite side ("pump side").
+
+\subsection{Dependence on discharge polarization voltage}
+
+In figures \ref{fig:Lang:dx} and \ref{fig:Lang:sx} are represented the voltage--current characteristics of the Langmuir probe with respect to the discharge polarization voltage, while pressure and filament current were fixed.
+
+\begin{figure}[H]
+	\centering
+	\resizebox{0.8\textwidth}{!}{\import{img/Langmuir/}{dx_char.tex}}
+	\caption{Electrical voltage--current characteristic of the Langmuir probe for a pressure of $2.84\si{\mu\bar}$, a filament current of $6.5\si{\ampere}$ and different discharge polarization voltages (as described in legend). In this case the probe is placed in the same side of the filament.}
+	\label{fig:Lang:dx}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\resizebox{0.8\textwidth}{!}{\import{img/Langmuir/}{sx_char.tex}}
+	\caption{Electrical voltage--current characteristic of the Langmuir probe for a pressure of $2.84\si{\mu\bar}$, a filament current of $6.5\si{\ampere}$ and different discharge polarization voltages (as described in legend). In this case the probe is placed in the opposite side to the filament.}
+	\label{fig:Lang:sx}
+\end{figure}
+
+Then, plasma parameters, i.e. electron density, electronic temperature and plasma potential, are obtained from the C--V characteristics throw the formulas above, and are represented with respect to filament  discharge characteristics (discharge voltage and discharge current). Results are represented in graphs \ref{fig:Lang:Te}--\ref{fig:Lang:Vp_c}.
+
 \begin{figure}[H]
 	\centering
 	\resizebox{0.8\textwidth}{!}{\import{img/Langmuir/}{Te.tex}}
-	\caption{ehi}
+	\caption{Dependence of electronic temperature on discharge polarization voltage, for a pressure of $2.84\si{\mu\bar}$ and a filament current of $6.5\si{\ampere}$. The errors have been estimated at $25\%$ in the temperature and $1\si{\volt}$ in the voltage.}
 	\label{fig:Lang:Te}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
 	\resizebox{0.8\textwidth}{!}{\import{img/Langmuir/}{n.tex}}
-	\caption{ehi}
+	\caption{Dependence of density on discharge polarization voltage, for a pressure of $2.84\si{\mu\bar}$ and a filament current of $6.5\si{\ampere}$. The errors have been estimated at $20\%$ in the density and $1\si{\volt}$ in the voltage.}
 	\label{fig:Lang:n}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
 	\resizebox{0.8\textwidth}{!}{\import{img/Langmuir/}{Vp.tex}}
-	\caption{ehi}
+	\caption{Dependence of plasma potential on discharge polarization voltage, for a pressure of $2.84\si{\mu\bar}$ and a filament current of $6.5\si{\ampere}$. The errors have been estimated at $15\%$ in the potential and $1\si{\volt}$ in the voltage.}
 	\label{fig:Lang:Vp}
 \end{figure}
 
+\begin{figure}[H]
+	\centering
+	\resizebox{0.8\textwidth}{!}{\import{img/Langmuir/}{Te_c.tex}}
+	\caption{Dependence of electronic temperature on discharge current, for a pressure of $2.84\si{\mu\bar}$ and a filament current of $6.5\si{\ampere}$. The errors have been estimated at $25\%$ in the temperature and $\pm1\si{m\ampere}$ in the discharge current.}
+	\label{fig:Lang:Te_c}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\resizebox{0.8\textwidth}{!}{\import{img/Langmuir/}{n_c.tex}}
+	\caption{Dependence of density on discharge current, for a pressure of $2.84\si{\mu\bar}$ and a filament current of $6.5\si{\ampere}$. The errors have been estimated at $20\%$ in the density and $\pm1\si{m\ampere}$ in the discharge current.}
+	\label{fig:Lang:n_c}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\resizebox{0.8\textwidth}{!}{\import{img/Langmuir/}{Vp_c.tex}}
+	\caption{Dependence of plasma potential on discharge current, for a pressure of $2.84\si{\mu\bar}$ and a filament current of $6.5\si{\ampere}$. The errors have been estimated at $15\%$ in the potential and $\pm1\si{m\ampere}$ in the discharge current.}
+	\label{fig:Lang:Vp_c}
+\end{figure}
+
+\subsection{Dependence on filament current}
+
+\begin{figure}[H]
+	\centering
+	\resizebox{0.8\textwidth}{!}{\import{img/Langmuir/}{dx_char_cur.tex}}
+	\caption{Electrical voltage--current characteristic of the Langmuir probe for a pressure of $2.84\si{\mu\bar}$, a polarization voltage of $40\si{\volt}$ and different filament currents (as described in legend). In this case the probe is placed in the same side of the filament.}
+	\label{fig:Lang:dx_cur}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\resizebox{0.8\textwidth}{!}{\import{img/Langmuir/}{sx_char_cur.tex}}
+	\caption{Electrical voltage--current characteristic of the Langmuir probe for a pressure of $2.84\si{\mu\bar}$, a polarization voltage of $40\si{\volt}$ and different filament currents (as described in legend). In this case the probe is placed in the opposite side of the filament.}
+	\label{fig:Lang:sx_cur}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\resizebox{0.8\textwidth}{!}{\import{img/Langmuir/}{Te_f.tex}}
+	\caption{Dependence of electronic temperature on filament current, for a pressure of $2.84\si{\mu\bar}$ and a polarization voltage of $40\si{\volt}$. The errors have been estimated at $5\%$ in the temperature and $0.1\si{\ampere}$ in the current.}
+	\label{fig:Lang:Te_f}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\resizebox{0.8\textwidth}{!}{\import{img/Langmuir/}{n_f.tex}}
+	\caption{Dependence of plasma potential on filament current, for a pressure of $2.84\si{\mu\bar}$ and a polarization voltage of $40\si{\volt}$. The errors have been estimated at $10\%$ in the density and $0.1\si{\ampere}$ in the current.}
+	\label{fig:Lang:n_f}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\resizebox{0.8\textwidth}{!}{\import{img/Langmuir/}{Vp_f.tex}}
+	\caption{Dependence of density on filament current, for a pressure of $2.84\si{\mu\bar}$ and a polarization voltage of $40\si{\volt}$. The errors have been estimated at $5\%$ in the density and $0.1\si{\ampere}$ in the current.}
+	\label{fig:Lang:Vp_f}
+\end{figure}
+
+\subsection{Dependence on pressure}
+\begin{figure}[H]
+	\centering
+	\resizebox{0.8\textwidth}{!}{\import{img/Langmuir/}{dx_char_p.tex}}
+	\caption{Electrical voltage--current characteristic of the Langmuir probe for a filament current of $6.5\si{\ampere}$, a polarization voltage of $40\si{\volt}$ and different pressures (as described in legend). In this case the probe is placed in the same side of the filament.}
+	\label{fig:Lang:dx_p}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\resizebox{0.8\textwidth}{!}{\import{img/Langmuir/}{sx_char_p.tex}}
+	\caption{Electrical voltage--current characteristic of the Langmuir probe for a filament current of $6.5\si{\ampere}$, a polarization voltage of $40\si{\volt}$ and different pressures (as described in legend). In this case the probe is placed in the opposite side of the filament.}
+	\label{fig:Lang:sx_p}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\resizebox{0.8\textwidth}{!}{\import{img/Langmuir/}{Te_p.tex}}
+	\caption{Dependence of electronic temperature on the chamber pressure, for a filament current of $6.5\si{m\ampere}$ and a polarization voltage of $40\si{\volt}$. The errors have been estimated at $15\%$ in the temperature and $5\tcperthousand$ in the pressure. Logarithmic scale has been used for both axis.}
+	\label{fig:Lang:Te_p}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\resizebox{0.8\textwidth}{!}{\import{img/Langmuir/}{n_p.tex}}
+	\caption{Dependence of density on the chamber pressure, for a filament current of $6.5\si{m\ampere}$ and a polarization voltage of $40\si{\volt}$. The errors have been estimated at $20\%$ in the density and $5\tcperthousand$ in the pressure. Logarithmic scale has been used for X axis.}
+	\label{fig:Lang:n_p}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\resizebox{0.8\textwidth}{!}{\import{img/Langmuir/}{Vp_p.tex}}
+	\caption{Dependence of plasma potential on the chamber pressure, for a filament current of $6.5\si{m\ampere}$ and a polarization voltage of $40\si{\volt}$. The errors have been estimated at $20\%$ in the potential and $5\tcperthousand$ in the pressure. Logarithmic scale has been used for X axis.}
+	\label{fig:Lang:Vp_p}
+\end{figure}
 
 \section{IonicSonic speed}
 Through the Langmuir probes, some measurements of the ionic-sonic waves propagation can be done. Igniting the plasma with a filament current of $6.5\si{\ampere}$, the grid has been polarized with a sinusoidal waves (frequency $\sim20.8\si{\kilo\hertz}$, $V_\text{peak-peak}\sim50\si{\volt}$, which also triggers the oscilloscope) and the Langmuir probe has been connected to an oscilloscope. One of the first things noticed is that the plasma distorts the sinusoidal wave: as can be seen from fig. \ref{fig:isspeed:oscill}, in the output wave the rising time is greater than the falling time.

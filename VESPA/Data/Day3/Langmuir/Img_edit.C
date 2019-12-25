@@ -2,12 +2,18 @@
 
 TGraph* DependenceOnDischargePolVolt(int side, int par){
 	double v []={20,30,40,50,60};
-	double T_dx []={0.5101,0.6179,0.5901,0.5995,0.5481};
-	double T_sx []={0.8566,0.5152,0.4471,0.4125,0.5254};
-	double n_dx []={9.43E+15,2.40E+16,3.23E+16,4.18E+16,4.87E+16};
-	double n_sx []={5.45E+15,7.80E+15,7.77E+15,9.54E+15,1.19E+16};
-	double Vp_dx []={0.89,1.48,1.65,1.71,1.76};
-	double Vp_sx []={2.12,0.93,0.80,0.82,1.12};
+	// double T_dx []={0.5101,0.6179,0.5901,0.5995,0.5481};
+	// double T_sx []={0.8566,0.5152,0.4471,0.4125,0.5254};
+	// double n_dx []={9.43E+15,2.40E+16,3.23E+16,4.18E+16,4.87E+16};
+	// double n_sx []={5.45E+15,7.80E+15,7.77E+15,9.54E+15,1.19E+16};
+	// double Vp_dx []={0.89,1.48,1.65,1.71,1.76};
+	// double Vp_sx []={2.12,0.93,0.80,0.82,1.12};
+	double T_dx []={0.619492,0.727488,0.738858,0.69059,0.671489};
+	double T_sx []={0.745883,0.535847,0.505854,0.476674,0.530029};
+	double n_dx []={1.12E+16,2.70E+16,3.72E+16,4.39E+16,5.63E+16};
+	double n_sx []={5.22E+15,8.55E+15,8.66E+15,1.05E+16,1.18E+16};
+	double Vp_dx []={1.3416,1.79968,2.01706,1.88958,2.0838};
+	double Vp_sx []={1.80092,1.13899,1.03999,1.02233,1.12923};
 	TGraph* g;
 	switch (par){
 		case 0:{
@@ -63,146 +69,200 @@ void DischargePolVolt(int par){
  	legend->Draw();
 }
 
+TGraph* DependenceOnDischargePolCurr(int side, int par){
+	double i_dx []={323,700,721,762,801};
+	double i_sx []={323,667,717,756,804};
+	double T_dx []={0.5101,0.6179,0.5901,0.5995,0.5481};
+	double T_sx []={0.8566,0.5152,0.4471,0.4125,0.5254};
+	double n_dx []={9.43E+15,2.40E+16,3.23E+16,4.18E+16,4.87E+16};
+	double n_sx []={5.45E+15,7.80E+15,7.77E+15,9.54E+15,1.19E+16};
+	double Vp_dx []={0.89,1.48,1.65,1.71,1.76};
+	double Vp_sx []={2.12,0.93,0.80,0.82,1.12};
+	// double T_dx []={0.619492,0.727488,0.738858,0.69059,0.671489};
+	// double T_sx []={0.745883,0.535847,0.505854,0.476674,0.530029};
+	// double n_dx []={1.12E+16,2.70E+16,3.72E+16,4.39E+16,5.63E+16};
+	// double n_sx []={5.22E+15,8.55E+15,8.66E+15,1.05E+16,1.18E+16};
+	// double Vp_dx []={1.3416,1.79968,2.01706,1.88958,2.0838};
+	// double Vp_sx []={1.80092,1.13899,1.03999,1.02233,1.12923};
+	TGraph* g;
+	switch (par){
+		case 0:{
+			g = !((bool) side) ? new TGraph (5, i_dx, T_dx) : new TGraph (5, i_sx, T_sx);
+			g->GetYaxis()->SetRangeUser(0.4, 0.9);
+			break;
+		};
+		case 1:{
+			g = !((bool) side) ? new TGraph (5, i_dx, n_dx) : new TGraph (5, i_sx, n_sx);
+			g->GetYaxis()->SetRangeUser(0, 5.0E+16);
+			break;
+		};
+		case 2:{
+			g = !((bool) side) ? new TGraph (5, i_dx, Vp_dx) : new TGraph (5, i_sx, Vp_sx);
+			g->GetYaxis()->SetRangeUser(0.75, 2.2);
+			break;
+		};
+	}
+	return g;
+}
+
+void DischargePolCurr(int par){
+	auto g = DependenceOnDischargePolCurr(0,par);
+	g->SetLineColor(kViolet);
+ 	g->SetName("right");
+
+ 	g->GetXaxis()->SetTitle("Discharge Current [mA]");
+ 	switch(par){
+ 		case 0:{
+	 		g->GetYaxis()->SetTitle("Te [eV]");
+	 		break;
+ 		}
+ 		case 1:{
+ 			g->GetYaxis()->SetTitle("n [m^(-3)]");
+ 			break;
+ 		}
+ 		case 2:{
+ 			g->GetYaxis()->SetTitle("Vp [V]");
+ 			break;
+ 		}
+ 	}
+
+ 	g->Draw();
+
+ 	g = DependenceOnDischargePolCurr(1,par);
+	g->SetLineColor(kRed);
+ 	g->SetName("left");
+ 	g->Draw("SAME");
+
+ 	auto legend = new TLegend(0.1,0.7,0.48,0.9);
+ 	legend->AddEntry("right","Filament Side","l");
+ 	legend->AddEntry("left","Pump Side","l");
+ 	legend->Draw();
+}
 
 
-// class LangFit{
-// 	public:
-// 	LangFit(char* f){
-// 		file = f;
-// 		ifstream in;
-// 		in.open(Form("/Users/andreagrossutti/Documents/GitHub/Physics_Laboratory-g19/VESPA/Data/Day3/Langmuir/DatiAcquisiti/%s.txt",file));
-// 		in.ignore(10000,'\n');
-// 		g=new TGraph();
-// 		double i,j,k,l;
-// 		while(in >> i >> j >> k >> l)
-// 			g->SetPoint(g->GetN(),k,l);
-// 		//g->Draw();
-// 		//Is_fit();
-// 	}
 
-// 	void Is_fit(){
-// 		TF1* Linear = new TF1("Linear","[Is]*x+[q]",-19,-2);
-// 		Linear -> SetParameter("Is", 0.070);
-// 		Linear -> SetParameter("q", 0);
-// 		g->Fit("Linear","RS");
-// 	}
-	
-// 	void DrawFitFunc(){
-// 		TF1* f = g->GetFunction("LangmuirFourParam");
-// 		f->SetRange(f->GetXmin(),f->GetXmax()+2);
-// 		f->Draw("SAME");
-// 	}
+TGraph* DependenceOnFilamentCurr(int side, int par){
+	double v []={6.1,6.5,6.7};
+	double T_dx []={0.2834,0.5901,0.8145};
+	double T_sx []={0.21,0.4471,0.6184};
+	double n_dx []={1.04E+16,3.23E+16,5.92E+16};
+	double n_sx []={3.92E+15,7.77E+15,1.40E+16};
+	double Vp_dx []={0.87,1.65,1.91};
+	double Vp_sx []={0.48,0.8,1.09};
+	TGraph* g;
+	switch (par){
+		case 0:{
+			g = !((bool) side) ? new TGraph (5, v, T_dx) : new TGraph (5, v, T_sx);
+			g->GetYaxis()->SetRangeUser(0.2, 0.9);
+			break;
+		};
+		case 1:{
+			g = !((bool) side) ? new TGraph (5, v, n_dx) : new TGraph (5, v, n_sx);
+			g->GetYaxis()->SetRangeUser(0, 8.0E+16);
+			break;
+		};
+		case 2:{
+			g = !((bool) side) ? new TGraph (5, v, Vp_dx) : new TGraph (5, v, Vp_sx);
+			g->GetYaxis()->SetRangeUser(0.3, 2.2);
+			break;
+		};
+	}
+	return g;
+}
 
-// 	void DrawGraph(){
-// 		g->GetXaxis()->SetTitle("Potential [V]");
-// 		g->GetYaxis()->SetTitle("Current [mA]");
-// 		g->Draw();
-// 	}
+void FilamentCurr(int par){
+	auto g = DependenceOnDischargePolVolt(0,par);
+	g->SetLineColor(kViolet);
+ 	g->SetName("right");
 
-// 	void Fit(){
-// 		TF1* f = g->GetFunction("Linear");
-// 		Is = f->GetParameter(0);
-// 		Is_err = f->GetParError(0);
-// 		TF1* LangmuirFourParam = new TF1("LangmuirFourParam","[Is]*(1.+[R]*(x-[Vf]))*(exp((x-[Vf])/[Te])-1.)",-19,2);
-// 		LangmuirFourParam -> FixParameter(0, Is);
-// 		LangmuirFourParam -> SetParameter("R", -0.14);
-// 		LangmuirFourParam -> SetParameter("Vf", -2.);
-// 		LangmuirFourParam -> SetParameter("Te", 0.68);
-// 		g->Fit("LangmuirFourParam","RS");
-// 	}
+ 	g->GetXaxis()->SetTitle("Discharge Polarization Voltage [V]");
+ 	switch(par){
+ 		case 0:{
+	 		g->GetYaxis()->SetTitle("Te [eV]");
+	 		break;
+ 		}
+ 		case 1:{
+ 			g->GetYaxis()->SetTitle("n [m^(-3)]");
+ 			break;
+ 		}
+ 		case 2:{
+ 			g->GetYaxis()->SetTitle("Vp [V]");
+ 			break;
+ 		}
+ 	}
 
-// 	void DerivatedData(){
-// 		TF1* f = g->GetFunction("LangmuirFourParam");
-// 		R = f->GetParameter(1);
-// 		R_err = f->GetParError(1);
-// 		Te = f->GetParameter(2);
-// 		Te_err = f->GetParError(2);
-// 		Vf = f->GetParameter(3);
-// 		Vf_err = f->GetParError(3);
-// 		double Rshunt = 100.;
-// 		double area = 30.; //sq. mm
-// 		double e = 1.6022e-19;//C
-// 		double mp = 1.67e-27;//KG
-// 		double me = 9.1e-31;//KG
-// 		double mi = mp * 39.948;
-// 		double pi = 3.14159265358979323846;
-// 		double alpha = 0.5*(log(mi/(2*pi*me))+1.);
-// 		double cs = sqrt(e*Te/mi);
-// 		n = 2.*Is/(e*cs*area*1e-6)/1000;
-// 		Vp = Vf + alpha*Te;
-// 	}
+ 	g->Draw();
 
-// 	void DrawResults(){
-// 		DerivatedData();
-// 		ofstream out;
-// 		out.open("/Users/andreagrossutti/Documents/GitHub/Physics_Laboratory-g19/VESPA/Data/Day3/Langmuir/Langmuir_Fit_Results.txt", ofstream::out | ofstream::app);
-// 		out << file << '\t';
-// 		out << Is << '\t' << Is_err << '\t';
-// 		out << R << '\t' << R_err << '\t';
-// 		out << Te << '\t' << Te_err << '\t';
-// 		out << Vf << '\t' << Vf_err << '\t';
-// 		out << n << '\t'<< Vp << endl;
-// 		cout << n << '\t'<< Vp << endl;
-// 	}
+ 	g = DependenceOnDischargePolVolt(1,par);
+	g->SetLineColor(kRed);
+ 	g->SetName("left");
+ 	g->Draw("SAME");
 
-// 	TGraph* GetGraph(){
-// 		return g;
-// 	}
+ 	auto legend = new TLegend(0.1,0.7,0.48,0.9);
+ 	legend->AddEntry("right","Filament Side","l");
+ 	legend->AddEntry("left","Pump Side","l");
+ 	legend->Draw();
+}
 
-// 	private:
-// 	char* file;
-// 	TGraph* g;
-// 	double Is;
-// 	double Is_err;
-// 	double Te;
-// 	double Te_err;
-// 	double Vf;
-// 	double Vf_err;
-// 	double R;
-// 	double R_err;
-// 	double n;
-// 	double Vp;
-// };
+TGraph* DependenceOnPressure(int side, int par){
+	double v []={0.282,2.84,29.5};
+	double T_dx []={2.24551,0.5901,0.5189};
+	double T_sx []={0.907499,0.4471,6.2641};
+	double n_dx []={4.23E+15,3.23E+16,3.46E+16};
+	double n_sx []={2.65E+15,7.77E+15,3.41E+14};
+	double Vp_dx []={4.65265,1.65,1.1};
+	double Vp_sx []={1.72722,0.8,17.5403};
+	TGraph* g;
+	switch (par){
+		case 0:{
+			g = !((bool) side) ? new TGraph (3, v, T_dx) : new TGraph (3, v, T_sx);
+			g->GetYaxis()->SetRangeUser(0.2, 8);
+			break;
+		};
+		case 1:{
+			g = !((bool) side) ? new TGraph (3, v, n_dx) : new TGraph (3, v, n_sx);
+			g->GetYaxis()->SetRangeUser(0, 4.0E+16);
+			break;
+		};
+		case 2:{
+			g = !((bool) side) ? new TGraph (3, v, Vp_dx) : new TGraph (3, v, Vp_sx);
+			g->GetYaxis()->SetRangeUser(0.3, 20);
+			break;
+		};
+	}
+	return g;
+}
 
-// void MultGraph(){
-// 	fit_in_costructor = false;
-// 	auto l = new LangFit("dx6");
-// 	auto g = l->GetGraph();
-// 	g->SetLineColor(kBlack);
-// 	g->SetName("sx6");
-// 	l->DrawGraph();
+void Pressure(int par){
+	auto g = DependenceOnPressure(0,par);
+	g->SetLineColor(kViolet);
+ 	g->SetName("right");
 
-// 	l = new LangFit("dx2");
-// 	g = l->GetGraph();
-// 	g->SetLineColor(kGreen);
-// 	g->SetName("sx2");
-// 	g->Draw("SAME");
+ 	g->GetXaxis()->SetTitle("Pressure in the chamber [muBar]");
+ 	switch(par){
+ 		case 0:{
+	 		g->GetYaxis()->SetTitle("Te [eV]");
+	 		break;
+ 		}
+ 		case 1:{
+ 			g->GetYaxis()->SetTitle("n [m^(-3)]");
+ 			break;
+ 		}
+ 		case 2:{
+ 			g->GetYaxis()->SetTitle("Vp [V]");
+ 			break;
+ 		}
+ 	}
 
-// 	l = new LangFit("dx3");
-// 	g = l->GetGraph();
-// 	g->SetLineColor(kRed);
-// 	g->SetName("sx3");
-// 	g->Draw("SAME");
+ 	g->Draw();
 
-// 	l = new LangFit("dx4");
-// 	g = l->GetGraph();
-// 	g->SetLineColor(kBlue);
-// 	g->SetName("sx4");
-// 	g->Draw("SAME");
+ 	g = DependenceOnPressure(1,par);
+	g->SetLineColor(kRed);
+ 	g->SetName("left");
+ 	g->Draw("SAME");
 
-// 	l = new LangFit("dx5");
-// 	g = l->GetGraph();
-// 	g->SetLineColor(kViolet);
-// 	g->SetName("sx5");
-// 	g->Draw("SAME");
-
-// 	auto legend = new TLegend(0.1,0.7,0.48,0.9);
-//    legend->AddEntry("sx2","20V","l");
-//    legend->AddEntry("sx3","30V","l");
-//    legend->AddEntry("sx4","40V","l");
-//    legend->AddEntry("sx5","50V","l");
-//    legend->AddEntry("sx6","60V","l");
-//    legend->Draw();
-
-// }
-
+ 	auto legend = new TLegend(0.1,0.7,0.48,0.9);
+ 	legend->AddEntry("right","Filament Side","l");
+ 	legend->AddEntry("left","Pump Side","l");
+ 	legend->Draw();
+}
