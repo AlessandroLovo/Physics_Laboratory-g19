@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <math.h>
 
 bool fit_in_costructor = true;
 
@@ -16,6 +17,7 @@ class LangFit{
 			g->SetPoint(g->GetN(),k,l);
 		g->Draw();
 		Is_fit();
+		Fit();
 	}
 
 	void Is_fit(){
@@ -51,23 +53,44 @@ class LangFit{
 
 	void DerivatedData(){
 		TF1* f = g->GetFunction("LangmuirFourParam");
+		Is = f->GetParameter(0);
+		Is_err = f->GetParError(0);
+		double Is_rel = pow(Is_err/Is,2);
 		R = f->GetParameter(1);
 		R_err = f->GetParError(1);
+		double R_rel = pow(R_err/R,2);
 		Te = f->GetParameter(2);
 		Te_err = f->GetParError(2);
+		double Te_rel = pow(Te_err/Te,2);
 		Vf = f->GetParameter(3);
 		Vf_err = f->GetParError(3);
+		double Vf_rel = pow(Vf_err/Vf,2);
 		double Rshunt = 100.;
 		double area = 30.; //sq. mm
+		double area_rel = pow(1./area,2);
 		double e = 1.6022e-19;//C
+		double e_rel = pow(.0001e-19/e,2);
 		double mp = 1.66054e-27;//KG
+		double mp_rel = pow(.00001e-27/mp,2);
 		double me = 9.10938356e-31;//KG
-		double mi = mp * 39.948;
+		double me_rel = pow(.00000001e-31/me,2);
+		double argon_am = 39.948;//uma
+		double argon_am_rel=pow(.001/argon_am,2);
+		double mi = mp * argon_am;
+		double mi_err = mi*sqrt(mp_rel + argon_am_rel);
+		double mi_rel = pow(mi_err/mi,2);
 		double pi = 3.14159265358979323846;
 		double alpha = 0.5*(log(mi/(2*pi*me))+1.);
-		double cs = sqrt(e*Te/mi);
-		n = 2.*Is/(e*cs*area*1e-6)/1000;
+		double alpha_err = 0.5*sqrt(mi_rel+me_rel)/(mi/(2*pi*me));
+		double alpha_rel = pow(alpha_err/alpha,2);
+		cs = sqrt(e*Te/mi);
+		cs_err = cs/2*sqrt(e_rel+Te_rel+mi_rel); 
+		double cs_rel = pow(cs_err/cs,2);
+		n = 2.0*Is/(e*cs*area*1e-3);
+		n_err = n*sqrt(Is_rel+e_rel+cs_rel+area_rel);
+		//n = 2.*Is/(e*cs*area*1e-6)/1000;
 		Vp = Vf + alpha*Te;
+		Vp_err = sqrt(Vf_rel+pow(alpha*Te,2)*(alpha_rel+Te_rel));
 	}
 
 	void DrawResults(){
@@ -79,7 +102,9 @@ class LangFit{
 		out << R << '\t' << R_err << '\t';
 		out << Te << '\t' << Te_err << '\t';
 		out << Vf << '\t' << Vf_err << '\t';
-		out << n << '\t'<< Vp << endl;
+		out << cs << '\t'<< cs_err << '\t';
+		out << n << '\t'<< n_err << '\t';
+		out << Vp <<'\t'<< Vp_err << endl;
 		cout << n << '\t'<< Vp << endl;
 	}
 
@@ -98,8 +123,12 @@ class LangFit{
 	double Vf_err;
 	double R;
 	double R_err;
+	double cs;
+	double cs_err;
 	double n;
+	double n_err;
 	double Vp;
+	double Vp_err;
 };
 
 void MultGraph_sameCurr(){
@@ -200,6 +229,8 @@ void MultGraph_changePressure(){
    legend->Draw();
 
 }
+
+
 
 
 
