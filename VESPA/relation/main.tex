@@ -75,7 +75,7 @@ Considering the reaction time, the slowness of the ionization gauge in stabilizi
   \resizebox{0.5\textwidth}{!}{\import{img/vacuum/}{increase_all_residuals.tex}}
   \caption{Presure increasing in the chamber}
   \label{fig:increase_all}
-\end{figure} 
+\end{figure}
 
 As can be seen from fig \ref{fig:increase_all} there is an evident trend in the residuals, proving that $F_0$ cannot be assumed constant throughout all the explored range of pressures. A possible way to correct this is to consider a low pressure regime and a high pressure one: the limit has been put where the trend in the residuals inverts, i.e. around 200\si{\nano\pascal}.
 \begin{figure}[H]
@@ -339,17 +339,22 @@ As can be seen from the plot, the minimum of the Paschen curve in radiofrequency
 \section{Measurement of plasma parameters}
 Using a Langmuir probe an estimation of plasma parameters, such as density, electron temperature and plasma potential, can be obtained.
 The electron current through the probe follow this relation:\footnote{This relation is a different version of the one derivated in D. Desideri and G.Serianni \emph{Four Parameter data fit for Langmuir probes with nonsaturation of ion current}, Rev. Sci. Instrum., 69 (1998), \url{https://doi.org/10.1063/1.1148942}}
+
+Using a Langmuir probe an estimate of plasma parameters, such as density, electron temperature and plasma potential, can be obtained.%, throw electric parameters of the filament of which the probe is composed.
+\todo[inline]{In generale, \emph{formula} è una brutta parola, molto matematica e poco fisica. In fisica si parla di \emph{relation}.}
+The electron current through the probe follows this relation:\footnote{This relation is a different version of the one derivated in D. Desideri and G.Serianni \emph{Four Parameter data fit for Langmuir probes with nonsaturation of ion current}, Rev. Sci. Instrum., 69 (1998), \url{https://doi.org/10.1063/1.1148942}}
 \[I=I_{si}\left(1+R(V-V_f)\right)\left(\exp\left(\frac{e(V-V_f)}{kT_e}\right)-1\right)\]
 where $I_{si}$ is the Ion Saturation Current, $V_f$ the Floating Potential, $T_e$ the Electronic Temperature and $R$ an additional factor that describes the current--voltage characteristic for $V\ll V_f$.
 It is important to observe that the formula describes experimental data for $V\lesssim V_f$, while for higher values of $V$ additional terms are required.
 
-Other plasma parameter can be obtained with following relations:
+Other plasma parameters can be obtained with the following relations:
 \begin{equation*}
   c_s=\left(\frac{e\,T_e}{m_i}\right)^{1/2} \qquad
   n=\frac{2I_{si}}{e\,c_s\,A} \qquad
   V_p=V_f+\frac12\left(\log(\frac{m_i}{2\pi m_e})+1\right) T_e
 \end{equation*}
 where $c_s$ is the ionic-sonic speed, $n$ the plasma density, $V_p$ the plasma potential, $m_i$ is the the ion mass, $A$ is the probe area and $e$ is electron charge.
+
 
 For the characterization of the plasma two Langmuir probes has been inserted in the chamber, one in the same side of the filament ("filament side"), and one in the opposite side, near the pumping group ("pump side").
 %
