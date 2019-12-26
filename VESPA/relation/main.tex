@@ -74,7 +74,7 @@ Considering the reaction time, the slowness of the ionization gauge in stabilizi
   \resizebox{0.5\textwidth}{!}{\import{img/vacuum/}{increase_all_residuals.tex}}
   \caption{Presure increasing in the chamber}
   \label{fig:increase_all}
-\end{figure} 
+\end{figure}
 
 As can be seen from fig \ref{fig:increase_all} there is an evident trend in the residuals, proving that $F_0$ cannot be assumed constant throughout all the explored range of pressures. A possible way to correct this is to consider a low pressure regime and a high pressure one: the limit has been put where the trend in the residuals inverts, i.e. around 200\si{\nano\pascal}.
 \begin{figure}[H]
@@ -336,15 +336,15 @@ As can be seen from the plot, the minimum of the Paschen curve in radiofrequency
 
 
 \section{Measurement of plasma parameters}
-Using a Langmuir probe an estimation of plasma parameters, such as density, electron temperature and plasma potential, can be obtained.%, throw electric parameters of the filament of which the probe is composed.
+Using a Langmuir probe an estimate of plasma parameters, such as density, electron temperature and plasma potential, can be obtained.%, throw electric parameters of the filament of which the probe is composed.
 \todo[inline]{In generale, \emph{formula} è una brutta parola, molto matematica e poco fisica. In fisica si parla di \emph{relation}.}
-The electron current through the probe follow this relation:\footnote{This relation is a different version of the one derivated in D. Desideri and G.Serianni \emph{Four Parameter data fit for Langmuir probes with nonsaturation of ion current}, Rev. Sci. Instrum., 69 (1998), \url{https://doi.org/10.1063/1.1148942}}
+The electron current through the probe follows this relation:\footnote{This relation is a different version of the one derivated in D. Desideri and G.Serianni \emph{Four Parameter data fit for Langmuir probes with nonsaturation of ion current}, Rev. Sci. Instrum., 69 (1998), \url{https://doi.org/10.1063/1.1148942}}
 \[I=I_{si}\left(1+R(V-V_f)\right)\left(\exp\left(\frac{e(V-V_f)}{kT_e}\right)-1\right)\]
 where $I_{si}$ is the Ion Saturation Current, $V_f$ the Floating Potential, $T_e$ the Electronic Temperature and $R$ an additional factor that describes the current--voltage characteristic for $V\ll V_f$.
 It is important to observe that the formula describes experimental data for $V\lesssim V_f$, while for higher values of $V$ additional terms are required.
 %These terms can be obtained throw fitting procedure. An example of electrical voltage-current characteristics is shown in fig. \ref{fig:Lang:dx} and \ref{fig:Lang:sx}.
 
-Other plasma parameter can be obtained with following relations:
+Other plasma parameters can be obtained with the following relations:
 \begin{equation*}
   c_s=\left(\frac{e\,T_e}{m_i}\right)^{1/2} \qquad
   n=\frac{2I_{si}}{e\,c_s\,A} \qquad
@@ -352,7 +352,7 @@ Other plasma parameter can be obtained with following relations:
 \end{equation*}
 where $c_s$ is the ionic-sonic speed, $n$ the plasma density, $V_p$ the plasma potential, $m_i$ is the the ion mass, $A$ is the probe area and $e$ is electron charge.
 
-For the characterization of the plasma two Langmuir probes has been inserted in the chamber, one in the same side of the filament ("filament side"), and one in the opposite side, near the pumping group ("pump side").
+For the characterization of the plasma, two Langmuir probes have been used: one on the same side of the filament ("filament side"), and one on the opposite side, near the pumping group ("pump side").
 
 \subsection{Dependence on discharge polarization voltage}
 
@@ -371,12 +371,12 @@ In figures \ref{fig:Lang:dx} and \ref{fig:Lang:sx} the voltage--current characte
 	\label{fig:Lang:sx}
 \end{figure}
 
-Plasma parameters are obtained from the characteristics throw interpolations and the previous relations, and are represented with respect to filament  discharge characteristics (discharge voltage and discharge current).
+Plasma parameters are obtained from the characteristics through interpolations and the previous relations, and are represented with respect to filament  discharge characteristics (discharge voltage and discharge current).
 
 \begin{figure}[H]
 	\centering
 	\resizebox{0.8\textwidth}{!}{\import{img/Langmuir/}{Te.tex}}
-	\caption{Dependence of electronic temperature on discharge polarization voltage, for a pressure of $2.84\si{\mu\bar}$ and a filament current of $6.5\si{\ampere}$. The errors have been estimated at $25\%$ in the temperature and $1\si{\volt}$ in the voltage.}
+	\caption{Dependence of electronic temperature on discharge polarization voltage, for a pressure of $2.84\si{\mu\bar}$ and a filament current of $6.5\si{\ampere}$. The errors have been estimated as $25\%$ in the temperature and $1\si{\volt}$ in the voltage.}
 	\label{fig:Lang:Te}
 \end{figure}
 
@@ -384,35 +384,37 @@ Plasma parameters are obtained from the characteristics throw interpolations and
 \begin{figure}[H]
 	\centering
 	\resizebox{0.8\textwidth}{!}{\import{img/Langmuir/}{n.tex}}
-	\caption{Dependence of density on discharge polarization voltage, for a pressure of $2.84\si{\mu\bar}$ and a filament current of $6.5\si{\ampere}$. The errors have been estimated at $20\%$ in the density and $1\si{\volt}$ in the voltage.}
+	\caption{Dependence of density on discharge polarization voltage, for a pressure of $2.84\si{\mu\bar}$ and a filament current of $6.5\si{\ampere}$. The errors have been estimated as $20\%$ in the density and $1\si{\volt}$ in the voltage.}
 	\label{fig:Lang:n}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
 	\resizebox{0.8\textwidth}{!}{\import{img/Langmuir/}{Vp.tex}}
-	\caption{Dependence of plasma potential on discharge polarization voltage, for a pressure of $2.84\si{\mu\bar}$ and a filament current of $6.5\si{\ampere}$. The errors have been estimated at $15\%$ in the potential and $1\si{\volt}$ in the voltage.}
+	\caption{Dependence of plasma potential on discharge polarization voltage, for a pressure of $2.84\si{\mu\bar}$ and a filament current of $6.5\si{\ampere}$. The errors have been estimated as $15\%$ in the potential and $1\si{\volt}$ in the voltage.}
 	\label{fig:Lang:Vp}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
 	\resizebox{0.8\textwidth}{!}{\import{img/Langmuir/}{Te_c.tex}}
-	\caption{Dependence of electronic temperature on discharge current, for a pressure of $2.84\si{\mu\bar}$ and a filament current of $6.5\si{\ampere}$. The errors have been estimated at $25\%$ in the temperature and $\pm1\si{m\ampere}$ in the discharge current.}
+	\caption{Dependence of electronic temperature on discharge current, for a pressure of $2.84\si{\mu\bar}$ and a filament current of $6.5\si{\ampere}$. The errors have been estimated as $25\%$ in the temperature and $\pm1\si{m\ampere}$ in the discharge current.}
 	\label{fig:Lang:Te_c}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
 	\resizebox{0.8\textwidth}{!}{\import{img/Langmuir/}{n_c.tex}}
-	\caption{Dependence of density on discharge current, for a pressure of $2.84\si{\mu\bar}$ and a filament current of $6.5\si{\ampere}$. The errors have been estimated at $20\%$ in the density and $\pm1\si{m\ampere}$ in the discharge current.}
+	\caption{Dependence of density on discharge current, for a pressure of $2.84\si{\mu\bar}$ and a filament current of $6.5\si{\ampere}$. The errors have been estimated as $20\%$ in the density and $\pm1\si{m\ampere}$ in the discharge current.}
 	\label{fig:Lang:n_c}
 \end{figure}
+\todo[inline]{$\chi^2 = 10^{31}$ \`e irrealistico se gli errori sono quelli che hai scritto}
+
 
 \begin{figure}[H]
 	\centering
 	\resizebox{0.8\textwidth}{!}{\import{img/Langmuir/}{Vp_c.tex}}
-	\caption{Dependence of plasma potential on discharge current, for a pressure of $2.84\si{\mu\bar}$ and a filament current of $6.5\si{\ampere}$. The errors have been estimated at $15\%$ in the potential and $\pm1\si{m\ampere}$ in the discharge current.}
+	\caption{Dependence of plasma potential on discharge current, for a pressure of $2.84\si{\mu\bar}$ and a filament current of $6.5\si{\ampere}$. The errors have been estimated as $15\%$ in the potential and $\pm1\si{m\ampere}$ in the discharge current.}
 	\label{fig:Lang:Vp_c}
 \end{figure}
 \todo[inline]{Direi bene. Se si riesce, sarebbe bene mettere le barre di errore nei grafici. Nella fig. 17 se non ce ne facciamo nulla dell'interpolazione meglio togliere i valori dei parametri (ma si può lasciare il fit, così tratteggiato è carino; se è uno sbatti lasciamo anche così). Se si riesce a mettere una immagine, a titolo esemplificativo, sarebbe bello! (ma non fondamentale)}
@@ -437,21 +439,21 @@ In figures \ref{fig:Lang:dx_cur} and \ref{fig:Lang:sx_cur} the voltage--current 
 \begin{figure}[H]
 	\centering
 	\resizebox{0.8\textwidth}{!}{\import{img/Langmuir/}{Te_f.tex}}
-	\caption{Dependence of electronic temperature on filament current, for a pressure of $2.84\si{\mu\bar}$ and a polarization voltage of $40\si{\volt}$. The errors have been estimated at $5\%$ in the temperature and $0.1\si{\ampere}$ in the current.}
+	\caption{Dependence of electronic temperature on filament current, for a pressure of $2.84\si{\mu\bar}$ and a polarization voltage of $40\si{\volt}$. The errors have been estimated as $5\%$ in the temperature and $0.1\si{\ampere}$ in the current.}
 	\label{fig:Lang:Te_f}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
 	\resizebox{0.8\textwidth}{!}{\import{img/Langmuir/}{n_f.tex}}
-	\caption{Dependence of plasma potential on filament current, for a pressure of $2.84\si{\mu\bar}$ and a polarization voltage of $40\si{\volt}$. The errors have been estimated at $10\%$ in the density and $0.1\si{\ampere}$ in the current.}
+	\caption{Dependence of plasma potential on filament current, for a pressure of $2.84\si{\mu\bar}$ and a polarization voltage of $40\si{\volt}$. The errors have been estimated as $10\%$ in the density and $0.1\si{\ampere}$ in the current.}
 	\label{fig:Lang:n_f}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
 	\resizebox{0.8\textwidth}{!}{\import{img/Langmuir/}{Vp_f.tex}}
-	\caption{Dependence of density on filament current, for a pressure of $2.84\si{\mu\bar}$ and a polarization voltage of $40\si{\volt}$. The errors have been estimated at $5\%$ in the density and $0.1\si{\ampere}$ in the current.}
+	\caption{Dependence of density on filament current, for a pressure of $2.84\si{\mu\bar}$ and a polarization voltage of $40\si{\volt}$. The errors have been estimated as $5\%$ in the density and $0.1\si{\ampere}$ in the current.}
 	\label{fig:Lang:Vp_f}
 \end{figure}
 
@@ -474,21 +476,21 @@ In figures \ref{fig:Lang:dx_cur} and \ref{fig:Lang:sx_cur} the voltage--current 
 \begin{figure}[H]
 	\centering
 	\resizebox{0.8\textwidth}{!}{\import{img/Langmuir/}{Te_p.tex}}
-	\caption{Dependence of electronic temperature on the chamber pressure, for a filament current of $6.5\si{m\ampere}$ and a polarization voltage of $40\si{\volt}$. The errors have been estimated at $15\%$ in the temperature and $5\tcperthousand$ in the pressure. Logarithmic scale has been used for both axis.}
+	\caption{Dependence of electronic temperature on the chamber pressure, for a filament current of $6.5\si{m\ampere}$ and a polarization voltage of $40\si{\volt}$. The errors have been estimated as $15\%$ in the temperature and $5\tcperthousand$ in the pressure. Logarithmic scale has been used for both axis.}
 	\label{fig:Lang:Te_p}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
 	\resizebox{0.8\textwidth}{!}{\import{img/Langmuir/}{n_p.tex}}
-	\caption{Dependence of density on the chamber pressure, for a filament current of $6.5\si{m\ampere}$ and a polarization voltage of $40\si{\volt}$. The errors have been estimated at $20\%$ in the density and $5\tcperthousand$ in the pressure. Logarithmic scale has been used for X axis.}
+	\caption{Dependence of density on the chamber pressure, for a filament current of $6.5\si{m\ampere}$ and a polarization voltage of $40\si{\volt}$. The errors have been estimated as $20\%$ in the density and $5\tcperthousand$ in the pressure. Logarithmic scale has been used for X axis.}
 	\label{fig:Lang:n_p}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
 	\resizebox{0.8\textwidth}{!}{\import{img/Langmuir/}{Vp_p.tex}}
-	\caption{Dependence of plasma potential on the chamber pressure, for a filament current of $6.5\si{m\ampere}$ and a polarization voltage of $40\si{\volt}$. The errors have been estimated at $20\%$ in the potential and $5\tcperthousand$ in the pressure. Logarithmic scale has been used for X axis.}
+	\caption{Dependence of plasma potential on the chamber pressure, for a filament current of $6.5\si{m\ampere}$ and a polarization voltage of $40\si{\volt}$. The errors have been estimated as $20\%$ in the potential and $5\tcperthousand$ in the pressure. Logarithmic scale has been used for X axis.}
 	\label{fig:Lang:Vp_p}
 \end{figure}
 
