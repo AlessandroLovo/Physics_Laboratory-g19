@@ -105,7 +105,7 @@ TGraphErrors* ParamGraph(int side, int x_par, int y_par){
 				double err_p [] = {0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.001,0.1};
 				double p = (!side) ? p_dx[N[i]-1] : p_sx[N[i]-1];
 				double ep = err_p[N[i]-1];
-				double n0=p*1.0e-6/(1.380649e-23)/(273.15+19);
+				double n0=p*1.0e-6*1.0e+5/(1.380649e-23)/(273.15+19);
 				double en0=n0*sqrt(pow(ep/p,2)+pow(3/(273.15+19),2));
 				double ern=pow(n_err/n,2);
 				double f=n/(n+n0);
@@ -212,6 +212,9 @@ void ParamGraph(int x_par, int y_par){
  	double YMin = min(TMath::MinElement(g->GetN(),g->GetY()),TMath::MinElement(g1->GetN(),g1->GetY()));
 
  	g->GetYaxis()->SetRangeUser(YMin*0.8, YMax*1.2);
+ 	if(y_par==5){
+ 		//g->GetYaxis()->SetRangeUser(0,1.0e-3);
+ 	}
  	g->SetTitle("");
 
  	
@@ -225,6 +228,10 @@ void ParamGraph(int x_par, int y_par){
  	g1->SetMarkerStyle(20);
  	g1->SetMarkerSize(0.8);
 
+	if(y_par==5){
+		TF1* OneLine = new TF1("OneLine","1.",-100,1000);
+		OneLine->Draw("same");
+	}
 
  	auto legend = new TLegend(0.1,0.7,0.3,0.85);
    	legend->AddEntry("right","Filament Side","lep");
