@@ -96,6 +96,10 @@ TGraphErrors* ParamGraph(int side, int x_par, int y_par){
 				ey.push_back(cs_err);
 				break;
 			case 4:
+				y.push_back(Vf);
+				ey.push_back(Vf_err);
+				break;
+			case 5:
 				double p_dx [] = {2.7,2.94,2.84,2.84,2.84,2.84,2.84,2.84,0.282,29.5};
 				double p_sx [] = {2.7,2.94,2.84,2.84,2.84,2.84,2.84,2.84,0.282,29.5};
 				double err_p [] = {0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.001,0.1};
@@ -195,6 +199,10 @@ void ParamGraph(int x_par, int y_par){
  			break;
  		}
  		case 4:{
+ 			g->GetYaxis()->SetTitle("Vf [V]");
+ 			break;
+ 		}
+ 		case 5:{
  			g->GetYaxis()->SetTitle("f []");
  			break;
  		}
@@ -216,6 +224,7 @@ void ParamGraph(int x_par, int y_par){
  	g->SetMarkerSize(0.8);
  	g1->SetMarkerStyle(20);
  	g1->SetMarkerSize(0.8);
+
 
  	auto legend = new TLegend(0.1,0.7,0.3,0.85);
    	legend->AddEntry("right","Filament Side","lep");
