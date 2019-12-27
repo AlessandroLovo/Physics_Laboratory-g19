@@ -334,6 +334,8 @@ Varying the pressure in the vessel, the breakdown voltage trend can be studied. 
 
 As can be seen from the plot, the minimum of the Paschen curve in radiofrequency condition is very wide: the optimal area can be identified in the range: $$3\textup{--}7 \cdot 10^{-5}\si{\bar}$$
 
+With respect to the DC curve, in radiofrequency condition the Paschen curve is clearly larger and the Paschen minimum area is translated towards the higher pressures.
+
 \section{Measurement of plasma parameters}
 Using a Langmuir probe an estimate of plasma parameters, such as density, electron temperature and plasma potential, can be obtained.
 The electron current $I$ through the probe as function of its potential $V$ follows this relation:\footnote{This relation is a different version of the one derivated in D. Desideri and G.Serianni \emph{Four Parameter data fit for Langmuir probes with nonsaturation of ion current}, Rev. Sci. Instrum., 69 (1998), \url{https://doi.org/10.1063/1.1148942}}
@@ -604,23 +606,19 @@ On the other hand, from the perfect-gas law, we can instead compute (assuming a 
   p = nk_BT\quad\rightarrow\quad n = \frac{p}{k_BT} \sim 8\cdot10^{19} \si{\metre^{-3}}
 \end{equation*}
 
-The two estimations are clearly incompatible: they differs from an order of magnitude. This can be due to the multiple approximations made to compute $n_0$. First of all the fit: the explored range is too narrow to appreciate the exponential shape, and the trick used make our estimation rougher. Moreover, the multiple approximate values used contribute to a inaccurate estimation of the neutral density.
+The two estimations are clearly incompatible: they differs from an order of magnitude. This can be due, with respect to the first estimation, to the multiple approximations made to compute $n_0$. First of all the fit: the explored range is too narrow to appreciate the exponential shape, and the trick used make our estimation rougher. Moreover, the multiple approximate values used contribute to a inaccurate estimation of the neutral density. On the other hand, the second estimation doesn't keep in account the ionization of the system, leading to a possible overestimation of the density.
 
 \section{Conclusions}
 With respect to the initial aims:
-\begin{itemize}
-  \item By studying the vacuum, the average inflow in the chamber and the pumping speed of the pumping system have been estimated.
-  \item By studying the V-I characteristics of the tungsten filament the relation between the filament current and its temperature has been found.
-  \item The V-I characteristics of the plasma in DC condition has been found and the Paschen curve built: both of them show relevant deviation from the theory.
-  \item \todo[inline]{Paschen RF results}
-  \item The analysis of plasma parameter throw Langmuir probes showed several dependence of plasma parameter on apparatus settings. In particular, we notice how pressure strongly influence the working conditions of the plasma, while a growth of filament current typically raise to higher values of plasma parameters, i.e. electronic temperature, ionic sonic speed, plasma potential, and plasma density, with an approximatively linear dependence (in same case a kind of saturation in the growth has been seen).
-  \item By inducing a sonic wave in the plasma the ionic sonic speed and the wave exponential damping have been estimated.
+\begin{itemize}[noitemsep]
+  \item By studying the vacuum, two different regimes have been observed, for low and high pressures. Inflow has been computed for both lowering and raising pressure and for the two regimes, finding incompatible results; this, and the found different values of the pumping speed, suggest the presence of non-linear not-negligible effects that affect the vacuum behavior.
+  \item The linearity of the V-I characteristic of the tungsten filament has been successfully verified, and the effective emissivity of our filament has been estimated;
+  \item The V-I characteristic of the plasma in DC condition and it's dependence from filament current and pressure have been studied. Paschen curve has been built: it has been found that it show relevant deviation from the theory. However, a suitable area for the Paschen minimum has been detected.
+  \item The Paschen curve for a RF discharge has been built, finding the respective Paschen minimum area.
+  \item The analysis of plasma parameter throw Langmuir probes showed several dependence of plasma parameter on apparatus settings. In particular, we notice how pressure strongly influence the working conditions of the plasma, and in particular how only near the Paschen minimum the measurements of the studied plasma parameters (except plasma density) are similar in the two sides of the vessel. Moreover, has been observed that a growth of filament current typically raise to higher values of plasma parameters, i.e. electronic temperature, ionic sonic speed, plasma potential, and plasma density, with an approximately linear dependence (in same case a kind of saturation in the growth has been seen).
+  \item Estimations of the plasma parameters and of ionization fraction has been produced.
+  \item By inducing a sonic wave in the plasma, ionic sonic speed and electron temperature have been computed, the latter producing a results compatible with the previous one. A study of the exponential dump has been performed, even if the fit result particularly hard; an estimation of neutral particle density has been found, resulting in a value lower that the expected one.
 \end{itemize}
-
-
-\todo[inline]{Commenti sulla dipendenza di Vf da V. -> File Langmuir/Vf.tex. Non so a cosa vi serva ma nel file c'è il grafico carino.}
-\todo[inline]{Dire qualcosa sul fatto che le due stime di $n_0$ differiscono di un'ordine di grandezza}
-
-
+To summarize, the experience permits the study of the characteristics of a plasma system; during the experience multiple instrumentations has been used, and their operation understood. The measurements highlighted multiple deviations from the theoretical laws, showing how in a real system there are not-negligible non-ideal effects that can interfere with the expected results.
 
 \end{document}
