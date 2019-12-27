@@ -58,9 +58,9 @@ Study the \emph{Vespa} experimental apparatus, and in particular:
 \begin{itemize}[noitemsep]
     \item Model the vacuum system behavior, finding the characteristic parameters;
     \item Obtain the current-voltage and the current-temperature characteristics curves of the filament;
-    \item Draw the voltage-current characteristics curves of the gas discharge, enhancing their behavior as varying pressure;
+    \item Draw the voltage-current characteristics curves of the gas discharge, studying their behavior as pressure and filament current vary;
     \item Find the Paschen curve, both in DC and RF condition;
-    \item Measure plasma parameters through a Langmuir probe, both in stationary conditions and via ionic-sonic wave propagation.
+    \item Measure plasma parameters through Langmuir probes, both in stationary conditions and via ionic-sonic wave propagation.
 \end{itemize}
 
 
@@ -111,9 +111,9 @@ where a 5\% error on the volume is assumed.
 
 Subsequently, the valve has been opened connecting the chamber to the pumping system. An exponential lowering of the pressure is expected: $P(t) = (P_i - P_0)e^{-\frac[f]{t}{\tau}} + P_0$, where $P_i$ is the starting pressure and $P_0$ the asymptotic one.
 
-As can be seen from fig \ref{fig:decrease_all}, similarly as what seen before, the result are not acceptable and as before two regimes can be distinguished. For coherence and for a better comparison, the same limit previously chosen has been used.
+As can be seen from fig \ref{fig:decrease_all}, similarly as what seen before, the results are not acceptable and as before two regimes can be distinguished. For coherence and for a better comparison, the same limit previously chosen has been used.
 
-Performing two separate exponential fits, they result in a meaningful result (even if small trends in residual is still visible). From the values of $\tau$ and $P_0$ the effective pumping speed $S_e= \frac[f]{V}{\tau}$, the inflow $F_0 = P_0 \cdot S_e$ and, given the nominal value of the pumping speed $S = 33 \si{\litre\per\second}$, the conductance of the chamber-pump connection $C = (S_e^{-1} - S^{-1})^{-1}$ can be estimated.
+Performing two separate exponential fits, they give a meaningful result (even if small trends in residual are still visible). From the values of $\tau$ and $P_0$ the effective pumping speed $S_e= \frac[f]{V}{\tau}$, the inflow $F_0 = P_0 \cdot S_e$ and, given the nominal value of the pumping speed $S = 33 \si{\litre\per\second}$, the conductance of the chamber-pump connection $C = (S_e^{-1} - S^{-1})^{-1}$ can be estimated.
 
 \begin{figure}[H]
   \centering
@@ -164,10 +164,10 @@ Performing two separate exponential fits, they result in a meaningful result (ev
   \label{tab:vacuum}
 \end{table}
 
-In the low pressure regime the two estimates of $F_0$ are not compatible but still comparable, while at high pressure the two estimates differ by an order of magnitude; this suggest that our model neglect some important effects. Moreover, by comparing the nominal pumping speed with the effective one, a discrepancy can be observed; this can be due both to a low-conductance of the connection or a not-complete efficiency of the pump.
+In the low pressure regime the two estimates of $F_0$ are not compatible but still comparable, while at high pressure the two estimates differ by an order of magnitude; this suggest that our model neglects some important effects. Moreover, by comparing the nominal pumping speed with the effective one, a discrepancy can be observed; this can be due both to a low-conductance of the connection or a not-complete efficiency of the pump.
 
 \section{Voltage-Current characteristic of the filament}
-The filament inside the vessel is a tungsten filament with diameter $2r\sim0.25\si{{\milli\metre}}$ and length $L\sim10\si{\centi\metre}$. Combining Ohm law and emissivity rules, a theoretical characteristic curve can be obtained:
+Inside the vessel there is a tungsten filament with diameter $2r\sim0.25\si{{\milli\metre}}$ and length $L\sim10\si{\centi\metre}$. Combining Ohm law and emissivity rules, a theoretical characteristic curve can be obtained:
 \[
     V = \frac{A^{\frac[f]{10}{7}}L}{\pi^{\frac[f]{13}{7}}r^{\frac[f]{23}{7}}(2\epsilon\alpha)^{\frac[f]{3}{7}}} \cdot I^{\frac[f]{13}{7}}
 \]
@@ -194,7 +194,7 @@ which lead to a value of
 \[
     \epsilon \sim 0.2
 \]
-The $\chi^2$ confirm the meaningfulness of the fit; moreover, the effective emissivity has a value similar to the typical one (0.3).
+The $\chi^2$ confirms the meaningfulness of the fit; moreover, the effective emissivity has a value similar to the typical one (0.3).
 
 Finally, the estimated filament temperature as a function of the driven current can be found:
 \[
@@ -267,12 +267,12 @@ As can be seen from tab \ref{tab:richardson} the prediction are about $\sim 25$ 
 
 \subsection{Varying $P$}
 
-By studying instead the V-I characteristics varying the Argon pressure one obtains the results in fig \ref{fig:constIf}. It is visible that the pressure influence the breakdown voltage, effect that can be better understood building the experimental Paschen curve (fig \ref{fig:DCP}): by setting the pressure in the chamber the breakdown voltage is found by slowly increasing the polarization potential until the plasma ignites.
+By studying instead the V-I characteristics varying the Argon pressure one obtains the results in fig \ref{fig:constIf}. It is visible that the pressure influences the breakdown voltage, effect that can be better understood building the experimental Paschen curve (fig \ref{fig:DCP}): by setting the pressure in the chamber the breakdown voltage is found by slowly increasing the polarization potential until the plasma ignites.
 
 \begin{figure}[H]
   \centering
   \resizebox{0.8\textwidth}{!}{\import{img/Paschen-DC/}{constIf.tex}}
-  \caption{V-I characteristics of the discharge at constant filament current $I_f$, varying the pressure $P$. The last-but-one point in the red dataset is clearly false, so it has been neglected.}
+  \caption{V-I characteristics of the discharge at constant filament current $I_f$, varying the pressure $P$. The last-but-one point in the red dataset is clearly an outlier, so it has been neglected.}
   \label{fig:constIf}
 \end{figure}
 
@@ -297,12 +297,12 @@ A way to compare the results of the fit with the theoretical ones is to consider
 \end{gather*}
 %\todo[inline]{Dai, non mi serve un conto così complicato per vedere che la curva non fitta.}
 
-As can be seen the experimental results do not agree with the theory both in the sense that the fit with the theoretical curve doesn't match the shape of our data and in the sense that the fitting parameters are incompatible with the expected theoretical values.
+As can be seen, the experimental results do not agree with the theory both in the sense that the fit with the theoretical curve doesn't match the shape of our data and in the sense that the fitting parameters are incompatible with the expected theoretical values.
 
 %Another way to see this incompatibility is that even ignoring the fit, from fig \ref{fig:DCP} it is clear that Paschen's minimum is between 2.5 and 4 \si{\micro\bar}, but this would imply that, using the theoretical value for $A$,  $d = \frac{e^{1+C}}{AP_{min}} \sim 2.4$ \si{\metre}. Result that is rather unphysical considering that the whole chamber is only 0.8 \si{\metre} long.
 %Meh. d è la lunghezza tipica, che corrisponde alla lunghezza del plasma solo in caso di condensatore a FPP. In questo caso, con cilindri e forme strane, va tutto pesato col potenziale che va come 1/r^2 etc quindi potrebbe essere un casino, e venire fuori numeri grandi
 
-A Paschen minimum can be however individuate as the range:
+A Paschen minimum can be however individuated as the range:
 \begin{equation*}
   P_{\text{min,DC}} = 2.5\textup{--}4\cdot10^{-3}\si{\milli\bar}
 \end{equation*}
@@ -352,7 +352,7 @@ Other plasma parameters can be obtained with the following relations:
 where $c_s$ is the ionic-sonic speed, $n$ the plasma density, $V_p$ the plasma potential, $m_i$ is the the ion mass, $A$ is the probe area ($\sim30\si{\milli\metre}^2$) and $e$ is electron charge.
 
 
-For the characterization of the plasma two Langmuir probes has been inserted in the chamber, one in the same side of the filament ("filament side") and one in the opposite side, near the pumping group ("pump side").
+For the characterization of the plasma two Langmuir probes have been inserted in the chamber, one on the same side of the filament ("filament side") and one on the opposite side, near the pumping group ("pump side").
 %
 \begin{figure}[H]
 \vspace{-0.3cm}%
@@ -388,12 +388,12 @@ For the characterization of the plasma two Langmuir probes has been inserted in 
 }  \vspace{-0.3cm}\caption{Electrical voltage--current characteristic of the Langmuir probe for a filament current of $6.5\si{\ampere}$, a polarization voltage of $40\si{\volt}$ and different pressure.}\label{fig:Lang_p}%
 \end{figure}
 
-Plasma parameters are obtained from the characteristics throw interpolations of the rising edge of the curve and using previous relations, and are represented with respect to several apparatus parameters. The part of the characteristic associated to the electron saturation region is not used in this procedure.
+Plasma parameters are obtained from the characteristics through interpolations of the rising edge of the curve and using the previous relations, and are represented with respect to several apparatus parameters. The part of the characteristic associated to the electron saturation region is not used in this procedure.
 
-Different characteristic V--I curves has been acquired for different apparatus conditions (figg. \ref{fig:Lang}--\ref{fig:Lang_p}). From the plots we can see an almost clear ion saturation current around zero, while the electron saturation current is not evident. Fit results indicate values for $I_{si}$ below $0.1\si{\milli\ampere}$ for all configuration used.
+Different characteristic V--I curves have been acquired for different apparatus conditions (figg. \ref{fig:Lang}--\ref{fig:Lang_p}). From the plots we can see an almost clear ion saturation current around zero, while the electron saturation current is not evident. Fit results indicate values for $I_{si}$ below $0.1\si{\milli\ampere}$ for all configuration used.
 
-For the following plots, error bars take in account uncertainty in data acquisition and fitting parameters estimation errors.
-Notice that small variations in the  range where V--I characteristic has been considered raise to slightly different results in the analysis.
+%For the following plots, error bars take in account uncertainty in data acquisition and fitting parameters estimation errors.
+Notice that small variations in the range where V--I characteristic has been considered, produce different results in the analysis.
 
 \subsection{Electronic temperature}
 \begin{figure}[H]
@@ -415,9 +415,9 @@ Notice that small variations in the  range where V--I characteristic has been co
 } \caption{Dependence of electronic temperature on different parameters.}\label{fig:Te}%
 \end{figure}%
 
-Electronic temperature decreases slowly with increasing discharge polarization voltage or current, while exhibits an almost linear dependence on filament current. Dependence on pressure is not clear; we can only observe that it depends strongly on the distance from the emitting filament when pressure differs a lot from Paschen minimum.
+Electronic temperature decreases slowly with increasing discharge polarization voltage or current, while it exhibits an almost linear dependence on filament current. Dependence on pressure is not clear; we can only observe that it depends strongly on the distance from the emitting filament when pressure differs a lot from Paschen minimum.
 
-Typical values of the electronic temperature for used working setting are in the range 
+Typical values of the electronic temperature for these conditions are in the range
 \[0.2-1.0\si\electronvolt\]
 
 \subsection{Ionic--sonic speed}
@@ -439,8 +439,8 @@ Typical values of the electronic temperature for used working setting are in the
 {\resizebox{0.55\textwidth}{!}{\import{img/Langmuir/}{cs_p.tex}}}%
 } \caption{Dependence of ion average velocity on different parameters.}\label{fig:cs}%
 \end{figure}%
-Since ionic--sonic speed and electronic temperature are proportional previous considerations holds also in this case. 
-Typical values of the electronic temperature for used working setting are in the range 
+Since ionic--sonic speed and electronic temperature are proportional, the previous considerations hold also in this case.
+Typical values of the electronic temperature for these conditions are in the range
 \[700\textup{--}1400\si{\metre\second^{-1}}\]
 
 \subsection{Plasma potential}
@@ -462,7 +462,7 @@ Typical values of the electronic temperature for used working setting are in the
 {\resizebox{0.55\textwidth}{!}{\import{img/Langmuir/}{Vp_p.tex}}}%
 } \caption{Dependence of plasma potential on different parameters.}\label{fig:nnn}%
 \end{figure}
-Plasma potential exhibits a weak dependence on discharge parameters, while a stronger dependence has been found with respect to filament current. Again, dependence of the parameter on the pressure is not clear, apart of the strong dependence of the position in the chamber when pressure differs a lot from Paschen minimum.
+Plasma potential exhibits a weak dependence on discharge parameters, while a stronger dependence has been found with respect to filament current. Again, dependence of the parameter on the pressure is not clear, apart of the strong dependence on the position in the chamber when pressure differs a lot from Paschen minimum.
 
 Typical plasma potential values are below $2.2\si\volt$.
 
@@ -485,7 +485,7 @@ Typical plasma potential values are below $2.2\si\volt$.
 {\resizebox{0.55\textwidth}{!}{\import{img/Langmuir/}{n_p.tex}}}%
 } \caption{Dependence of plasma density on different parameters.}\label{fig:n}%
 \end{figure}%
-Plasma density increase linearly depending on discharge polarization voltage, while exhibits a quite greater-than-linear behavior with respect to both discharge current and filament current. Regarding on pressure, relative graph shows a kind of saturation at higher pressure for the density of plasma near the filament. Far from the filament the plasma density seems to not being affected by the pressure.
+Plasma density increase linearly with discharge polarization voltage, while it exhibits a quite greater-than-linear behavior with respect to both discharge current and filament current. Regarding on pressure, relative graph shows a kind of saturation at higher pressure for the density of plasma near the filament. Far from the filament the plasma density seems not to be affected by the pressure.
 
 Better interpretation of these results can be found in the next section, where ionization fraction has been analyzed.
 
@@ -493,7 +493,7 @@ Better interpretation of these results can be found in the next section, where i
 \subsection{Ionization fraction}
 The ionization fraction $f$ of the plasma can be derived from previous parameters with the relation:
 \[f=\frac n{n+n_0}\]
-where $n$ is the plasma density, and $n_0$ is the neutral atom gas density at room temperature ($T=(19\pm3)^\circ C)$ obtained throw ideal gasses law:
+where $n$ is the plasma density, and $n_0$ is the neutral atom gas density at room temperature ($T=(19\pm3)^\circ C)$ obtained through ideal gasses law:
 \[n_0=\frac p{k_BT}\]
 
 From these graphs we can conclude that for a pressure in the order of magnitude of $\si{\micro\bar}$ the ionization fraction near the filament is in the range
@@ -503,7 +503,7 @@ while near the pumping system smaller fraction are obtained due to the distance 
 
 Again we can observe a slightly more than linear dependence of the plasma parameter on the other electrical paramters.
 
-The graph \ref{fig:f}(d) shows that the ionization fraction decreases fastly when pressure increase. This can be related to the smaller free path of electrons due to higher number of atoms in the chamber. For pressures higher than $10\si{\micro\bar}$ the ionization fraction becomes even smaller.
+The graph \ref{fig:f}(d) shows that the ionization fraction decreases rapidly as pressure increase. This can be related to the smaller free path of electrons due to higher number of atoms in the chamber. For pressures higher than $10\si{\micro\bar}$ the ionization fraction becomes even smaller.
 %
 \begin{figure}[H]
 \makebox[\textwidth][c]{
@@ -571,7 +571,7 @@ Observe that these estimations are very coarse; the used method, the available a
 
 When this result are compared to the previous ones, we can see similarity both in the ionic--sonic speed and in the temperature value.
 
-Nevertheless if we consider graph \ref{fig:Te}(d) and \ref{fig:cs}(d) is clear that variation of the pressure in the chamber raise to evident shift in electronic temperature and ionic--sonic speed. The difference in pressure between the latter and the previous data may raise to the gap between the two results. Also variations of the Debye sheath could be origin of experimental data which are different from theoretical ones.
+Nevertheless if we consider graph \ref{fig:Te}(d) and \ref{fig:cs}(d) is clear that variation of the pressure in the chamber produces an evident shift in electronic temperature and ionic--sonic speed. The difference in pressure between the latter and the previous data may be due to the gap between the two results. Also variations of the Debye sheath could be origin of experimental data which are different from theoretical ones.
 
 \section{IonicSonic decay}
 Keeping the same system conditions, the amplitude of the wave as function of the probe position has been studied. Moving the probe perpendicularly to the grid and recording the amplitude of the wave, the trend in fig. \ref{fig:ionicsonic:expdecay} are found.
@@ -597,7 +597,7 @@ This length can be approximated by:
 \begin{equation*}
   \lambda = \frac{2c_s}{v_{te}n_0\sigma_0}
 \end{equation*}
-being $\sigma_0$ the cross section of the collisions of electrons with the neutrals ($\sigma_0\sim2\cdot10^{-20}\si{\metre\squared}$), $c_s$ the previous found ionic-sonic speed and $v_{te}$ the electrons thermal speed ($v_{te}\sim\sqrt{\frac[f]{3k_bT_e}{m_e}}\sim8.4\cdot10^{5}\si{\metre\per\second}$). This lead to an estimation of the neutral particle density $n_0$ of:
+being $\sigma_0$ the cross section of the collisions of electrons with the neutrals ($\sigma_0\sim2\cdot10^{-20}\si{\metre\squared}$), $c_s$ the previous found ionic--sonic speed and $v_{te}$ the electrons thermal speed ($v_{te}\sim\sqrt{\frac[f]{3k_bT_e}{m_e}}\sim8.4\cdot10^{5}\si{\metre\per\second}$). This lead to an estimation of the neutral particle density $n_0$ of:
 \begin{equation*}
   n_0 \sim 7\cdot10^{18} \si{\metre^{-3}}
 \end{equation*}
@@ -607,19 +607,19 @@ On the other hand, from the perfect-gas law, we can instead compute (assuming a 
   p = nk_BT\quad\rightarrow\quad n = \frac{p}{k_BT} \sim 8\cdot10^{19} \si{\metre^{-3}}
 \end{equation*}
 
-The two estimations are clearly incompatible: they differs from an order of magnitude. This can be due, with respect to the first estimation, to the multiple approximations made to compute $n_0$. First of all the fit: the explored range is too narrow to appreciate the exponential shape, and the trick used make our estimation rougher. Moreover, the multiple approximate values used contribute to a inaccurate estimation of the neutral density. On the other hand, the second estimation doesn't keep in account the ionization of the system, leading to a possible overestimation of the density.
+The two estimations are clearly incompatible: they differs from an order of magnitude. This can be due, with respect to the first estimation, to the multiple approximations made to compute $n_0$. First of all the fit: the explored range is too narrow to appreciate the exponential shape, and the trick used make our estimation even rougher. Moreover, the multiple approximate values used contribute to an inaccurate estimation of the neutral density. On the other hand, the second estimation doesn't keep into account the ionization of the system, leading to a possible overestimation of the density.
 
 \section{Conclusions}
 With respect to the initial aims:
 \begin{itemize}[noitemsep]
-  \item By studying the vacuum, two different regimes have been observed, for low and high pressures. Inflow has been computed for both lowering and raising pressure and for the two regimes, finding incompatible results; this, and the found different values of the pumping speed, suggest the presence of non-linear not-negligible effects that affect the vacuum behavior.
+  \item By studying the vacuum, two different regimes have been observed, for low and high pressures. Inflow has been computed for both lowering and increasing pressure and for the two regimes, finding incompatible results; this, and the different values of the pumping speed we found, suggest the presence of non-linear not-negligible effects that affect the vacuum behavior.
   \item The linearity of the V-I characteristic of the tungsten filament has been successfully verified, and the effective emissivity of our filament has been estimated;
-  \item The V-I characteristic of the plasma in DC condition and it's dependence from filament current and pressure have been studied. Paschen curve has been built: it has been found that it show relevant deviation from the theory. However, a suitable area for the Paschen minimum has been detected.
+  \item The V-I characteristic of the plasma in DC condition and it's dependence on filament current and pressure has been studied. Paschen curve has been built: it has been found that it shows relevant deviation from the theory. However, a suitable area for the Paschen minimum has been detected.
   \item The Paschen curve for a RF discharge has been built, finding the respective Paschen minimum area.
-  \item The analysis of plasma parameter throw Langmuir probes showed several dependence of plasma parameter on apparatus settings. In particular, we notice how pressure strongly influence the working conditions of the plasma, and in particular how only near the Paschen minimum the measurements of the studied plasma parameters (except plasma density) are similar in the two sides of the vessel. Moreover, has been observed that a growth of filament current typically raise to higher values of plasma parameters, i.e. electronic temperature, ionic sonic speed, plasma potential, and plasma density, with an approximately linear dependence (in same case a kind of saturation in the growth has been seen).
+  \item The analysis of plasma parameters through Langmuir probes showed several dependence of plasma parameters on apparatus settings. In particular, we noticed how pressure strongly influences the working conditions of the plasma, and in particular how only near the Paschen minimum the measurements of the studied plasma parameters (except plasma density) are similar in the two sides of the vessel. Moreover, it has been observed that a growth of filament current typically raises to higher values the plasma parameters, i.e. electronic temperature, ionic sonic speed, plasma potential, and plasma density, with an approximately linear dependence (in the same case a kind of saturation in the growth has been seen).
   \item Estimations of the plasma parameters and of ionization fraction has been produced.
-  \item By inducing a sonic wave in the plasma, ionic sonic speed and electron temperature have been computed, the latter producing a results compatible with the previous one. A study of the exponential dump has been performed, even if the fit result particularly hard; an estimation of neutral particle density has been found, resulting in a value lower that the expected one.
+  \item By inducing a sonic wave in the plasma, ionic--sonic speed and electron temperature have been computed, the latter producing a result compatible with the previous one. A study of the exponential damping has been performed, even if the fit proved to be particularly hard; an estimation of neutral particle density has been found, resulting in a value lower that the expected one.
 \end{itemize}
-To summarize, the experience permits the study of the characteristics of a plasma system; during the experience multiple instrumentations has been used, and their operation understood. The measurements highlighted multiple deviations from the theoretical laws, showing how in a real system there are not-negligible non-ideal effects that can interfere with the expected results.
+To summarize, the experience permits the study of the characteristics of a plasma system; during the experience multiple instrumentations have been used, and their operation understood. The measurements highlighted multiple deviations from the theoretical laws, showing how in a real system there are not-negligible non-ideal effects that can interfere with the expected results.
 
 \end{document}
