@@ -73,7 +73,7 @@ Considering the reaction time, the slowness of the ionization gauge in stabilizi
   \centering
   \resizebox{0.5\textwidth}{!}{\import{img/vacuum/}{increase_all_fit.tex}} \hspace{-0.05\textwidth}
   \resizebox{0.5\textwidth}{!}{\import{img/vacuum/}{increase_all_residuals.tex}}
-  \caption{Presure increasing in the chamber}
+  \caption{Pressure increasing in the chamber}
   \label{fig:increase_all}
 \end{figure}
 
@@ -210,7 +210,7 @@ Finally, the estimated filament temperature as a function of the driven current 
 
 \section{V-I characteristics of the discharge \& DC Paschen curve}
 By polarizing the filament with respect to the whole vessel (grounded) a discharge in the plasma can be achieved.
-By measuring the polarization voltage on the power supply ($0.1 \si{\volt}$ estimated error) and the plasma current via the voltage across a resistor $R_\text{shunt} = (1.00 \pm 0.03) \si{\ohm}$\footnote{The errors on the voltage measurement is negligible with respect to the errors in the resistance, therefore only the latters has been considered.}, the discharge characteristic curve can be studied. In particular the breakdown is clearly visible.
+By measuring the polarization voltage on the power supply ($0.1 \si{\volt}$ estimated error) and the plasma current via the voltage across a resistor $R_\text{shunt} = (1.00 \pm 0.03) \si{\ohm}$\footnote{The errors on the voltage measurement is negligible with respect to the errors in the resistance, therefore only the latter has been considered.}, the discharge characteristic curve can be studied. In particular the breakdown is clearly visible.
 
 \subsection{Varying $I_f$}
 
@@ -229,7 +229,7 @@ The current emitted by the filament into the plasma can be modeled by Richardson
   I = \Sigma A T^2 \exp(-\frac{e\Phi}{k_BT})
 \end{equation*}
 
-where for our tungsten filament $A = 7\cdot 10^5 \si{\ampere/\metre^2\kelvin^2}$, $\Phi =  4.55 \si{\volt}$ and $\Sigma = 2\pi r L \sim 80$ \si{\milli\metre^2} is the surface aera of the filament. By using the previous found relation between the temperature and the filament current $T = k\cdot I_f^{\frac[f]{5}{7}}$, and assuming that the plasma current is the whole current emitted by the filament, an expression for the current can be obtained:
+where for our tungsten filament $A = 7\cdot 10^5 \si{\ampere/\metre^2\kelvin^2}$, $\Phi =  4.55 \si{\volt}$ and $\Sigma = 2\pi r L \sim 80$ \si{\milli\metre^2} is the surface area of the filament. By using the previous found relation between the temperature and the filament current $T = k\cdot I_f^{\frac[f]{5}{7}}$, and assuming that the plasma current is the whole current emitted by the filament, an expression for the current can be obtained:
 \begin{gather*}
   I = JI_f^{\frac[f]{10}{7}}\exp(-QI_f^{-\frac[f]{5}{7}}) \quad\text{where:}\quad
   J = \Sigma A k^2 \sim 3.6 \cdot 10^7 \text{A}^{-\frac[f]{3}{7}} \quad
@@ -310,7 +310,7 @@ A Paschen minimum can be however individuate as the range:
 \section{Paschen curve in radiofrequency condition}
 Inside VESPA a magnetic antenna is provided, which allows to ignite the plasma through radiofrequency waves that, coupling with gas electrons, excite them and generate the discharge.
 
-The antenna is powered through a RF generator and a RLC circuit; firstly, the response of the circuit is studied. Keeping fixed the generator power and varying the frequency, through an oscilloscope the peak-to-peak amplitude of the wave downstream the circuit is measured. The result is a typical resonance courve (fig. \ref{fig:RF:response}).
+The antenna is powered through a RF generator and a RLC circuit; firstly, the response of the circuit is studied. Keeping fixed the generator power and varying the frequency, through an oscilloscope the peak-to-peak amplitude of the wave downstream the circuit is measured. The result is a typical resonance curve (fig. \ref{fig:RF:response}).
 
 \begin{figure}[H]
   \centering
@@ -338,7 +338,7 @@ With respect to the DC curve, in radiofrequency condition the Paschen curve is c
 
 \section{Measurement of plasma parameters}
 Using a Langmuir probe an estimate of plasma parameters, such as density, electron temperature and plasma potential, can be obtained.
-The electron current $I$ through the probe as function of its potential $V$ follows this relation:\footnote{This relation is a different version of the one derivated in D. Desideri and G.Serianni \emph{Four Parameter data fit for Langmuir probes with nonsaturation of ion current}, Rev. Sci. Instrum., 69 (1998), \url{https://doi.org/10.1063/1.1148942}}
+The electron current $I$ through the probe as function of its potential $V$ follows this relation:\footnote{This relation is a different version of the one derived in D. Desideri and G.Serianni \emph{Four Parameter data fit for Langmuir probes with nonsaturation of ion current}, Rev. Sci. Instrum., 69 (1998), \url{https://doi.org/10.1063/1.1148942}}
 \[I=I_{si}\left(1+R(V-V_f)\right)\left(\exp\left(\frac{e(V-V_f)}{k_BT_e}\right)-1\right)\]
 where $I_{si}$ is the Ion Saturation Current, $V_f$ the Floating Potential, $T_e$ the Electronic Temperature, $k_B$ the Boltzmann constant and $R$ an additional factor that describes the current--voltage characteristic for $V\ll V_f$.
 It is important to observe that the formula describes experimental data for $V\lesssim V_f$, while for higher values of $V$ additional terms are required.
@@ -441,7 +441,7 @@ Typical values of the electronic temperature for used working setting are in the
 \end{figure}%
 Since ionic--sonic speed and electronic temperature are proportional previous considerations holds also in this case. 
 Typical values of the electronic temperature for used working setting are in the range 
-\[700-1400\si{\metre\second^{-1}}\]
+\[700\textup{--}1400\si{\metre\second^{-1}}\]
 
 \subsection{Plasma potential}
 \begin{figure}[H]
@@ -460,7 +460,7 @@ Typical values of the electronic temperature for used working setting are in the
 \hspace{-0.02\textwidth}%
 \subcaptionbox{Dependence on the chamber pressure, for a filament \\current of $6.5\si{\ampere}$ and a polarization voltage of $40\si{\volt}$.}%
 {\resizebox{0.55\textwidth}{!}{\import{img/Langmuir/}{Vp_p.tex}}}%
-} \caption{Dependence of plasma potential on different parameters.}\label{fig:n}%
+} \caption{Dependence of plasma potential on different parameters.}\label{fig:nnn}%
 \end{figure}
 Plasma potential exhibits a weak dependence on discharge parameters, while a stronger dependence has been found with respect to filament current. Again, dependence of the parameter on the pressure is not clear, apart of the strong dependence of the position in the chamber when pressure differs a lot from Paschen minimum.
 
@@ -485,7 +485,7 @@ Typical plasma potential values are below $2.2\si\volt$.
 {\resizebox{0.55\textwidth}{!}{\import{img/Langmuir/}{n_p.tex}}}%
 } \caption{Dependence of plasma density on different parameters.}\label{fig:n}%
 \end{figure}%
-Plasma density increase linearly depending on discharge polarization voltage, while exhibits a quite greater-than-linear behaviour with respect to both discharge current and filament current. Regarding on pressure, relative graph shows a kind of saturation at higher pressure for the density of plasma near the filament. Far from the filament the plasma density seems to not being affected by the pressure.
+Plasma density increase linearly depending on discharge polarization voltage, while exhibits a quite greater-than-linear behavior with respect to both discharge current and filament current. Regarding on pressure, relative graph shows a kind of saturation at higher pressure for the density of plasma near the filament. Far from the filament the plasma density seems to not being affected by the pressure.
 
 Better interpretation of these results can be found in the next section, where ionization fraction has been analyzed.
 
@@ -503,7 +503,7 @@ while near the pumping system smaller fraction are obtained due to the distance 
 
 Again we can observe a slightly more than linear dependence of the plasma parameter on the other electrical paramters.
 
-The graph \ref{fig:f}(d) shows that the ionization fraction decreases fastly when pressure increase. This can be related to the smaller free path of electrons due to higher number of atoms in the chamber. For pressures higher than $10\si{\micro\bar}$ the ionization fraction becomes very small.
+The graph \ref{fig:f}(d) shows that the ionization fraction decreases fastly when pressure increase. This can be related to the smaller free path of electrons due to higher number of atoms in the chamber. For pressures higher than $10\si{\micro\bar}$ the ionization fraction becomes even smaller.
 %
 \begin{figure}[H]
 \makebox[\textwidth][c]{
@@ -571,7 +571,7 @@ Observe that these estimations are very coarse; the used method, the available a
 
 When this result are compared to the previous ones, we can see similarity both in the ionic--sonic speed and in the temperature value.
 
-Nevertheless if we consider graph \ref{fig:Te}(d) and \ref{fig:cs}(d) is clear that variation of the pressure in the chamber raise to evident shift in electronic temperature and ionic--sonic speed. The difference in pressure between the latters and the previous data may raise to the gap between the two results. Also variations of the Debye sheath could be origin of experimental data which are different from theoretical ones.
+Nevertheless if we consider graph \ref{fig:Te}(d) and \ref{fig:cs}(d) is clear that variation of the pressure in the chamber raise to evident shift in electronic temperature and ionic--sonic speed. The difference in pressure between the latter and the previous data may raise to the gap between the two results. Also variations of the Debye sheath could be origin of experimental data which are different from theoretical ones.
 
 \section{IonicSonic decay}
 Keeping the same system conditions, the amplitude of the wave as function of the probe position has been studied. Moving the probe perpendicularly to the grid and recording the amplitude of the wave, the trend in fig. \ref{fig:ionicsonic:expdecay} are found.
